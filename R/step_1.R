@@ -1,6 +1,6 @@
 #' @title Step 1.
 #' @export
-run.step.1 <- function(selected.sample.sizes, replications, performance.measures = c("sen", "spe", "rho"), ..., verbose = TRUE) {
+run.step.1 <- function(selected.sample.sizes, replications, performance.measures = c("sen", "spe", "rho"), performance.measures.targets = c(.8, .9, .8), ..., statistic.definition = "power", verbose = TRUE) {
     # User feedback.
     if(verbose) cat("Starting step 1...", "\n")
 
@@ -22,6 +22,9 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measures
         measures = performance.measures
     ))
 
+    # User feedback.
+    if(verbose) cat("Running the MC replications...", "\n")
+
     for(n in selected.sample.sizes) {
         # Increment progress.
         pb$tick()
@@ -32,6 +35,27 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measures
 
     # Attach results.
     e$outcomes <- outcomes
+
+    # Create storage for the statistic.
+    statistic <- matrix(NA, length(selected.sample.sizes), length(performance.measures), dimnames = list(
+        samples = paste0("s.", selected.sample.sizes, sep = ""),
+        measures = performance.measures
+    ))
+
+    # User feedback.
+    if(verbose) cat("Computing the statistic...", "\n")
+
+    # Compute the statistic.
+    for(i in 1:length(performance.measures)) {
+        if(statistic.definition == "power") {
+            statistic[, i] <- statistic.power(outcomes[, , i], performance.measures.targets[i])
+        } else {
+            statistic[, i] <- statistic.mean(outcomes[, , i])
+        }
+    }
+    
+    # Attach statistic.
+    e$statistic <- statistic
 
     # Add class.
     class(e) <- "step.1"
