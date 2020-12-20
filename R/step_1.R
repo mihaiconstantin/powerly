@@ -14,6 +14,8 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measures
     e$selected.sample.sizes <- selected.sample.sizes
     e$replications <- replications
     e$performance.measures <- performance.measures
+    e$performance.measures.targets <- performance.measures.targets
+    e$statistic.definition <- statistic.definition
 
     # Store matrix of outcome.
     outcomes <- array(NA, dim = c(replications, length(selected.sample.sizes), length(performance.measures)), dimnames = list(
