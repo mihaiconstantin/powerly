@@ -29,6 +29,9 @@ run.step.3 <- function(step.1, step.2, statistic.criterion = .8, n.boots = 1e4, 
         statistic.function <- compute.mean
     }
 
+    # User feedback.
+    if(verbose) cat("Bootstrapping...", "\n")
+
     # Start bootstrapping.
     for(i in 1:n.boots) {
         # Increment progress.
