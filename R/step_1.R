@@ -35,9 +35,6 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measures
         outcomes[,which(selected.sample.sizes == n), ] <- replicate.mc.run(replications = replications, n = n, performance.measures = performance.measures, ...)
     }
 
-    # Attach results.
-    e$outcomes <- outcomes
-
     # Create storage for the statistic.
     statistic <- matrix(NA, length(selected.sample.sizes), length(performance.measures), dimnames = list(
         samples = paste0("s.", selected.sample.sizes, sep = ""),
@@ -56,6 +53,9 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measures
         }
     }
     
+    # Attach outcomes.
+    e$outcomes <- outcomes
+
     # Attach statistic.
     e$statistic <- statistic
 
