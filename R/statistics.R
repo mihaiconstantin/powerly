@@ -19,8 +19,12 @@ statistic.mean <- function(outcome.matrix, ...) {
 #' @title Compute power for single sample size replications.
 #' @export
 compute.power <- function(replications, target = .8) {
+    # Perpare the replications
     replications <- na.omit(replications)
+    
+    # How many replications are valid?
     total <- length(replications)
+    
     if(total) {
         return(sum(replications >= target) / length(replications))
     } else {
