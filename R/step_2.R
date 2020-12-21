@@ -1,6 +1,6 @@
 #' @title Step 2.
 #' @export
-run.step.2 <- function(step.1, monotone = TRUE, non.increasing = FALSE, verbose = TRUE) {
+run.step.2 <- function(step.1, inner.knots, monotone = TRUE, non.increasing = FALSE, verbose = TRUE) {
     # User feedback.
     if(verbose) cat("Starting step 2...", "\n")
 
@@ -11,7 +11,7 @@ run.step.2 <- function(step.1, monotone = TRUE, non.increasing = FALSE, verbose 
     if(verbose) cat("Fitting the spline...", "\n")
 
     # Get the spline results and store them.
-    e <- spline.methdology(step.1$selected.sample.sizes, step.1$statistic, monotone = monotone, non.increasing = non.increasing)
+    e <- spline.methdology(step.1$selected.sample.sizes, step.1$statistic, inner.knots, monotone = monotone, non.increasing = non.increasing)
 
     # Add class.
     class(e) <- "step.2"
@@ -24,12 +24,9 @@ run.step.2 <- function(step.1, monotone = TRUE, non.increasing = FALSE, verbose 
 
 
 #' @title Apply spline methdology.
-spline.methdology <- function(x, y, monotone = TRUE, non.increasing = FALSE) {
+spline.methdology <- function(x, y, inner.knots, monotone = TRUE, non.increasing = FALSE) {
     # Create result environment.
     e <- new.env()
-
-    # Cross-validate and decide the number of knots to use.
-    inner.knots <- x[2:(length(x) - 1)]
 
     # Fit a single spline to the entire data.
     e$fit <- fit.spline(x, y, inner.knots, monotone, non.increasing)
