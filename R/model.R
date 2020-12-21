@@ -15,8 +15,8 @@ ggm <- new.env()
 
 
 # Random mechanism.
-ggm$create <- function(...) {
-    return(bootnet::genGGM(...))
+ggm$create <- function(nodes, density, architecture = "random", proportion.positive.edges = .5) {
+    return(bootnet::genGGM(nodes, p = density, propPositive = proportion.positive.edges, graph = architecture))
 }
 
 
