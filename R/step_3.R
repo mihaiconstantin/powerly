@@ -43,7 +43,7 @@ run.step.3 <- function(step.1, step.2, statistic.criterion = .8, n.boots = 1e4, 
         }
 
         # Fit the spline to the bootstrapped performance measures.
-        boot.splines[i, ] <- spline.methdology(step.1$selected.sample.sizes, boot.statistic, monotone = step.2$fit$basis$monotone, non.increasing = step.2$fit$basis$non.increasing)$interpolate$spline
+        boot.splines[i, ] <- spline.methdology(step.1$selected.sample.sizes, boot.statistic, inner.knots = step.2$fit$basis$inner.knots, monotone = step.2$fit$basis$monotone, non.increasing = step.2$fit$basis$non.increasing)$interpolate$spline
 
         # Record the sufficient sample size.
         if(step.2$fit$basis$non.increasing) {
