@@ -1,63 +1,52 @@
 #' @title Step 1.
 #' @export
-run.step.1 <- function(selected.sample.sizes, replications, performance.measures = c("sen", "spe", "rho"), performance.measures.targets = c(.8, .9, .8), ..., statistic.definition = "power", verbose = TRUE) {
+run.step.1 <- function(selected.sample.sizes, replications, performance.measure = "sen", performance.measure.target = .8, statistic.definition = "power", ..., verbose = TRUE) {
     # User feedback.
     if(verbose) cat("Starting step 1...", "\n")
-
-    # Create progress bar.
-    pb <- progress::progress_bar$new(total = length(selected.sample.sizes))
 
     # Create result environment.
     e <- new.env()
 
     # Attach meta information for step 1.
     e$selected.sample.sizes <- selected.sample.sizes
+    e$total.selected.samples <- length(selected.sample.sizes)
     e$replications <- replications
-    e$performance.measures <- performance.measures
-    e$performance.measures.targets <- performance.measures.targets
+    e$performance.measure <- performance.measure
+    e$performance.measure.target <- performance.measure.target
     e$statistic.definition <- statistic.definition
 
+    # Create progress bar.
+    pb <- progress::progress_bar$new(total = e$total.selected.samples)
+
     # Store matrix of outcome.
-    outcomes <- array(NA, dim = c(replications, length(selected.sample.sizes), length(performance.measures)), dimnames = list(
-        replications = paste0("r.", 1:replications, sep = ""),
-        samples = paste0("s.", selected.sample.sizes, sep = ""),
-        measures = performance.measures
+    outcomes <- array(NA, dim = c(replications, e$total.selected.samples), dimnames = list(
+        reps = 1:replications,
+        samples = selected.sample.sizes
     ))
 
     # User feedback.
     if(verbose) cat("Running the MC replications...", "\n")
 
-    for(n in selected.sample.sizes) {
+    for(i in 1:e$total.selected.samples) {
         # Increment progress.
         pb$tick()
 
         # Replicate sample size.
-        outcomes[,which(selected.sample.sizes == n), ] <- replicate.mc.run(replications = replications, n = n, performance.measures = performance.measures, ...)
+        outcomes[, i] <- replicate.mc.run(replications = replications, n = selected.sample.sizes[i], performance.measure = performance.measure, ...)
     }
-
-    # Create storage for the statistic.
-    statistic <- matrix(NA, length(selected.sample.sizes), length(performance.measures), dimnames = list(
-        samples = paste0("s.", selected.sample.sizes, sep = ""),
-        measures = performance.measures
-    ))
 
     # User feedback.
     if(verbose) cat("Computing the statistic...", "\n")
 
     # Compute the statistic.
-    for(i in 1:length(performance.measures)) {
-        if(statistic.definition == "power") {
-            statistic[, i] <- statistic.power(outcomes[, , i], performance.measures.targets[i])
-        } else {
-            statistic[, i] <- statistic.mean(outcomes[, , i])
-        }
+    if(statistic.definition == "power") {
+        e$statistic <- statistic.power(outcomes, performance.measure.target)
+    } else {
+        e$statistic <- statistic.mean(outcomes)
     }
-    
+
     # Attach outcomes.
     e$outcomes <- outcomes
-
-    # Attach statistic.
-    e$statistic <- statistic
 
     # Add class.
     class(e) <- "step.1"
@@ -70,16 +59,13 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measures
 
 
 #' @title Replicate Monte Carlo simulation.
-replicate.mc.run <- function(replications, n, performance.measures, ...) {
+replicate.mc.run <- function(replications, n, performance.measure, ...) {
     # Store outcomes for current sample size.
-    outcomes <- matrix(NA, nrow = replications, ncol = length(performance.measures), dimnames = list(
-        sample = rep(10, replications),
-        measures = performance.measures
-    ))
+    outcomes <- vector(mode = "numeric", length = replications)
 
     for(i in 1:replications) {
         # Run the MC step.
-        outcomes[i, ] <- mc.run(n = n, performance.measures = performance.measures, ...)
+        outcomes[i] <- mc.run(n = n, performance.measure = performance.measure, ...)
     }
 
     return(outcomes)
@@ -87,7 +73,7 @@ replicate.mc.run <- function(replications, n, performance.measures, ...) {
 
 
 #' @title Monte Carlo simulation.
-mc.run <- function(model, n, performance.measures, generate = ggm$generate, estimate = ggm$estimate, evaluate = ggm$evaluate, ...) {
+mc.run <- function(model, n, performance.measure, generate = ggm$generate, estimate = ggm$estimate, evaluate = ggm$evaluate, ...) {
     # Create model model if not provided.
     if(is.function(model)) model <- model(...)
 
@@ -98,7 +84,7 @@ mc.run <- function(model, n, performance.measures, generate = ggm$generate, esti
     fit <- estimate(data)
 
     # Compute performance measure.
-    outcomes <- unlist(evaluate(model, fit)[performance.measures])
+    outcomes <- evaluate(model, fit)[[performance.measure]]
 
     return(outcomes)
 }
