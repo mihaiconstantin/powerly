@@ -3,7 +3,7 @@
 run.step.2 <- function(step.1, monotone = TRUE, non.increasing = FALSE, verbose = TRUE) {
     # User feedback.
     if(verbose) cat("Starting step 2...", "\n")
-    
+
     # Create result environment.
     e <- new.env()
 

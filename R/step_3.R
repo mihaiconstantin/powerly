@@ -12,7 +12,7 @@ run.step.3 <- function(step.1, step.2, statistic.criterion = .8, n.boots = 1e4, 
     e$step.2 <- step.2
     e$n.boots <- n.boots
     e$statistic.criterion <- statistic.criterion
-    
+
     # Create progress bar.
     pb <- progress::progress_bar$new(total = n.boots)
 

@@ -22,7 +22,7 @@ run.method <- function(model, range, replications, measure = "sen", target = .8,
 
         # Run Step 1.
         step.1 <- run.step.1(model = model, selected.sample.sizes = selected.sample.sizes, replications = replications, performance.measure = measure, performance.measure.target = target, statistic.definition = statistic, ..., verbose = verbose)
-        
+
         # Run Step 2.
         step.2 <- run.step.2(step.1, monotone = monotone, non.increasing = non.increasing, verbose = verbose)
 
