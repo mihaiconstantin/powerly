@@ -9,7 +9,7 @@ statistic.power <- function(outcome.matrix, target = .8) {
 
 #' @title Compute mean for all sample sizes.
 #' @export
-statistic.mean <- function(outcome.matrix) {
+statistic.mean <- function(outcome.matrix, ...) {
     return(apply(outcome.matrix, 2, function(col) {
          return(mean(col, na.rm = TRUE))
     }))
@@ -20,5 +20,16 @@ statistic.mean <- function(outcome.matrix) {
 #' @export
 compute.power <- function(replications, target = .8) {
     replications <- na.omit(replications)
-    return(sum(replications >= target) / length(replications))
+    total <- length(replications)
+    if(total) {
+        return(sum(replications >= target) / length(replications))
+    } else {
+        return(0)
+    }
+}
+
+#' @title Compute mean for single sample size replications.
+#' @export
+compute.mean <- function(replications, ...) {
+    return(mean(replications, na.rm = TRUE))
 }
