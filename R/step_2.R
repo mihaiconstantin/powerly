@@ -1,30 +1,17 @@
 #' @title Step 2.
 #' @export
-run.step.2 <- function(step.1, verbose = TRUE) {
+run.step.2 <- function(step.1, monotone = TRUE, non.increasing = FALSE, verbose = TRUE) {
     # User feedback.
     if(verbose) cat("Starting step 2...", "\n")
     
-    # Create progress bar.
-    pb <- progress::progress_bar$new(total = length(step.1$performance.measures))
-
     # Create result environment.
     e <- new.env()
 
-    # Apply the spline methdology to each performance measure in turn.
-    for(i in 1:length(step.1$performance.measures)) {
-        # Increment progress.
-        pb$tick()
+    # User feedback.
+    if(verbose) cat("Fitting the spline...", "\n")
 
-        # Set non-increasing trend for the specificity.
-        if(step.1$performance.measures[i] == "spe") {
-            non.increasing <- TRUE
-        } else {
-            non.increasing <- FALSE
-        }
-
-        # Get the spline results and store them.
-        e[[step.1$performance.measures[i]]] <- spline.methdology(step.1$selected.sample.sizes, step.1$statistic[, i], monotone = TRUE, non.increasing = non.increasing)
-    }
+    # Get the spline results and store them.
+    e <- spline.methdology(step.1$selected.sample.sizes, step.1$statistic, monotone = monotone, non.increasing = non.increasing)
 
     # Add class.
     class(e) <- "step.2"
