@@ -15,4 +15,4 @@
 #'
 #' @docType package
 #' @name splower
-"_PACKAGE"
+"_PACKAGE_"

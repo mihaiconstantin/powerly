@@ -32,6 +32,7 @@ compute.power <- function(replications, target = .8) {
     }
 }
 
+
 #' @title Compute mean for single sample size replications.
 #' @export
 compute.mean <- function(replications, ...) {
