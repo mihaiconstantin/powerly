@@ -39,13 +39,7 @@ ggm$generate <- function(n, model, levels = 5) {
 
 # Estimator.
 ggm$estimate <- function(data, ...) {
-    return(
-        suppressWarnings(
-            suppressMessages(
-                bootnet::estimateNetwork(data, default = "EBICglasso", verbose = FALSE, ...)$graph
-            )
-        )
-    )
+    return(bootnet::estimateNetwork(data, default = "EBICglasso", verbose = FALSE, ...)$graph)
 }
 
 
