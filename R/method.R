@@ -62,5 +62,8 @@ run.method <- function(model, range, replications, measure = "sen", target = .8,
     # User feedback.
     if(verbose && !converged) cat("Failed to converge.", "\n")
 
+    # Add class.
+    class(results) <- "splower.result"
+
     return(results)
 }
