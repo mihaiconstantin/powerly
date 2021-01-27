@@ -15,8 +15,8 @@ ggm <- new.env()
 
 
 # Random mechanism.
-ggm$create <- function(nodes, density, architecture = "random", proportion.positive.edges = .5) {
-    return(bootnet::genGGM(nodes, p = density, propPositive = proportion.positive.edges, graph = architecture))
+ggm$create <- function(nodes, density, proportion.positive.edges = .5) {
+    return(bootnet::genGGM(nodes, p = density, propPositive = proportion.positive.edges, graph = "random"))
 }
 
 
@@ -39,13 +39,7 @@ ggm$generate <- function(n, model, levels = 5) {
 
 # Estimator.
 ggm$estimate <- function(data, ...) {
-    return(
-        suppressWarnings(
-            suppressMessages(
-                bootnet::estimateNetwork(data, default = "EBICglasso", verbose = FALSE, ...)$graph
-            )
-        )
-    )
+    return(bootnet::estimateNetwork(data, default = "EBICglasso", verbose = FALSE, ...)$graph)
 }
 
 

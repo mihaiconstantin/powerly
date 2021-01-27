@@ -1,6 +1,6 @@
 #' @title Step 1.
 #' @export
-run.step.1 <- function(selected.sample.sizes, replications, performance.measure = "sen", performance.measure.target = .8, statistic.definition = "power", ..., verbose = TRUE) {
+run.step.1 <- function(selected.sample.sizes, replications, performance.measure = "sen", performance.measure.target = .8, statistic.definition = "power", statistic.criterion = .8, ..., verbose = TRUE) {
     # User feedback.
     if(verbose) cat("Starting step 1...", "\n")
 
@@ -14,6 +14,7 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     e$performance.measure <- performance.measure
     e$performance.measure.target <- performance.measure.target
     e$statistic.definition <- statistic.definition
+    e$statistic.criterion <- statistic.criterion
 
     # Create progress bar.
     pb <- progress::progress_bar$new(total = e$total.selected.samples)
@@ -48,6 +49,13 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     # Attach outcomes.
     e$outcomes <- outcomes
 
+    # Check if any of sample sizes meets the requirement.
+    if(all(e$statistic < statistic.criterion)) {
+        e$improper.sample.sizes <- TRUE
+    } else {
+        e$improper.sample.sizes <- FALSE
+    }
+
     # Add class.
     class(e) <- "step.1"
 
@@ -81,7 +89,8 @@ mc.run <- function(model, n, performance.measure, generate = ggm$generate, estim
     data <- generate(n, model)
 
     # Estimate model.
-    fit <- estimate(data)
+    # fit <- suppressWarnings(suppressMessages(estimate(data)))
+    fit <- suppressWarnings(suppressMessages(estimate(data)))
 
     # Compute performance measure.
     outcomes <- evaluate(model, fit)[[performance.measure]]
