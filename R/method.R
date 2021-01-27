@@ -27,11 +27,12 @@ run.method <- function(model, range, replications, measure = "sen", target = .8,
         step.1 <- run.step.1(model = model, selected.sample.sizes = selected.sample.sizes, replications = replications, performance.measure = measure, performance.measure.target = target, statistic.definition = statistic, statistic.criterion = criterion, ..., verbose = verbose)
 
         if(step.1$improper.sample.sizes) {
-            # Increase upper bound
-            range[2] <- ceiling(range[2] + ((range[2] - range[1]) / 2))
-
             # Warn.
-            if(verbose) cat("Sample sizes are the small. Increasing upperbound to ", paste(range[2]), ".", "\n", sep = "")
+            if(verbose) cat("Sample range [", range[1], "...", range[2], "] too small. Changing to [", range[2], "...", range[2] * 2, "].", "\n", sep = "")
+
+            # Update previous range.
+            range[1] <- range[2]
+            range[2] <- range[2] * 2
 
             # Increment iterations.
             iteration = iteration + 1
