@@ -15,7 +15,7 @@ run.method <- function(model, range, replications, measure = "sen", target = .8,
 
     while(iteration <= runs) {
         # User feedback.
-        if(verbose) cat("\n\n", "-> iteration: ", iteration, "/", runs, ".", "\n\n", sep = "")
+        if(verbose) cat("\n", "-> iteration: ", iteration, "/", runs, ".", "\n", sep = "")
 
         # Select sample sizes.
         selected.sample.sizes <- unique(floor(seq(range[1], range[2], length.out = n.samples)))
@@ -24,13 +24,14 @@ run.method <- function(model, range, replications, measure = "sen", target = .8,
         inner.knots <- selected.sample.sizes[2:(length(selected.sample.sizes) - 1)]
 
         # Run Step 1.
-        step.1 <- run.step.1(model = model, selected.sample.sizes = selected.sample.sizes, replications = replications, performance.measure = measure, performance.measure.target = target, statistic.definition = statistic, ..., verbose = verbose)
+        step.1 <- run.step.1(model = model, selected.sample.sizes = selected.sample.sizes, replications = replications, performance.measure = measure, performance.measure.target = target, statistic.definition = statistic, statistic.criterion = criterion, ..., verbose = verbose)
+
 
         # Run Step 2.
         step.2 <- run.step.2(step.1, inner.knots = inner.knots, monotone = monotone, non.increasing = non.increasing, verbose = verbose)
 
         # Run Step 3.
-        step.3 <- run.step.3(step.1, step.2, statistic.criterion = criterion, n.boots = boots, verbose = verbose)
+        step.3 <- run.step.3(step.1, step.2, n.boots = boots, verbose = verbose)
 
         # Compute the updated range.
         range <- update.range(step.3)
