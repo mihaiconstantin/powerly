@@ -1,6 +1,6 @@
 #' @title Step 3.
 #' @export
-run.step.3 <- function(step.1, step.2, statistic.criterion = .8, n.boots = 1e4, verbose = TRUE) {
+run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
     # User feedback.
     if(verbose) cat("Starting step 3...", "\n")
 
@@ -11,7 +11,6 @@ run.step.3 <- function(step.1, step.2, statistic.criterion = .8, n.boots = 1e4, 
     e$step.1 <- step.1
     e$step.2 <- step.2
     e$n.boots <- n.boots
-    e$statistic.criterion <- statistic.criterion
 
     # Create progress bar.
     pb <- progress::progress_bar$new(total = n.boots)
@@ -51,9 +50,9 @@ run.step.3 <- function(step.1, step.2, statistic.criterion = .8, n.boots = 1e4, 
         # Record the sufficient sample size.
         if(step.2$fit$basis$non.increasing) {
             # Adjust the criteria for a non-increasing trend.
-            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] <= statistic.criterion)[1]]
+            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] <= step.1$statistic.criterion)[1]]
         } else {
-            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] >= statistic.criterion)[1]]
+            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] >= step.1$statistic.criterion)[1]]
         }
     }
 
