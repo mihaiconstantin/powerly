@@ -49,6 +49,13 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     # Attach outcomes.
     e$outcomes <- outcomes
 
+    # Check if any of sample sizes meets the requirement.
+    if(all(e$statistic < statistic.criterion)) {
+        e$improper.sample.sizes <- TRUE
+    } else {
+        e$improper.sample.sizes <- FALSE
+    }
+
     # Add class.
     class(e) <- "step.1"
 
