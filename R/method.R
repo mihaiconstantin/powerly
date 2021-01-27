@@ -26,6 +26,26 @@ run.method <- function(model, range, replications, measure = "sen", target = .8,
         # Run Step 1.
         step.1 <- run.step.1(model = model, selected.sample.sizes = selected.sample.sizes, replications = replications, performance.measure = measure, performance.measure.target = target, statistic.definition = statistic, statistic.criterion = criterion, ..., verbose = verbose)
 
+        if(step.1$improper.sample.sizes) {
+            # Increase upper bound
+            range[2] <- ceiling(range[2] + ((range[2] - range[1]) / 2))
+
+            # Warn.
+            if(verbose) cat("Sample sizes are the small. Increasing upperbound to ", paste(range[2]), ".", "\n", sep = "")
+
+            # Increment iterations.
+            iteration = iteration + 1
+
+            # Indicate failure of iteration.
+            results[[iteration]] <- list(
+                iteration = iteration,
+                step.1 = step.1,
+                failed = TRUE
+            )
+
+            # Break current interation.
+            next
+        }
 
         # Run Step 2.
         step.2 <- run.step.2(step.1, inner.knots = inner.knots, monotone = monotone, non.increasing = non.increasing, verbose = verbose)
@@ -39,6 +59,7 @@ run.method <- function(model, range, replications, measure = "sen", target = .8,
         # Store current iteration.
         results[[iteration]] <- list(
             iteration = iteration,
+            failed = FALSE,
             step.1 = step.1,
             step.2 = step.2,
             step.3 = step.3
