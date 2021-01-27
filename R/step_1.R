@@ -82,7 +82,8 @@ mc.run <- function(model, n, performance.measure, generate = ggm$generate, estim
     data <- generate(n, model)
 
     # Estimate model.
-    fit <- estimate(data)
+    # fit <- suppressWarnings(suppressMessages(estimate(data)))
+    fit <- suppressWarnings(suppressMessages(estimate(data)))
 
     # Compute performance measure.
     outcomes <- evaluate(model, fit)[[performance.measure]]
