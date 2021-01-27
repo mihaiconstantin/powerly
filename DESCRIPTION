@@ -9,6 +9,11 @@ Authors@R:
            comment = c(ORCID = "0000-0002-6460-0107"))
 Description: Provide sample size recommendations for psychological network models.
 License: MIT + file LICENSE
+Imports:
+    bootnet,
+    nnls,
+    progress,
+    splines2
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
