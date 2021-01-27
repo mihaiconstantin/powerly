@@ -5,7 +5,7 @@ validate.recommendation <- function(model, recommendation, replications = 100, p
     if(verbose) cat("Starting validation...", "\n")
 
     # Validate.
-    validation <- run.step.1(model = model, selected.sample.sizes = recommendation, replications = replications,  performance.measure = performance.measure, performance.measure.target = performance.measure.target, statistic.definition = statistic.definition, ..., verbose = verbose)
+    validation <- run.step.1(model = model, selected.sample.sizes = recommendation, replications = replications,  performance.measure = performance.measure, performance.measure.target = performance.measure.target, statistic.definition = statistic.definition, statistic.criterion = NULL,..., verbose = verbose)
 
     # Add class.
     class(validation) <- "validation"
