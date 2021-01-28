@@ -17,7 +17,7 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     e$statistic.criterion <- statistic.criterion
 
     # Create progress bar.
-    pb <- progress::progress_bar$new(total = e$total.selected.samples)
+    pb <- progress::progress_bar$new(total = e$total.selected.samples, force = TRUE)
 
     # Store matrix of outcome.
     outcomes <- array(NA, dim = c(replications, e$total.selected.samples), dimnames = list(

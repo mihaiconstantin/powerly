@@ -13,7 +13,7 @@ run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
     e$n.boots <- n.boots
 
     # Create progress bar.
-    pb <- progress::progress_bar$new(total = n.boots)
+    pb <- progress::progress_bar$new(total = n.boots, force = TRUE)
 
     # Store the bootstrapped splines.
     boot.splines <- matrix(0, n.boots, length(step.2$interpolate$x))
