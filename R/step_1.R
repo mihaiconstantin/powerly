@@ -17,7 +17,7 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     e$statistic.criterion <- statistic.criterion
 
     # Create progress bar.
-    pb <- progress::progress_bar$new(total = e$total.selected.samples, force = TRUE)
+    if(verbose) pb <- progress::progress_bar$new(total = e$total.selected.samples, force = TRUE)
 
     # Store matrix of outcome.
     outcomes <- array(NA, dim = c(replications, e$total.selected.samples), dimnames = list(
@@ -30,7 +30,7 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
 
     for(i in 1:e$total.selected.samples) {
         # Increment progress.
-        pb$tick()
+        if(verbose) pb$tick()
 
         # Replicate sample size.
         outcomes[, i] <- replicate.mc.run(replications = replications, n = selected.sample.sizes[i], performance.measure = performance.measure, ...)
