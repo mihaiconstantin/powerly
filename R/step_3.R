@@ -28,8 +28,16 @@ run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
         statistic.function <- compute.mean
     }
 
-    # User feedback.
-    if(verbose) cat("Bootstrapping...", "\n")
+    # Determine the rule to select 
+    if(step.2$fit$basis$non.increasing) {
+        rule <- function(boot.spline, criteria = step.1$statistic.criterion) {
+            return(which.min(boot.spline >= criteria))
+        } 
+    } else {
+        rule <- function(boot.spline, criteria = step.1$statistic.criterion) {
+            return(which.max(boot.spline >= criteria))
+        }        
+    }
 
     # Start bootstrapping.
     for(i in 1:n.boots) {
@@ -48,12 +56,7 @@ run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
         boot.splines[i, ] <- spline.methdology(step.1$selected.sample.sizes, boot.statistic, inner.knots = step.2$fit$basis$inner.knots, monotone = step.2$fit$basis$monotone, non.increasing = step.2$fit$basis$non.increasing)$interpolate$spline
 
         # Record the sufficient sample size.
-        if(step.2$fit$basis$non.increasing) {
-            # Adjust the criteria for a non-increasing trend.
-            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] <= step.1$statistic.criterion)[1]]
-        } else {
-            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] >= step.1$statistic.criterion)[1]]
-        }
+        sufficient.samples[i] <- step.2$interpolate$x[rule(boot.splines[i, ])]
     }
 
     # Add bootstrapped splines to the result.
