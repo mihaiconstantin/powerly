@@ -1,23 +1,14 @@
 #' @title Step 2.
 #' @export
 run.step.2 <- function(step.1, inner.knots, monotone = TRUE, non.increasing = FALSE, verbose = TRUE) {
-    # User feedback.
-    if(verbose) cat("Starting step 2...", "\n")
-
     # Create result environment.
     e <- new.env()
-
-    # User feedback.
-    if(verbose) cat("Fitting the spline...", "\n")
 
     # Get the spline results and store them.
     e <- spline.methdology(step.1$selected.sample.sizes, step.1$statistic, inner.knots, monotone = monotone, non.increasing = non.increasing)
 
     # Add class.
     class(e) <- "step.2"
-
-    # User feedback.
-    if(verbose) cat("Step 2 completed.", "\n\n\n")
 
     return(e)
 }
