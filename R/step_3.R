@@ -1,9 +1,6 @@
 #' @title Step 3.
 #' @export
 run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
-    # User feedback.
-    if(verbose) cat("Starting step 3...", "\n")
-
     # Create results environment.
     e <- new.env()
 
@@ -13,7 +10,7 @@ run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
     e$n.boots <- n.boots
 
     # Create progress bar.
-    pb <- progress::progress_bar$new(total = n.boots, force = TRUE)
+    if(verbose) pb <- progress::progress_bar$new(total = n.boots, force = TRUE)
 
     # Store the bootstrapped splines.
     boot.splines <- matrix(0, n.boots, length(step.2$interpolate$x))
@@ -28,13 +25,21 @@ run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
         statistic.function <- compute.mean
     }
 
-    # User feedback.
-    if(verbose) cat("Bootstrapping...", "\n")
+    # Determine the rule to select 
+    if(step.2$fit$basis$non.increasing) {
+        rule <- function(boot.spline, criteria = step.1$statistic.criterion) {
+            return(which.min(boot.spline >= criteria))
+        } 
+    } else {
+        rule <- function(boot.spline, criteria = step.1$statistic.criterion) {
+            return(which.max(boot.spline >= criteria))
+        }        
+    }
 
     # Start bootstrapping.
     for(i in 1:n.boots) {
         # Increment progress.
-        pb$tick()
+        if(verbose) pb$tick()
 
         # Temporarely store the bootstrapped statistics.
         boot.statistic <- vector(mode = "numeric", length = step.1$total.selected.samples)
@@ -48,12 +53,7 @@ run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
         boot.splines[i, ] <- spline.methdology(step.1$selected.sample.sizes, boot.statistic, inner.knots = step.2$fit$basis$inner.knots, monotone = step.2$fit$basis$monotone, non.increasing = step.2$fit$basis$non.increasing)$interpolate$spline
 
         # Record the sufficient sample size.
-        if(step.2$fit$basis$non.increasing) {
-            # Adjust the criteria for a non-increasing trend.
-            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] <= step.1$statistic.criterion)[1]]
-        } else {
-            sufficient.samples[i] <- step.2$interpolate$x[which(boot.splines[i, ] >= step.1$statistic.criterion)[1]]
-        }
+        sufficient.samples[i] <- step.2$interpolate$x[rule(boot.splines[i, ])]
     }
 
     # Add bootstrapped splines to the result.
@@ -64,9 +64,6 @@ run.step.3 <- function(step.1, step.2, n.boots = 1e4, verbose = TRUE) {
 
     # Add class.
     class(e) <- "step.3"
-
-    # User feedback.
-    if(verbose) cat("Step 3 completed.", "\n\n\n")
 
     return(e)
 }

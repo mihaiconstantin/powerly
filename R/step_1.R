@@ -1,9 +1,6 @@
 #' @title Step 1.
 #' @export
 run.step.1 <- function(selected.sample.sizes, replications, performance.measure = "sen", performance.measure.target = .8, statistic.definition = "power", statistic.criterion = .8, ..., verbose = TRUE) {
-    # User feedback.
-    if(verbose) cat("Starting step 1...", "\n")
-
     # Create result environment.
     e <- new.env()
 
@@ -15,9 +12,10 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     e$performance.measure.target <- performance.measure.target
     e$statistic.definition <- statistic.definition
     e$statistic.criterion <- statistic.criterion
+    e$improper.sample.sizes <- FALSE
 
     # Create progress bar.
-    pb <- progress::progress_bar$new(total = e$total.selected.samples, force = TRUE)
+    if(verbose) pb <- progress::progress_bar$new(total = e$total.selected.samples, force = TRUE)
 
     # Store matrix of outcome.
     outcomes <- array(NA, dim = c(replications, e$total.selected.samples), dimnames = list(
@@ -25,19 +23,13 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
         samples = selected.sample.sizes
     ))
 
-    # User feedback.
-    if(verbose) cat("Running the MC replications...", "\n")
-
     for(i in 1:e$total.selected.samples) {
         # Increment progress.
-        pb$tick()
+        if(verbose) pb$tick()
 
         # Replicate sample size.
         outcomes[, i] <- replicate.mc.run(replications = replications, n = selected.sample.sizes[i], performance.measure = performance.measure, ...)
     }
-
-    # User feedback.
-    if(verbose) cat("Computing the statistic...", "\n")
 
     # Compute the statistic.
     if(statistic.definition == "power") {
@@ -52,15 +44,10 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     # Check if any of sample sizes meets the requirement.
     if(all(e$statistic < statistic.criterion)) {
         e$improper.sample.sizes <- TRUE
-    } else {
-        e$improper.sample.sizes <- FALSE
     }
 
     # Add class.
     class(e) <- "step.1"
-
-    # User feedback.
-    if(verbose) cat("Step 1 completed.", "\n\n\n")
 
     return(e)
 }
@@ -89,7 +76,6 @@ mc.run <- function(model, n, performance.measure, generate = ggm$generate, estim
     data <- generate(n, model)
 
     # Estimate model.
-    # fit <- suppressWarnings(suppressMessages(estimate(data)))
     fit <- suppressWarnings(suppressMessages(estimate(data)))
 
     # Compute performance measure.
