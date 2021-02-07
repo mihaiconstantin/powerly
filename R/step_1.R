@@ -15,6 +15,7 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     e$performance.measure.target <- performance.measure.target
     e$statistic.definition <- statistic.definition
     e$statistic.criterion <- statistic.criterion
+    e$improper.sample.sizes <- FALSE
 
     # Create progress bar.
     if(verbose) pb <- progress::progress_bar$new(total = e$total.selected.samples, force = TRUE)
@@ -52,8 +53,6 @@ run.step.1 <- function(selected.sample.sizes, replications, performance.measure 
     # Check if any of sample sizes meets the requirement.
     if(all(e$statistic < statistic.criterion)) {
         e$improper.sample.sizes <- TRUE
-    } else {
-        e$improper.sample.sizes <- FALSE
     }
 
     # Add class.
