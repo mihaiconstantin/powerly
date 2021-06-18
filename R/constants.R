@@ -18,8 +18,9 @@
 )
 
 
-..GRAPHICS.. <- list(
-    positive.edge.color = "#3F51B5",
-    negative.edge.color = "#F44336",
-    node.color = "#F9F9F9"
+# Common colors used for plotting.
+.__GRAPHICS__ <- list(
+    positive_edge_color = "#3F51B5",
+    negative_edge_color = "#F44336",
+    node_color = "#F9F9F9"
 )
