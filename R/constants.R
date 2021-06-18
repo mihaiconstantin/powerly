@@ -1,19 +1,20 @@
-..ERRORS.. <- list(
+# Common error messaged.
+.__ERRORS__ <- list(
     # Occurrences:
     #   - when a object type other than what is expected is provided
-    incorrect.object.type = "Incorrect object type.",
+    incorrect_type = "Incorrect object type.",
 
     # Occurrences:
     #   - when an abstract class is instantiated
-    non.instantiable.class = "Abstract class cannot to be instantiated.",
+    abstract_class = "Abstract class cannot to be instantiated.",
 
     # Occurrences:
     #   - when running into things that must have an override
-    not.implemented = "Abstract method is not implemented.",
+    not_implemented = "Abstract method is not implemented.",
 
     # Occurrences:
     #   - when running into things not yet developed
-    not.developed = "Not yet developed."
+    not_developed = "Not supported."
 )
 
 
