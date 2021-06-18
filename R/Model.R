@@ -16,7 +16,7 @@ Model <- R6::R6Class("Model",
         },
 
         # Compare true model with an estimated model of the same type.
-        evaluate = function(true_parameters, estimated_parameters, ...) {
+        evaluate = function(true_parameters, estimated_parameters, measure, ...) {
             stop(.__ERRORS__$not_implemented)
         }
     )
