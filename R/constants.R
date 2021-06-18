@@ -1,0 +1,24 @@
+..ERRORS.. <- list(
+    # Occurrences:
+    #   - when a object type other than what is expected is provided
+    incorrect.object.type = "Incorrect object type.",
+
+    # Occurrences:
+    #   - when an abstract class is instantiated
+    non.instantiable.class = "Abstract class cannot to be instantiated.",
+
+    # Occurrences:
+    #   - when running into things that must have an override
+    not.implemented = "Abstract method is not implemented.",
+
+    # Occurrences:
+    #   - when running into things not yet developed
+    not.developed = "Not yet developed."
+)
+
+
+..GRAPHICS.. <- list(
+    positive.edge.color = "#3F51B5",
+    negative.edge.color = "#F44336",
+    node.color = "#F9F9F9"
+)
