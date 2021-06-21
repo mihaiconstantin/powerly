@@ -85,9 +85,6 @@ StepOne <- R6::R6Class("StepOne",
             # Stope the cluster on exit.
             on.exit(parallel::stopCluster(cluster), add = TRUE)
 
-            # Export data.
-            parallel::clusterExport(cluster, varlist = c("private"), envir = parent.env(environment()))
-
             # Replicated sample sizes.
             samples <- sort(rep(private$.range$partition, private$.replications))
 
