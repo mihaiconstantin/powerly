@@ -32,6 +32,9 @@ GgmModel <- R6::R6Class("GgmModel",
             true <- true_parameters[upper.tri(true_parameters)]
             esti <- estimated_parameters[upper.tri(estimated_parameters)]
 
+            # Check if model dimensions do not match.
+            if(length(true) != length(esti)) return(NA)
+
             # Compute true/ false | positive/ negative rates.
             tp <- sum(true != 0 & esti != 0)
             fp <- sum(true == 0 & esti != 0)
@@ -44,7 +47,7 @@ GgmModel <- R6::R6Class("GgmModel",
                     sen = tp / (tp + fn),
                     spe = tn / (tn + fp),
                     mcc = (tp * tn - fp * fn) / sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn)),
-                    rho = ifelse(length(true) == length(esti), cor(true, esti, use = "complete.obs"), NA),
+                    rho = cor(true, esti),
                     stop(.__ERRORS__$not_developed)
                 )
             )
