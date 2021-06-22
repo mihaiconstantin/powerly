@@ -48,14 +48,14 @@ Basis <- R6::R6Class("Basis",
             private$.make_basis(...)
         },
 
-        extend = function(x.new, ...) {
+        extend = function(x_new, ...) {
             if (private$.monotone) {
-                matrix.new <- do.call(splines2::iSpline, c(list(x = x.new), private$.attrs, list(...)))
-                matrix.new <- cbind(1, matrix.new)
+                matrix_new <- do.call(splines2::iSpline, c(list(x = x_new), private$.attrs, list(...)))
+                matrix_new <- cbind(1, matrix_new)
             } else {
-                matrix.new <- do.call(splines2::bSpline, c(list(x = x.new), private$.attrs, list(...)))
+                matrix_new <- do.call(splines2::bSpline, c(list(x = x_new), private$.attrs, list(...)))
             }
-            return(matrix.new)
+            return(matrix_new)
         }
     ),
 
