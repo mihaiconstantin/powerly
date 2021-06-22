@@ -11,9 +11,9 @@ Solver <- R6::R6Class("Solver",
         .settings = NULL,
 
         # Solver equation inputs.
-        .p.mat = NULL,
-        .q.vec = NULL,
-        .a.mat = NULL,
+        .p_mat = NULL,
+        .q_vec = NULL,
+        .a_mat = NULL,
         .lower = NULL,
         .upper = NULL,
 
@@ -31,12 +31,12 @@ Solver <- R6::R6Class("Solver",
         },
 
         .create_matrices = function() {
-            private$.p.mat <- crossprod(private$.basis$matrix, private$.basis$matrix)
-            private$.q.vec <- -crossprod(private$.basis$matrix, private$.y)
+            private$.p_mat <- crossprod(private$.basis$matrix, private$.basis$matrix)
+            private$.q_vec <- -crossprod(private$.basis$matrix, private$.y)
         },
 
         .set_constraints = function() {
-            private$.a.mat <- diag(1, private$.n)
+            private$.a_mat <- diag(1, private$.n)
         },
 
         .set_bounds = function() {
@@ -56,9 +56,9 @@ Solver <- R6::R6Class("Solver",
 
         .make_model = function() {
             private$.model <- osqp::osqp(
-                P = private$.p.mat,
-                q = private$.q.vec,
-                A = private$.a.mat,
+                P = private$.p_mat,
+                q = private$.q_vec,
+                A = private$.a_mat,
                 l = private$.lower,
                 u = private$.upper,
                 pars = private$.settings
@@ -91,12 +91,12 @@ Solver <- R6::R6Class("Solver",
             return(private$.model$Solve()$x)
         },
 
-        solve.update = function(y.new) {
+        solve_update = function(y_new) {
             # Create new `q` vector.
-            q.vec.new <- -crossprod(private$.basis$matrix, y.new)
+            q_vec_new <- -crossprod(private$.basis$matrix, y_new)
 
             # Update the model.
-            private$.model$Update(q = q.vec.new)
+            private$.model$Update(q = q_vec_new)
 
             # Mark that the model was updated.
             private$.updated <- TRUE
