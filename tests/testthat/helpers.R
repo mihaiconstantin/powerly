@@ -1,3 +1,4 @@
+# Helper based on 'quadprog' for testing the 'Solver' class.
 solve_qp <- function(basis_matrix, y, a_mat, b_vec, meq = 0) {
     # Create matrices for `solve.QP`.
     d_mat <- crossprod(basis_matrix, basis_matrix)
@@ -7,6 +8,7 @@ solve_qp <- function(basis_matrix, y, a_mat, b_vec, meq = 0) {
     return(quadprog::solve.QP(Dmat = d_mat, dvec = d_vec, Amat = t(a_mat), bvec = b_vec, meq = meq)$solution)
 }
 
+# Helper based on 'osqp' for testing the 'Solver' class.
 solve_osqp <- function(basis_matrix, y, lower, upper) {
     # Set settings.
     settings <- osqp::osqpSettings(
