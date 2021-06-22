@@ -39,3 +39,20 @@ solve_osqp <- function(basis_matrix, y, lower, upper) {
     # Optimize.
     return(model$Solve()$x)
 }
+
+# Helper for testing private methods of 'StepTwo' class.
+StepTwoTester <- R6::R6Class("StepTwoTester",
+    inherit = StepTwo,
+
+    public = list(
+        check_df = function(df, monotone) {
+            # Call the method we want to test.
+            private$.check_df(df, monotone)
+        },
+
+        run_cv = function(monotone, increasing, df, ...) {
+            # Call the method we want to test.
+            private$.run_cv(monotone, increasing, df, ...)
+        }
+    )
+)
