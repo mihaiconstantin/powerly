@@ -274,7 +274,8 @@ StepOne <- R6::R6Class("StepOne",
             )
             axis(
                 side = 2,
-                cex.axis = .9
+                cex.axis = .9,
+                las = 1
             )
             abline(
                 h = private$.statistic_value,
