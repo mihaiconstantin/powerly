@@ -21,9 +21,6 @@ StepTwo <- R6::R6Class("StepTwo",
 
             # Determine DF for LOOCV.
             if (is.null(df)) {
-                # Determine the maximum number of degrees of freedom (i.e., justify in the paper).
-                # max_df <- ceiling(private$.step_1$range$available_samples / 2)
-
                 # Never try more than 20 degrees of freedom.
                 max_df <- ifelse(max_df > 20, 20, max_df)
 
@@ -32,9 +29,6 @@ StepTwo <- R6::R6Class("StepTwo",
 
             # Manually override the DF. Can exceed 20 limit because of manual override.
             } else {
-                # Maximum allowed degree of freedom.
-                # max_df <- private$.step_1$range$available_samples - 2
-
                 # Stop if the highest DF is too large.
                 if (max(df) > max_df) {
                     stop(paste0("Degree of freedom '", max(df), "' cannot exceed `length(samples) - 2` (i.e., '", max_df, "')."))
