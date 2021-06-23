@@ -108,10 +108,6 @@ Solver <- R6::R6Class("Solver",
 
     active = list(
         increasing = function() { return(private$.increasing) },
-        model = function() { return(private$.model) },
-        updated = function() { return(private$.updated) },
-        lower_bounds = function() { return(private$.lower) },
-        upper_bounds = function() { return(private$.upper) },
-        y = function() { return(private$.y) }
+        updated = function() { return(private$.updated) }
     )
 )
