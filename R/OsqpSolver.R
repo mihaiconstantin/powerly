@@ -7,7 +7,7 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
         .increasing = NULL,
 
         .n = NULL,
-        .updated = FALSE,
+        .updated = NULL,
 
         # Solver settings.
         .settings = NULL,
@@ -69,7 +69,8 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
     ),
 
     public = list(
-        initialize = function(basis, y, increasing = NULL) {
+        # Setup the solver.
+        setup = function(basis, y, increasing = NULL) {
             # Set input.
             private$.basis <- basis
             private$.y <- y
@@ -78,6 +79,9 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
             # Compute number of basis functions.
             private$.n <- ncol(private$.basis$matrix)
 
+            # Set the update flag.
+            private$.updated <- FALSE
+
             # Prepare solver.
             private$.set_settings()
             private$.create_matrices()
@@ -85,6 +89,7 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
             private$.set_bounds()
         },
 
+        # Solve based on the provided setup.
         solve = function() {
             # Make the model.
             private$.make_model()
@@ -93,6 +98,7 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
             return(private$.model$Solve()$x)
         },
 
+        # Solve with updated 'y' vector.
         solve_update = function(y_new) {
             # Create new `q` vector.
             q_vec_new <- -crossprod(private$.basis$matrix, y_new)

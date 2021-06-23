@@ -7,7 +7,7 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
         .increasing = NULL,
 
         .n = NULL,
-        .updated = FALSE,
+        .updated = NULL,
 
         # Solver equation inputs.
         .d_mat = NULL,
@@ -63,7 +63,8 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
     ),
 
     public = list(
-        initialize = function(basis, y, increasing = NULL) {
+        # Setup the solver.
+        setup = function(basis, y, increasing = NULL) {
             # Set input.
             private$.basis <- basis
             private$.y <- y
@@ -72,17 +73,22 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
             # Compute number of basis functions.
             private$.n <- ncol(basis$matrix)
 
+            # Set the update flag.
+            private$.updated <- FALSE
+
             # Prepare the solver.
             private$.create_matrices()
             private$.set_constraints()
             private$.set_bounds()
         },
 
+        # Solve based on the setup.
         solve = function() {
             # Return the solution.
             return(private$.solve())
         },
 
+        # Solve with updated 'y' vector.
         solve_update = function(y_new) {
             # Update the 'd' vector.
             private$.d_vec <- crossprod(private$.basis$matrix, y_new)
