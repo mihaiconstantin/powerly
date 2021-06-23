@@ -5,9 +5,7 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
         .basis = NULL,
         .y = NULL,
         .increasing = NULL,
-
         .n = NULL,
-        .updated = NULL,
 
         # Solver settings.
         .settings = NULL,
@@ -79,9 +77,6 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
             # Compute number of basis functions.
             private$.n <- ncol(private$.basis$matrix)
 
-            # Set the update flag.
-            private$.updated <- FALSE
-
             # Prepare solver.
             private$.set_settings()
             private$.create_matrices()
@@ -109,7 +104,6 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
     ),
 
     active = list(
-        increasing = function() { return(private$.increasing) },
-        updated = function() { return(private$.updated) }
+        increasing = function() { return(private$.increasing) }
     )
 )
