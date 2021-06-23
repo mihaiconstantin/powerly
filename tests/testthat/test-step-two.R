@@ -53,8 +53,11 @@ test_that("'StepTwo' correctly performs the LOOCV procedure", {
     # Create 'StepTwo' mock instance.
     step_2 <- StepTwoTester$new(step_1)
 
+    # Flip a coin to decide which solver to use.
+    solver_type <- ifelse(rbinom(1, 1, .5), "quadprog", "osqp")
+
     # Perform LOOCV via the mock instance.
-    step_2$run_cv(monotone = TRUE, increasing = TRUE, df = NULL)
+    step_2$run_cv(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = solver_type)
 
     # The dimensions if the LOOCV result should match the number of sample sizes and DF tested.
     expect_equal(nrow(step_2$cv$se), range$available_samples)
@@ -88,8 +91,11 @@ test_that("'StepTwo' fits a spline correctly", {
     # Fit a spline via step two.
     step_2 <- StepTwo$new(step_1)
 
+    # Flip a coin to decide which solver to use.
+    solver_type <- ifelse(rbinom(1, 1, .5), "quadprog", "osqp")
+
     # Fit the spline.
-    step_2$fit(monotone = TRUE, increasing = TRUE, df = NULL)
+    step_2$fit(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = solver_type)
 
     # Extract the DF selected.
     df <- step_2$cv$df[which.min(step_2$cv$mse)]
