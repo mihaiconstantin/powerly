@@ -85,14 +85,16 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
 
         # Solve with updated 'y' vector.
         solve_update = function(y_new) {
-            # Update the 'd' vector.
-            private$.d_vec <- crossprod(private$.basis$matrix, y_new)
-
-            # Indicate that an update ocurred.
-            private$.updated = TRUE
-
             # Solve and return the updated solution.
-            return(private$.solve())
+            return(
+                quadprog::solve.QP(
+                    Dmat = private$.d_mat,
+                    dvec = crossprod(private$.basis$matrix, y_new),
+                    Amat = private$.a_mat,
+                    bvec = private$.b_vec,
+                    meq = 0
+                )$solution
+            )
         }
     ),
 
