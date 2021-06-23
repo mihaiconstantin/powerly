@@ -13,8 +13,8 @@ solve_osqp <- function(basis_matrix, y, lower, upper) {
     # Set settings.
     settings <- osqp::osqpSettings(
         verbose = FALSE,
-        eps_abs = 1e-8,
-        eps_rel = 1e-8,
+        eps_abs = 1e-10,
+        eps_rel = 1e-10,
         linsys_solver = 0L,
         warm_start = FALSE
     )
