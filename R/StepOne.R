@@ -80,7 +80,7 @@ StepOne <- R6::R6Class("StepOne",
             # Make cluster.
             cluster <- parallel::makePSOCKcluster(cores)
 
-            # Stope the cluster on exit.
+            # Stop the cluster on exit.
             on.exit(parallel::stopCluster(cluster))
 
             # Replicated sample sizes.
