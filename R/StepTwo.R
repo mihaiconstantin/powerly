@@ -46,7 +46,7 @@ StepTwo <- R6::R6Class("StepTwo",
             return(df)
         },
 
-        .run_cv = function(monotone, increasing, df, ...) {
+        .run_cv = function(monotone, increasing, df, solver_type, ...) {
             # Check the DFs before LOOCV.
             df <- private$.check_df(df, monotone)
 
@@ -55,6 +55,9 @@ StepTwo <- R6::R6Class("StepTwo",
 
             # Get the actual boundary knots.
             boundary_knots <- range(private$.step_1$range$partition)
+
+            # Create solver.
+            solver <- SolverFactory$new()$get_solver(solver_type)
 
             for (i in 1:private$.step_1$range$available_samples) {
                 # Training data.
@@ -70,7 +73,7 @@ StepTwo <- R6::R6Class("StepTwo",
                     basis_train <- Basis$new(x = x_train, df = df[j], monotone = monotone, Boundary.knots = boundary_knots, ...)
 
                     # Create solver for the training basis.
-                    solver <- Solver$new(basis_train, y_train, increasing)
+                    solver <- solver$setup(basis_train, y_train, increasing)
 
                     # Estimate the spline coefficients.
                     spline_train <- Spline$new(basis = basis_train, solver)
@@ -94,7 +97,7 @@ StepTwo <- R6::R6Class("StepTwo",
             )
         },
 
-        .fit = function(monotone, increasing, ...) {
+        .fit = function(monotone, increasing, solver_type, ...) {
             # Determine best DF based on MSE.
             df <- private$.cv$df[which.min(private$.cv$mse)]
 
@@ -102,7 +105,10 @@ StepTwo <- R6::R6Class("StepTwo",
             basis <- Basis$new(x = private$.step_1$range$partition, df, monotone, ...)
 
             # Create the solver.
-            solver <- Solver$new(basis, private$.step_1$statistics, increasing)
+            solver <- SolverFactory$new()$get_solver(solver_type)
+
+            # Setup the solver.
+            solver$setup(basis, private$.step_1$statistics, increasing)
 
             # Create spline.
             private$.spline <- Spline$new(basis, solver)
@@ -122,12 +128,12 @@ StepTwo <- R6::R6Class("StepTwo",
             private$.step_1 <- step_1
         },
 
-        fit = function(monotone = TRUE, increasing = TRUE, df = NULL, ...) {
+        fit = function(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = "quadprog", ...) {
             # Perform LOOCV.
-            private$.run_cv(monotone = monotone, increasing = increasing, df = df, ...)
+            private$.run_cv(monotone = monotone, increasing = increasing, df = df, solver_type = solver_type, ...)
 
             # Find spline coefficients.
-            private$.fit(monotone = monotone, increasing = increasing, ...)
+            private$.fit(monotone = monotone, increasing = increasing, solver_type = solver_type, ...)
 
             # Interpolate the entire range used during Step 1.
             private$.interpolate(...)
