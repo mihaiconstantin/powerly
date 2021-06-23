@@ -1,4 +1,6 @@
 OsqpSolver <- R6::R6Class("OsqpSolver",
+    inherit = Solver,
+
     private = list(
         .basis = NULL,
         .y = NULL,

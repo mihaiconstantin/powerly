@@ -1,4 +1,6 @@
 QuadprogSolver <- R6::R6Class("QuadprogSolver",
+    inherit = Solver,
+
     private = list(
         .basis = NULL,
         .y = NULL,
