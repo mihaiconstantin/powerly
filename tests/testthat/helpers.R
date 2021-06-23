@@ -50,9 +50,9 @@ StepTwoTester <- R6::R6Class("StepTwoTester",
             private$.check_df(df, monotone)
         },
 
-        run_cv = function(monotone, increasing, df, ...) {
+        run_cv = function(monotone, increasing, df, solver_type, ...) {
             # Call the method we want to test.
-            private$.run_cv(monotone, increasing, df, ...)
+            private$.run_cv(monotone, increasing, df, solver_type, ...)
         }
     )
 )
