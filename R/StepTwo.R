@@ -305,7 +305,7 @@ StepTwo <- R6::R6Class("StepTwo",
             # Plot SE results by DF.
             plot(
                 NULL,
-                xlim = c(min(private$.cv$df) - .5, max(private$.cv$df)),
+                xlim = c(min(private$.cv$df) - 1.5, max(private$.cv$df)),
                 ylim = c(min(private$.cv$se), max(private$.cv$se)),
                 xlab = "",
                 ylab = "",
@@ -346,7 +346,7 @@ StepTwo <- R6::R6Class("StepTwo",
                 # Plot.
                 lines(private$.cv$df, private$.cv$se[j, ], lwd = 2, col = color)
                 points(private$.cv$df, private$.cv$se[j, ], lwd = 2, col = color, pch = 20)
-                text(x = min(private$.cv$df) - .5, y = private$.cv$se[j, ][1], private$.step_1$range$partition[j], col = adjustcolor(colors[color_index], alpha.f = 0.9))
+                text(x = min(private$.cv$df) - 1, y = private$.cv$se[j, ][1], private$.step_1$range$partition[j], col = adjustcolor(colors[color_index], alpha.f = 0.9), cex = 0.8)
 
                 # Remove color to prevent ruse in private$.cv$se.
                 colors <- colors[-color_index]
@@ -371,7 +371,7 @@ StepTwo <- R6::R6Class("StepTwo",
             )
 
             # Plot SE results by sample size.
-            text_offset <- (private$.step_1$range$partition[2] - private$.step_1$range$partition[1]) / 2
+            text_offset <- (private$.step_1$range$partition[2] - private$.step_1$range$partition[1])
             plot(
                 NULL,
                 xlim = c(min(private$.step_1$range$partition) - text_offset, max(private$.step_1$range$partition)),
@@ -413,7 +413,7 @@ StepTwo <- R6::R6Class("StepTwo",
                 # Plot.
                 lines(private$.step_1$range$partition, private$.cv$se[, j], lwd = 2, col = color)
                 points(private$.step_1$range$partition, private$.cv$se[, j], lwd = 2, col = color, pch = 20)
-                text(x = min(private$.step_1$range$partition) - text_offset, y = private$.cv$se[j, ][1], private$.cv$df[j], col = adjustcolor(colors[color_index], alpha.f = 0.9))
+                text(x = min(private$.step_1$range$partition) - text_offset, y = private$.cv$se[j, ][1], private$.cv$df[j], col = adjustcolor(colors[color_index], alpha.f = 0.9), cex = 0.8)
 
                 # Remove color to prevent reuprivate$.cv$se.
                 colors <- colors[-color_index]
