@@ -5,9 +5,7 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
         .basis = NULL,
         .y = NULL,
         .increasing = NULL,
-
         .n = NULL,
-        .updated = NULL,
 
         # Solver equation inputs.
         .d_mat = NULL,
@@ -60,9 +58,6 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
             # Compute number of basis functions.
             private$.n <- ncol(basis$matrix)
 
-            # Set the update flag.
-            private$.updated <- FALSE
-
             # Prepare the solver.
             private$.create_matrices()
             private$.set_constraints()
@@ -99,7 +94,6 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
     ),
 
     active = list(
-        increasing = function() { return(private$.increasing) },
-        updated = function() { return(private$.updated) }
+        increasing = function() { return(private$.increasing) }
     )
 )
