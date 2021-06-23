@@ -72,8 +72,8 @@ StepTwo <- R6::R6Class("StepTwo",
                     # Create training basis.
                     basis_train <- Basis$new(x = x_train, df = df[j], monotone = monotone, Boundary.knots = boundary_knots, ...)
 
-                    # Create solver for the training basis.
-                    solver <- solver$setup(basis_train, y_train, increasing)
+                    # Setup the solver for the training basis.
+                    solver$setup(basis_train, y_train, increasing)
 
                     # Estimate the spline coefficients.
                     spline_train <- Spline$new(basis = basis_train, solver)
