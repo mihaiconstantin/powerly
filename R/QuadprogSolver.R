@@ -46,19 +46,6 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
         # Set bounds for the constraints matrix.
         .set_bounds = function() {
             private$.b_vec <- rep(0, private$.n)
-        },
-
-        # Core solver method.
-        .solve = function() {
-            return(
-                quadprog::solve.QP(
-                    Dmat = private$.d_mat,
-                    dvec = private$.d_vec,
-                    Amat = private$.a_mat,
-                    bvec = private$.b_vec,
-                    meq = 0
-                )$solution
-            )
         }
     ),
 
@@ -85,7 +72,15 @@ QuadprogSolver <- R6::R6Class("QuadprogSolver",
         # Solve based on the setup.
         solve = function() {
             # Return the solution.
-            return(private$.solve())
+            return(
+                quadprog::solve.QP(
+                    Dmat = private$.d_mat,
+                    dvec = private$.d_vec,
+                    Amat = private$.a_mat,
+                    bvec = private$.b_vec,
+                    meq = 0
+                )$solution
+            )
         },
 
         # Solve with updated 'y' vector.
