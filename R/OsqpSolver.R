@@ -100,14 +100,8 @@ OsqpSolver <- R6::R6Class("OsqpSolver",
 
         # Solve with updated 'y' vector.
         solve_update = function(y_new) {
-            # Create new `q` vector.
-            q_vec_new <- -crossprod(private$.basis$matrix, y_new)
-
-            # Update the model.
-            private$.model$Update(q = q_vec_new)
-
-            # Mark that the model was updated.
-            private$.updated <- TRUE
+            # Update the model with new `q` vector.
+            private$.model$Update(q = -crossprod(private$.basis$matrix, y_new))
 
             # Solve and return.
             return(private$.model$Solve()$x)
