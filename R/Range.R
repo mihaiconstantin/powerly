@@ -8,6 +8,7 @@ Range <- R6::R6Class("Range",
         .available_samples = NULL,
         .partition = NULL,
         .sequence = NULL,
+        .sequence_length = NULL,
 
         .make_partition = function() {
             # Check that the range has valid bounds.
@@ -23,7 +24,11 @@ Range <- R6::R6Class("Range",
         },
 
         .make_sequence = function() {
+            # Make the sequence.
             private$.sequence <- min(private$.partition):max(private$.partition)
+
+            # Store the sequence length.
+            private$.sequence_length <- length(private$.sequence)
         },
 
         .update_convergence = function(lower, upper) {
@@ -86,6 +91,7 @@ Range <- R6::R6Class("Range",
         converged = function() { return(private$.converged) },
         available_samples = function() { return(private$.available_samples) },
         partition = function() { return(private$.partition) },
-        sequence = function() { return(private$.sequence) }
+        sequence = function() { return(private$.sequence) },
+        sequence_length = function() { return(private$.sequence_length) }
     )
 )
