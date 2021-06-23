@@ -87,7 +87,7 @@ Solver <- R6::R6Class("Solver",
             # Make the model.
             private$.make_model()
 
-            # Store the solution.
+            # Return the solution.
             return(private$.model$Solve()$x)
         },
 
