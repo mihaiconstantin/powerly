@@ -36,13 +36,11 @@ StepOne <- R6::R6Class("StepOne",
         },
 
         .set_model = function(type) {
-            model_factory = ModelFactory$new()
-            private$.model = model_factory$get_model(type = type)
+            private$.model = ModelFactory$new()$get_model(type = type)
         },
 
         .set_statistic = function(type) {
-            statistic_factory = StatisticFactory$new()
-            private$.statistic = statistic_factory$get_statistic(type = type)
+            private$.statistic = StatisticFactory$new()$get_statistic(type = type)
         },
 
         # Perform a single Monte Carlo run for a single sample size.
