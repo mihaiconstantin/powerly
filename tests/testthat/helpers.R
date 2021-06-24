@@ -65,10 +65,13 @@ StepThreeTester <- R6::R6Class("StepThreeTester",
         # Empty constructor.
         initialize = function() {},
 
-        # Expose to the public API the function to test.
+        # Expose selection rule to the public API.
         selection_rule = function(spline, statistic_value, monotone, increasing) {
             # Call the method we want to test.
-            private$.selection_rule(spline, statistic_value, monotone, increasing)
+            return(
+                private$.selection_rule(spline, statistic_value, monotone, increasing)
+            )
+        },
         }
     )
 )
