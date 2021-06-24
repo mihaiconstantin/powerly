@@ -54,7 +54,7 @@ test_that("'StepThree' performs a bootstrap run correctly", {
     step_1$set_statistic("power", .8)
 
     # Compute Step One.
-    step_1$simulate(10, cores = NULL)
+    step_1$simulate(10)
     step_1$compute()
 
     # Create Step Two.
@@ -117,7 +117,7 @@ test_that("'StepThree' performs the bootstrap procedure correctly", {
         step_1$set_statistic("power", .8)
 
         # Compute Step One.
-        step_1$simulate(10, cores = NULL)
+        step_1$simulate(10)
         step_1$compute()
 
         # Create Step Two.
@@ -130,7 +130,7 @@ test_that("'StepThree' performs the bootstrap procedure correctly", {
         step_3 <- StepThree$new(step_2)
 
         # Run the bootstrap sequentially.
-        step_3$bootstrap(1000, cores = NULL)
+        step_3$bootstrap(1000)
 
         # Check the dimensions of the bootstrapped splines.
         expect_equal(dim(step_3$boot_splines), c(1000, range$sequence_length))
@@ -158,7 +158,7 @@ test_that("'StepThree' extracts the sufficient samples correctly", {
     step_1$set_statistic("power", .8)
 
     # Compute Step One.
-    step_1$simulate(10, cores = NULL)
+    step_1$simulate(10)
     step_1$compute()
 
     # Create Step Two.
@@ -171,7 +171,7 @@ test_that("'StepThree' extracts the sufficient samples correctly", {
     step_3 <- StepThree$new(step_2)
 
     # Run the bootstrap sequentially.
-    step_3$bootstrap(3000, cores = NULL)
+    step_3$bootstrap(3000)
 
     # Compute the CI.
     step_3$compute()
@@ -207,7 +207,7 @@ test_that("'StepThree' computes the confidence intervals correctly", {
     step_1$set_statistic("power", .8)
 
     # Compute Step One.
-    step_1$simulate(10, cores = NULL)
+    step_1$simulate(10)
     step_1$compute()
 
     # Create Step Two.
@@ -220,7 +220,7 @@ test_that("'StepThree' computes the confidence intervals correctly", {
     step_3 <- StepThree$new(step_2)
 
     # Run the bootstrap sequentially.
-    step_3$bootstrap(3000, cores = NULL)
+    step_3$bootstrap(3000)
 
     # Compute confidence intervals sequentially.
     step_3$compute()
