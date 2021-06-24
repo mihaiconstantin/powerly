@@ -387,7 +387,6 @@ StepThree <- R6::R6Class("StepThree",
         boots = function() { return(private$.boots) },
         boot_splines = function() { return(private$.boot_splines) },
         spline_ci = function() { return(private$.spline_ci) },
-        sufficient_samples = function() { return(private$.sufficient_samples) },
         sufficient_samples_ci = function() { return(private$.sufficient_samples_ci) },
         duration = function() { return(private$.duration) }
     )
