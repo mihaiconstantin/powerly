@@ -3,14 +3,12 @@
 StepThree <- R6::R6Class("StepThree",
     private = list(
         .step_2 = NULL,
-
         .boots = NULL,
-        .boot_splines = NULL,
+        .duration = NULL,
 
+        .boot_splines = NULL,
         .spline_ci = NULL,
         .sufficient_samples_ci = NULL,
-
-        .duration = NULL,
 
         # Reset any previous bootstrapped values
         .clear_bootstrap = function() {
