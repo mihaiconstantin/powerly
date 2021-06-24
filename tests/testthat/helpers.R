@@ -56,3 +56,19 @@ StepTwoTester <- R6::R6Class("StepTwoTester",
         }
     )
 )
+
+# Helper for testing private methods of 'StepThree' class.
+StepThreeTester <- R6::R6Class("StepThreeTester",
+    inherit = StepThree,
+
+    public = list(
+        # Empty constructor.
+        initialize = function() {},
+
+        # Expose to the public API the function to test.
+        selection_rule = function(spline, statistic_value, monotone, increasing) {
+            # Call the method we want to test.
+            private$.selection_rule(spline, statistic_value, monotone, increasing)
+        }
+    )
+)
