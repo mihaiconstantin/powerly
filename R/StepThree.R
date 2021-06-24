@@ -149,7 +149,7 @@ StepThree <- R6::R6Class("StepThree",
 
         # Perform the bootstrap.
         bootstrap = function(boots = 3000, cores = NULL) {
-            # Time when the simulation started.
+            # Time when the bootstrap started.
             start_time <- Sys.time()
 
             # Reset any previous bootstrapped values before engaging a new one.
@@ -172,12 +172,11 @@ StepThree <- R6::R6Class("StepThree",
                 # Run the bootstrap in parallel.
                 private$.bootstrap_parallel(boots, cores)
             } else {
-
                 # Run the bootstrap sequentially.
                 private$.bootstrap(boots)
             }
 
-            # Compute how long the simulation took.
+            # Compute how long the bootstrap took.
             private$.duration <- Sys.time() - start_time
         },
 
