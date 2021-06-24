@@ -61,12 +61,9 @@ Range <- R6::R6Class("Range",
 
         # Update the range based on Step 3 bootstrapping.
         update = function(step_3, lower_ci = "2.5%", upper_ci = "97.5%") {
-            # Get confidence intervals at the statistic value of interest.
-            ci <- step_3$get_ci_at_statistic_value()
-
             # Extract bounds.
-            lower <- ci[lower_ci]
-            upper <- ci[upper_ci]
+            lower <- step_3$sufficient_samples[lower_ci]
+            upper <- step_3$sufficient_samples[upper_ci]
 
             # Update convergence status.
             private$.update_convergence(lower, upper)
