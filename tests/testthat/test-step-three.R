@@ -220,10 +220,12 @@ test_that("'StepThree' computes the confidence intervals correctly", {
     step_3$bootstrap(3000, cores = NULL)
 
     # Compute confidence intervals sequentially.
-    spline_ci_sequential <- step_3$compute()
+    step_3$compute()
+    spline_ci_sequential <- step_3$spline_ci
 
     # Compute confidence intervals in parallel.
-    spline_ci_parallel <- step_3$compute(cores = 7)
+    step_3$compute(cores = 7)
+    spline_ci_parallel <- step_3$spline_ci
 
     # The confidence intervals should match.
     expect_equal(spline_ci_sequential, spline_ci_parallel)
