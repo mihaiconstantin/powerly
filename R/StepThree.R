@@ -10,14 +10,6 @@ StepThree <- R6::R6Class("StepThree",
         .spline_ci = NULL,
         .sufficient_samples = NULL,
 
-        # Reset any previous bootstrapped values
-        .clear_bootstrap = function() {
-            private$.boots <- NULL
-            private$.boot_splines <- NULL
-            private$.spline_ci <- NULL
-            private$.sufficient_samples = NULL
-        },
-
         # Expose data in a specified environment for faster access.
         .expose_data = function(env) {
             # Data.
@@ -32,6 +24,18 @@ StepThree <- R6::R6Class("StepThree",
             env$statistic <- private$.step_2$step_1$statistic$compute
             env$solver <- private$.step_2$spline$solver
             env$boot <- private$.boot
+        },
+
+        # Reset any previously computed bootstrapped splines.
+        .clear_bootstrap = function() {
+            private$.boots <- NULL
+            private$.boot_splines <- NULL
+        },
+
+        # Reset any previously computed confidence intervals.
+        .clear_ci = function() {
+            private$.spline_ci <- NULL
+            private$.sufficient_samples = NULL
         },
 
         # Self-contained core of the bootstrap procedure.
