@@ -87,22 +87,36 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Rule for selecting sufficient sample sizes based on the shape of the spline.
-        .selection_rule = function(spline, statistic_value, increasing = TRUE) {
-            if(!increasing) {
-                check <- spline <= statistic_value
-            } else {
-                check <- spline >= statistic_value
+        .selection_rule = function(spline, statistic_value, monotone, increasing) {
+            # For non-monotone splines, simply return the first sample size that exceeded the statistic.
+            if (!monotone) {
+               increasing = TRUE
             }
 
-            size.check = length(check)
-            sum.check = sum(check)
+            # Look for sample sizes where the spine is greater than the statistic.
+            if(increasing) {
+                test <- spline >= statistic_value
 
-            if(sum.check == 0) {
-                return(size.check)
-            } else if(sum.check == size.check) {
-                return(1)
+            # Look for sample sizes where the spine is smaller than the statistic.
             } else {
-                return(which.max(check))
+                test <- spline <= statistic_value
+            }
+
+            # Determine metadata about the spline check.
+            length_test = length(test)
+            sum_test = sum(test)
+
+            # If no sample size satisfies the test then return the largest sample size.
+            if (sum_test == 0) {
+                return(length_test)
+
+            # If all sample size satisfy the test then return the smallest one.
+            } else if (sum_test == length_test) {
+                return(1)
+
+            # If some sample sizes satisfy the test, find the first one.
+            } else {
+                return(which.max(test))
             }
         },
 
@@ -121,7 +135,7 @@ StepThree <- R6::R6Class("StepThree",
         .extract_sufficient_samples_ci = function(statistic_value) {
             # Find CI at statistic value.
             sufficient_samples_ci <- apply(private$.spline_ci, 2, function(ci) {
-                private$.step_2$interpolation$x[private$.selection_rule(ci, statistic_value, private$.step_2$spline$solver$increasing)]
+                private$.step_2$interpolation$x[private$.selection_rule(ci, statistic_value, private$.step_2$spline$basis$monotone, private$.step_2$spline$solver$increasing)]
             })
 
             # Reverse values names, i.e., 1 - percentile.
@@ -134,6 +148,7 @@ StepThree <- R6::R6Class("StepThree",
         # Extract distribution of bootstrapped statistic for particular sample size.
         .compute_sufficient_samples = function(statistic_value) {
             # What kind of spline was this?
+            monotone <- private$.step_2$spline$basis$monotone
             increasing <- private$.step_2$spline$solver$increasing
 
             # Sequence.
@@ -144,7 +159,7 @@ StepThree <- R6::R6Class("StepThree",
 
             # Find sufficient samples among the bootstrapped splines.
             samples <- apply(private$.boot_splines, 1, function(spline) {
-                sequence[selection_rule(spline, statistic_value, increasing)]
+                sequence[selection_rule(spline, statistic_value, monotone, increasing)]
             })
 
             return(samples)
