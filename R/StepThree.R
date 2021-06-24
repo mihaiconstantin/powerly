@@ -125,6 +125,21 @@ StepThree <- R6::R6Class("StepThree",
             rownames(private$.spline_ci) <- private$.step_2$interpolation$x
         },
 
+        # Compute confidence intervals.
+        .compute_spline_ci_parallel = function(lower, upper, cores) {
+            # Make cluster.
+            cluster <- parallel::makePSOCKcluster(cores)
+
+            # Stop the cluster on exit.
+            on.exit(parallel::stopCluster(cluster))
+
+            # Compute the confidence intervals via the percentile method.
+            private$.spline_ci <- t(parallel::parApply(cluster, private$.boot_splines, 2, quantile, probs = c(0, lower, .5, upper, 1), na.rm = TRUE))
+
+            # Add row names for clarity.
+            rownames(private$.spline_ci) <- private$.step_2$interpolation$x
+        },
+
         # Extract the spline CI for sufficient samples at a particular statistic value.
         .extract_sufficient_samples = function(statistic_value) {
             # Find CI at statistic value.
@@ -171,13 +186,16 @@ StepThree <- R6::R6Class("StepThree",
 
                 # Run the bootstrap in parallel.
                 private$.bootstrap_parallel(boots, cores)
+
+                # Compute confidence intervals for the entire spline in parallel.
+                private$.compute_spline_ci_parallel(lower, upper, cores)
             } else {
                 # Run the bootstrap sequentially.
                 private$.bootstrap(boots)
-            }
 
-            # Compute confidence intervals for the entire spline.
-            private$.compute_spline_ci(lower = lower, upper = upper)
+                # Compute confidence intervals for the entire spline sequentially.
+                private$.compute_spline_ci(lower, upper)
+            }
 
             # Extract the confidence intervals for the sufficient sample sizes.
             private$.extract_sufficient_samples(private$.step_2$step_1$statistic_value)
@@ -381,7 +399,7 @@ StepThree <- R6::R6Class("StepThree",
         boots = function() { return(private$.boots) },
         boot_splines = function() { return(private$.boot_splines) },
         spline_ci = function() { return(private$.spline_ci) },
-        sufficient_samples_ci = function() { return(private$.sufficient_samples) },
+        sufficient_samples = function() { return(private$.sufficient_samples) },
         duration = function() { return(private$.duration) }
     )
 )
