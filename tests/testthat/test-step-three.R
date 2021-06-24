@@ -173,6 +173,9 @@ test_that("'StepThree' extracts the sufficient samples correctly", {
     # Run the bootstrap sequentially.
     step_3$bootstrap(3000, cores = NULL)
 
+    # Compute the CI.
+    step_3$compute()
+
     # Extract the selection rule.
     selection_rule <- step_3$.__enclos_env__$private$.selection_rule
 
@@ -184,8 +187,8 @@ test_that("'StepThree' extracts the sufficient samples correctly", {
     # Compute the CI for the sufficient samples.
     sufficient_samples <- quantile(sufficient_samples, c(0, .025, .5, .975, 1), na.rm = TRUE)
 
-    # The CI should match.
-    expect_equal(round(step_3$sufficient_samples), round(sufficient_samples))
+    # The CI should match within a tolerance range.
+    testthat::expect_lte(sum(abs(step_3$sufficient_samples - sufficient_samples)), 1)
 })
 
 
