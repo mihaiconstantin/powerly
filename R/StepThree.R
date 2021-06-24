@@ -204,7 +204,7 @@ StepThree <- R6::R6Class("StepThree",
             private$.duration <- Sys.time() - start_time
         },
 
-        plot = function(histogram = TRUE) {
+        plot = function() {
             # Revert the changes on exit.
             on.exit({
                 # Restore layout.
@@ -235,28 +235,28 @@ StepThree <- R6::R6Class("StepThree",
             title(
                 main = paste0("Bootstrap CI (Percentile Method)"),
                 ylab = paste0("Value for statistic '", toupper(sub("Statistic", "", class(private$.step_2$step_1$statistic)[1])), "'"),
-                cex.lab = 1.5,
-                cex.main = 1.5
+                cex.lab = 1,
+                cex.main = 1
             )
             title(
                 xlab = "Sample size",
-                cex.lab = 1.5,
+                cex.lab = 1,
                 line = 4
             )
             axis(
                 side = 1,
                 at = private$.step_2$step_1$range$partition,
                 las = 2,
-                cex.axis = 1.3
+                cex.axis = .9
             )
             axis(
                 side = 2,
-                cex.axis = 1.3
+                cex.axis = .9
             )
             abline(
                 h = private$.step_2$step_1$statistic_value,
                 col = "#2c2c2c",
-                lty = 2
+                lty = 3
             )
             polygon(
                 x = c(private$.step_2$interpolation$x, private$.step_2$interpolation$x[order(private$.step_2$interpolation$x, decreasing = TRUE)]),
@@ -281,60 +281,61 @@ StepThree <- R6::R6Class("StepThree",
                 col = "darkred",
                 lwd = 2
             )
-            # Compute CI for current criterion.
-            ci.at.criterion <- self$get_ci_at_statistic()
+
+            # Display CI for current statistic value.
             segments(
-                x0 = c(ci.at.criterion["2.5%"], ci.at.criterion["97.5%"]),
-                y0 = c(min(private$.spline_ci), min(private$.spline_ci)),
-                x1 = c(ci.at.criterion["2.5%"], ci.at.criterion["97.5%"]),
+                x0 = c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
+                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.05,
+                x1 = c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
                 y1 = c(private$.step_2$step_1$statistic_value, private$.step_2$step_1$statistic_value),
                 col = "#1c5b8f",
                 lty = 2,
                 lwd = 2
             )
             segments(
-                x0 = c(ci.at.criterion["0%"], ci.at.criterion["100%"]),
+                x0 = c(private$.sufficient_samples["0%"], private$.sufficient_samples["100%"]),
                 y0 = c(min(private$.spline_ci), min(private$.spline_ci)),
-                x1 = c(ci.at.criterion["0%"], ci.at.criterion["100%"]),
+                x1 = c(private$.sufficient_samples["0%"], private$.sufficient_samples["100%"]),
                 y1 = c(private$.step_2$step_1$statistic_value, private$.step_2$step_1$statistic_value),
                 col = "#bc8f8fb9",
-                lty = 2,
-                lwd = 2
+                lty = 3,
+                lwd = 1
             )
             segments(
-                x0 = ci.at.criterion["2.5%"],
+                x0 = private$.sufficient_samples["2.5%"],
                 y0 = private$.step_2$step_1$statistic_value,
-                x1 = ci.at.criterion["97.5%"],
+                x1 = private$.sufficient_samples["97.5%"],
                 y1 = private$.step_2$step_1$statistic_value,
                 col = "#1c5b8f",
                 lty = 2,
                 lwd = 2
             )
             segments(
-                x0 = ci.at.criterion["0%"],
+                x0 = private$.sufficient_samples["0%"],
                 y0 = private$.step_2$step_1$statistic_value,
-                x1 = ci.at.criterion["2.5%"],
+                x1 = private$.sufficient_samples["2.5%"],
                 y1 = private$.step_2$step_1$statistic_value,
                 col = "darkred",
-                lty = 2,
-                lwd = 2
+                lty = 3,
+                lwd = 1
             )
             segments(
-                x0 = ci.at.criterion["97.5%"],
+                x0 = private$.sufficient_samples["97.5%"],
                 y0 = private$.step_2$step_1$statistic_value,
-                x1 = ci.at.criterion["100%"],
+                x1 = private$.sufficient_samples["100%"],
                 y1 = private$.step_2$step_1$statistic_value,
                 col = "darkred",
-                lty = 2,
-                lwd = 2
+                lty = 3,
+                lwd = 1
             )
             text(
-                c(ci.at.criterion["2.5%"], ci.at.criterion["97.5%"]),
-                c(min(private$.spline_ci), min(private$.spline_ci)) - 0.01,
-                c(ci.at.criterion["2.5%"], ci.at.criterion["97.5%"]),
+                c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
+                c(min(private$.spline_ci), min(private$.spline_ci)),
+                c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
                 col = "#1c5b8f",
                 font = 2,
-                cex = 1.5
+                cex = 1,
+                srt = 90
             )
             legend(
                 "topleft",
@@ -344,7 +345,7 @@ StepThree <- R6::R6Class("StepThree",
                 density = c(NA, NA),
                 bty = "n",
                 border = c("#bc8f8f52", "#4683b455"),
-                cex = 1.5
+                cex = 1
             )
         }
     ),
