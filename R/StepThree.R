@@ -196,28 +196,6 @@ StepThree <- R6::R6Class("StepThree",
             private$.sufficient_samples_ci <- private$.extract_sufficient_samples_ci(statistic_value)
         },
 
-        # Get confidence intervals for each sample size in the sequence.
-        get_spline_ci = function(lower = 0.025, upper = 0.975) {
-            # Check CI range.
-            if (upper < lower) {
-                stop("Invalid CI range: 'upper' must be greater than 'lower'.")
-            }
-
-            # Compute the CI for the requested bounds.
-            return(private$.compute_spline_ci(lower, upper))
-        },
-
-        # Get the CI for the sufficient samples observed to reach a statistic value.
-        get_sufficient_samples_ci = function(statistic_value) {
-            # If no statistic value is provided, then use the default one.
-            if (missing(statistic_value)) {
-                statistic_value <- private$.step_2$step_1$statistic_value
-            }
-
-            # Extract the CI for the sufficient sample sizes.
-            return(private$.extract_sufficient_samples_ci(statistic_value))
-        },
-
         plot = function(histogram = TRUE) {
             # Revert the changes on exit.
             on.exit({
