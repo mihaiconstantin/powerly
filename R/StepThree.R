@@ -8,14 +8,14 @@ StepThree <- R6::R6Class("StepThree",
 
         .boot_splines = NULL,
         .spline_ci = NULL,
-        .sufficient_samples_ci = NULL,
+        .sufficient_samples = NULL,
 
         # Reset any previous bootstrapped values
         .clear_bootstrap = function() {
             private$.boots <- NULL
             private$.boot_splines <- NULL
             private$.spline_ci <- NULL
-            private$.sufficient_samples_ci = NULL
+            private$.sufficient_samples = NULL
         },
 
         # Expose data in a specified environment for faster access.
@@ -126,7 +126,7 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Extract the spline CI for sufficient samples at a particular statistic value.
-        .extract_sufficient_samples_ci = function(statistic_value) {
+        .extract_sufficient_samples = function(statistic_value) {
             # Find CI at statistic value.
             sufficient_samples_ci <- apply(private$.spline_ci, 2, function(ci) {
                 private$.step_2$interpolation$x[private$.selection_rule(ci, statistic_value, private$.step_2$spline$basis$monotone, private$.step_2$spline$solver$increasing)]
@@ -137,7 +137,7 @@ StepThree <- R6::R6Class("StepThree",
             names(sufficient_samples_ci) <- rev(names(sufficient_samples_ci))
 
             # Store the CI for the sufficient samples.
-            private$.sufficient_samples_ci <- sufficient_samples_ci
+            private$.sufficient_samples <- sufficient_samples_ci
         }
     ),
 
@@ -180,7 +180,7 @@ StepThree <- R6::R6Class("StepThree",
             private$.compute_spline_ci(lower = 0.025, upper = 0.975)
 
             # Extract the confidence intervals for the sufficient sample sizes.
-            private$.extract_sufficient_samples_ci(private$.step_2$step_1$statistic_value)
+            private$.extract_sufficient_samples(private$.step_2$step_1$statistic_value)
 
             # Compute how long the bootstrap took.
             private$.duration <- Sys.time() - start_time
@@ -381,7 +381,7 @@ StepThree <- R6::R6Class("StepThree",
         boots = function() { return(private$.boots) },
         boot_splines = function() { return(private$.boot_splines) },
         spline_ci = function() { return(private$.spline_ci) },
-        sufficient_samples_ci = function() { return(private$.sufficient_samples_ci) },
+        sufficient_samples_ci = function() { return(private$.sufficient_samples) },
         duration = function() { return(private$.duration) }
     )
 )
