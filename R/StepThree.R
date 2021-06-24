@@ -346,51 +346,6 @@ StepThree <- R6::R6Class("StepThree",
                 border = c("#bc8f8f52", "#4683b455"),
                 cex = 1.5
             )
-
-            # Should it also overlay the histogram?
-            if(histogram) {
-                # Compute histogram at current criterion.
-                sufficient_samples <- self$get_dist_at_criterion()
-
-                # Adjust margins.
-                par(mar = c(10, 6.1, 6.1, 4.1))
-
-                # Plot histogram.
-                hist(
-                    sufficient_samples,
-                    xlab = NULL,
-                    ylab = NULL,
-                    main = NULL,
-                    xaxt = "n",
-                    yaxt = "n",
-                    prob = TRUE,
-                    col = "#00000021",
-                    border = NA
-                )
-                title(
-                    main = paste0("Sufficient samples at ", private$.step_2$step_1$statistic_value),
-                    cex.main = 1.3
-                )
-                axis(
-                    side = 1,
-                    at = round(seq(min(sufficient_samples), max(sufficient_samples), length.out = 10), 0),
-                    tck = -0.01,
-                    cex.axis = 1,
-                    las = 2,
-                    line = 0
-                )
-                lines(
-                    density(sufficient_samples),
-                    lwd = 2,
-                    col = "#2c2c2c"
-                )
-                abline(
-                    v = quantile(sufficient_samples, c(0.025, 0.975)),
-                    col = "#1c5b8f",
-                    lty = 2,
-                    lwd = 2
-                )
-            }
         }
     ),
 
