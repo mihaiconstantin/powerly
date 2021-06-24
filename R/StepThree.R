@@ -141,7 +141,7 @@ StepThree <- R6::R6Class("StepThree",
             names(sufficient_samples_ci) <- rev(names(sufficient_samples_ci))
 
             return(sufficient_samples_ci)
-        },
+        }
     ),
 
     public = list(
