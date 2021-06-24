@@ -8,7 +8,6 @@ StepThree <- R6::R6Class("StepThree",
         .boot_splines = NULL,
 
         .spline_ci = NULL,
-        .sufficient_samples = NULL,
         .sufficient_samples_ci = NULL,
 
         .duration = NULL,
@@ -18,7 +17,6 @@ StepThree <- R6::R6Class("StepThree",
             private$.boots <- NULL
             private$.boot_splines <- NULL
             private$.spline_ci <- NULL
-            private$.sufficient_samples <- NULL
             private$.sufficient_samples_ci = NULL
         },
 
@@ -144,26 +142,6 @@ StepThree <- R6::R6Class("StepThree",
 
             return(sufficient_samples_ci)
         },
-
-        # Extract distribution of bootstrapped statistic for particular sample size.
-        .compute_sufficient_samples = function(statistic_value) {
-            # What kind of spline was this?
-            monotone <- private$.step_2$spline$basis$monotone
-            increasing <- private$.step_2$spline$solver$increasing
-
-            # Sequence.
-            sequence <- private$.step_2$interpolation$x
-
-            # Selection rule.
-            selection_rule <- private$.selection_rule
-
-            # Find sufficient samples among the bootstrapped splines.
-            samples <- apply(private$.boot_splines, 1, function(spline) {
-                sequence[selection_rule(spline, statistic_value, monotone, increasing)]
-            })
-
-            return(samples)
-        }
     ),
 
     public = list(
@@ -214,9 +192,6 @@ StepThree <- R6::R6Class("StepThree",
             # Confidence intervals for the spline.
             private$.spline_ci <- private$.compute_spline_ci(lower = 0.025, upper = 0.975)
 
-            # The distribution of sufficient sample sizes.
-            private$.sufficient_samples <- private$.compute_sufficient_samples(statistic_value)
-
             # The confidence intervals for sufficient sample sizes.
             private$.sufficient_samples_ci <- private$.extract_sufficient_samples_ci(statistic_value)
         },
@@ -241,17 +216,6 @@ StepThree <- R6::R6Class("StepThree",
 
             # Extract the CI for the sufficient sample sizes.
             return(private$.extract_sufficient_samples_ci(statistic_value))
-        },
-
-        # Get sufficient samples observed throughout bootstrap to reach a statistic value.
-        get_sufficient_samples = function(statistic_value) {
-            # If no statistic value is provided, then use the default one.
-            if (missing(statistic_value)) {
-                statistic_value <- private$.step_2$step_1$statistic_value
-            }
-
-            # Compute the sufficient sample sizes.
-            return(private$.compute_sufficient_samples(statistic_value))
         },
 
         plot = function(histogram = TRUE) {
