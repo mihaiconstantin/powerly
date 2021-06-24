@@ -72,6 +72,13 @@ StepThreeTester <- R6::R6Class("StepThreeTester",
                 private$.selection_rule(spline, statistic_value, monotone, increasing)
             )
         },
+
+        # Expose single bootstrap run to the public API.
+        boot = function(available_samples, measures, measure_value, replications, extended_basis, statistic, solver) {
+            # Call the method we want to test.
+            return(
+                private$.boot(1, available_samples, measures, measure_value, replications, extended_basis, statistic, solver)
+            )
         }
     )
 )
