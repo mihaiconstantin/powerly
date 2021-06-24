@@ -148,7 +148,7 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Perform the bootstrap.
-        bootstrap = function(boots = 3000, cores = NULL) {
+        bootstrap = function(boots = 3000, lower = 0.025, upper = 0.975, cores = NULL) {
             # Time when the bootstrap started.
             start_time <- Sys.time()
 
@@ -177,7 +177,7 @@ StepThree <- R6::R6Class("StepThree",
             }
 
             # Compute confidence intervals for the entire spline.
-            private$.compute_spline_ci(lower = 0.025, upper = 0.975)
+            private$.compute_spline_ci(lower = lower, upper = upper)
 
             # Extract the confidence intervals for the sufficient sample sizes.
             private$.extract_sufficient_samples(private$.step_2$step_1$statistic_value)
