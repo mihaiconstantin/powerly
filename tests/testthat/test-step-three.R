@@ -37,3 +37,109 @@ test_that("'StepThree' selects correctly a sufficient sample size", {
     expect_equal(length(spline), step_3$selection_rule(spline, 1.1, monotone = FALSE, increasing = NULL))
     expect_equal(1, step_3$selection_rule(spline, -0.1, monotone = FALSE, increasing = NULL))
 })
+
+
+test_that("'StepThree' performs a bootstrap run correctly", {
+    # Create range.
+    range <- Range$new(100, 1000, 10)
+
+    # Create Step One.
+    step_1 <- StepOne$new()
+
+    # Configure Step One.
+    step_1$set_range(range)
+    step_1$set_model("ggm")
+    step_1$set_true_model_parameters(nodes = 10, density = .4)
+    step_1$set_measure("sen", .6)
+    step_1$set_statistic("power", .8)
+
+    # Compute Step One.
+    step_1$simulate(10, cores = NULL)
+    step_1$compute()
+
+    # Create Step Two.
+    step_2 <- StepTwo$new(step_1)
+
+    # Compute Step Two.
+    step_2$fit(monotone = TRUE, increasing = TRUE)
+
+    # Create Step Three tester.
+    step_3 <- StepThreeTester$new()
+
+    # Get a seed value.
+    seed <- runif(1)
+
+    # Set seed.
+    set.seed(seed)
+
+    # Perform single bootstrap run via the implementation.
+    boot_spline_impl <- step_3$boot(
+        range$available_samples,
+        step_1$measures,
+        step_1$measure_value,
+        step_1$replications,
+        step_2$interpolation$basis_matrix,
+        step_1$statistic$compute,
+        step_2$spline$solver
+    )
+
+    # Set seed.
+    set.seed(seed)
+
+    # Perform a single bootstrap run manually.
+    # First bootstrap new statistics.
+    boot_statistics <- apply(step_1$measures, 2, function(runs) {
+        return(
+            step_1$statistic$compute(sample(runs, size = step_1$replications, replace = TRUE), step_1$measure_value)
+        )
+    })
+
+    # Then fit and interpolate.
+    boot_spline <- step_2$interpolation$basis_matrix %*% step_2$spline$solver$solve_update(boot_statistics)
+
+    # Both bootstrapped splines should yield similar measures.
+    expect_equal(boot_spline_impl, boot_spline)
+})
+
+
+test_that("'StepThree' performs the bootstrap procedure correctly", {
+        # Create range.
+        range <- Range$new(100, 1000, 10)
+
+        # Create Step One.
+        step_1 <- StepOne$new()
+
+        # Configure Step One.
+        step_1$set_range(range)
+        step_1$set_model("ggm")
+        step_1$set_true_model_parameters(nodes = 10, density = .4)
+        step_1$set_measure("sen", .6)
+        step_1$set_statistic("power", .8)
+
+        # Compute Step One.
+        step_1$simulate(10, cores = NULL)
+        step_1$compute()
+
+        # Create Step Two.
+        step_2 <- StepTwo$new(step_1)
+
+        # Compute Step Two.
+        step_2$fit(monotone = TRUE, increasing = TRUE)
+
+        # Create Step Three tester.
+        step_3 <- StepThree$new(step_2)
+
+        # Run the bootstrap sequentially.
+        step_3$bootstrap(1000, cores = NULL)
+
+        # Check the dimensions of the bootstrapped splines.
+        expect_equal(dim(step_3$boot_splines), c(1000, range$sequence_length))
+
+        # Run the bootstrap in parallel.
+        step_3$bootstrap(1000, cores = 7)
+
+        # Check the dimensions of the bootstrapped splines.
+        expect_equal(dim(step_3$boot_splines), c(1000, range$sequence_length))
+})
+
+
