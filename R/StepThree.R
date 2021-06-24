@@ -121,12 +121,10 @@ StepThree <- R6::R6Class("StepThree",
         # Compute confidence intervals.
         .compute_spline_ci = function(lower, upper) {
             # Compute the confidence intervals via the percentile method.
-            spline_ci <- t(apply(private$.boot_splines, 2, quantile, probs = c(0, lower, .5, upper, 1), na.rm = TRUE))
+            private$.spline_ci <- t(apply(private$.boot_splines, 2, quantile, probs = c(0, lower, .5, upper, 1), na.rm = TRUE))
 
             # Add row names for clarity.
-            rownames(spline_ci) <- private$.step_2$interpolation$x
-
-            return(spline_ci)
+            rownames(private$.spline_ci) <- private$.step_2$interpolation$x
         },
 
         # Extract the spline CI for sufficient samples at a particular statistic value.
@@ -140,7 +138,8 @@ StepThree <- R6::R6Class("StepThree",
             sufficient_samples_ci <- sufficient_samples_ci[rev(1:length(sufficient_samples_ci))]
             names(sufficient_samples_ci) <- rev(names(sufficient_samples_ci))
 
-            return(sufficient_samples_ci)
+            # Store the CI for the sufficient samples.
+            private$.sufficient_samples_ci <- sufficient_samples_ci
         }
     ),
 
@@ -187,10 +186,10 @@ StepThree <- R6::R6Class("StepThree",
         # Compute relevant statistics based on the bootstrap.
         compute = function() {
             # Confidence intervals for the spline.
-            private$.spline_ci <- private$.compute_spline_ci(lower = 0.025, upper = 0.975)
+            private$.compute_spline_ci(lower = 0.025, upper = 0.975)
 
             # The confidence intervals for sufficient sample sizes.
-            private$.sufficient_samples_ci <- private$.extract_sufficient_samples_ci(private$.step_2$step_1$statistic_value)
+            private$.extract_sufficient_samples_ci(private$.step_2$step_1$statistic_value)
         },
 
         plot = function(histogram = TRUE) {
