@@ -176,17 +176,14 @@ StepThree <- R6::R6Class("StepThree",
                 private$.bootstrap(boots)
             }
 
-            # Compute how long the bootstrap took.
-            private$.duration <- Sys.time() - start_time
-        },
-
-        # Compute relevant statistics based on the bootstrap.
-        compute = function() {
-            # Confidence intervals for the spline.
+            # Compute confidence intervals for the entire spline.
             private$.compute_spline_ci(lower = 0.025, upper = 0.975)
 
-            # The confidence intervals for sufficient sample sizes.
+            # Extract the confidence intervals for the sufficient sample sizes.
             private$.extract_sufficient_samples_ci(private$.step_2$step_1$statistic_value)
+
+            # Compute how long the bootstrap took.
+            private$.duration <- Sys.time() - start_time
         },
 
         plot = function(histogram = TRUE) {
