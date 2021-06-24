@@ -186,14 +186,11 @@ StepThree <- R6::R6Class("StepThree",
 
         # Compute relevant statistics based on the bootstrap.
         compute = function() {
-            # Statistic value of interest.
-            statistic_value = private$.step_2$step_1$statistic_value
-
             # Confidence intervals for the spline.
             private$.spline_ci <- private$.compute_spline_ci(lower = 0.025, upper = 0.975)
 
             # The confidence intervals for sufficient sample sizes.
-            private$.sufficient_samples_ci <- private$.extract_sufficient_samples_ci(statistic_value)
+            private$.sufficient_samples_ci <- private$.extract_sufficient_samples_ci(private$.step_2$step_1$statistic_value)
         },
 
         plot = function(histogram = TRUE) {
