@@ -143,3 +143,47 @@ test_that("'StepThree' performs the bootstrap procedure correctly", {
 })
 
 
+test_that("'StepThree' extracts the sufficient samples CI correctly", {
+    # Create range.
+    range <- Range$new(100, 1000, 10)
+
+    # Create Step One.
+    step_1 <- StepOne$new()
+
+    # Configure Step One.
+    step_1$set_range(range)
+    step_1$set_model("ggm")
+    step_1$set_true_model_parameters(nodes = 10, density = .4)
+    step_1$set_measure("sen", .6)
+    step_1$set_statistic("power", .8)
+
+    # Compute Step One.
+    step_1$simulate(10, cores = NULL)
+    step_1$compute()
+
+    # Create Step Two.
+    step_2 <- StepTwo$new(step_1)
+
+    # Compute Step Two.
+    step_2$fit(monotone = TRUE, increasing = TRUE)
+
+    # Create Step Three tester.
+    step_3 <- StepThree$new(step_2)
+
+    # Run the bootstrap sequentially.
+    step_3$bootstrap(1000, cores = NULL)
+
+    # Compute the confidence intervals.
+    step_3$compute()
+
+    # Get all the sufficient samples manually.
+    sufficient_samples <- apply(step_3$boot_splines, 1, function(spline) {
+        return(range$sequence[which(spline >= step_1$statistic_value)[1]])
+    })
+
+    # Compute the CI for the sufficient samples.
+    sufficient_samples_ci <- quantile(sufficient_samples, c(0, .025, .5, .975, 1))
+
+    # The CI should match.
+    expect_equal(round(step_3$sufficient_samples_ci), round(sufficient_samples_ci))
+})
