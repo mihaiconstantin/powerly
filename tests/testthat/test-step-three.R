@@ -187,3 +187,44 @@ test_that("'StepThree' extracts the sufficient samples correctly", {
     # The CI should match.
     expect_equal(round(step_3$sufficient_samples), round(sufficient_samples))
 })
+
+
+test_that("'StepThree' computes the confidence intervals correctly", {
+    # Create range.
+    range <- Range$new(100, 1000, 10)
+
+    # Create Step One.
+    step_1 <- StepOne$new()
+
+    # Configure Step One.
+    step_1$set_range(range)
+    step_1$set_model("ggm")
+    step_1$set_true_model_parameters(nodes = 10, density = .4)
+    step_1$set_measure("sen", .6)
+    step_1$set_statistic("power", .8)
+
+    # Compute Step One.
+    step_1$simulate(10, cores = NULL)
+    step_1$compute()
+
+    # Create Step Two.
+    step_2 <- StepTwo$new(step_1)
+
+    # Compute Step Two.
+    step_2$fit(monotone = TRUE, increasing = TRUE)
+
+    # Create Step Three tester.
+    step_3 <- StepThree$new(step_2)
+
+    # Run the bootstrap sequentially.
+    step_3$bootstrap(3000, cores = NULL)
+
+    # Compute confidence intervals sequentially.
+    spline_ci_sequential <- step_3$compute()
+
+    # Compute confidence intervals in parallel.
+    spline_ci_parallel <- step_3$compute(cores = 7)
+
+    # The confidence intervals should match.
+    expect_equal(spline_ci_sequential, spline_ci_parallel)
+})
