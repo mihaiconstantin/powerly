@@ -143,7 +143,7 @@ test_that("'StepThree' performs the bootstrap procedure correctly", {
 })
 
 
-test_that("'StepThree' extracts the sufficient samples CI correctly", {
+test_that("'StepThree' extracts the sufficient samples correctly", {
     # Create range.
     range <- Range$new(100, 1000, 10)
 
@@ -171,19 +171,19 @@ test_that("'StepThree' extracts the sufficient samples CI correctly", {
     step_3 <- StepThree$new(step_2)
 
     # Run the bootstrap sequentially.
-    step_3$bootstrap(1000, cores = NULL)
+    step_3$bootstrap(3000, cores = NULL)
 
-    # Compute the confidence intervals.
-    step_3$compute()
+    # Extract the selection rule.
+    selection_rule <- step_3$.__enclos_env__$private$.selection_rule
 
     # Get all the sufficient samples manually.
     sufficient_samples <- apply(step_3$boot_splines, 1, function(spline) {
-        return(range$sequence[which(spline >= step_1$statistic_value)[1]])
+        return(range$sequence[selection_rule(spline, statistic_value = step_1$statistic_value, monotone = TRUE, increasing = TRUE)])
     })
 
     # Compute the CI for the sufficient samples.
-    sufficient_samples_ci <- quantile(sufficient_samples, c(0, .025, .5, .975, 1))
+    sufficient_samples <- quantile(sufficient_samples, c(0, .025, .5, .975, 1), na.rm = TRUE)
 
     # The CI should match.
-    expect_equal(round(step_3$sufficient_samples_ci), round(sufficient_samples_ci))
+    expect_equal(round(step_3$sufficient_samples), round(sufficient_samples))
 })
