@@ -167,7 +167,7 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Perform the bootstrap.
-        bootstrap = function(boots = 3000, lower = 0.025, upper = 0.975, cores = NULL) {
+        bootstrap = function(boots = 3000, cores = NULL) {
             # Time when the bootstrap started.
             start_time <- Sys.time()
 
@@ -190,22 +190,46 @@ StepThree <- R6::R6Class("StepThree",
 
                 # Run the bootstrap in parallel.
                 private$.bootstrap_parallel(boots, cores)
+            } else {
+                # Run the bootstrap sequentially.
+                private$.bootstrap(boots)
+            }
+
+            # Compute how long the bootstrap took.
+            private$.duration <- Sys.time() - start_time
+        },
+
+        # Compute confidence intervals.
+        compute = function(lower = 0.025, upper = 0.975, cores = NULL) {
+            # Time when the bootstrap started.
+            start_time <- Sys.time()
+
+            # Reset any previous CI before computing new ones.
+            private$.clear_ci()
+
+            # Decide whether to run in a cluster or sequentially.
+            if (!is.null(cores) && cores > 1) {
+                # How many cores are available on the machine?
+                max_cores <- parallel::detectCores()
+
+                # Validate number of cores provided.
+                if (cores >= max_cores) {
+                    # Set to max available cores less one.
+                    cores <- max_cores - 1
+                }
 
                 # Compute confidence intervals for the entire spline in parallel.
                 private$.compute_spline_ci_parallel(lower, upper, cores)
             } else {
-                # Run the bootstrap sequentially.
-                private$.bootstrap(boots)
-
                 # Compute confidence intervals for the entire spline sequentially.
                 private$.compute_spline_ci(lower, upper)
             }
 
-            # Extract the confidence intervals for the sufficient sample sizes.
-            private$.extract_sufficient_samples(private$.step_2$step_1$statistic_value)
-
             # Compute how long the bootstrap took.
             private$.duration <- Sys.time() - start_time
+
+            # Extract the confidence intervals for the sufficient sample sizes.
+            private$.extract_sufficient_samples(private$.step_2$step_1$statistic_value)
         },
 
         plot = function() {
