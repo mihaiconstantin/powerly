@@ -70,20 +70,17 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Performing the bootstrapping procedure in parallel.
-        .bootstrap_parallel = function(boots, cores) {
+        .bootstrap_parallel = function(boots, backend) {
             # Expose data for fast access.
             private$.expose_data(environment())
 
-            # Make cluster.
-            cluster <- parallel::makePSOCKcluster(cores)
-
-            # Stop the cluster on exit.
-            on.exit(parallel::stopCluster(cluster))
-
             # Run bootstrap.
-            private$.boot_splines <- t(parallel::parSapply(cluster, seq_len(boots), boot,
+            private$.boot_splines <- t(parallel::parSapply(backend$cluster, seq_len(boots), boot,
                 available_samples, measures, measure_value, replications, extended_basis, statistic, solver
             ))
+
+            # Clear the cluster.
+            backend$clear()
         },
 
         # Rule for selecting sufficient sample sizes based on the shape of the spline.
@@ -167,7 +164,7 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Perform the bootstrap.
-        bootstrap = function(boots = 3000, cores = NULL) {
+        bootstrap = function(boots = 3000, backend = NULL) {
             # Time when the bootstrap started.
             start_time <- Sys.time()
 
@@ -178,18 +175,9 @@ StepThree <- R6::R6Class("StepThree",
             private$.boots <- boots
 
             # Decide whether to run in a cluster or sequentially.
-            if (!is.null(cores) && cores > 1) {
-                # How many cores are available on the machine?
-                max_cores <- parallel::detectCores()
-
-                # Validate number of cores provided.
-                if (cores >= max_cores) {
-                    # Set to max available cores less one.
-                    cores <- max_cores - 1
-                }
-
+            if (!is.null(backend)) {
                 # Run the bootstrap in parallel.
-                private$.bootstrap_parallel(boots, cores)
+                private$.bootstrap_parallel(boots, backend)
             } else {
                 # Run the bootstrap sequentially.
                 private$.bootstrap(boots)
