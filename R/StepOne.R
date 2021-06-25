@@ -76,13 +76,7 @@ StepOne <- R6::R6Class("StepOne",
         },
 
         # Replicate the MC simulations in parallel.
-        .simulate_parallel = function(cores) {
-            # Make cluster.
-            cluster <- parallel::makePSOCKcluster(cores)
-
-            # Stop the cluster on exit.
-            on.exit(parallel::stopCluster(cluster))
-
+        .simulate_parallel = function() {
             # Replicated sample sizes.
             samples <- sort(rep(private$.range$partition, private$.replications))
 
@@ -132,7 +126,7 @@ StepOne <- R6::R6Class("StepOne",
         },
 
         # Perform Monte Carlo simulations given the current configuration.
-        simulate = function(replications, cores = NULL) {
+        simulate = function(replications, parallel = FALSE) {
             # Time when the simulation started.
             start_time <- Sys.time()
 
@@ -143,18 +137,9 @@ StepOne <- R6::R6Class("StepOne",
             private$.replications <- replications
 
             # Decide whether to run in a cluster or sequentially.
-            if(!is.null(cores) && cores > 1) {
-                # How many cores are available on the machine?
-                max_cores <- parallel::detectCores()
-
-                # Validate number of cores provided.
-                if(cores >= max_cores) {
-                    # Set to max available cores less one.
-                    cores <- max_cores - 1
-                }
-
+            if (parallel){
                 # Replicate Monte Carlo runs in parallel.
-                private$.simulate_parallel(cores)
+                private$.simulate_parallel()
             } else {
                 # Replicate Monte Carlo runs sequentially.
                 private$.simulate()
