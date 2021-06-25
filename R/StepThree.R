@@ -127,18 +127,15 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Compute confidence intervals.
-        .compute_spline_ci_parallel = function(lower, upper, cores) {
-            # Make cluster.
-            cluster <- parallel::makePSOCKcluster(cores)
-
-            # Stop the cluster on exit.
-            on.exit(parallel::stopCluster(cluster))
-
+        .compute_spline_ci_parallel = function(lower, upper, backend) {
             # Compute the confidence intervals via the percentile method.
-            private$.spline_ci <- t(parallel::parApply(cluster, private$.boot_splines, 2, quantile, probs = c(0, lower, .5, upper, 1), na.rm = TRUE))
+            private$.spline_ci <- t(parallel::parApply(backend$cluster, private$.boot_splines, 2, quantile, probs = c(0, lower, .5, upper, 1), na.rm = TRUE))
 
             # Add row names for clarity.
             rownames(private$.spline_ci) <- private$.step_2$interpolation$x
+
+            # Clear the cluster.
+            backend$clear()
         },
 
         # Extract the spline CI for sufficient samples at a particular statistic value.
@@ -188,7 +185,7 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Compute confidence intervals.
-        compute = function(lower = 0.025, upper = 0.975, cores = NULL) {
+        compute = function(lower = 0.025, upper = 0.975, backend = NULL) {
             # Time when the bootstrap started.
             start_time <- Sys.time()
 
@@ -196,18 +193,9 @@ StepThree <- R6::R6Class("StepThree",
             private$.clear_ci()
 
             # Decide whether to run in a cluster or sequentially.
-            if (!is.null(cores) && cores > 1) {
-                # How many cores are available on the machine?
-                max_cores <- parallel::detectCores()
-
-                # Validate number of cores provided.
-                if (cores >= max_cores) {
-                    # Set to max available cores less one.
-                    cores <- max_cores - 1
-                }
-
+            if (!is.null(backend)) {
                 # Compute confidence intervals for the entire spline in parallel.
-                private$.compute_spline_ci_parallel(lower, upper, cores)
+                private$.compute_spline_ci_parallel(lower, upper, backend)
             } else {
                 # Compute confidence intervals for the entire spline sequentially.
                 private$.compute_spline_ci(lower, upper)
