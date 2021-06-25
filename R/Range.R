@@ -59,6 +59,20 @@ Range <- R6::R6Class("Range",
             private$.make_sequence()
         },
 
+        # Check convergence.
+        has_converged = function(step_3, lower_ci = "2.5%", upper_ci = "97.5%") {
+            # Extract bounds.
+            lower <- step_3$sufficient_samples[lower_ci]
+            upper <- step_3$sufficient_samples[upper_ci]
+
+            # Perform check.
+            if ((upper - lower) <= private$.tolerance) {
+                return(TRUE)
+            } else {
+                return(FALSE)
+            }
+        },
+
         # Update the range based on Step 3 bootstrapping.
         update = function(step_3, lower_ci = "2.5%", upper_ci = "97.5%") {
             # Extract bounds.
