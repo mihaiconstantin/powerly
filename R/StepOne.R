@@ -76,12 +76,15 @@ StepOne <- R6::R6Class("StepOne",
         },
 
         # Replicate the MC simulations in parallel.
-        .simulate_parallel = function() {
+        .simulate_parallel = function(backend) {
             # Replicated sample sizes.
             samples <- sort(rep(private$.range$partition, private$.replications))
 
             # Run simulation.
-            private$.measures <- matrix(parallel::parSapply(cluster, samples, private$.monte_carlo), private$.replications, private$.range$available_samples)
+            private$.measures <- matrix(parallel::parSapply(backend$cluster, samples, private$.monte_carlo), private$.replications, private$.range$available_samples)
+
+            # Clear the cluster.
+            backend$clear()
         }
     ),
 
@@ -126,7 +129,7 @@ StepOne <- R6::R6Class("StepOne",
         },
 
         # Perform Monte Carlo simulations given the current configuration.
-        simulate = function(replications, parallel = FALSE) {
+        simulate = function(replications, backend = NULL) {
             # Time when the simulation started.
             start_time <- Sys.time()
 
@@ -137,9 +140,9 @@ StepOne <- R6::R6Class("StepOne",
             private$.replications <- replications
 
             # Decide whether to run in a cluster or sequentially.
-            if (parallel){
+            if (!is.null(backend)){
                 # Replicate Monte Carlo runs in parallel.
-                private$.simulate_parallel()
+                private$.simulate_parallel(backend)
             } else {
                 # Replicate Monte Carlo runs sequentially.
                 private$.simulate()
