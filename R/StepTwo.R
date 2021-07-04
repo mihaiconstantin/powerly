@@ -446,7 +446,7 @@ StepTwo <- R6::R6Class("StepTwo",
         interpolation = function() { return(private$.interpolation) },
         cv = function() { return(private$.cv) },
         ssq = function() {
-            return(sum((private$.spline$solver$y - private$.spline$fitted) ^ 2))
+            return(sum((private$.step_1$statistics - private$.spline$fitted) ^ 2))
         }
     )
 )
