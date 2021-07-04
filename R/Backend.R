@@ -128,6 +128,15 @@ Backend <- R6::R6Class("Backend",
     ),
 
     public = list(
+        # Destructor.
+        finalize = function() {
+            # If a cluster is active, stop before deleting the instance.
+            if (private$.active) {
+                # Stop the cluster.
+                private$.stop()
+            }
+        },
+
         # Start the cluster.
         start = function(cores, type = NULL) {
             private$.start(cores, type)
