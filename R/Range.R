@@ -10,6 +10,7 @@ Range <- R6::R6Class("Range",
         .sequence = NULL,
         .sequence_length = NULL,
 
+        # Make a partition from the bounds.
         .make_partition = function() {
             # Check that the range has valid bounds.
             if(private$.lower > private$.upper) {
@@ -23,6 +24,7 @@ Range <- R6::R6Class("Range",
             private$.available_samples <- length(private$.partition)
         },
 
+        # Make sequence based on the bounds.
         .make_sequence = function() {
             # Make the sequence.
             private$.sequence <- min(private$.partition):max(private$.partition)
