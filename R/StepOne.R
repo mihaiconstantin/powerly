@@ -19,6 +19,7 @@ StepOne <- R6::R6Class("StepOne",
 
         .duration = NULL,
 
+        # Expose data in an environment for faster access.
         .expose_data = function(env) {
             # Expose data in the parent environment for fast access.
             env$samples <- private$.range$available_samples
