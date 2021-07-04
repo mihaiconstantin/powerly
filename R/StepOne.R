@@ -82,9 +82,6 @@ StepOne <- R6::R6Class("StepOne",
 
             # Run simulation.
             private$.measures <- matrix(parallel::parSapply(backend$cluster, samples, private$.monte_carlo), private$.replications, private$.range$available_samples)
-
-            # Clear the cluster.
-            backend$clear()
         }
     ),
 
