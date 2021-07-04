@@ -78,9 +78,6 @@ StepThree <- R6::R6Class("StepThree",
             private$.boot_splines <- t(parallel::parSapply(backend$cluster, seq_len(boots), boot,
                 available_samples, measures, measure_value, replications, extended_basis, statistic, solver
             ))
-
-            # Clear the cluster.
-            backend$clear()
         },
 
         # Rule for selecting sufficient sample sizes based on the shape of the spline.
@@ -133,9 +130,6 @@ StepThree <- R6::R6Class("StepThree",
 
             # Add row names for clarity.
             rownames(private$.spline_ci) <- private$.step_2$interpolation$x
-
-            # Clear the cluster.
-            backend$clear()
         },
 
         # Extract the spline CI for sufficient samples at a particular statistic value.
