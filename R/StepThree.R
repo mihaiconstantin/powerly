@@ -4,6 +4,8 @@ StepThree <- R6::R6Class("StepThree",
     private = list(
         .step_2 = NULL,
         .boots = NULL,
+        .lower_ci = NULL,
+        .upper_ci = NULL,
         .duration = NULL,
 
         .boot_splines = NULL,
@@ -34,6 +36,8 @@ StepThree <- R6::R6Class("StepThree",
 
         # Reset any previously computed confidence intervals.
         .clear_ci = function() {
+            private$.lower_ci <- NULL
+            private$.upper_ci <- NULL
             private$.spline_ci <- NULL
             private$.sufficient_samples = NULL
         },
@@ -185,6 +189,10 @@ StepThree <- R6::R6Class("StepThree",
 
             # Reset any previous CI before computing new ones.
             private$.clear_ci()
+
+            # Set the CI bounds.
+            private$.lower_ci <- lower_ci
+            private$.upper_ci <- upper_ci
 
             # Decide whether to run in a cluster or sequentially.
             if (!is.null(backend)) {
