@@ -31,19 +31,9 @@ Range <- R6::R6Class("Range",
             private$.sequence_length <- length(private$.sequence)
         },
 
-        .update_convergence = function(lower, upper) {
-            if((upper - lower) <= private$.tolerance) {
-                private$.converged <- TRUE
-            } else {
-                private$.converged <- FALSE
-            }
-        },
-
-        # Trim based on the step 3 bootstrapping.
-        .update_bounds = function(lower, upper) {
-            # Trimming.
-            private$.lower <- lower
-            private$.upper <- upper
+        # The logic for the convergence test.
+        .convergence_test = function(lower, upper) {
+            return((as.numeric(upper) - as.numeric(lower)) <= private$.tolerance)
         }
     ),
 
@@ -54,43 +44,37 @@ Range <- R6::R6Class("Range",
             private$.samples = samples
             private$.tolerance = tolerance
 
-            private$.update_convergence(lower, upper)
+            # Ensure a reasonably wide range was provided.
+            if (private$.convergence_test(lower, upper)) {
+                # Stop if the range is too small.
+                stop("Please provide a range wider than the tolerance.")
+            }
+
+            # Make the rest of the range components.
+            private$.converged <- FALSE
             private$.make_partition()
             private$.make_sequence()
         },
 
         # Check convergence.
-        has_converged = function(step_3, lower_ci = "2.5%", upper_ci = "97.5%") {
+        update_convergence = function(step_3) {
             # Extract bounds.
-            lower <- step_3$sufficient_samples[lower_ci]
-            upper <- step_3$sufficient_samples[upper_ci]
+            lower <- step_3$sufficient_samples[step_3$lower_ci_string]
+            upper <- step_3$sufficient_samples[step_3$upper_ci_string]
 
-            # Perform check.
-            if ((upper - lower) <= private$.tolerance) {
-                return(TRUE)
-            } else {
-                return(FALSE)
-            }
+            # Perform convergence test and update with results.
+            private$.converged <- private$.convergence_test(lower, upper)
         },
 
         # Update the range based on Step 3 bootstrapping.
-        update = function(step_3, lower_ci = "2.5%", upper_ci = "97.5%") {
-            # Extract bounds.
-            lower <- step_3$sufficient_samples[lower_ci]
-            upper <- step_3$sufficient_samples[upper_ci]
+        update_bounds = function(step_3, lower_ci = 0.025, upper_ci = 0.975) {
+            # Update bounds based on confidence intervals of Step 3.
+            private$.lower <- step_3$sufficient_samples[paste0(lower_ci * 100, "%")]
+            private$.upper <- step_3$sufficient_samples[paste0(upper_ci * 100, "%")]
 
-            # Update convergence status.
-            private$.update_convergence(lower, upper)
-
-            # If it hasn't converged, update the bounds and recreate the partition.
-            if(!private$.converged) {
-                # Update bounds based on confidence intervals of Step 3.
-                private$.update_bounds(lower, upper)
-
-                # Recreate range components.
-                private$.make_partition()
-                private$.make_sequence()
-            }
+            # Recreate range components.
+            private$.make_partition()
+            private$.make_sequence()
         }
     ),
 
