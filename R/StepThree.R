@@ -115,18 +115,18 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Compute confidence intervals.
-        .compute_spline_ci = function(lower, upper) {
+        .compute_spline_ci = function(lower_ci, upper_ci) {
             # Compute the confidence intervals via the percentile method.
-            private$.spline_ci <- t(apply(private$.boot_splines, 2, quantile, probs = c(0, lower, .5, upper, 1), na.rm = TRUE))
+            private$.spline_ci <- t(apply(private$.boot_splines, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE))
 
             # Add row names for clarity.
             rownames(private$.spline_ci) <- private$.step_2$interpolation$x
         },
 
         # Compute confidence intervals.
-        .compute_spline_ci_parallel = function(lower, upper, backend) {
+        .compute_spline_ci_parallel = function(lower_ci, upper_ci, backend) {
             # Compute the confidence intervals via the percentile method.
-            private$.spline_ci <- t(parallel::parApply(backend$cluster, private$.boot_splines, 2, quantile, probs = c(0, lower, .5, upper, 1), na.rm = TRUE))
+            private$.spline_ci <- t(parallel::parApply(backend$cluster, private$.boot_splines, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE))
 
             # Add row names for clarity.
             rownames(private$.spline_ci) <- private$.step_2$interpolation$x
@@ -179,7 +179,7 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Compute confidence intervals.
-        compute = function(lower = 0.025, upper = 0.975, backend = NULL) {
+        compute = function(lower_ci = 0.025, upper_ci = 0.975, backend = NULL) {
             # Time when the bootstrap started.
             start_time <- Sys.time()
 
@@ -189,10 +189,10 @@ StepThree <- R6::R6Class("StepThree",
             # Decide whether to run in a cluster or sequentially.
             if (!is.null(backend)) {
                 # Compute confidence intervals for the entire spline in parallel.
-                private$.compute_spline_ci_parallel(lower, upper, backend)
+                private$.compute_spline_ci_parallel(lower_ci, upper_ci, backend)
             } else {
                 # Compute confidence intervals for the entire spline sequentially.
-                private$.compute_spline_ci(lower, upper)
+                private$.compute_spline_ci(lower_ci, upper_ci)
             }
 
             # Compute how long the bootstrap took.
