@@ -163,6 +163,7 @@ Backend <- R6::R6Class("Backend",
     active = list(
         active = function() { return(private$.active) },
         cores = function() { return(private$.cores) },
-        type = function() { return(private$.type) }
+        type = function() { return(private$.type) },
+        cluster = function() { return(private$.cluster) }
     )
 )
