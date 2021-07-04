@@ -272,7 +272,7 @@ StepThree <- R6::R6Class("StepThree",
             )
             polygon(
                 x = c(private$.step_2$interpolation$x, private$.step_2$interpolation$x[order(private$.step_2$interpolation$x, decreasing = TRUE)]),
-                y = c(private$.spline_ci[, "2.5%"], private$.spline_ci[, "97.5%"][order(private$.spline_ci[, "97.5%"], decreasing = TRUE)]),
+                y = c(private$.spline_ci[, self$lower_ci_string], private$.spline_ci[, self$upper_ci_string][order(private$.spline_ci[, self$upper_ci_string], decreasing = TRUE)]),
                 col = "#4683b455",
                 border = NA
             )
@@ -290,17 +290,17 @@ StepThree <- R6::R6Class("StepThree",
 
             # Display CI for current statistic value.
             segments(
-                x0 = c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
-                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.05,
-                x1 = c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
+                x0 = c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
+                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.015,
+                x1 = c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
                 y1 = c(private$.step_2$step_1$statistic_value, private$.step_2$step_1$statistic_value),
-                col = "#1c5b8f",
+                col = "#1c5b8fc0",
                 lty = 2,
                 lwd = 2
             )
             segments(
                 x0 = c(private$.sufficient_samples["0%"], private$.sufficient_samples["100%"]),
-                y0 = c(min(private$.spline_ci), min(private$.spline_ci)),
+                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.015,
                 x1 = c(private$.sufficient_samples["0%"], private$.sufficient_samples["100%"]),
                 y1 = c(private$.step_2$step_1$statistic_value, private$.step_2$step_1$statistic_value),
                 col = "#bc8f8fb9",
@@ -308,9 +308,9 @@ StepThree <- R6::R6Class("StepThree",
                 lwd = 1
             )
             segments(
-                x0 = private$.sufficient_samples["2.5%"],
+                x0 = private$.sufficient_samples[self$lower_ci_string],
                 y0 = private$.step_2$step_1$statistic_value,
-                x1 = private$.sufficient_samples["97.5%"],
+                x1 = private$.sufficient_samples[self$upper_ci_string],
                 y1 = private$.step_2$step_1$statistic_value,
                 col = "#1c5b8f",
                 lty = 2,
@@ -319,14 +319,14 @@ StepThree <- R6::R6Class("StepThree",
             segments(
                 x0 = private$.sufficient_samples["0%"],
                 y0 = private$.step_2$step_1$statistic_value,
-                x1 = private$.sufficient_samples["2.5%"],
+                x1 = private$.sufficient_samples[self$lower_ci_string],
                 y1 = private$.step_2$step_1$statistic_value,
                 col = "darkred",
                 lty = 3,
                 lwd = 1
             )
             segments(
-                x0 = private$.sufficient_samples["97.5%"],
+                x0 = private$.sufficient_samples[self$upper_ci_string],
                 y0 = private$.step_2$step_1$statistic_value,
                 x1 = private$.sufficient_samples["100%"],
                 y1 = private$.step_2$step_1$statistic_value,
@@ -335,18 +335,19 @@ StepThree <- R6::R6Class("StepThree",
                 lwd = 1
             )
             text(
-                c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
+                c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
                 c(min(private$.spline_ci), min(private$.spline_ci)),
-                c(private$.sufficient_samples["2.5%"], private$.sufficient_samples["97.5%"]),
-                col = "#1c5b8f",
+                c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
+                col = "#000000",
                 font = 2,
                 cex = 1,
-                srt = 90
+                srt = 90,
+                offset = 0
             )
             legend(
                 "topleft",
                 title = expression(bold("Bootstrapped splines")),
-                legend = c("0% to 100%", "2.5% to 97.5%"),
+                legend = c("0% to 100%", paste0(self$lower_ci_string, " to ", self$upper_ci_string)),
                 fill = c("#bc8f8f52", "#4683b455"),
                 density = c(NA, NA),
                 bty = "n",
