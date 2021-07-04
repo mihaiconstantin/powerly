@@ -22,12 +22,17 @@ StepOne <- R6::R6Class("StepOne",
         # Expose data in an environment for faster access.
         .expose_data = function(env) {
             # Expose data in the parent environment for fast access.
-            env$samples <- private$.range$available_samples
+            env$available_samples <- private$.range$available_samples
             env$replications <- private$.replications
             env$partition <- private$.range$partition
+            env$true_model_parameters <- private$.true_model_parameters
+            env$measure <- private$.measure
 
             # Function calls.
             env$monte_carlo <- private$.monte_carlo
+            env$generate <- private$.model$generate
+            env$estimate <- private$.model$estimate
+            env$evaluate <- private$.model$evaluate
         },
 
         # Reset any previously computed measures and statistics.
@@ -45,15 +50,15 @@ StepOne <- R6::R6Class("StepOne",
         },
 
         # Perform a single Monte Carlo run for a single sample size.
-        .monte_carlo = function(sample_size) {
+        .monte_carlo = function(sample_size, generate, estimate, evaluate, true_model_parameters, measure) {
             # Generate data.
-            data <- private$.model$generate(sample_size, private$.true_model_parameters)
+            data <- generate(sample_size, true_model_parameters)
 
             # Estimate model.
-            estimated_model_parameters <- private$.model$estimate(data)
+            estimated_model_parameters <- estimate(data)
 
             # Compute measure.
-            measure <- private$.model$evaluate(private$.true_model_parameters, estimated_model_parameters, private$.measure)
+            measure <- evaluate(true_model_parameters, estimated_model_parameters, measure)
 
             return(measure)
         },
@@ -64,11 +69,11 @@ StepOne <- R6::R6Class("StepOne",
             private$.expose_data(environment())
 
             # Pre-allocate storage for the results.
-            measures <- matrix(NA, replications, samples)
+            measures <- matrix(NA, replications, available_samples)
 
-            for (i in 1:samples) {
+            for (i in 1:available_samples) {
                 for (j in 1:replications) {
-                    measures[j, i] <- monte_carlo(sample_size = partition[i])
+                    measures[j, i] <- monte_carlo(partition[i], generate, estimate, evaluate, true_model_parameters, measure)
                 }
             }
 
@@ -78,11 +83,18 @@ StepOne <- R6::R6Class("StepOne",
 
         # Replicate the MC simulations in parallel.
         .simulate_parallel = function(backend) {
+            # Expose data for fast access.
+            private$.expose_data(environment())
+
             # Replicated sample sizes.
-            samples <- sort(rep(private$.range$partition, private$.replications))
+            samples <- sort(rep(partition, replications))
 
             # Run simulation.
-            private$.measures <- matrix(parallel::parSapply(backend$cluster, samples, private$.monte_carlo), private$.replications, private$.range$available_samples)
+            private$.measures <- matrix(
+                parallel::parSapply(backend$cluster, samples, monte_carlo, generate, estimate, evaluate, true_model_parameters, measure),
+                replications,
+                available_samples
+            )
         }
     ),
 
