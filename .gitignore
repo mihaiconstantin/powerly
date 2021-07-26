@@ -4,3 +4,4 @@
 .Rhistory
 inst/debug/
 inst/design/
+.DS_Store
