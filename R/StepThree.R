@@ -244,7 +244,7 @@ StepThree <- R6::R6Class("StepThree",
                 cex = 1
             )
             title(
-                main = paste0("Bootstrap CI (Percentile Method)"),
+                main = paste0("Bootstrap CI | Distance: ", private$.samples[self$upper_ci_string] - private$.samples[self$lower_ci_string], " sample sizes"),
                 ylab = paste0("Value for statistic '", toupper(sub("Statistic", "", class(private$.step_2$step_1$statistic)[1])), "'"),
                 cex.lab = 1,
                 cex.main = 1
