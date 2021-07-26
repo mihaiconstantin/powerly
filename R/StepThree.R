@@ -210,6 +210,11 @@ StepThree <- R6::R6Class("StepThree",
             private$.extract_sufficient_samples(private$.step_2$step_1$statistic_value)
         },
 
+        # Get bootstrapped spline values for a given sample size.
+        get_statistics = function(sample) {
+            return(private$.boot_splines[, which(private$.step_2$interpolation$x == sample)])
+        },
+
         plot = function() {
             # Revert the changes on exit.
             on.exit({
