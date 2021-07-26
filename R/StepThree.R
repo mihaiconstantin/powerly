@@ -215,6 +215,7 @@ StepThree <- R6::R6Class("StepThree",
             return(private$.boot_splines[, which(private$.step_2$interpolation$x == sample)])
         },
 
+        # Plot.
         plot = function() {
             # Revert the changes on exit.
             on.exit({
@@ -226,9 +227,7 @@ StepThree <- R6::R6Class("StepThree",
             })
 
             # Layout.
-            layout_matrix <- matrix(1, 3, 3)
-            layout_matrix[3, 3] <- 2
-            layout(layout_matrix)
+            layout(matrix(c(1, 1, 2, 3), 2, 2, byrow = TRUE))
 
             # Adjust margins for layout.
             par(mar = c(5.1, 4.1, 4.1, 2.1) + 1)
@@ -237,11 +236,12 @@ StepThree <- R6::R6Class("StepThree",
             plot(
                 NULL,
                 xlim = c(min(private$.step_2$step_1$range$partition), max(private$.step_2$step_1$range$partition)),
-                ylim = c(min(private$.spline_ci), max(private$.spline_ci) + 0.15),
+                ylim = c(min(private$.spline_ci) - 0.2, max(private$.spline_ci) + 0.2),
                 xlab = "",
                 ylab = "",
                 xaxt = "n",
-                yaxt = "n"
+                yaxt = "n",
+                cex = 1
             )
             title(
                 main = paste0("Bootstrap CI (Percentile Method)"),
@@ -261,7 +261,9 @@ StepThree <- R6::R6Class("StepThree",
                 cex.axis = .9
             )
             axis(
+                at = round(seq(min(private$.spline_ci), max(private$.spline_ci), length.out = 10), 2),
                 side = 2,
+                las = 2,
                 cex.axis = .9
             )
             abline(
@@ -278,39 +280,32 @@ StepThree <- R6::R6Class("StepThree",
             polygon(
                 x = c(private$.step_2$interpolation$x, private$.step_2$interpolation$x[order(private$.step_2$interpolation$x, decreasing = TRUE)]),
                 y = c(private$.spline_ci[, self$lower_ci_string], private$.spline_ci[, self$upper_ci_string][order(private$.spline_ci[, self$upper_ci_string], decreasing = TRUE)]),
-                col = "#4683b455",
+                col = "#4683b48e",
                 border = NA
             )
             points(
+                col = "#00000070",
                 private$.step_2$step_1$range$partition,
                 private$.step_2$step_1$statistics,
-                pch = 19
+                pch = 19,
+                cex = .8
             )
             lines(
                 private$.step_2$interpolation$x,
                 private$.step_2$interpolation$fitted,
-                col = "darkred",
+                col = "#000000ad",
                 lwd = 2
             )
 
             # Display CI for current statistic value.
             segments(
                 x0 = c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
-                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.015,
+                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.0,
                 x1 = c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
                 y1 = c(private$.step_2$step_1$statistic_value, private$.step_2$step_1$statistic_value),
-                col = "#1c5b8fc0",
-                lty = 2,
-                lwd = 2
-            )
-            segments(
-                x0 = c(private$.sufficient_samples["0%"], private$.sufficient_samples["100%"]),
-                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.015,
-                x1 = c(private$.sufficient_samples["0%"], private$.sufficient_samples["100%"]),
-                y1 = c(private$.step_2$step_1$statistic_value, private$.step_2$step_1$statistic_value),
-                col = "#bc8f8fb9",
+                col = "#1c5b8f",
                 lty = 3,
-                lwd = 1
+                lwd = 2
             )
             segments(
                 x0 = private$.sufficient_samples[self$lower_ci_string],
@@ -318,34 +313,16 @@ StepThree <- R6::R6Class("StepThree",
                 x1 = private$.sufficient_samples[self$upper_ci_string],
                 y1 = private$.step_2$step_1$statistic_value,
                 col = "#1c5b8f",
-                lty = 2,
+                lty = 3,
                 lwd = 2
-            )
-            segments(
-                x0 = private$.sufficient_samples["0%"],
-                y0 = private$.step_2$step_1$statistic_value,
-                x1 = private$.sufficient_samples[self$lower_ci_string],
-                y1 = private$.step_2$step_1$statistic_value,
-                col = "darkred",
-                lty = 3,
-                lwd = 1
-            )
-            segments(
-                x0 = private$.sufficient_samples[self$upper_ci_string],
-                y0 = private$.step_2$step_1$statistic_value,
-                x1 = private$.sufficient_samples["100%"],
-                y1 = private$.step_2$step_1$statistic_value,
-                col = "darkred",
-                lty = 3,
-                lwd = 1
             )
             text(
                 c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
-                c(min(private$.spline_ci), min(private$.spline_ci)),
+                c(min(private$.spline_ci), min(private$.spline_ci)) - 0.1,
                 c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
                 col = "#000000",
                 font = 2,
-                cex = 1,
+                cex = .9,
                 srt = 90,
                 offset = 0
             )
@@ -356,7 +333,7 @@ StepThree <- R6::R6Class("StepThree",
                 fill = c("#bc8f8f52", "#4683b455"),
                 density = c(NA, NA),
                 bty = "n",
-                border = c("#bc8f8f52", "#4683b455"),
+                border = c("#bc8f8f52", "#4683b48e"),
                 cex = 1
             )
         }
