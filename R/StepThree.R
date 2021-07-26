@@ -8,9 +8,9 @@ StepThree <- R6::R6Class("StepThree",
         .upper_ci = NULL,
         .duration = NULL,
 
-        .boot_splines = NULL,
-        .spline_ci = NULL,
-        .sufficient_samples = NULL,
+        .boot_statistics = NULL,
+        .ci = NULL,
+        .samples = NULL,
 
         # Expose data in a specified environment for faster access.
         .expose_data = function(env) {
@@ -31,15 +31,15 @@ StepThree <- R6::R6Class("StepThree",
         # Reset any previously computed bootstrapped splines.
         .clear_bootstrap = function() {
             private$.boots <- NULL
-            private$.boot_splines <- NULL
+            private$.boot_statistics <- NULL
         },
 
         # Reset any previously computed confidence intervals.
         .clear_ci = function() {
             private$.lower_ci <- NULL
             private$.upper_ci <- NULL
-            private$.spline_ci <- NULL
-            private$.sufficient_samples = NULL
+            private$.ci <- NULL
+            private$.samples = NULL
         },
 
         # Self-contained core of the bootstrap procedure.
@@ -62,15 +62,15 @@ StepThree <- R6::R6Class("StepThree",
             private$.expose_data(environment())
 
             # Storage for results.
-            splines <- matrix(0, boots, sequence_length)
+            boot_statistics <- matrix(0, boots, sequence_length)
 
             for (i in 1:boots) {
                 # Store bootstrapped spline.
-                splines[i, ] <- boot(i, available_samples, measures, measure_value, replications, extended_basis, statistic, solver)
+                boot_statistics[i, ] <- boot(i, available_samples, measures, measure_value, replications, extended_basis, statistic, solver)
             }
 
-            # Store bootstrapped splines.
-            private$.boot_splines <- splines
+            # Store bootstrapped statistics.
+            private$.boot_statistics <- boot_statistics
         },
 
         # Performing the bootstrapping procedure in parallel.
@@ -79,7 +79,7 @@ StepThree <- R6::R6Class("StepThree",
             private$.expose_data(environment())
 
             # Run bootstrap.
-            private$.boot_splines <- t(parallel::parSapply(backend$cluster, seq_len(boots), boot,
+            private$.boot_statistics <- t(parallel::parSapply(backend$cluster, seq_len(boots), boot,
                 available_samples, measures, measure_value, replications, extended_basis, statistic, solver
             ))
         },
@@ -119,27 +119,27 @@ StepThree <- R6::R6Class("StepThree",
         },
 
         # Compute confidence intervals.
-        .compute_spline_ci = function(lower_ci, upper_ci) {
+        .compute_ci = function(lower_ci, upper_ci) {
             # Compute the confidence intervals via the percentile method.
-            private$.spline_ci <- t(apply(private$.boot_splines, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE))
+            private$.ci <- t(apply(private$.boot_statistics, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE))
 
             # Add row names for clarity.
-            rownames(private$.spline_ci) <- private$.step_2$interpolation$x
+            rownames(private$.ci) <- private$.step_2$interpolation$x
         },
 
         # Compute confidence intervals.
-        .compute_spline_ci_parallel = function(lower_ci, upper_ci, backend) {
+        .compute_ci_parallel = function(lower_ci, upper_ci, backend) {
             # Compute the confidence intervals via the percentile method.
-            private$.spline_ci <- t(parallel::parApply(backend$cluster, private$.boot_splines, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE))
+            private$.ci <- t(parallel::parApply(backend$cluster, private$.boot_statistics, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE))
 
             # Add row names for clarity.
-            rownames(private$.spline_ci) <- private$.step_2$interpolation$x
+            rownames(private$.ci) <- private$.step_2$interpolation$x
         },
 
         # Extract the spline CI for sufficient samples at a particular statistic value.
         .extract_sufficient_samples = function(statistic_value) {
             # Find CI at statistic value.
-            sufficient_samples_ci <- apply(private$.spline_ci, 2, function(ci) {
+            sufficient_samples_ci <- apply(private$.ci, 2, function(ci) {
                 private$.step_2$interpolation$x[private$.selection_rule(ci, statistic_value, private$.step_2$spline$basis$monotone, private$.step_2$spline$solver$increasing)]
             })
 
@@ -148,7 +148,7 @@ StepThree <- R6::R6Class("StepThree",
             names(sufficient_samples_ci) <- rev(names(sufficient_samples_ci))
 
             # Store the CI for the sufficient samples.
-            private$.sufficient_samples <- sufficient_samples_ci
+            private$.samples <- sufficient_samples_ci
         }
     ),
 
@@ -197,10 +197,10 @@ StepThree <- R6::R6Class("StepThree",
             # Decide whether to run in a cluster or sequentially.
             if (!is.null(backend)) {
                 # Compute confidence intervals for the entire spline in parallel.
-                private$.compute_spline_ci_parallel(lower_ci, upper_ci, backend)
+                private$.compute_ci_parallel(lower_ci, upper_ci, backend)
             } else {
                 # Compute confidence intervals for the entire spline sequentially.
-                private$.compute_spline_ci(lower_ci, upper_ci)
+                private$.compute_ci(lower_ci, upper_ci)
             }
 
             # Compute how long the bootstrap took.
@@ -212,7 +212,7 @@ StepThree <- R6::R6Class("StepThree",
 
         # Get bootstrapped spline values for a given sample size.
         get_statistics = function(sample) {
-            return(private$.boot_splines[, which(private$.step_2$interpolation$x == sample)])
+            return(private$.boot_statistics[, which(private$.step_2$interpolation$x == sample)])
         },
 
         # Plot.
@@ -236,7 +236,7 @@ StepThree <- R6::R6Class("StepThree",
             plot(
                 NULL,
                 xlim = c(min(private$.step_2$step_1$range$partition), max(private$.step_2$step_1$range$partition)),
-                ylim = c(min(private$.spline_ci) - 0.2, max(private$.spline_ci) + 0.2),
+                ylim = c(min(private$.ci) - 0.2, max(private$.ci) + 0.2),
                 xlab = "",
                 ylab = "",
                 xaxt = "n",
@@ -261,7 +261,7 @@ StepThree <- R6::R6Class("StepThree",
                 cex.axis = .9
             )
             axis(
-                at = round(seq(min(private$.spline_ci), max(private$.spline_ci), length.out = 10), 2),
+                at = round(seq(min(private$.ci), max(private$.ci), length.out = 10), 2),
                 side = 2,
                 las = 2,
                 cex.axis = .9
@@ -273,13 +273,13 @@ StepThree <- R6::R6Class("StepThree",
             )
             polygon(
                 x = c(private$.step_2$interpolation$x, private$.step_2$interpolation$x[order(private$.step_2$interpolation$x, decreasing = TRUE)]),
-                y = c(private$.spline_ci[, "0%"], private$.spline_ci[, "100%"][order(private$.spline_ci[, "100%"], decreasing = TRUE)]),
+                y = c(private$.ci[, "0%"], private$.ci[, "100%"][order(private$.ci[, "100%"], decreasing = TRUE)]),
                 col = "#bc8f8f52",
                 border = NA
             )
             polygon(
                 x = c(private$.step_2$interpolation$x, private$.step_2$interpolation$x[order(private$.step_2$interpolation$x, decreasing = TRUE)]),
-                y = c(private$.spline_ci[, self$lower_ci_string], private$.spline_ci[, self$upper_ci_string][order(private$.spline_ci[, self$upper_ci_string], decreasing = TRUE)]),
+                y = c(private$.ci[, self$lower_ci_string], private$.ci[, self$upper_ci_string][order(private$.ci[, self$upper_ci_string], decreasing = TRUE)]),
                 col = "#4683b48e",
                 border = NA
             )
@@ -299,27 +299,27 @@ StepThree <- R6::R6Class("StepThree",
 
             # Display CI for current statistic value.
             segments(
-                x0 = c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
-                y0 = c(min(private$.spline_ci), min(private$.spline_ci)) + 0.0,
-                x1 = c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
+                x0 = c(private$.samples[self$lower_ci_string], private$.samples[self$upper_ci_string]),
+                y0 = c(min(private$.ci), min(private$.ci)) + 0.0,
+                x1 = c(private$.samples[self$lower_ci_string], private$.samples[self$upper_ci_string]),
                 y1 = c(private$.step_2$step_1$statistic_value, private$.step_2$step_1$statistic_value),
                 col = "#1c5b8f",
                 lty = 3,
                 lwd = 2
             )
             segments(
-                x0 = private$.sufficient_samples[self$lower_ci_string],
+                x0 = private$.samples[self$lower_ci_string],
                 y0 = private$.step_2$step_1$statistic_value,
-                x1 = private$.sufficient_samples[self$upper_ci_string],
+                x1 = private$.samples[self$upper_ci_string],
                 y1 = private$.step_2$step_1$statistic_value,
                 col = "#1c5b8f",
                 lty = 3,
                 lwd = 2
             )
             text(
-                c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
-                c(min(private$.spline_ci), min(private$.spline_ci)) - 0.1,
-                c(private$.sufficient_samples[self$lower_ci_string], private$.sufficient_samples[self$upper_ci_string]),
+                c(private$.samples[self$lower_ci_string], private$.samples[self$upper_ci_string]),
+                c(min(private$.ci), min(private$.ci)) - 0.1,
+                c(private$.samples[self$lower_ci_string], private$.samples[self$upper_ci_string]),
                 col = "#000000",
                 font = 2,
                 cex = .9,
@@ -338,7 +338,7 @@ StepThree <- R6::R6Class("StepThree",
             )
 
             # Sample size of interest.
-            sample <- private$.sufficient_samples["50%"]
+            sample <- private$.samples["50%"]
 
             # Bootstrapped statistics values for the sample size of interest.
             boot_statistics <- self$get_statistics(sample)
@@ -379,7 +379,7 @@ StepThree <- R6::R6Class("StepThree",
             # Plot quantiles of bootstrapped statistics.
             plot(
                 private$.step_2$step_1$range$sequence,
-                private$.spline_ci[, "50%"],
+                private$.ci[, "50%"],
                 type = "l",
                 lwd = 2,
                 main = paste0("Quantiles (", 0.5 * 100, "th)"),
@@ -403,7 +403,7 @@ StepThree <- R6::R6Class("StepThree",
             )
             axis(
                 side = 2,
-                at = round(seq(min(private$.spline_ci[, "50%"]), max(private$.spline_ci[, "50%"]), by = 0.05), 2),
+                at = round(seq(min(private$.ci[, "50%"]), max(private$.ci[, "50%"]), by = 0.05), 2),
                 las = 2,
                 cex.axis = .9
             )
@@ -419,9 +419,9 @@ StepThree <- R6::R6Class("StepThree",
         upper_ci = function() { return(private$.upper_ci) },
         lower_ci_string = function() { return(paste0(private$.lower_ci * 100, "%")) },
         upper_ci_string = function() { return(paste0(private$.upper_ci * 100, "%")) },
-        boot_splines = function() { return(private$.boot_splines) },
-        spline_ci = function() { return(private$.spline_ci) },
-        sufficient_samples = function() { return(private$.sufficient_samples) },
+        boot_statistics = function() { return(private$.boot_statistics) },
+        ci = function() { return(private$.ci) },
+        samples = function() { return(private$.samples) },
         duration = function() { return(private$.duration) }
     )
 )
