@@ -336,6 +336,79 @@ StepThree <- R6::R6Class("StepThree",
                 border = c("#bc8f8f52", "#4683b48e"),
                 cex = 1
             )
+
+            # Sample size of interest.
+            sample <- private$.sufficient_samples["50%"]
+
+            # Bootstrapped statistics values for the sample size of interest.
+            boot_statistics <- self$get_statistics(sample)
+
+            # Median and confidence intervals.
+            boot_statistics_median <- quantile(boot_statistics, .5)
+            boot_statistics_ci <- quantile(boot_statistics, c(0.025, 0.975))
+
+            # Plot histogram of statistics.
+            hist(
+                boot_statistics,
+                col = "#00000023",
+                border = FALSE,
+                main = paste0("Sample: ", sample, " | ", "Quantile: ", 0.5 * 100, "th"),
+                xaxt = "n",
+                xlab = ""
+            )
+            title(
+                xlab = "Bootstrapped statistics",
+                line = 4.5,
+                cex.main = 1,
+                cex.lab = 1
+            )
+            axis(
+                side = 1,
+                at = round(seq(min(boot_statistics), max(boot_statistics), by = 0.001), 2),
+                line = 1.5,
+                las = 2,
+                cex.axis = .9
+            )
+            # Confidence intervals.
+            abline(v = boot_statistics_ci, col = "#5f5f5f", lty = 3)
+            mtext(round(boot_statistics_ci, 3), side = 1, at = boot_statistics_ci, col = "rosybrown", font = 2, line = 0.3, cex = .8)
+            # Median.
+            abline(v = boot_statistics_median, col = "#5f5f5f", lty = 3)
+            mtext(round(boot_statistics_median, 3), side = 1, at = boot_statistics_median, col = "rosybrown",  font = 2, line = 0.3, cex = .9)
+
+            # Plot quantiles of bootstrapped statistics.
+            plot(
+                private$.step_2$step_1$range$sequence,
+                private$.spline_ci[, "50%"],
+                type = "l",
+                lwd = 2,
+                main = paste0("Quantiles (", 0.5 * 100, "th)"),
+                ylab = paste0("Bootstrapped statistics"),
+                xlab = "",
+                xaxt = "n",
+                yaxt = "n"
+            )
+            title(
+                xlab = "Sample sizes",
+                line = 4.5,
+                cex.lab = 1,
+                cex.main = 1
+            )
+            axis(
+                side = 1,
+                at = seq(min(private$.step_2$step_1$range$sequence), max(private$.step_2$step_1$range$sequence), by = 50),
+                line = 1.5,
+                las = 2,
+                cex.axis = .9
+            )
+            axis(
+                side = 2,
+                at = round(seq(min(private$.spline_ci[, "50%"]), max(private$.spline_ci[, "50%"]), by = 0.05), 2),
+                las = 2,
+                cex.axis = .9
+            )
+            abline(h = private$.step_2$step_1$statistic_value, v = sample, lty = 2, col = "#5f5f5f")
+            mtext(sample, side = 1, at = sample, col = "darkgreen", font = 2, line = 0.3, cex = .9)
         }
     ),
 
