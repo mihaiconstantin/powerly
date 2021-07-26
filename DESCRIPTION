@@ -1,13 +1,13 @@
-Package: splower
-Title: Sample Size Analysis for Psychological Network Models
+Package: powerly
+Title: Sample Size Analysis for Psychological Networks
 Version: 0.1.0
-Authors@R: 
+Authors@R:
     person(given = "Mihai",
            family = "Constantin",
            role = c("aut", "cre"),
-           email = "constantin.mihai.alexandru@gmail.com",
+           email = "mihai@mihaiconstantin.com",
            comment = c(ORCID = "0000-0002-6460-0107"))
-Description: Provide sample size recommendations for psychological network models.
+Description: Sample size analysis for psychological network models.
 License: MIT + file LICENSE
 Imports:
     bootnet,
