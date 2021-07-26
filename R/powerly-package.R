@@ -23,6 +23,8 @@
 #' @import bootnet
 #' @import qgraph
 #' @import parallel
+#' @import osqp
+#' @import quadprog
 #'
 #' @docType package
 #' @name powerly
