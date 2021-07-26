@@ -17,8 +17,6 @@
 
 #' \code{powerly}: Sample size analysis for complex models.
 #'
-#' # TODO: Add documentation.
-#'
 #' @import R6
 #' @import splines2
 #' @import nnls
