@@ -61,8 +61,8 @@ Range <- R6::R6Class("Range",
         # Check convergence.
         update_convergence = function(step_3) {
             # Extract bounds.
-            lower <- step_3$sufficient_samples[step_3$lower_ci_string]
-            upper <- step_3$sufficient_samples[step_3$upper_ci_string]
+            lower <- step_3$samples[step_3$lower_ci_string]
+            upper <- step_3$samples[step_3$upper_ci_string]
 
             # Perform convergence test and update with results.
             private$.converged <- private$.convergence_test(lower, upper)
@@ -71,8 +71,8 @@ Range <- R6::R6Class("Range",
         # Update the range based on Step 3 bootstrapping.
         update_bounds = function(step_3, lower_ci = 0.025, upper_ci = 0.975) {
             # Update bounds based on confidence intervals of Step 3.
-            private$.lower <- step_3$sufficient_samples[paste0(lower_ci * 100, "%")]
-            private$.upper <- step_3$sufficient_samples[paste0(upper_ci * 100, "%")]
+            private$.lower <- step_3$samples[paste0(lower_ci * 100, "%")]
+            private$.upper <- step_3$samples[paste0(upper_ci * 100, "%")]
 
             # Recreate range components.
             private$.make_partition()
