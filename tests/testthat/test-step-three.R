@@ -103,43 +103,52 @@ test_that("'StepThree' performs a bootstrap run correctly", {
 
 
 test_that("'StepThree' performs the bootstrap procedure correctly", {
-        # Create range.
-        range <- Range$new(100, 1000, 10)
+    # Create range.
+    range <- Range$new(100, 1000, 10)
 
-        # Create Step One.
-        step_1 <- StepOne$new()
+    # Create Step One.
+    step_1 <- StepOne$new()
 
-        # Configure Step One.
-        step_1$set_range(range)
-        step_1$set_model("ggm")
-        step_1$set_true_model_parameters(nodes = 10, density = .4)
-        step_1$set_measure("sen", .6)
-        step_1$set_statistic("power", .8)
+    # Configure Step One.
+    step_1$set_range(range)
+    step_1$set_model("ggm")
+    step_1$set_true_model_parameters(nodes = 10, density = .4)
+    step_1$set_measure("sen", .6)
+    step_1$set_statistic("power", .8)
 
-        # Compute Step One.
-        step_1$simulate(10)
-        step_1$compute()
+    # Compute Step One.
+    step_1$simulate(10)
+    step_1$compute()
 
-        # Create Step Two.
-        step_2 <- StepTwo$new(step_1)
+    # Create Step Two.
+    step_2 <- StepTwo$new(step_1)
 
-        # Compute Step Two.
-        step_2$fit(monotone = TRUE, increasing = TRUE)
+    # Compute Step Two.
+    step_2$fit(monotone = TRUE, increasing = TRUE)
 
-        # Create Step Three tester.
-        step_3 <- StepThree$new(step_2)
+    # Create Step Three tester.
+    step_3 <- StepThree$new(step_2)
 
-        # Run the bootstrap sequentially.
-        step_3$bootstrap(1000)
+    # Run the bootstrap sequentially.
+    step_3$bootstrap(1000)
 
-        # Check the dimensions of the bootstrapped splines.
-        expect_equal(dim(step_3$boot_splines), c(1000, range$sequence_length))
+    # Check the dimensions of the bootstrapped splines.
+    expect_equal(dim(step_3$boot_statistics), c(1000, range$sequence_length))
 
-        # Run the bootstrap in parallel.
-        step_3$bootstrap(1000, cores = 7)
+    # Create backend for running the bootstrap in parallel.
+    backend <- Backend$new()
 
-        # Check the dimensions of the bootstrapped splines.
-        expect_equal(dim(step_3$boot_splines), c(1000, range$sequence_length))
+    # Start the backend.
+    backend$start(7)
+
+    # Run the bootstrap in parallel.
+    step_3$bootstrap(1000, backend = backend)
+
+    # Stop the backend.
+    backend$stop()
+
+    # Check the dimensions of the bootstrapped splines.
+    expect_equal(dim(step_3$boot_statistics), c(1000, range$sequence_length))
 })
 
 
@@ -180,7 +189,7 @@ test_that("'StepThree' extracts the sufficient samples correctly", {
     selection_rule <- step_3$.__enclos_env__$private$.selection_rule
 
     # Get all the sufficient samples manually.
-    sufficient_samples <- apply(step_3$boot_splines, 1, function(spline) {
+    sufficient_samples <- apply(step_3$boot_statistics, 1, function(spline) {
         return(range$sequence[selection_rule(spline, statistic_value = step_1$statistic_value, monotone = TRUE, increasing = TRUE)])
     })
 
@@ -188,7 +197,7 @@ test_that("'StepThree' extracts the sufficient samples correctly", {
     sufficient_samples <- quantile(sufficient_samples, c(0, .025, .5, .975, 1), na.rm = TRUE)
 
     # The CI should match within a tolerance range.
-    testthat::expect_lte(sum(abs(step_3$sufficient_samples - sufficient_samples)), 1)
+    testthat::expect_lte(sum(abs(step_3$samples - sufficient_samples)), 1)
 })
 
 
@@ -224,11 +233,20 @@ test_that("'StepThree' computes the confidence intervals correctly", {
 
     # Compute confidence intervals sequentially.
     step_3$compute()
-    spline_ci_sequential <- step_3$spline_ci
+    spline_ci_sequential <- step_3$ci
+
+    # Create backend for running the bootstrap in parallel.
+    backend <- Backend$new()
+
+    # Start the backend.
+    backend$start(7)
 
     # Compute confidence intervals in parallel.
-    step_3$compute(cores = 7)
-    spline_ci_parallel <- step_3$spline_ci
+    step_3$compute(backend = backend)
+    spline_ci_parallel <- step_3$ci
+
+    # Stop the backend.
+    backend$stop()
 
     # The confidence intervals should match.
     expect_equal(spline_ci_sequential, spline_ci_parallel)
