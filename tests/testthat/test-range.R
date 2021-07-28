@@ -2,27 +2,27 @@
 
 test_that("'Range' creates partition of correct number of elements", {
     # Range should have the number of requested sample sizes.
-    range <- Range$new(lower = 1, upper = 10, samples = 10)
+    range <- Range$new(lower = 1, upper = 10, samples = 10, tolerance = -1)
     expect_equal(range$available_samples, 10)
 
     # Range should have maximum sample sizes possible if too many are requested.
-    range <- Range$new(lower = 1, upper = 10, samples = 20)
+    range <- Range$new(lower = 1, upper = 10, samples = 20, tolerance = -1)
     expect_equal(range$available_samples, 10)
 
     # Range should have one sample size if one is requested.
     # And the sample size should be the lower bound of the range.
-    range <- Range$new(lower = 1, upper = 10, samples = 1)
+    range <- Range$new(lower = 1, upper = 10, samples = 1, tolerance = -1)
     expect_equal(range$available_samples, 1)
     expect_equal(range$partition, 1)
 
     # Range should have one element when the bounds are equal.
-    range <- Range$new(lower = 1, upper = 1, samples = 1)
+    range <- Range$new(lower = 1, upper = 1, samples = 1, tolerance = -1)
     expect_equal(range$available_samples, 1)
 
     # Range should throw an error if the bounds are ill-specified.
     expect_error(
-        Range$new(lower = 10, upper = 1, samples = 1),
-        "The lower bound cannot be greater that the upper bound."
+        Range$new(lower = 10, upper = 1, samples = 1, tolerance = -1),
+        "Please provide a range wider than the tolerance."
     )
 })
 
@@ -59,16 +59,22 @@ test_that("'Range' updates bounds correctly based on 'StepThree' confidence inte
     step_3$bootstrap(1000)
 
     # Compute confidence intervals sequentially.
-    step_3$compute()
+    step_3$compute(lower_ci = 0.025, upper_ci = 0.975)
 
     # Update range.
-    range$update(step_3, lower = "2.5%", upper = "97.5%")
+    range$update_bounds(step_3, lower_ci = 0.025, upper_ci = 0.975)
 
     # Expect the range bounds were updated correctly.
-    expect_equal(range$lower, step_3$sufficient_samples["2.5%"])
-    expect_equal(range$upper, step_3$sufficient_samples["97.5%"])
+    expect_equal(range$lower, step_3$samples["2.5%"])
+    expect_equal(range$upper, step_3$samples["97.5%"])
 
     # Expect that partition was recreated accordingly.
-    expect_equal(min(range$partition), as.numeric(step_3$sufficient_samples["2.5%"]))
-    expect_equal(max(range$partition), as.numeric(step_3$sufficient_samples["97.5%"]))
+    expect_equal(min(range$partition), as.numeric(step_3$samples["2.5%"]))
+    expect_equal(max(range$partition), as.numeric(step_3$samples["97.5%"]))
+
+    # Expect that the bounds are of increasing size.
+    expect_error(
+        range$update_bounds(step_3, lower_ci = 0.975, upper_ci = 0.025),
+        "The lower bound cannot be greater that the upper bound."
+    )
 })
