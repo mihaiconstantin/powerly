@@ -28,7 +28,7 @@ test_that("'StepOne' Monte Carlo simulation runs correctly", {
     set.seed(seed)
 
     # Perform Monte Carlo via 'StepOne' class instance.
-    step_1$simulate(10, cores = NULL)
+    step_1$simulate(10, backend = NULL)
 
     # Compute statistic via 'StepOne' class instance.
     step_1$compute()
