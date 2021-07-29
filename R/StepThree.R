@@ -396,14 +396,14 @@ StepThree <- R6::R6Class("StepThree",
             )
             axis(
                 side = 1,
-                at = seq(min(private$.step_2$step_1$range$sequence), max(private$.step_2$step_1$range$sequence), by = 50),
+                at = floor(seq(min(private$.step_2$step_1$range$sequence), max(private$.step_2$step_1$range$sequence), length.out = 15)),
                 line = 1.5,
                 las = 2,
                 cex.axis = .9
             )
             axis(
                 side = 2,
-                at = round(seq(min(private$.ci[, "50%"]), max(private$.ci[, "50%"]), by = 0.05), 2),
+                at = round(seq(min(private$.ci[, "50%"]), max(private$.ci[, "50%"]), length.out = 10), 2),
                 las = 2,
                 cex.axis = .9
             )
