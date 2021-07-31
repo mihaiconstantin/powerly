@@ -46,6 +46,13 @@ StepTwo <- R6::R6Class("StepTwo",
             return(df)
         },
 
+        # Reset any previously fitted spline.
+        .clear_spline = function() {
+            private$.spline <- NULL
+            private$.interpolation <- NULL
+            private$.cv <- NULL
+        },
+
         .run_cv = function(monotone, increasing, df, solver_type, ...) {
             # Check the DFs before LOOCV.
             df <- private$.check_df(df, monotone)
@@ -129,6 +136,9 @@ StepTwo <- R6::R6Class("StepTwo",
         },
 
         fit = function(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = "quadprog", ...) {
+            # Reset any previous spline before re-fitting.
+            private$.clear_spline()
+
             # Perform LOOCV.
             private$.run_cv(monotone = monotone, increasing = increasing, df = df, solver_type = solver_type, ...)
 
