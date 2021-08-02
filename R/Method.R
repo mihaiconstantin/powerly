@@ -9,8 +9,23 @@ Method <- R6::R6Class("Method",
         .step_2 = NULL,
         .step_3 = NULL,
         .backend = NULL,
+
         .iteration = NULL,
         .max_iterations = NULL,
+
+        .verbose = NULL,
+        .progress = NULL,
+
+        # Set the verbosity level.
+        .set_verbosity = function(verbose) {
+            # Set verbosity.
+            private$.verbose <- verbose
+
+            # Create the progress bar.
+            if (private$.verbose) {
+               private$.progress <- progress::progress_bar$new(total = private$.max_iterations)
+            }
+        },
 
         # Commit the current state at this point in time.
         .commit = function() {
@@ -42,6 +57,9 @@ Method <- R6::R6Class("Method",
 
         # Run the method.
         .run = function(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci) {
+            # Tick the progress bar.
+            if (private$.verbose) private$.progress$tick()
+
             # Iterate.
             private$.iterate(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci)
 
@@ -51,7 +69,10 @@ Method <- R6::R6Class("Method",
             # Increase the counter.
             private$.update_counter()
 
-            while((private$.iteration <= private$.max_iterations) && !private$.range$converged) {
+            while((private$.iteration < private$.max_iterations) && !private$.range$converged) {
+                # Tick the progress bar.
+                if (private$.verbose) private$.progress$tick()
+
                 # Store previous results.
                 private$.previous <- private$.commit()
 
@@ -71,12 +92,15 @@ Method <- R6::R6Class("Method",
     ),
 
     public = list(
-        initialize = function(max_iterations = 10) {
+        initialize = function(max_iterations = 10, verbose = TRUE) {
             # Set the maximum number of allowed iterations.
             private$.max_iterations <- max_iterations
 
             # Set the initial iteration counter.
             private$.iteration <- 0
+
+            # Set the verbosity level.
+            private$.set_verbosity(verbose)
         },
 
         # Register parallelization backend.
