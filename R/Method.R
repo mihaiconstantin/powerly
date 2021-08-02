@@ -150,13 +150,13 @@ Method <- R6::R6Class("Method",
 
         # Run method.
         run = function(replications, monotone = TRUE, increasing = TRUE, df = NULL, solver_type = "quadprog", boots = 3000, lower_ci = 0.025, upper_ci = 0.975) {
-            # Start the clock.
-            private$.start_time <- Sys.time()
-
             # Do not allow the method to be ran several times.
             if (private$.iteration > 0) {
-               stop("Method already ran. Create a new instance to run again.")
+                stop("Method already ran. Create a new instance to run again.")
             }
+
+            # Start the clock.
+            private$.start_time <- Sys.time()
 
             # Run the method.
             private$.run(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci)
