@@ -23,7 +23,7 @@ Method <- R6::R6Class("Method",
 
             # Create the progress bar.
             if (private$.verbose) {
-               private$.progress <- progress::progress_bar$new(total = private$.max_iterations)
+               private$.progress <- progress::progress_bar$new(total = private$.max_iterations, show_after = 0)
             }
         },
 
