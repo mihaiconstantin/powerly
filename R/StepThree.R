@@ -270,6 +270,7 @@ StepThree <- R6::R6Class("StepThree",
             )
             abline(
                 h = private$.step_2$step_1$statistic_value,
+                v = private$.samples["50%"],
                 col = "#2c2c2c",
                 lty = 3
             )
