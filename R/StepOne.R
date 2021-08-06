@@ -91,7 +91,7 @@ StepOne <- R6::R6Class("StepOne",
 
             # Run simulation.
             private$.measures <- matrix(
-                parallel::parSapply(backend$cluster, samples, monte_carlo, generate, estimate, evaluate, true_model_parameters, measure),
+                backend$sapply(samples, monte_carlo, generate, estimate, evaluate, true_model_parameters, measure),
                 replications,
                 available_samples
             )
