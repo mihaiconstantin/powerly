@@ -117,6 +117,12 @@ Backend <- R6::R6Class("Backend",
             invisible()
         },
 
+        # Inspect what is on the cluster.
+        .inspect = function() {
+            # Check what is on the cluster.
+            parallel::clusterEvalQ(private$.cluster, ls(all.names = TRUE))
+        },
+
         # Adopt an external cluster to be managed via the backend.
         .adopt = function(cluster) {
             # Only adopt if no other cluster is active.
@@ -163,6 +169,11 @@ Backend <- R6::R6Class("Backend",
         # Clear any residual data on the cluster.
         clear = function() {
             private$.clear()
+        },
+
+        # Inspect what is on the cluster.
+        inspect = function() {
+            private$.inspect()
         },
 
         # Evaluate an arbitrary expression on the cluster.
