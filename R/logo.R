@@ -3,7 +3,7 @@
 #' After running this procedure we end up with what is stored in the `LOGO` constant.
 #' It is meant for updating the logo.
 #'
-update.logo <- function(ascii.logo.path = "./inst/assets/logo/logo.txt", version = c(1, 0, 0)) {
+make_logo <- function(ascii.logo.path = "./inst/assets/logo/logo.txt", version = c(1, 0, 0)) {
     # Load the ASCII logo.
     logo <- readLines(ascii.logo.path)
     logo <- dput(logo)
