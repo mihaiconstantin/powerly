@@ -123,6 +123,16 @@ Backend <- R6::R6Class("Backend",
             parallel::clusterEvalQ(private$.cluster, ls(all.names = TRUE))
         },
 
+        # A wrapper around `parallel:parSapply` to run tasks on the cluster.
+        .sapply = function(x, fun, ...) {
+            return(parallel::parSapply(private$.cluster, X = x, FUN = fun, ...))
+        },
+
+        # A wrapper around `parallel:parApply` to run tasks on the cluster.
+        .apply = function(x, margin, fun, ...) {
+            return(parallel::parApply(private$.cluster, X = x, MARGIN = margin, FUN = fun, ...))
+        },
+
         # Adopt an external cluster to be managed via the backend.
         .adopt = function(cluster) {
             # Only adopt if no other cluster is active.
@@ -180,6 +190,18 @@ Backend <- R6::R6Class("Backend",
         evaluate = function(expression) {
             # Evaluate the expression.
             parallel::clusterCall(private$.cluster, eval, substitute(expression), env = .GlobalEnv)
+        },
+
+        # Run tasks on the cluster in an `sapply` fashion.
+        sapply = function(x, fun, ...) {
+            # Run the task.
+            return(private$.sapply(x, fun, ...))
+        },
+
+        # Run tasks on the cluster in an `apply` fashion.
+        apply = function(x, margin, fun, ...) {
+            # Run the task.
+            return(private$.apply(x, margin, fun, ...))
         },
 
         # Adaptor a cluster that was created externally.
