@@ -10,10 +10,15 @@ Authors@R:
 Description: Sample size analysis for psychological network models.
 License: MIT + file LICENSE
 Imports:
-    bootnet,
-    nnls,
+    R6,
     progress,
-    splines2
+    parallel,
+    splines2,
+    quadprog,
+    nnls,
+    osqp,
+    bootnet,
+    qgraph
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
