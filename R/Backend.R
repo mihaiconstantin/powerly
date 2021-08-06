@@ -108,7 +108,10 @@ Backend <- R6::R6Class("Backend",
         # Clear data on the cluster.
         .clear = function() {
             # Evaluate the expression on the cluster.
-            parallel::clusterEvalQ(private$.cluster, rm(list = ls()))
+            parallel::clusterEvalQ(private$.cluster, rm(list = ls(all.names = TRUE)))
+
+            # Remain silent.
+            invisible()
         },
 
         # Adopt an external cluster to be managed via the backend.
