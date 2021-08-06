@@ -76,6 +76,9 @@ Backend <- R6::R6Class("Backend",
             # Make the cluster.
             private$.cluster <- parallel::makeCluster(private$.cores, private$.type)
 
+            # Sanitize the cluster.
+            private$.clear()
+
             # Set the active flag.
             private$.active <- TRUE
         },
