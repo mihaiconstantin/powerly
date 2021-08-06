@@ -1,4 +1,6 @@
 Backend <- R6::R6Class("Backend",
+    cloneable = FALSE,
+
     private = list(
         .active = FALSE,
         .cores = NULL,
