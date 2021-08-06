@@ -17,15 +17,6 @@
 
 #' \code{powerly}: Sample size analysis for complex models.
 #'
-#' @import R6
-#' @import splines2
-#' @import nnls
-#' @import bootnet
-#' @import qgraph
-#' @import parallel
-#' @import osqp
-#' @import quadprog
-#'
 #' @docType package
 #' @name powerly
 "_PACKAGE"
