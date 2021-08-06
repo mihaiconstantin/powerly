@@ -88,6 +88,14 @@ Method <- R6::R6Class("Method",
                 # Increase the counter.
                 private$.update_counter()
             }
+
+            # Handle the progress bar.
+            if (private$.verbose) {
+                # Terminate and clear the progress bar if the method converged.
+                if (!private$.progress$finished) {
+                    private$.progress$terminate()
+                }
+            }
         }
     ),
 
