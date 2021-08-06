@@ -1,3 +1,5 @@
+#' @include Range.R StepOne.R StepTwo.R StepThree.R
+
 Method <- R6::R6Class("Method",
     private = list(
         .start_time = NULL,
