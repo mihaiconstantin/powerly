@@ -24,5 +24,5 @@
 # On package attach or load.
 .onAttach <- function(libname, pkgname) {
     # Print the logo.
-    cat(LOGO, "\n")
+    packageStartupMessage(LOGO)
 }
