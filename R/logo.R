@@ -1,7 +1,7 @@
 #' Update package logo displayed at load time.
 #'
+#' This function is meant for generating or updating the logo.
 #' After running this procedure we end up with what is stored in the `LOGO` constant.
-#' It is meant for updating the logo.
 #'
 make_logo <- function(ascii.logo.path = "./inst/assets/logo/logo.txt", version = c(1, 0, 0)) {
     # Load the ASCII logo.
