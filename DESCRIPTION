@@ -1,5 +1,5 @@
 Package: powerly
-Title: Sample Size Analysis for Psychological Networks
+Title: Sample Size Analysis for Psychological Networks and More
 Version: 0.1.0
 Authors@R:
     person(given = "Mihai",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "mihai@mihaiconstantin.com",
            comment = c(ORCID = "0000-0002-6460-0107"))
-Description: Sample size analysis for psychological network models.
+Description: Sample size analysis for psychological network models and more models to come.
 License: MIT + file LICENSE
 Imports:
     R6,
