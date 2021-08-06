@@ -79,9 +79,9 @@ StepThree <- R6::R6Class("StepThree",
             private$.expose_data(environment())
 
             # Run bootstrap.
-            private$.boot_statistics <- t(parallel::parSapply(backend$cluster, seq_len(boots), boot,
-                available_samples, measures, measure_value, replications, extended_basis, statistic, solver
-            ))
+            private$.boot_statistics <- t(
+                backend$sapply(seq_len(boots), boot, available_samples, measures, measure_value, replications, extended_basis, statistic, solver)
+            )
         },
 
         # Rule for selecting sufficient sample sizes based on the shape of the spline.
@@ -130,7 +130,9 @@ StepThree <- R6::R6Class("StepThree",
         # Compute confidence intervals.
         .compute_ci_parallel = function(lower_ci, upper_ci, backend) {
             # Compute the confidence intervals via the percentile method.
-            private$.ci <- t(parallel::parApply(backend$cluster, private$.boot_statistics, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE))
+            private$.ci <- t(
+                backend$apply(private$.boot_statistics, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE)
+            )
 
             # Add row names for clarity.
             rownames(private$.ci) <- private$.step_2$interpolation$x
