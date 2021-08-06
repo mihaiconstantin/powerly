@@ -1,3 +1,20 @@
+# Get the number of cores allowed for parallelization.
+get_number_cores <- function() {
+    # Check if there is a core limit (e.g., imposed by CRAN).
+    has_core_limit <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
+
+    # Decide how many cores to use.
+    if (nzchar(has_core_limit) && chk == "TRUE") {
+        # Use two cores only.
+        cores <- 2L
+    } else {
+        # Use all available cores.
+        cores <- parallel::detectCores() - 1
+    }
+
+    return(cores)
+}
+
 # Helper based on 'quadprog' for testing the 'Solver' class.
 solve_qp <- function(basis_matrix, y, a_mat, b_vec, meq = 0) {
     # Create matrices for `solve.QP`.
