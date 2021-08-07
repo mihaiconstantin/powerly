@@ -3,9 +3,9 @@
 #' This function is meant for generating or updating the logo.
 #' After running this procedure we end up with what is stored in the `LOGO` constant.
 #'
-make_logo <- function(ascii.logo.path = "./inst/assets/logo/logo.txt", version = c(1, 0, 0)) {
+make_logo <- function(ascii_logo_path = "./inst/assets/logo/logo.txt", version = c(1, 0, 0)) {
     # Load the ASCII logo.
-    logo <- readLines(ascii.logo.path)
+    logo <- readLines(ascii_logo_path)
     logo <- dput(logo)
 
     # Update versioning.
