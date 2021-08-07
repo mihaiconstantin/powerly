@@ -4,7 +4,7 @@ get_number_cores <- function() {
     has_core_limit <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
 
     # Decide how many cores to use.
-    if (nzchar(has_core_limit) && chk == "TRUE") {
+    if (nzchar(has_core_limit) && has_core_limit == "TRUE") {
         # Use two cores only.
         cores <- 2L
     } else {
