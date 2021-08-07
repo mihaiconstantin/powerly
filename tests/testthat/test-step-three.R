@@ -139,7 +139,7 @@ test_that("'StepThree' performs the bootstrap procedure correctly", {
     backend <- Backend$new()
 
     # Start the backend.
-    backend$start(7)
+    backend$start(get_number_cores())
 
     # Run the bootstrap in parallel.
     step_3$bootstrap(1000, backend = backend)
@@ -239,7 +239,7 @@ test_that("'StepThree' computes the confidence intervals correctly", {
     backend <- Backend$new()
 
     # Start the backend.
-    backend$start(7)
+    backend$start(get_number_cores())
 
     # Compute confidence intervals in parallel.
     step_3$compute(backend = backend)
