@@ -5,9 +5,17 @@
 \title{Update package logo displayed at load time.}
 \usage{
 make_logo(
-  ascii.logo.path = "./inst/assets/logo/logo.txt",
+  ascii_logo_path = "./inst/assets/logo/logo.txt",
   version = c(1, 0, 0)
 )
+}
+\arguments{
+\item{ascii_logo_path}{The path to the logo template.}
+
+\item{version}{The version of the package to append to the logo.}
+}
+\value{
+The ASCII logo.
 }
 \description{
 This function is meant for generating or updating the logo.
