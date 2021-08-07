@@ -3,6 +3,11 @@
 #' This function is meant for generating or updating the logo.
 #' After running this procedure we end up with what is stored in the `LOGO` constant.
 #'
+#' @param ascii_logo_path The path to the logo template.
+#' @param version The version of the package to append to the logo.
+#'
+#' @return The ASCII logo.
+#'
 make_logo <- function(ascii_logo_path = "./inst/assets/logo/logo.txt", version = c(1, 0, 0)) {
     # Load the ASCII logo.
     logo <- readLines(ascii_logo_path)
