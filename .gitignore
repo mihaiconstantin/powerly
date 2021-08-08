@@ -1,7 +1,5 @@
-.idea/
 .Rproj.user
-.vscode/
 .Rhistory
-inst/debug/
-inst/design/
 .DS_Store
+.vscode/
+archive
