@@ -176,7 +176,7 @@ Method <- R6::R6Class("Method",
         },
 
         # Plotting.
-        plot = function(step, last = TRUE) {
+        plot = function(step = 3, last = TRUE) {
             # Determine which iteration should be plotted.
             if (last) {
                 # Plot the right step from the last iteration.
