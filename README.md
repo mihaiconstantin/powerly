@@ -1,0 +1,137 @@
+<h1 align="center">
+    Sample Size Analysis for Psychological Networks
+    <br>
+    <small style="color:gray; font-size:1.3rem">and more...</small>
+</h1>
+
+<p align="center">
+    <img style = "width:400px;" src="./inst/assets/logo/logo.jpeg" alt="Package logo"/>
+</p>
+
+## Description
+
+`powerly` is an `R` package that implements the method by [Constantin,
+Schuurman, & Vermunt (2021)](https://) for conducting sample size analysis for
+cross-sectional network models. The method implemented is implemented in the
+main function `powerly()`. The implementation takes the form of a three-step
+recursive algorithm designed to find an optimal sample size value given a model
+specification and an outcome measure of interest. It starts with a Monte Carlo
+simulation step for computing the outcome at various sample sizes. It continues
+with a monotone curve-fitting step for interpolating the outcome. The final step
+employs stratified bootstrapping to quantify the uncertainty around the fitted
+curve. For more details on how the method works, check the manuscript linked above.
+Moreover, consult the [method
+poster](https://github.com/mihaiconstantin/powerly#poster).
+
+---
+
+## Installation
+
+- to install from CRAN run `install.packages("powerly")`
+- to install the latest version from GitHub run `devtools::install_github("mihaiconstantin/powerly")`
+
+---
+
+## Example
+
+The code block below illustrates the main function in the package. For more
+information, see the documentation `?powerly`.
+
+```r
+# Suppose we want to find the sample size for observing a sensitivity of `0.6`
+# with a probability of `0.8`, for a GGM true model consisting of `10` nodes
+# with a density of `0.4`.
+
+# We can run the method for an arbitrarily generated true model that matches
+# those characteristics (i.e., number of nodes and density).
+results <- powerly(
+    range_lower = 300,
+    range_upper = 1000,
+    samples = 30,
+    replications = 20,
+    measure = "sen",
+    statistic = "power",
+    measure_value = .6,
+    statistic_value = .8,
+    model = "ggm",
+    nodes = 10,
+    density = .4,
+    verbose = TRUE
+)
+
+# Or we omit the `nodes` and `density` arguments and specify directly the edge
+# weights matrix via the `model_matrix` argument.
+
+# To get a matrix of edge weights we can use the `generate_model()` function.
+true_model <- generate_model(type = "ggm", nodes = 10, density = .4)
+
+# Then, supply the true model to the algorithm directly.
+results <- powerly(
+    range_lower = 300,
+    range_upper = 1000,
+    samples = 30,
+    replications = 20,
+    measure = "sen",
+    statistic = "power",
+    measure_value = .6,
+    statistic_value = .8,
+    model = "ggm",
+    model_matrix = true_model,
+    verbose = TRUE
+)
+```
+
+To visualize the results, we can use the `plot` function and indicating the
+step that should be plotted.
+
+```r
+# Step 1.
+plot(results, step = 1)
+```
+<p align="center">
+    <img style = "width:50%;" src="./man/figures/example-step-1.svg" alt="Example Step 1"/>
+</p>
+
+```r
+# Step 2.
+plot(results, step = 2)
+```
+<p align="center">
+    <img style = "width:50%;" src="./man/figures/example-step-2.svg" alt="Example Step 2"/>
+</p>
+
+```r
+# Step 3.
+plot(results, step = 3)
+```
+
+<p align="center">
+    <img style = "width:50%;" src="./man/figures/example-step-3.svg" alt="Example Step 3"/>
+</p>
+
+---
+
+## Contributing
+
+- *To support* a new model, performance measure, or statistic, please open a
+  [pull request](https://github.com/mihaiconstantin/powerly/pulls) on GitHub.
+- *To request* a new model, performance measure, or statistic, please open an
+  [issue](https://github.com/mihaiconstantin/powerly/issues) on GitHub. If
+  possible, also include references discussing the topics you are requesting.
+
+---
+
+## Poster
+
+<p align="center">
+    <img style = "width:90%;" src="./inst/assets/method/poster_IOPS_2021_Mihai_Constantin.png" alt="Package logo"/>
+</p>
+
+---
+
+## License
+
+The code in this repository is licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+To cite `powerly` please use:
+- Constantin, M. A., Schuurman, N. K., & Vermunt, K. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models.
