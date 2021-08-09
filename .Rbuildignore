@@ -1,3 +1,7 @@
-^splower\.Rproj$
+^.*\.Rproj$
 ^\.Rproj\.user$
-^LICENSE\.md$
+LICENSE.md
+.vscode/
+inst/debug/
+inst/design/
+archive

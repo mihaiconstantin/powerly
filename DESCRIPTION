@@ -1,20 +1,53 @@
-Package: splower
-Title: Sample Size Analysis for Psychological Network Models
-Version: 0.1.0
-Authors@R: 
+Package: powerly
+Title: Sample Size Analysis for Psychological Networks and More
+Version: 1.0.0
+Authors@R:
     person(given = "Mihai",
            family = "Constantin",
            role = c("aut", "cre"),
-           email = "constantin.mihai.alexandru@gmail.com",
+           email = "mihai@mihaiconstantin.com",
            comment = c(ORCID = "0000-0002-6460-0107"))
-Description: Provide sample size recommendations for psychological network models.
+Description: Sample size analysis for psychological network models and more models to come.
 License: MIT + file LICENSE
+URL: https://github.com/mihaiconstantin/powerly
+BugReports: https://github.com/mihaiconstantin/powerly/issues
 Imports:
-    bootnet,
-    nnls,
+    R6,
     progress,
-    splines2
+    parallel,
+    splines2,
+    quadprog,
+    osqp,
+    bootnet,
+    qgraph
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
+Collate:
+    'Backend.R'
+    'Basis.R'
+    'Model.R'
+    'GgmModel.R'
+    'Interpolation.R'
+    'Spline.R'
+    'StepThree.R'
+    'StepTwo.R'
+    'Statistic.R'
+    'PowerStatistic.R'
+    'StatisticFactory.R'
+    'ModelFactory.R'
+    'StepOne.R'
+    'Range.R'
+    'Method.R'
+    'OsqpSolver.R'
+    'QuadprogSolver.R'
+    'Solver.R'
+    'SolverFactory.R'
+    'constants.R'
+    'exports.R'
+    'logo.R'
+    'powerly-package.R'
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
