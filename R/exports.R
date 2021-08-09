@@ -351,3 +351,16 @@ powerly <- function(
 
     return(method)
 }
+
+generate_model <- function(type, ...) {
+    # Create a model factory.
+    factory <- ModelFactory$new()
+
+    # Get a model from the factory.
+    model <- factory$get_model(type)
+
+    # Generate true model parameters.
+    true_parameters <- model$create(...)
+
+    return(true_parameters)
+}
