@@ -1,11 +1,11 @@
 <h1 align="center">
     Sample Size Analysis for Psychological Networks
     <br>
-    <small style="color:gray; font-size:1.3rem">and more...</small>
+    <sub> and more...</sub>
 </h1>
 
 <p align="center">
-    <img style = "width:400px;" src="./inst/assets/logo/logo.jpeg" alt="Package logo"/>
+    <img width="450px" src="./inst/assets/logo/logo.jpeg" alt="Package logo"/>
 </p>
 
 ## Description
@@ -89,7 +89,7 @@ step that should be plotted.
 plot(results, step = 1)
 ```
 <p align="center">
-    <img style = "width:50%;" src="./man/figures/example-step-1.svg" alt="Example Step 1"/>
+    <img width = "50%" src="./man/figures/example-step-1.svg" alt="Example Step 1"/>
 </p>
 
 ```r
@@ -97,7 +97,7 @@ plot(results, step = 1)
 plot(results, step = 2)
 ```
 <p align="center">
-    <img style = "width:50%;" src="./man/figures/example-step-2.svg" alt="Example Step 2"/>
+    <img width="50%" src="./man/figures/example-step-2.svg" alt="Example Step 2"/>
 </p>
 
 ```r
@@ -106,7 +106,7 @@ plot(results, step = 3)
 ```
 
 <p align="center">
-    <img style = "width:50%;" src="./man/figures/example-step-3.svg" alt="Example Step 3"/>
+    <img width = "50%" src="./man/figures/example-step-3.svg" alt="Example Step 3"/>
 </p>
 
 ---
@@ -124,7 +124,7 @@ plot(results, step = 3)
 ## Poster
 
 <p align="center">
-    <img style = "width:90%;" src="./inst/assets/method/poster_IOPS_2021_Mihai_Constantin.png" alt="Package logo"/>
+    <img width = "90%" src="./inst/assets/method/poster_IOPS_2021_Mihai_Constantin.png" alt="Package logo"/>
 </p>
 
 ---
