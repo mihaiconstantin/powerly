@@ -277,7 +277,8 @@ powerly <- function(
     iterations = 10,
     cores = NULL,
     backend_type = NULL,
-    verbose = FALSE
+    save_memory = FALSE,
+    verbose = TRUE
 ) {
     # Decide whether it is necessary to create a parallel backend.
     use_backend <- !is.null(cores) && cores > 1
@@ -292,7 +293,7 @@ powerly <- function(
     }
 
     # Create a method object.
-    method <- Method$new(max_iterations = iterations, verbose = verbose)
+    method <- Method$new(max_iterations = iterations, verbose = verbose, save_memory = save_memory)
 
     # Register the backend.
     if (use_backend) {
