@@ -2,7 +2,7 @@
 % Please edit documentation in R/logo.R
 \name{make_logo}
 \alias{make_logo}
-\title{Update package logo displayed at load time.}
+\title{Update package logo}
 \usage{
 make_logo(
   ascii_logo_path = "./inst/assets/logo/logo.txt",
@@ -10,14 +10,17 @@ make_logo(
 )
 }
 \arguments{
-\item{ascii_logo_path}{The path to the logo template.}
+\item{ascii_logo_path}{A character string representing the path to the logo
+template.}
 
-\item{version}{The version of the package to append to the logo.}
+\item{version}{A numerical vector of three positive integers representing the
+version of the package to append to the logo.}
 }
 \value{
 The ASCII logo.
 }
 \description{
-This function is meant for generating or updating the logo.
-After running this procedure we end up with what is stored in the \code{LOGO} constant.
+This function is meant for generating or updating the logo. After running
+this procedure we end up with what is stored in the \code{LOGO} constant.
 }
+\keyword{internal}
