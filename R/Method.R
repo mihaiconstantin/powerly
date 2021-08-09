@@ -226,6 +226,9 @@ Method <- R6::R6Class("Method",
         range = function() { return(private$.range) },
         step_1 = function() { return(private$.step_1) },
         step_2 = function() { return(private$.step_2) },
-        step_3 = function() { return(private$.step_3) }
+        step_3 = function() { return(private$.step_3) },
+
+        # Get the recommended sample sizes.
+        recommendation = function() { return(private$.step_3$samples) }
     )
 )
