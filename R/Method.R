@@ -16,6 +16,7 @@ Method <- R6::R6Class("Method",
         .max_iterations = NULL,
 
         .verbose = NULL,
+        .save_memory = NULL,
         .progress = NULL,
 
         # Set the verbosity level.
@@ -75,8 +76,8 @@ Method <- R6::R6Class("Method",
                 # Tick the progress bar.
                 if (private$.verbose) private$.progress$tick()
 
-                # Store previous results.
-                private$.previous <- private$.commit()
+                # Store previous results if desired.
+                if (!private$.save_memory) private$.previous <- private$.commit()
 
                 # Update the range for a new iteration.
                 private$.range$update_bounds(private$.step_3, lower_ci, upper_ci)
@@ -102,7 +103,7 @@ Method <- R6::R6Class("Method",
     ),
 
     public = list(
-        initialize = function(max_iterations = 10, verbose = TRUE) {
+        initialize = function(max_iterations = 10, verbose = TRUE, save_memory = FALSE) {
             # Set the maximum number of allowed iterations.
             private$.max_iterations <- max_iterations
 
@@ -111,6 +112,9 @@ Method <- R6::R6Class("Method",
 
             # Set the verbosity level.
             private$.set_verbosity(verbose)
+
+            # Set the memory preference.
+            private$.save_memory <- save_memory
         },
 
         # Register parallelization backend.
