@@ -257,8 +257,8 @@
 powerly <- function(
     range_lower,
     range_upper,
-    samples,
-    replications,
+    samples = 30,
+    replications = 30,
     model = "ggm",
     ...,
     model_matrix = NULL,
