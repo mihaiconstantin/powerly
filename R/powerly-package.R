@@ -15,11 +15,27 @@
 
 #' @include logo.R
 
-#' \code{powerly}: Sample size analysis for complex models.
+#' @title
+#' Sample Size Analysis for Psychological Networks and More
 #'
-#' @docType package
-#' @name powerly
+#' @description
+#' `powerly` is a package that implements the method by [Constantin et al.
+#' (2021)](https://) for conducting sample size analysis for network models.
+#'
+#' @details
+#' The method implemented is implemented in the main function [powerly()]. The
+#' implementation takes the form of a three-step recursive algorithm designed to
+#' find an optimal sample size value given a model specification and an outcome
+#' measure of interest. It starts with a Monte Carlo simulation step for
+#' computing the outcome at various sample sizes. It continues with a monotone
+#' curve-fitting step for interpolating the outcome. The final step employs
+#' stratified bootstrapping to quantify the uncertainty around the fitted curve.
+#'
+#' @aliases powerly-package
+#'
+#' @keywords internal
 "_PACKAGE"
+
 
 # On package attach or load.
 .onAttach <- function(libname, pkgname) {
