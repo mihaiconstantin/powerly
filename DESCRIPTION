@@ -15,7 +15,6 @@ Imports:
     parallel,
     splines2,
     quadprog,
-    nnls,
     osqp,
     bootnet,
     qgraph
