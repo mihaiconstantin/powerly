@@ -17,6 +17,14 @@ computing the outcome at various sample sizes. It continues with a monotone
 curve-fitting step for interpolating the outcome. The final step employs
 stratified bootstrapping to quantify the uncertainty around the fitted curve.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/mihaiconstantin/powerly}
+  \item Report bugs at \url{https://github.com/mihaiconstantin/powerly/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Mihai Constantin \email{mihai@mihaiconstantin.com} (\href{https://orcid.org/0000-0002-6460-0107}{ORCID})
 

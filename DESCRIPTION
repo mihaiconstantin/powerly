@@ -9,6 +9,8 @@ Authors@R:
            comment = c(ORCID = "0000-0002-6460-0107"))
 Description: Sample size analysis for psychological network models and more models to come.
 License: MIT + file LICENSE
+URL: https://github.com/mihaiconstantin/powerly
+BugReports: https://github.com/mihaiconstantin/powerly/issues
 Imports:
     R6,
     progress,
