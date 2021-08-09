@@ -337,7 +337,7 @@ StepThree <- R6::R6Class("StepThree",
                 density = c(NA, NA),
                 bty = "n",
                 border = c("#bc8f8f52", "#4683b48e"),
-                cex = 1
+                cex = 0.7
             )
 
             # Sample size of interest.
