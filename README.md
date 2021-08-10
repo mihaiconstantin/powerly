@@ -81,6 +81,14 @@ results <- powerly(
 )
 ```
 
+To validate the results of the analysis, we can use the `validate()` method.
+For more information, see the documentation `?validate`.
+
+```r
+# Validate the recommendation obtained during the analysis.
+validation <- validate(results)
+```
+
 To visualize the results, we can use the `plot` function and indicating the
 step that should be plotted.
 
@@ -107,6 +115,15 @@ plot(results, step = 3)
 
 <p align="center">
     <img width = "50%" src="./man/figures/example-step-3.svg" alt="Example Step 3"/>
+</p>
+
+```r
+# Validation.
+plot(validation)
+```
+
+<p align="center">
+    <img width = "50%" src="./man/figures/example-validation.svg" alt="Example Validation"/>
 </p>
 
 ---
