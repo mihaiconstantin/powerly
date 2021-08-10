@@ -164,9 +164,8 @@
 #' - Alternatively, you can get in touch at `mihai at mihaiconstantin dot com`.
 #'
 #' @return
-#' An [R6::R6Class()] instance of `Method` class that contains the results that
-#' contains the results for each step of the method for the last and previous
-#' iterations.
+#' An [R6::R6Class()] instance of `Method` class that contains the results for
+#' each step of the method for the last and previous iterations.
 #'
 #' Main fields:
 #' - `$duration`: The time elapsed during the method run.
