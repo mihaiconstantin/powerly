@@ -416,6 +416,7 @@ StepThree <- R6::R6Class("StepThree",
     ),
 
     active = list(
+        step_1 = function() { return(private$.step_2$step_1) },
         step_2 = function() { return(private$.step_2) },
         boots = function() { return(private$.boots) },
         lower_ci = function() { return(private$.lower_ci) },
