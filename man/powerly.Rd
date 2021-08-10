@@ -140,9 +140,8 @@ status of the algorithm should be printed while running. The default is
 \code{TRUE}.}
 }
 \value{
-An \code{\link[R6:R6Class]{R6::R6Class()}} instance of \code{Method} class that contains the results that
-contains the results for each step of the method for the last and previous
-iterations.
+An \code{\link[R6:R6Class]{R6::R6Class()}} instance of \code{Method} class that contains the results for
+each step of the method for the last and previous iterations.
 
 Main fields:
 \itemize{
@@ -299,5 +298,5 @@ Constantin et al. (2021). A General Monte Carlo Method for Sample Size
 Analysis in the Context of Network Models.
 }
 \seealso{
-\code{\link[=generate_model]{generate_model()}}
+\code{\link[=validate]{validate()}}, \code{\link[=generate_model]{generate_model()}}
 }

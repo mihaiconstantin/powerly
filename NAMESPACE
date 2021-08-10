@@ -2,3 +2,4 @@
 
 export(generate_model)
 export(powerly)
+export(validate)

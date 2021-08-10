@@ -1,4 +1,6 @@
 # Coming changes
+[x] Add function to validate the results of a sample size analysis.
+[ ] Add tests for `Validation` class.
 [ ] Add implementation for `summary` and `print` methods for the `Method` class.
 [ ] Option to set seeds for the cluster via `parallel::setclusterSetRNGStream`
 [ ] Document the `plot` method in `Method` class.

@@ -379,13 +379,13 @@ StepThree <- R6::R6Class("StepThree",
             abline(v = boot_statistics_median, col = "#5f5f5f", lty = 3)
             mtext(round(boot_statistics_median, 3), side = 1, at = boot_statistics_median, col = "rosybrown",  font = 2, line = 0.3, cex = .9)
 
-            # Plot quantiles of bootstrapped statistics.
+            # Plot percentiles of bootstrapped statistics.
             plot(
                 private$.step_2$step_1$range$sequence,
                 private$.ci[, "50%"],
                 type = "l",
                 lwd = 2,
-                main = paste0("Quantiles (", 0.5 * 100, "th)"),
+                main = paste0("Percentiles (", 0.5 * 100, "th)"),
                 ylab = paste0("Bootstrapped statistics"),
                 xlab = "",
                 xaxt = "n",
@@ -416,6 +416,7 @@ StepThree <- R6::R6Class("StepThree",
     ),
 
     active = list(
+        step_1 = function() { return(private$.step_2$step_1) },
         step_2 = function() { return(private$.step_2) },
         boots = function() { return(private$.boots) },
         lower_ci = function() { return(private$.lower_ci) },
