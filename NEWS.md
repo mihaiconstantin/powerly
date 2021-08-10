@@ -20,7 +20,9 @@
 [-] Shiny application for running the method.
 
 # Known bugs
-[-] ...
+[x] Too many `NA` values in the matrix of performance measures will result in bootstrapped vectors of
+    statistics that have at least one `NaN` element. This will cause the
+    `solver$solve_update(boot_statistics)` to fail (e.g., `NA/NaN/Inf in foreign function call (arg 2)`).
 
 # Notes
 [-] ...
