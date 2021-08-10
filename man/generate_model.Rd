@@ -23,5 +23,5 @@ These matrices are intended to passed to the \code{model_matrix} argument of
 \code{\link[=powerly]{powerly()}}.
 }
 \seealso{
-\code{\link[=powerly]{powerly()}}
+\code{\link[=powerly]{powerly()}}, \code{\link[=validate]{validate()}}
 }
