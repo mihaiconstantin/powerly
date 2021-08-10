@@ -6,6 +6,6 @@ citEntry(
   author   = personList(as.person("Mihai A. Constantin"), as.person("Noemi N. K. Schuurman"), as.person("Jeroen K. Vermunt")),
   journal  = "Journal",
   year     = "2021",
-  url      = "https://arxiv.org/abs/",
+  url      = "https://arxiv.org",
   textVersion = "Constantin, M. A., Schuurman, N. K., & Vermunt, K. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models."
 )
