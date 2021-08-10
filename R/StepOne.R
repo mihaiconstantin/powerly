@@ -7,7 +7,10 @@ StepOne <- R6::R6Class("StepOne",
         .measure_value = NULL,
         .statistic_value = NULL,
 
-        .measure = NULL,
+        .measure_type = NULL,
+        .statistic_type = NULL,
+        .model_type = NULL,
+
         .statistic = NULL,
         .model = NULL,
 
@@ -26,7 +29,7 @@ StepOne <- R6::R6Class("StepOne",
             env$replications <- private$.replications
             env$partition <- private$.range$partition
             env$true_model_parameters <- private$.true_model_parameters
-            env$measure <- private$.measure
+            env$measure <- private$.measure_type
 
             # Function calls.
             env$monte_carlo <- private$.monte_carlo
@@ -106,6 +109,10 @@ StepOne <- R6::R6Class("StepOne",
 
         # Set the true model based on the type.
         set_model = function(type) {
+            # Record the type.
+            private$.model_type <- type
+
+            # Create instance based on the type via the factory.
             private$.set_model(type)
         },
 
@@ -125,12 +132,15 @@ StepOne <- R6::R6Class("StepOne",
 
         # Set the measure of interest (e.g., sensitivity).
         set_measure = function(measure, value) {
-            private$.measure <- measure
+            private$.measure_type <- measure
             private$.measure_value <- value
         },
 
         # Set the statistic computed on the measure values.
         set_statistic = function(statistic, value) {
+            # Record the statistic type.
+            private$.statistic_type = statistic
+
             # Create an instance of the statistic via the factory.
             private$.set_statistic(statistic)
 
@@ -223,7 +233,7 @@ StepOne <- R6::R6Class("StepOne",
             )
             title(
                 main = "Monte Carlo Replicated Measures",
-                ylab = paste0("Values for measure '", toupper(private$.measure), "'"),
+                ylab = paste0("Values for measure '", toupper(private$.measure_type), "'"),
                 cex.main = 1,
                 cex.lab = 1
             )
@@ -283,15 +293,17 @@ StepOne <- R6::R6Class("StepOne",
 
     active = list(
         range = function() { return(private$.range) },
-        replications = function() { return(private$.replications) },
-        measure_value = function() { return(private$.measure_value) },
-        statistic_value = function() { return(private$.statistic_value) },
-        measure = function() { return(private$.measure) },
         statistic = function() { return(private$.statistic) },
         model = function() { return(private$.model) },
+        measure_type = function() { return(private$.measure_type) },
+        statistic_type = function() { return(private$.statistic_type) },
+        model_type = function() { return(private$.model_type) },
+        measure_value = function() { return(private$.measure_value) },
+        statistic_value = function() { return(private$.statistic_value) },
         true_model_parameters = function() { return(private$.true_model_parameters) },
         measures = function() { return(private$.measures) },
         statistics = function() { return(private$.statistics) },
+        replications = function() { return(private$.replications) },
         duration = function() { return(private$.duration) }
     )
 )

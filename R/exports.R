@@ -164,9 +164,8 @@
 #' - Alternatively, you can get in touch at `mihai at mihaiconstantin dot com`.
 #'
 #' @return
-#' An [R6::R6Class()] instance of `Method` class that contains the results that
-#' contains the results for each step of the method for the last and previous
-#' iterations.
+#' An [R6::R6Class()] instance of `Method` class that contains the results for
+#' each step of the method for the last and previous iterations.
 #'
 #' Main fields:
 #' - `$duration`: The time elapsed during the method run.
@@ -251,7 +250,7 @@
 #' # the last iteration of the algorithm.
 #' }
 #'
-#' @seealso [powerly::generate_model()]
+#' @seealso [powerly::validate()], [powerly::generate_model()]
 #'
 #' @export
 powerly <- function(
@@ -354,6 +353,134 @@ powerly <- function(
 }
 
 
+#' @title
+#' Validate a sample size analysis
+#'
+#' @description
+#' This function can be used to validate the recommendation obtained from a
+#' sample size analysis.
+#'
+#' @param method An object of class `Method` produced by running
+#' [powerly::powerly()].
+#'
+#' @param replications A single positive integer representing the number of
+#' Monte Carlo simulations to perform for the recommended sample size. The
+#' default is `1000`. Whenever possible, a value of `10000` should be preferred
+#' for a higher accuracy of the validation results.
+#'
+#' @param cores A single positive positive integer representing the number of
+#' cores to use for running the validation in parallel, or `NULL`. If `NULL`
+#' (the default) the validation will run sequentially.
+#'
+#' @param backend_type A character string indicating the type of cluster to
+#' create for running the validation in parallel, or `NULL`. Possible values are
+#' `"psock"` and `"fork"`. If `NULL` the backend is determined based on the
+#' computer architecture (i.e., `fork` for Unix and MacOS and `psock` for
+#' Windows).
+#'
+#' @param verbose A logical value indicating whether information about the
+#' status of the validation should be printed while running. The default is
+#' `TRUE`.
+#'
+#' @details
+#' The sample sizes used during the validation procedure is automatically extracted
+#' from the `method` argument.
+#'
+#' @return
+#' An [R6::R6Class()] instance of `Validation` class that contains the results
+#' of the validation.
+#'
+#' Main fields:
+#' - `$sample`: The sample size used for the validation.
+#' - `$measures`: The performance measures observed during validation.
+#' - `$statistic`: The statistic computed on the performance measures.
+#' - `$percentile_value`: The performance measure value at the desired percentile.
+#' - `$validator`: An [R6::R6Class()] instance of `StepOne` class.
+#'
+#' The `plot` method can be called on the return value to visualize the results.
+#' - `plot(validation)`
+#'
+#' \if{html}{
+#' Example of a plot:
+#' \itemize{\item \figure{example-validation.svg}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
+#' }
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Perform a sample size analysis.
+#' results <- powerly(
+#'     range_lower = 300,
+#'     range_upper = 1000,
+#'     samples = 30,
+#'     replications = 20,
+#'     measure = "sen",
+#'     statistic = "power",
+#'     measure_value = .6,
+#'     statistic_value = .8,
+#'     model = "ggm",
+#'     nodes = 10,
+#'     density = .4,
+#'     verbose = TRUE
+#' )
+#'
+#' # Validate the recommendation obtained during the analysis.
+#' validation <- validate(results)
+#'
+#' # Plot the validation results.
+#' plot(validation)
+#' }
+#'
+#' @seealso [powerly::powerly()], [powerly::generate_model()]
+#'
+#' @export
+validate <- function(method, replications = 3000, cores = NULL, backend_type = NULL, verbose = TRUE) {
+    # Announce the starting of the validation.
+    if (verbose) cat("Running the validation...", "\n")
+
+    # Decide whether it is necessary to create a parallel backend.
+    use_backend <- !is.null(cores) && cores > 1
+
+    # Prepare backend if necessary.
+    if (use_backend) {
+        # Create backend instance.
+        backend <- Backend$new()
+
+        # Start it.
+        backend$start(cores, type = backend_type)
+    }
+
+    # Create a validation object.
+    validation <- Validation$new()
+
+    # Register the backend.
+    if (use_backend) {
+        validation$register_backend(backend)
+    }
+
+    # Configure the validator.
+    validation$configure_validator(method$step_3)
+
+    # Run the validation.
+    validation$run(replications = replications)
+
+    # Close the backend.
+    if (use_backend) {
+        backend$stop()
+    }
+
+    # Information regarding the results of the validation.
+    if (verbose) {
+        cat("\n", "Validation completed (", as.numeric(round(validation$validator$duration, 4)), " sec):", sep = "")
+        cat("\n", " - sample: ", validation$sample, sep = "")
+        cat("\n", " - statistic: ", validation$statistic, sep = "")
+        cat("\n", " - measure at ", validation$percentile, " pert.: ", round(validation$percentile_value, 3), sep = "")
+    }
+
+    return(validation)
+}
+
+
 #' @title Generate true model parameters
 #'
 #' @description
@@ -371,7 +498,7 @@ powerly <- function(
 #' @return
 #' A matrix containing the model parameters.
 #'
-#' @seealso [powerly::powerly()]
+#' @seealso [powerly::powerly()], [powerly::validate()]
 #'
 #' @export
 generate_model <- function(type, ...) {

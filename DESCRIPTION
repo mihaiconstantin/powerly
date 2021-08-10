@@ -44,6 +44,7 @@ Collate:
     'QuadprogSolver.R'
     'Solver.R'
     'SolverFactory.R'
+    'Validation.R'
     'constants.R'
     'exports.R'
     'logo.R'
