@@ -251,7 +251,7 @@
 #' # the last iteration of the algorithm.
 #' }
 #'
-#' @seealso [powerly::generate_model()]
+#' @seealso [powerly::validate()], [powerly::generate_model()]
 #'
 #' @export
 powerly <- function(
@@ -499,7 +499,7 @@ validate <- function(method, replications = 3000, cores = NULL, backend_type = N
 #' @return
 #' A matrix containing the model parameters.
 #'
-#' @seealso [powerly::powerly()]
+#' @seealso [powerly::powerly()], [powerly::validate()]
 #'
 #' @export
 generate_model <- function(type, ...) {
