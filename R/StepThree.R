@@ -355,7 +355,7 @@ StepThree <- R6::R6Class("StepThree",
                 boot_statistics,
                 col = "#00000023",
                 border = FALSE,
-                main = paste0("Sample: ", sample, " | ", "Quantile: ", 0.5 * 100, "th"),
+                main = paste0("Sample: ", sample, " | ", "Percentile: ", 0.5 * 100, "th"),
                 xaxt = "n",
                 xlab = ""
             )
