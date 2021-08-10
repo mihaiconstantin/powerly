@@ -116,17 +116,17 @@
 #'
 #' @details
 #' This function represents the implementation of the method introduced by
-#' Constantin et al. (2021) for performing a priori sample size analysis in the
-#' context of network models. The method takes the form of a three-step
-#' recursive algorithm designed to find an optimal sample size value given a
-#' model specification and an outcome measure of interest (e.g., sensitivity).
-#' It starts with a Monte Carlo simulation step for computing the outcome of
-#' interest at various sample sizes. It continues with a monotone non-decreasing
-#' curve-fitting step for interpolating the outcome. The final step employs a
-#' stratified bootstrapping scheme to account for the uncertainty around the
-#' recommendation provided. The method runs the three steps recursively until
-#' the candidate sample size range used for the search shrinks below a specified
-#' value.
+#' [Constantin et al. (2021)](https://arxiv.org/abs/) for performing a priori
+#' sample size analysis in the context of network models. The method takes the
+#' form of a three-step recursive algorithm designed to find an optimal sample
+#' size value given a model specification and an outcome measure of interest
+#' (e.g., sensitivity). It starts with a Monte Carlo simulation step for
+#' computing the outcome of interest at various sample sizes. It continues with
+#' a monotone non-decreasing curve-fitting step for interpolating the outcome.
+#' The final step employs a stratified bootstrapping scheme to account for the
+#' uncertainty around the recommendation provided. The method runs the three
+#' steps recursively until the candidate sample size range used for the search
+#' shrinks below a specified value.
 #'
 #' @section True Models:
 #' **Gaussian Graphical Model (GGM)**
