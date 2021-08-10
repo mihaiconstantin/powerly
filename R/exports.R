@@ -354,6 +354,87 @@ powerly <- function(
 }
 
 
+#' @title
+#' Validate a sample size analysis
+#'
+#' @description
+#' This function can be used to validate the recommendation obtained from a
+#' sample size analysis.
+#'
+#' @param method An object of class `Method` produced by running
+#' [powerly::powerly()].
+#'
+#' @param replications A single positive integer representing the number of
+#' Monte Carlo simulations to perform for the recommended sample size. The
+#' default is `1000`. Whenever possible, a value of `10000` should be preferred
+#' for a higher accuracy of the validation results.
+#'
+#' @param cores A single positive positive integer representing the number of
+#' cores to use for running the validation in parallel, or `NULL`. If `NULL`
+#' (the default) the validation will run sequentially.
+#'
+#' @param backend_type A character string indicating the type of cluster to
+#' create for running the validation in parallel, or `NULL`. Possible values are
+#' `"psock"` and `"fork"`. If `NULL` the backend is determined based on the
+#' computer architecture (i.e., `fork` for Unix and MacOS and `psock` for
+#' Windows).
+#'
+#' @param verbose A logical value indicating whether information about the
+#' status of the validation should be printed while running. The default is
+#' `TRUE`.
+#'
+#' @details
+#' The sample sizes used during the validation procedure is automatically extracted
+#' from the `method` argument.
+#'
+#' @return
+#' An [R6::R6Class()] instance of `Validation` class that contains the results
+#' of the validation.
+#'
+#' Main fields:
+#' - `$sample`: The sample size used for the validation.
+#' - `$measures`: The performance measures observed during validation.
+#' - `$statistic`: The statistic computed on the performance measures.
+#' - `$percentile_value`: The performance measure value at the desired percentile.
+#' - `$validator`: An [R6::R6Class()] instance of `StepOne` class.
+#'
+#' The `plot` method can be called on the return value to visualize the results.
+#' - `plot(validation)`
+#'
+#' \if{html}{
+#' Example of a plot:
+#' \itemize{\item \figure{example-validation.svg}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
+#' }
+#'
+#' @examples
+#' \dontrun{
+#'
+#' # Perform a sample size analysis.
+#' results <- powerly(
+#'     range_lower = 300,
+#'     range_upper = 1000,
+#'     samples = 30,
+#'     replications = 20,
+#'     measure = "sen",
+#'     statistic = "power",
+#'     measure_value = .6,
+#'     statistic_value = .8,
+#'     model = "ggm",
+#'     nodes = 10,
+#'     density = .4,
+#'     verbose = TRUE
+#' )
+#'
+#' # Validate the recommendation obtained during the analysis.
+#' validation <- validate(results)
+#'
+#' # Plot the validation results.
+#' plot(validation)
+#' }
+#'
+#' @seealso [powerly::powerly()], [powerly::generate_model()]
+#'
+#' @export
 validate <- function(method, replications = 3000, cores = NULL, backend_type = NULL, verbose = TRUE) {
     # Announce the starting of the validation.
     if (verbose) cat("Running the validation...", "\n")
