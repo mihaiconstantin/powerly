@@ -178,7 +178,7 @@ interest (e.g., sensitivity) given a hypothesized network structure.
 }
 \details{
 This function represents the implementation of the method introduced by
-\href{https://arxiv.org/abs/}{Constantin et al. (2021)} for performing a priori
+\href{https://arxiv.org}{Constantin et al. (2021)} for performing a priori
 sample size analysis in the context of network models. The method takes the
 form of a three-step recursive algorithm designed to find an optimal sample
 size value given a model specification and an outcome measure of interest
