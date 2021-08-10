@@ -354,6 +354,53 @@ powerly <- function(
 }
 
 
+validate <- function(method, replications = 3000, cores = NULL, backend_type = NULL, verbose = TRUE) {
+    # Announce the starting of the validation.
+    if (verbose) cat("Running the validation...", "\n")
+
+    # Decide whether it is necessary to create a parallel backend.
+    use_backend <- !is.null(cores) && cores > 1
+
+    # Prepare backend if necessary.
+    if (use_backend) {
+        # Create backend instance.
+        backend <- Backend$new()
+
+        # Start it.
+        backend$start(cores, type = backend_type)
+    }
+
+    # Create a validation object.
+    validation <- Validation$new()
+
+    # Register the backend.
+    if (use_backend) {
+        validation$register_backend(backend)
+    }
+
+    # Configure the validator.
+    validation$configure_validator(method$step_3)
+
+    # Run the validation.
+    validation$run(replications = replications)
+
+    # Close the backend.
+    if (use_backend) {
+        backend$stop()
+    }
+
+    # Information regarding the results of the validation.
+    if (verbose) {
+        cat("\n", "Validation completed (", as.numeric(round(validation$validator$duration, 4)), " sec):", sep = "")
+        cat("\n", " - sample: ", validation$sample, sep = "")
+        cat("\n", " - statistic: ", validation$statistic, sep = "")
+        cat("\n", " - measure at ", validation$percentile, " pert.: ", round(validation$percentile_value, 3), sep = "")
+    }
+
+    return(validation)
+}
+
+
 #' @title Generate true model parameters
 #'
 #' @description
