@@ -98,6 +98,12 @@ StepOne <- R6::R6Class("StepOne",
                 replications,
                 available_samples
             )
+        },
+
+        # Remove missing values from the measures.
+        .remove_missing = function() {
+            # Replace missing values with 0.
+            private$.measures[is.na(private$.measures)] <- 0
         }
     ),
 
@@ -167,6 +173,9 @@ StepOne <- R6::R6Class("StepOne",
                 # Replicate Monte Carlo runs sequentially.
                 private$.simulate()
             }
+
+            # Remove missing values.
+            private$.remove_missing()
 
             # Compute how long the simulation took.
             private$.duration <- Sys.time() - start_time
