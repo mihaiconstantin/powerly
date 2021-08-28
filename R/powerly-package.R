@@ -40,6 +40,9 @@
 
 # On package attach or load.
 .onAttach <- function(libname, pkgname) {
-    # Print the logo.
-    packageStartupMessage(LOGO)
+    # Only show the logo if this is a human-handled session.
+    if(interactive()) {
+        # Print the logo.
+        packageStartupMessage(LOGO)
+    }
 }

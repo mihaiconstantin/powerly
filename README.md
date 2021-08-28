@@ -8,6 +8,10 @@
     <img width="450px" src="./inst/assets/logo/logo.jpeg" alt="Package logo"/>
 </p>
 
+<p align="center">
+    <a align="center" href="https://github.com/mihaiconstantin/powerly/actions"><img src="https://github.com/mihaiconstantin/powerly/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
+</p>
+
 ## Description
 
 `powerly` is an `R` package that implements the method by [Constantin,

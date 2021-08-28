@@ -5,3 +5,4 @@ LICENSE.md
 inst/debug/
 inst/design/
 archive
+^\.github$

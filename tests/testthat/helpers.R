@@ -1,18 +1,7 @@
 # Get the number of cores allowed for parallelization.
+# TODO: figure how to allow more cores if the test is not ran by CRAN.
 get_number_cores <- function() {
-    # Check if there is a core limit (e.g., imposed by CRAN).
-    has_core_limit <- Sys.getenv("_R_CHECK_LIMIT_CORES_", "")
-
-    # Decide how many cores to use.
-    if (nzchar(has_core_limit) && has_core_limit == "TRUE") {
-        # Use two cores only.
-        cores <- 2L
-    } else {
-        # Use all available cores.
-        cores <- parallel::detectCores() - 1
-    }
-
-    return(cores)
+    return(2)
 }
 
 # Helper based on 'quadprog' for testing the 'Solver' class.
