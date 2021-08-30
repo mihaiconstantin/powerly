@@ -3,6 +3,7 @@ Backend <- R6::R6Class("Backend",
 
     private = list(
         .available_cores = NULL,
+        .allowed_cores = NULL,
         .active = FALSE,
         .cores = NULL,
         .cluster = NULL,
@@ -11,25 +12,34 @@ Backend <- R6::R6Class("Backend",
 
         # Set the cores (i.e., the number of clusters to create).
         .set_cores = function(cores) {
-            # How many cores are available on the machine?
-            max_cores <- parallel::detectCores() - 1
+            # Abort if less than two cores are available.
+            if (private$.available_cores < 2) {
+                stop("Not enough cores available on the machine.")
+            }
 
-            # Ensure at least two cores are provided.
+            # Determine the number of allowed cores.
+            if (private$.available_cores == 2) {
+                # If only two cores are available, use both.
+                private$.allowed_cores <- private$.available_cores
+            } else {
+                # Otherwise, keep one core free.
+                private$.allowed_cores <- private$.available_cores - 1
+            }
+
+            # Ensure at least two cores are used.
             if (cores < 2) {
                 # Warn the user.
-                warning(paste0("Argument `cores` must be between 2 and ", max_cores, ". Setting to 2."))
+                warning("Argument `cores` must be greater than 1. Setting to 2.")
 
                 # Set the cores.
                 private$.cores <- 2
 
-            # Ensure not too many cores are provided.
-            } else if(cores > max_cores) {
+            # Ensure at least one core is left free.
+            } else if (cores > private$.allowed_cores) {
                 # Warn the user.
-                warning(paste0("Argument `cores` must be between 2 and ", max_cores, ". Setting to ", max_cores, "."))
+                warning(paste0("Argument `cores` cannot be larger than ", private$.allowed_cores, ". Setting to ", private$.allowed_cores, "."))
 
-                # Set to max recommended.
-                private$.cores <- max_cores
-            # Set as requested.
+            # Honor the user request without any constraints.
             } else {
                 private$.cores <- cores
             }
