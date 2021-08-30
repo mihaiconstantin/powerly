@@ -159,6 +159,9 @@ Backend <- R6::R6Class("Backend",
             # Adopt it.
             private$.cluster <- cluster
 
+            # Record the number of clusters.
+            private$.cores <- length(cluster)
+
             # Set the active flag.
             private$.active <- TRUE
 
