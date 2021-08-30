@@ -167,6 +167,9 @@ Backend <- R6::R6Class("Backend",
 
             # Indicate that the cluster is adopted.
             private$.type = "adopted"
+
+            # Sanitize the cluster.
+            private$.clear()
         }
     ),
 
