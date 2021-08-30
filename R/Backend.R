@@ -112,6 +112,8 @@ Backend <- R6::R6Class("Backend",
 
             # Reset cluster information.
             private$.cluster <- NULL
+            private$.available_cores <- NULL
+            private$.allowed_cores <- NULL
             private$.cores <- NULL
             private$.type <- NULL
         },
