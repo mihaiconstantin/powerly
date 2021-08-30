@@ -2,6 +2,7 @@ Backend <- R6::R6Class("Backend",
     cloneable = FALSE,
 
     private = list(
+        .available_cores = NULL,
         .active = FALSE,
         .cores = NULL,
         .cluster = NULL,
@@ -66,6 +67,9 @@ Backend <- R6::R6Class("Backend",
             if (private$.active) {
                 stop("A cluster is already active. Please stop it before starting a new one.")
             }
+
+            # Determine the number of available cores on the machine.
+            private$.available_cores <- parallel::detectCores()
 
             # Set the number of cores.
             private$.set_cores(cores)
