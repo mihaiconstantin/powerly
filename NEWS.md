@@ -1,6 +1,22 @@
 # `powerly` (development version)
 
+* Correct version number and add changes in `NEWS.md` for `1.2.0`.
+
+# `powerly` `1.2.0`
+
+## Features
+
 * Add *CI* workflow via `usethis::use_github_action_check_standard()`.
+
+## Bug fixes
+
+* Restrict tests to using a maximum of two cores to respect CRAN restriction.
+
+# Improvements
+
+* Hide package logo at startup if the `R` session is not interactive.
+
+* Add more informative changelogs to `NEWS.md` for previous releases.
 
 # `powerly` `1.1.1`
 
