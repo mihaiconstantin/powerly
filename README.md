@@ -10,6 +10,7 @@
 
 <p align="center">
     <a align="center" href="https://github.com/mihaiconstantin/powerly/actions"><img src="https://github.com/mihaiconstantin/powerly/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
+    <a href="https://codecov.io/gh/mihaiconstantin/powerly"><img src="https://codecov.io/gh/mihaiconstantin/powerly/branch/main/graph/badge.svg?token=YUCO8ULBCM"/></a>
 </p>
 
 ## Description

@@ -1,3 +1,10 @@
+# `powerly` (development version)
+
+## Features
+
+* Add code coverage workflow based on action provided by
+  `usethis::use_github_action("test-coverage")` and badge to `README.md`.
+
 # `powerly` `1.3.0`
 
 ## Bug fixes
