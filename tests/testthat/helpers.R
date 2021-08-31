@@ -106,3 +106,16 @@ BackendTester <- R6::R6Class("BackendTester",
         }
     )
 )
+
+# Helper for testing private methods of `Range` class.
+RangeTester <- R6::R6Class("RangeTester",
+    inherit = Range,
+
+    public = list(
+        # Expose `.convergence_test()` for testing.
+        convergence_test = function(lower, upper) {
+            # Perform the test.
+            return(private$.convergence_test(lower, upper))
+        }
+    )
+)
