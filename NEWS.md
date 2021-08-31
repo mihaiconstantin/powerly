@@ -1,4 +1,4 @@
-# `powerly` (development version)
+# `powerly` `1.4.0`
 
 ## Features
 
