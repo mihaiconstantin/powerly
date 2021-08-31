@@ -291,6 +291,14 @@ powerly <- function(
         backend$start(cores, type = backend_type)
     }
 
+    # Close the backend no matter the execution status.
+    on.exit({
+        # Close the backend.
+        if (use_backend) {
+            backend$stop()
+        }
+    })
+
     # Create a method object.
     method <- Method$new(max_iterations = iterations, verbose = verbose, save_memory = save_memory)
 
@@ -335,11 +343,6 @@ powerly <- function(
         lower_ci = lower_ci,
         upper_ci = upper_ci
     )
-
-    # Close the backend.
-    if (use_backend) {
-        backend$stop()
-    }
 
     # Inform the user about the method status.
     if (verbose) {
