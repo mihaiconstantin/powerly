@@ -1,4 +1,4 @@
-# `powerly` (development version)
+# `powerly` `1.3.0`
 
 ## Bug fixes
 
