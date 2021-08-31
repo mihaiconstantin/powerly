@@ -1,5 +1,4 @@
-# Get the number of cores allowed for parallelization.
-# TODO: figure how to allow more cores if the test is not ran by CRAN.
+# Get the number of cores allowed for parallelization for tests.
 get_number_cores <- function() {
     return(2)
 }
