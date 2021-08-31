@@ -60,3 +60,21 @@ test_that("'StepOne' Monte Carlo simulation runs correctly", {
     # Statistics computed via both methods should be equal.
     expect_equal(step_1$statistics, statistics)
 })
+
+
+test_that("'StepOne' sets the model type correctly", {
+    # Create `StepOne` instance.
+    step_1 <- StepOne$new()
+
+    # Set dummy `Range`.
+    step_1$set_range(Range$new(100, 500))
+
+    # Expect that attempting to set an unknown model type throws an error.
+    expect_error(step_1$set_model("unknown"), "Not supported.")
+
+    # Expect that setting a `ggm` type yields a `GgmModel` instance.
+    step_1$set_model("ggm")
+    expect_equal(step_1$model_type, "ggm")
+    expect_equal("GgmModel" %in% class(step_1$model), TRUE)
+})
+
