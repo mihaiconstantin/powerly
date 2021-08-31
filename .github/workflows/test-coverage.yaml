@@ -1,0 +1,40 @@
+# Workflow name.
+name: test-coverage
+
+# Events.
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+# Jobs.
+jobs:
+
+  # Test coverage job.
+  test-coverage:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    # Actions.
+    steps:
+      # Checkout.
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Setup `R`.
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
+        with:
+          use-public-rspm: true
+
+      # Install `powerly` dependencies and `covr` package.
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v1
+        with:
+          extra-packages: covr
+
+      # Run the test coverage excluding specific lines.
+      - name: Test coverage
+        run: covr::codecov(line_exclusions = list("R/logo.R", "R/powerly-package.R", "R/exports.R", "R/Method.R" = c(1:31, 39:41, 44:59, 106:118, 135:239), "R/Validation.R" = c(1:9, 55:135), "R/StepTwo.R" = c(1:9, 50:54, 134:136, 152:463), "R/StepThree.R" = c(1:43, 158:161, 221:431), "R/StepOne.R" = c(1:45, 103:107, 112:114, 140:143, 190:318)))
+        shell: Rscript {0}
