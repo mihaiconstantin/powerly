@@ -1,47 +1,55 @@
 # R CMD check workflow.
+name: R-CMD-check
 
+# Run on pushes and pull requests to the `main` branch.
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
-name: R-CMD-check
-
+# Jobs to run.
 jobs:
+
+  # CRAN check job
   R-CMD-check:
-    runs-on: ${{ matrix.config.os }}
-
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
-
+    runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
       matrix:
         config:
           - {os: macOS-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-
+          - {os: ubuntu-latest,  r: 'devel',   http-user-agent: 'release'}
+          - {os: ubuntu-latest,  r: 'release'}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-
     steps:
-      - uses: actions/checkout@v2
+      # Checkout the repository.
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      # Setup `pandoc`.
+      - name: Setup pandoc
+        uses: r-lib/actions/setup-pandoc@v1
 
-      - uses: r-lib/actions/setup-r@v1
+      # Setup `R`.
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v1
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-r-dependencies@v1
+      # Setup `powerly` dependencies and extras.
+      - name: Install dependencies
+        uses: r-lib/actions/setup-r-dependencies@v1
         with:
           extra-packages: rcmdcheck
 
-      - name: Check
+      # Perform the CRAN check.
+      - name: Check package
         env:
           _R_CHECK_CRAN_INCOMING_: false
         run: |
@@ -49,14 +57,16 @@ jobs:
           rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")
         shell: Rscript {0}
 
+      # Show `testthat` output.
       - name: Show testthat output
         if: always()
         run: find check -name 'testthat.Rout*' -exec cat '{}' \; || true
         shell: bash
 
+      # Upload job results on failure.
       - name: Upload check results
         if: failure()
-        uses: actions/upload-artifact@main
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ runner.os }}-r${{ matrix.config.r }}-results
           path: check

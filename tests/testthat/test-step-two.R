@@ -68,7 +68,7 @@ test_that("'StepTwo' correctly performs the LOOCV procedure", {
 })
 
 
-test_that("'StepTwo' fits a spline correctly", {
+test_that("'StepTwo' fits and interpolates a spline correctly", {
     # Create range.
     range <- Range$new(100, 1500, 10)
 

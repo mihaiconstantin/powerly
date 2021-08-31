@@ -1,6 +1,48 @@
-# `powerly` (development version)
+# `powerly` `1.3.0`
+
+## Bug fixes
+
+* Fix cluster creation bug in `Backend` when the machine had only 1 or 2 cores.
+  The previous version would result in an error when the machine contained only
+  1 or 2 cores. Now, when the machine has only 1 core, the cluster creation will
+  fail, with a message that not enough cores are available. When the machine has
+  2 cores, all 2 cores are used. In all other cases, the number of cores used is
+  given by the number of cores on the machine minus one.
+
+## Improvements
+
+* Add names and comments to workflow file `R-CMD-check.yaml`.
+
+* Update `README.md` and package startup logo to only show major version.
+
+* Update existing tests and added new ones.
+
+* Add type check for `method` argument of `validate()` to ensure that only
+  instances of `Method` class (i.e., produced by `powerly()` are passed).
+
+* Add `Backend` stopping to `on.exit()` in `powerly()` to ensure the cluster is
+  stopped no matter the execution status of the function.
+
+* Improve logic around setting and resetting the number of cores when the
+  cluster is created and stopped (i.e., also for adopted clusters).
+
+* Correct version number and add changes in `NEWS.md` for `1.2.0`.
+
+# `powerly` `1.2.0`
+
+## Features
 
 * Add *CI* workflow via `usethis::use_github_action_check_standard()`.
+
+## Bug fixes
+
+* Restrict tests to using a maximum of two cores to respect CRAN restriction.
+
+# Improvements
+
+* Hide package logo at startup if the `R` session is not interactive.
+
+* Add more informative changelogs to `NEWS.md` for previous releases.
 
 # `powerly` `1.1.1`
 

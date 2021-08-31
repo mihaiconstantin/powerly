@@ -1,10 +1,9 @@
-# Get the number of cores allowed for parallelization.
-# TODO: figure how to allow more cores if the test is not ran by CRAN.
+# Get the number of cores allowed for parallelization for tests.
 get_number_cores <- function() {
     return(2)
 }
 
-# Helper based on 'quadprog' for testing the 'Solver' class.
+# Helper based on `quadprog` for testing the `Solver` class.
 solve_qp <- function(basis_matrix, y, a_mat, b_vec, meq = 0) {
     # Create matrices for `solve.QP`.
     d_mat <- crossprod(basis_matrix, basis_matrix)
@@ -14,7 +13,7 @@ solve_qp <- function(basis_matrix, y, a_mat, b_vec, meq = 0) {
     return(quadprog::solve.QP(Dmat = d_mat, dvec = d_vec, Amat = t(a_mat), bvec = b_vec, meq = meq)$solution)
 }
 
-# Helper based on 'osqp' for testing the 'Solver' class.
+# Helper based on `osqp` for testing the `Solver` class.
 solve_osqp <- function(basis_matrix, y, lower, upper) {
     # Set settings.
     settings <- osqp::osqpSettings(
@@ -46,7 +45,7 @@ solve_osqp <- function(basis_matrix, y, lower, upper) {
     return(model$Solve()$x)
 }
 
-# Helper for testing private methods of 'StepTwo' class.
+# Helper for testing private methods of `StepTwo` class.
 StepTwoTester <- R6::R6Class("StepTwoTester",
     inherit = StepTwo,
 
@@ -63,7 +62,7 @@ StepTwoTester <- R6::R6Class("StepTwoTester",
     )
 )
 
-# Helper for testing private methods of 'StepThree' class.
+# Helper for testing private methods of `StepThree` class.
 StepThreeTester <- R6::R6Class("StepThreeTester",
     inherit = StepThree,
 
@@ -85,6 +84,38 @@ StepThreeTester <- R6::R6Class("StepThreeTester",
             return(
                 private$.boot(1, available_samples, measures, measure_value, replications, extended_basis, statistic, solver)
             )
+        }
+    )
+)
+
+# Helper for testing private methods of `Backend` class.
+BackendTester <- R6::R6Class("BackendTester",
+    inherit = Backend,
+
+    public = list(
+        # Mock the number of cores detected during instantiation.
+        mock_machine_available_cores = function(cores) {
+            # Predetermine the number of cores on the machine.
+            private$.available_cores <- cores
+        },
+
+        # Expose the private method for testing.
+        set_cores = function(cores) {
+            # Set the cores.
+            private$.set_cores(cores)
+        }
+    )
+)
+
+# Helper for testing private methods of `Range` class.
+RangeTester <- R6::R6Class("RangeTester",
+    inherit = Range,
+
+    public = list(
+        # Expose `.convergence_test()` for testing.
+        convergence_test = function(lower, upper) {
+            # Perform the test.
+            return(private$.convergence_test(lower, upper))
         }
     )
 )

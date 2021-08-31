@@ -78,3 +78,22 @@ test_that("'Range' updates bounds correctly based on 'StepThree' confidence inte
         "The lower bound cannot be greater that the upper bound."
     )
 })
+
+
+test_that("'Range' convergence test works correctly", {
+    # Expect error if the initial range is smaller than the tolerance.
+    expect_error(Range$new(100, 130, samples = 10, tolerance = 50), "Please provide a range wider than the tolerance.")
+
+    # Create `Range` instance.
+    range <- RangeTester$new(100, 500, samples = 20, tolerance = 50)
+
+    # Expect the convergence test triggers correctly.
+    expect_equal(range$convergence_test(100, 160), FALSE)
+    expect_equal(range$convergence_test(100, 150), TRUE)
+    expect_equal(range$convergence_test(100, 140), TRUE)
+
+    # Expect the convergence test triggers correctly even in absurd cases.
+    expect_equal(range$convergence_test(160, 100), TRUE)
+    expect_equal(range$convergence_test(150, 100), TRUE)
+    expect_equal(range$convergence_test(140, 100), TRUE)
+})
