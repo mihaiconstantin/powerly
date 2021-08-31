@@ -1,5 +1,19 @@
 # `powerly` (development version)
 
+## Bug fixes
+
+* Fix cluster creation bug in `Backend` when the machine had only 1 or 2 cores.
+  The previous version would result in an error when the machine contained only
+  1 or 2 cores. Now, when the machine has only 1 core, the cluster creation will
+  fail, with a message that not enough cores are available. When the machine has
+  2 cores, all 2 cores are used. In all other cases, the number of cores used is
+  given by the number of cores on the machine minus one.
+
+## Improvements
+
+* Improve logic around setting and resetting the number of cores when the
+  cluster is created and stopped (i.e., also for adopted clusters).
+
 * Correct version number and add changes in `NEWS.md` for `1.2.0`.
 
 # `powerly` `1.2.0`
