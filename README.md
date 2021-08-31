@@ -5,7 +5,7 @@
 </h1>
 
 <p align="center">
-    <img width="450px" src="./inst/assets/logo/logo.jpeg" alt="Package logo"/>
+    <img width="450px" src="./inst/assets/logo/logo.png" alt="Package logo"/>
 </p>
 
 <p align="center">

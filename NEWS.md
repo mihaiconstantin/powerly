@@ -11,6 +11,8 @@
 
 ## Improvements
 
+* Update `README.md` and package startup logo to only show major version.
+
 * Update existing tests and added new ones.
 
 * Add type check for `method` argument of `validate()` to ensure that only
