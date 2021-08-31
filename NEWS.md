@@ -11,6 +11,12 @@
 
 ## Improvements
 
+* Add type check for `method` argument of `validate()` to ensure that only
+  instances of `Method` class (i.e., produced by `powerly()` are passed).
+
+* Add `Backend` stopping to `on.exit()` in `powerly()` to ensure the cluster is
+  stopped no matter the execution status of the function.
+
 * Improve logic around setting and resetting the number of cores when the
   cluster is created and stopped (i.e., also for adopted clusters).
 
