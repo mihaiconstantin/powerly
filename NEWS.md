@@ -11,6 +11,8 @@
 
 ## Improvements
 
+* Add names and comments to workflow file `R-CMD-check.yaml`.
+
 * Update `README.md` and package startup logo to only show major version.
 
 * Update existing tests and added new ones.
