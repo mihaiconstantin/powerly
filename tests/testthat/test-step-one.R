@@ -78,3 +78,19 @@ test_that("'StepOne' sets the model type correctly", {
     expect_equal("GgmModel" %in% class(step_1$model), TRUE)
 })
 
+
+test_that("'StepOne' sets the statistic type correctly", {
+    # Create `StepOne` instance.
+    step_1 <- StepOne$new()
+
+    # Set dummy `Range`.
+    step_1$set_range(Range$new(100, 500))
+
+    # Expect that attempting to set an unknown statistic type throws an error.
+    expect_error(step_1$set_statistic("unknown", 0.8), "Not supported.")
+
+    # Expect that setting a `power` type yields a `PowerStatistic` instance.
+    step_1$set_statistic("power", 0.8)
+    expect_equal(step_1$statistic_type, "power")
+    expect_equal("PowerStatistic" %in% class(step_1$statistic), TRUE)
+})
