@@ -276,3 +276,14 @@ test_that("'Solver' implementations still give original solution after solving w
     expect_equal(osqp_first_alpha, osqp$solve())
     expect_equal(qp_first_alpha, qp$solve())
 })
+
+
+test_that("'Solver' base class throws errors for abstract methods", {
+    # Create `Solver` base class.
+    solver <- Solver$new()
+
+    # Expect error because the methods are abstract.
+    expect_error(solver$setup(NULL, NULL, NULL), .__ERRORS__$not_implemented)
+    expect_error(solver$solve(), .__ERRORS__$not_implemented)
+    expect_error(solver$solve_update(NULL), .__ERRORS__$not_implemented)
+})

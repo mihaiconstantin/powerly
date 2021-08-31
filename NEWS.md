@@ -11,6 +11,8 @@
 
 ## Improvements
 
+* Update existing tests and added new ones.
+
 * Add type check for `method` argument of `validate()` to ensure that only
   instances of `Method` class (i.e., produced by `powerly()` are passed).
 
