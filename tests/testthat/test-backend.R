@@ -102,3 +102,57 @@ test_that("'Backend' performs operations on the cluster correctly", {
     # Stop the cluster.
     backend$stop()
 })
+
+
+test_that("'Backend' manages the cluster correctly", {
+    # Create a backend.
+    backend <- Backend$new()
+
+    # Start the cluster.
+    backend$start(2)
+
+    # Expect the correct type.
+    if (.Platform$OS.type == "unix") {
+       expect_equal(backend$type, c(unix = "FORK"))
+    } else {
+       expect_equal(backend$type, c(windows = "PSOCK"))
+    }
+
+    # Expect the correct number of cores.
+    expect_equal(backend$cores, 2)
+    expect_equal(length(backend$cluster), 2)
+
+    # Expect an error if an attempt is made to start a cluster while one is already active.
+    expect_error(backend$start(2), "A cluster is already active. Please stop it before starting a new one.")
+
+    # Expect stopping the cluster works.
+    backend$stop()
+    expect_false(backend$active)
+    expect_equal(backend$cluster, NULL)
+
+    # Expect the cluster can be started again after being stop.
+    backend$start(2)
+    expect_equal(length(backend$cluster), 2)
+
+    # Expect an error if an attempt is made to adopt a cluster while one is already active.
+    expect_error(backend$adopt(backend$cluster), "Cannot adopt external cluster while there is another active cluster.")
+
+    # Stop the current cluster.
+    backend$stop()
+
+    # Create a cluster manually.
+    cluster <- parallel::makePSOCKcluster(2)
+
+    # Expect the backend correctly adopts a cluster object.
+    backend$adopt(cluster)
+    expect_equal(backend$type, "adopted")
+    expect_equal(length(backend$cluster), 2)
+    expect_equal(backend$cores, 2)
+    expect_equal(backend$.__enclos_env__$private$.available_cores, NULL)
+    expect_equal(backend$.__enclos_env__$private$.allowed_cores, NULL)
+
+    # Expect that the backend can stop the adopted cluster.
+    backend$stop()
+    # If the backend `stop()` worked, then attempting to close again will throw an error.
+    expect_error(parallel::stopCluster(cluster))
+})
