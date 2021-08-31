@@ -58,3 +58,47 @@ test_that("'Backend' sets the number of cores correctly", {
     expect_equal(backend$cores, 7)
 })
 
+
+test_that("'Backend' performs operations on the cluster correctly", {
+    # Create a backend.
+    backend <- Backend$new()
+
+    # Start the cluster.
+    backend$start(2)
+
+    # Expect the cluster is empty upon creation.
+    expect_true(all(sapply(backend$inspect(), length) == 0))
+
+    # Create a variable in a new environment.
+    env <- new.env()
+    env$test_variable <- rnorm(1)
+
+    # Export variable to the cluster from an environment.
+    backend$export("test_variable", env)
+
+    # Expect the cluster to contain the exported variable.
+    expect_true(all(backend$inspect() == "test_variable"))
+
+    # Expect the cluster to hold the correct value for the exported variable.
+    expect_true(all(parallel::clusterEvalQ(backend$cluster, test_variable) == env$test_variable))
+
+    # Expect that clearing the cluster leaves it empty.
+    backend$clear()
+    expect_true(all(sapply(backend$inspect(), length) == 0))
+
+    # Create test data for the cluster `sapply` and `apply operations`.
+    data <- matrix(rnorm(100), 10, 10)
+    test_function <- function(x, add = 1) x + add
+
+    # Expect that the parallel `sapply` is executed correctly.
+    expect_equal(backend$sapply(data[, 1], test_function, add = 3), sapply(data[, 1], test_function, add = 3))
+
+    # Expect that the parallel `apply` is executed correctly.
+    expect_equal(backend$apply(data, 1, test_function, add = 10), apply(data, 1, test_function, add = 10))
+
+    # Expect that the cluster is empty after performing operations on it.
+     expect_true(all(sapply(backend$inspect(), length) == 0))
+
+    # Stop the cluster.
+    backend$stop()
+})
