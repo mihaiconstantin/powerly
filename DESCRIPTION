@@ -55,6 +55,7 @@ Collate:
     'Validation.R'
     'constants.R'
     'exports.R'
+    'helpers.R'
     'logo.R'
     'powerly-package.R'
 Suggests:
