@@ -27,7 +27,9 @@ Imports:
     quadprog,
     osqp,
     bootnet,
-    qgraph
+    qgraph,
+    ggplot2,
+    patchwork
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
