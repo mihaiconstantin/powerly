@@ -48,19 +48,19 @@ test_that("'GgmModel' estimates model parameters correctly", {
     ggm <- GgmModel$new()
 
     # Create true parameters.
-    true <- ggm$create(11, .6)
+    true <- ggm$create(10, .5)
 
     # Generate data.
-    data <- ggm$generate(sample_size = 1500, true_parameters = true, levels = 5)
+    data <- ggm$generate(sample_size = 2000, true_parameters = true, levels = 5)
 
     # Estimate via 'qgraph'.
-    network_qgraph <- qgraph::EBICglasso(cov(data), nrow(data))
+    network_qgraph <- suppressMessages(suppressWarnings(qgraph::EBICglasso(cov(data), nrow(data), verbose = FALSE)))
 
     # Estimate via 'GgmModel'.
     network_ggm_model <- ggm$estimate(data)
 
     # The parameters should be identical across both methods.
-    expect_equal(network_qgraph, network_ggm_model, ignore_attr = TRUE)
+    expect_equal(round(network_qgraph, 7), round(network_ggm_model, 7), ignore_attr = TRUE)
 })
 
 
