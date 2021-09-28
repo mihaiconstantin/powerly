@@ -197,7 +197,7 @@
 #' PsyArXiv. [https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' # Suppose we want to find the sample size for observing a sensitivity of `0.6`
 #' # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
@@ -410,7 +410,7 @@ powerly <- function(
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' # Perform a sample size analysis.
 #' results <- powerly(
