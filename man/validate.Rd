@@ -55,7 +55,7 @@ The \code{plot} method can be called on the return value to visualize the result
 
 \if{html}{
 Example of a plot:
-\itemize{\item \figure{example-validation.svg}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
+\itemize{\item \figure{example-validation.png}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
 }
 }
 \description{
@@ -67,7 +67,7 @@ The sample sizes used during the validation procedure is automatically extracted
 from the \code{method} argument.
 }
 \examples{
-\dontrun{
+\donttest{
 
 # Perform a sample size analysis.
 results <- powerly(
@@ -82,14 +82,18 @@ results <- powerly(
     model = "ggm",
     nodes = 10,
     density = .4,
+    cores = 2,
     verbose = TRUE
 )
 
 # Validate the recommendation obtained during the analysis.
-validation <- validate(results)
+validation <- validate(results, cores = 2)
 
 # Plot the validation results.
 plot(validation)
+
+# To see a summary of the validation procedure, we can use the `summary` S3 method.
+summary(validation)
 }
 
 }

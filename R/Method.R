@@ -180,16 +180,16 @@ Method <- R6::R6Class("Method",
         },
 
         # Plotting.
-        plot = function(step = 3, last = TRUE) {
+        plot = function(step = 3, last = TRUE, save = FALSE, path = NULL, width = 14, height = 10, ...) {
             # Determine which iteration should be plotted.
             if (last) {
                 # Plot the right step from the last iteration.
                 if (step == 1) {
-                   plot(private$.step_1)
+                   plot(private$.step_1, save = save, path = path, width = width, height = height, ...)
                 } else if (step == 2) {
-                   plot(private$.step_2)
+                   plot(private$.step_2, save = save, path = path, width = width, height = height, ...)
                 } else if (step == 3) {
-                   plot(private$.step_3)
+                   plot(private$.step_3, save = save, path = path, width = width, height = height, ...)
                 } else {
                     stop("Incorrect step specification.")
                 }
@@ -198,11 +198,11 @@ Method <- R6::R6Class("Method",
                 if (private$.iteration > 1) {
                     # Plot the right step from the previous iteration.
                     if (step == 1) {
-                    plot(private$.previous$step_2$step_1)
+                        plot(private$.previous$step_2$step_1, save = save, path = path, width = width, height = height, ...)
                     } else if (step == 2) {
-                    plot(private$.previous$step_2)
+                        plot(private$.previous$step_2, save = save, path = path, width = width, height = height, ...)
                     } else if (step == 3) {
-                    plot(private$.previous)
+                        plot(private$.previous, save = save, path = path, width = width, height = height, ...)
                     } else {
                         stop("Incorrect step specification.")
                     }
@@ -236,3 +236,27 @@ Method <- R6::R6Class("Method",
         recommendation = function() { return(private$.step_3$samples) }
     )
 )
+
+
+#' @title
+#' Provide a summary of the results
+#'
+#' @description
+#' This function summarizes the objects of class `Method` and provides
+#' information about the method run and the sample size recommendation.
+#'
+#' @param object An object instance of class `Method`.
+#'
+#' @keywords internal
+#'
+#' @export
+summary.Method <- function(object, ...) {
+    cat("\n", "Method run completed (", as.numeric(round(object$duration, 4)), " sec):", sep = "")
+    cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), sep = "")
+    cat("\n", " - iterations: ", object$iteration, sep = "")
+    cat("\n", " - recommendation: ", paste(paste(
+        names(object$step_3$samples[c("2.5%", "50%", "97.5%")]),
+        "=", object$step_3$samples[c("2.5%", "50%", "97.5%")],
+        sep = " "
+    ), collapse = " | "), "\n", sep = "")
+}

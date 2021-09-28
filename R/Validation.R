@@ -73,43 +73,53 @@ Validation <- R6::R6Class("Validation",
         },
 
         # Plot the validation results.
-        plot = function() {
-            # Revert the changes on exit.
-            on.exit({
-                # Restore margins to default.
-                par(mar = c(5.1, 4.1, 4.1, 2.1))
-            })
+        plot = function(save = FALSE, path = NULL, width = 14, height = 10, bins = 20, ...) {
+            # Fetch plot settings.
+            .__PLOT_SETTINGS__ <- plot_settings()
 
-            # Adjust margins for layout.
-            par(mar = c(5.1, 4.1, 4.1, 2.1) + 1)
+            # Make the histogram plot.
+            plot_validation <- ggplot2::ggplot(mapping = ggplot2::aes(x = self$measures)) +
+                ggplot2::geom_histogram(
+                    bins = bins,
+                    color = "#4d4d4d",
+                    fill = "#4d4d4d",
+                    alpha = 0.2
+                ) +
+                ggplot2::scale_x_continuous(
+                    breaks = round(seq(min(self$measures), max(self$measures), by = 0.05), 2)
+                ) +
+                ggplot2::geom_vline(
+                    xintercept = self$percentile_value,
+                    color = "#8b0000",
+                    size = .65
+                ) +
+                ggplot2::labs(
+                    title = paste0(
+                        "Sample: ", self$sample, " | ",
+                        "Measure at ", self$percentile, " percentile: ", format(round(self$percentile_value, 3), nsmall = 3), " | ",
+                        "Statistic: ", format(round(self$statistic, 3), nsmall = 3)
+                    ),
+                    y = "Count",
+                    x = "Performance Measure Value"
+                ) +
+                .__PLOT_SETTINGS__
 
-            # Plot histogram of performance measures.
-            hist(
-                private$.validator$measures,
-                col = "#00000023",
-                border = FALSE,
-                main = paste0("Sample: ", private$.validator$range$partition, " | ",
-                              "Measure at ", self$percentile, " pert.: ", round(self$percentile_value, 3), " | ",
-                              "Statistic: ", round(private$.validator$statistics, 3)),
-                xaxt = "n",
-                xlab = ""
-            )
-            title(
-                xlab = paste0("Performance measure values (", toupper(private$.validator$measure_type), ")"),
-                line = 4.5,
-                cex.main = 1,
-                cex.lab = 1
-            )
-            axis(
-                side = 1,
-                at = round(seq(min(private$.validator$measures), max(private$.validator$measures), length.out = 15), 2),
-                line = 1.5,
-                las = 2,
-                cex.axis = .9
-            )
-            # Value at percentile of interest,
-            abline(v = self$percentile_value, lwd = 2, lty = 3, col = "darkred")
-            mtext(round(self$percentile_value, 3), side = 1, at = self$percentile_value, col = "darkred", font = 2, line = 0.3, cex = 1)
+                # Save the plot.
+                if (save) {
+                    if (is.null(path)) {
+                        # If no path is provided, create one.
+                        path <- paste0(getwd(), "/", "validation", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
+                    }
+
+                    # Save the plot.
+                    ggplot2::ggsave(path, plot = plot_validation, width = width, height = height, ...)
+                } else {
+                    # Show the plot.
+                    plot(plot_validation)
+                }
+
+                # Return the plot object silently.
+                invisible(plot_validation)
         }
     ),
 
@@ -131,3 +141,23 @@ Validation <- R6::R6Class("Validation",
         }
     )
 )
+
+
+#' @title
+#' Provide a summary of the validation results
+#'
+#' @description
+#' This function summarizes the objects of class `Validation` and provides
+#' information.
+#'
+#' @param object An object instance of class `Validation`.
+#'
+#' @keywords internal
+#'
+#' @export
+summary.Validation <- function(object, ...) {
+    cat("\n", "Validation completed (", as.numeric(round(object$validator$duration, 4)), " sec):", sep = "")
+    cat("\n", " - sample: ", object$sample, sep = "")
+    cat("\n", " - statistic: ", object$statistic, sep = "")
+    cat("\n", " - measure at ", object$percentile, " pert.: ", round(object$percentile_value, 3), sep = "")
+}

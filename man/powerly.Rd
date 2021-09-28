@@ -166,9 +166,9 @@ The \code{plot} method can be called on the return value to visualize the result
 \if{html}{
 Example of a plots:
 \itemize{
-\item Step 1 \itemize{\item \figure{example-step-1.svg}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
-\item Step 2 \itemize{\item \figure{example-step-2.svg}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
-\item Step 3 \itemize{\item \figure{example-step-3.svg}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
+\item Step 1 \itemize{\item \figure{example-step-1.png}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
+\item Step 2 \itemize{\item \figure{example-step-2.png}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
+\item Step 3 \itemize{\item \figure{example-step-3.png}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
 }}
 }
 \description{
@@ -210,8 +210,8 @@ shrinks below a specified value.
    \strong{Performance Measure} \tab \strong{Symbol} \tab \strong{Lower} \tab \strong{Upper} \cr
    Sensitivity \tab \code{sen} \tab \code{0.00} \tab \code{1.00} \cr
    Specificity \tab \code{spe} \tab \code{0.00} \tab \code{1.00} \cr
-   Matthews correlation \tab \code{mcc} \tab \code{0.00} \tab \code{1.00} \cr
-   Pearson correlation \tab \code{rho} \tab \code{0.00} \tab \code{1.00} \cr
+   Matthews correlation \tab \code{mcc} \tab \code{-1.00} \tab \code{1.00} \cr
+   Pearson correlation \tab \code{rho} \tab \code{-1.00} \tab \code{1.00} \cr
 }
 }
 
@@ -227,10 +227,10 @@ shrinks below a specified value.
 \itemize{
 \item If you would like to support a new model, performance measure, or
 statistic, please open a pull request on GitHub at
-\url{https://github.com/mihaiconstantin/powerly/pulls}.
+\href{https://github.com/mihaiconstantin/powerly/pulls}{github.com/mihaiconstantin/powerly/pulls}.
 \item To request a new model, performance measure, or statistic, please submit
 your request at
-\url{https://github.com/mihaiconstantin/powerly/issues}.
+\href{https://github.com/mihaiconstantin/powerly/issues}{github.com/mihaiconstantin/powerly/issues}.
 If possible, please also include references discussing the topics you are
 requesting.
 \item Alternatively, you can get in touch at \verb{mihai at mihaiconstantin dot com}.
@@ -238,7 +238,7 @@ requesting.
 }
 
 \examples{
-\dontrun{
+\donttest{
 
 # Suppose we want to find the sample size for observing a sensitivity of `0.6`
 # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
@@ -258,6 +258,7 @@ results <- powerly(
     model = "ggm",
     nodes = 10,
     density = .4,
+    cores = 2,
     verbose = TRUE
 )
 
@@ -279,6 +280,7 @@ results <- powerly(
     statistic_value = .8,
     model = "ggm",
     model_matrix = true_model,
+    cores = 2,
     verbose = TRUE
 )
 
@@ -290,12 +292,16 @@ plot(results, step = 3, last = TRUE)
 
 # The argument `last = TRUE` indicates that the plot should be constructed for
 # the last iteration of the algorithm.
+
+# To see a summary of the results, we can use the `summary` S3 method.
+summary(results)
 }
 
 }
 \references{
-Constantin et al. (2021). A General Monte Carlo Method for Sample Size
-Analysis in the Context of Network Models.
+Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
+Carlo Method for Sample Size Analysis in the Context of Network Models.
+PsyArXiv. \url{https://doi.org/10.31234/osf.io/j5v7u}
 }
 \seealso{
 \code{\link[=validate]{validate()}}, \code{\link[=generate_model]{generate_model()}}

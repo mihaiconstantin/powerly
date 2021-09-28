@@ -139,12 +139,12 @@
 #'
 #' @section Performance Measures:
 #'
-#' | **Performance Measure**  | **Symbol** | **Lower**  | **Upper**  |
-#' | :----------------------- | :--------: | ---------: | ---------: |
-#' | Sensitivity              | `sen`      | `0.00`     | `1.00`     |
-#' | Specificity               | `spe`      | `0.00`     | `1.00`     |
-#' | Matthews correlation     | `mcc`      | `0.00`     | `1.00`     |
-#' | Pearson correlation      | `rho`      | `0.00`     | `1.00`     |
+#' | **Performance Measure**  | **Symbol** | **Lower**   | **Upper**  |
+#' | :----------------------- | :--------: | ----------: | ---------: |
+#' | Sensitivity              | `sen`      | `0.00`      | `1.00`     |
+#' | Specificity               | `spe`      | `0.00`      | `1.00`     |
+#' | Matthews correlation     | `mcc`      | `-1.00`     | `1.00`     |
+#' | Pearson correlation      | `rho`      | `-1.00`     | `1.00`     |
 #'
 #' @section Statistics:
 #'
@@ -155,10 +155,10 @@
 #' @section Requests:
 #' - If you would like to support a new model, performance measure, or
 #'   statistic, please open a pull request on GitHub at
-#'   [https://github.com/mihaiconstantin/powerly/pulls](https://github.com/mihaiconstantin/powerly/pulls).
+#'   [github.com/mihaiconstantin/powerly/pulls](https://github.com/mihaiconstantin/powerly/pulls).
 #' - To request a new model, performance measure, or statistic, please submit
 #'   your request at
-#'   [https://github.com/mihaiconstantin/powerly/issues](https://github.com/mihaiconstantin/powerly/issues).
+#'   [github.com/mihaiconstantin/powerly/issues](https://github.com/mihaiconstantin/powerly/issues).
 #'   If possible, please also include references discussing the topics you are
 #'   requesting.
 #' - Alternatively, you can get in touch at `mihai at mihaiconstantin dot com`.
@@ -186,17 +186,18 @@
 #' \if{html}{
 #' Example of a plots:
 #' \itemize{
-#' \item Step 1 \itemize{\item \figure{example-step-1.svg}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
-#' \item Step 2 \itemize{\item \figure{example-step-2.svg}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
-#' \item Step 3 \itemize{\item \figure{example-step-3.svg}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
+#' \item Step 1 \itemize{\item \figure{example-step-1.png}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
+#' \item Step 2 \itemize{\item \figure{example-step-2.png}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
+#' \item Step 3 \itemize{\item \figure{example-step-3.png}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
 #' }}
 #'
 #' @references
-#' Constantin et al. (2021). A General Monte Carlo Method for Sample Size
-#' Analysis in the Context of Network Models.
+#' Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
+#' Carlo Method for Sample Size Analysis in the Context of Network Models.
+#' PsyArXiv. [https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' # Suppose we want to find the sample size for observing a sensitivity of `0.6`
 #' # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
@@ -216,6 +217,7 @@
 #'     model = "ggm",
 #'     nodes = 10,
 #'     density = .4,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
@@ -237,6 +239,7 @@
 #'     statistic_value = .8,
 #'     model = "ggm",
 #'     model_matrix = true_model,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
@@ -248,6 +251,9 @@
 #'
 #' # The argument `last = TRUE` indicates that the plot should be constructed for
 #' # the last iteration of the algorithm.
+#'
+#' # To see a summary of the results, we can use the `summary` S3 method.
+#' summary(results)
 #' }
 #'
 #' @seealso [powerly::validate()], [powerly::generate_model()]
@@ -405,11 +411,11 @@ powerly <- function(
 #'
 #' \if{html}{
 #' Example of a plot:
-#' \itemize{\item \figure{example-validation.svg}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
+#' \itemize{\item \figure{example-validation.png}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' # Perform a sample size analysis.
 #' results <- powerly(
@@ -424,14 +430,18 @@ powerly <- function(
 #'     model = "ggm",
 #'     nodes = 10,
 #'     density = .4,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
 #' # Validate the recommendation obtained during the analysis.
-#' validation <- validate(results)
+#' validation <- validate(results, cores = 2)
 #'
 #' # Plot the validation results.
 #' plot(validation)
+#'
+#' # To see a summary of the validation procedure, we can use the `summary` S3 method.
+#' summary(validation)
 #' }
 #'
 #' @seealso [powerly::powerly()], [powerly::generate_model()]
