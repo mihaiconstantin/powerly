@@ -180,16 +180,16 @@ Method <- R6::R6Class("Method",
         },
 
         # Plotting.
-        plot = function(step = 3, last = TRUE) {
+        plot = function(step = 3, last = TRUE, save = FALSE, path = NULL, width = 14, height = 10, ...) {
             # Determine which iteration should be plotted.
             if (last) {
                 # Plot the right step from the last iteration.
                 if (step == 1) {
-                   plot(private$.step_1)
+                   plot(private$.step_1, save = save, path = path, width = width, height = height, ...)
                 } else if (step == 2) {
-                   plot(private$.step_2)
+                   plot(private$.step_2, save = save, path = path, width = width, height = height, ...)
                 } else if (step == 3) {
-                   plot(private$.step_3)
+                   plot(private$.step_3, save = save, path = path, width = width, height = height, ...)
                 } else {
                     stop("Incorrect step specification.")
                 }
@@ -198,11 +198,11 @@ Method <- R6::R6Class("Method",
                 if (private$.iteration > 1) {
                     # Plot the right step from the previous iteration.
                     if (step == 1) {
-                    plot(private$.previous$step_2$step_1)
+                        plot(private$.previous$step_2$step_1, save = save, path = path, width = width, height = height, ...)
                     } else if (step == 2) {
-                    plot(private$.previous$step_2)
+                        plot(private$.previous$step_2, save = save, path = path, width = width, height = height, ...)
                     } else if (step == 3) {
-                    plot(private$.previous)
+                        plot(private$.previous, save = save, path = path, width = width, height = height, ...)
                     } else {
                         stop("Incorrect step specification.")
                     }
