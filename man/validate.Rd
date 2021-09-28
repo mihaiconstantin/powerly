@@ -82,14 +82,18 @@ results <- powerly(
     model = "ggm",
     nodes = 10,
     density = .4,
+    cores = 2,
     verbose = TRUE
 )
 
 # Validate the recommendation obtained during the analysis.
-validation <- validate(results)
+validation <- validate(results, cores = 2)
 
 # Plot the validation results.
 plot(validation)
+
+# To see a summary of the validation procedure, we can use the `summary` S3 method.
+summary(validation)
 }
 
 }
