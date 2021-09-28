@@ -236,3 +236,27 @@ Method <- R6::R6Class("Method",
         recommendation = function() { return(private$.step_3$samples) }
     )
 )
+
+
+#' @title
+#' Provide a summary of the results
+#'
+#' @description
+#' This function summarizes the objects of class `Method` and provides
+#' information about the method run and the sample size recommendation.
+#'
+#' @param object An object instance of class `Method`.
+#'
+#' @keywords internal
+#'
+#' @export
+summary.Method <- function(object, ...) {
+    cat("\n", "Method run completed (", as.numeric(round(object$duration, 4)), " sec):", sep = "")
+    cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), sep = "")
+    cat("\n", " - iterations: ", object$iteration, sep = "")
+    cat("\n", " - recommendation: ", paste(paste(
+        names(object$step_3$samples[c("2.5%", "50%", "97.5%")]),
+        "=", object$step_3$samples[c("2.5%", "50%", "97.5%")],
+        sep = " "
+    ), collapse = " | "), "\n", sep = "")
+}
