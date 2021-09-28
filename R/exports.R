@@ -139,12 +139,12 @@
 #'
 #' @section Performance Measures:
 #'
-#' | **Performance Measure**  | **Symbol** | **Lower**  | **Upper**  |
-#' | :----------------------- | :--------: | ---------: | ---------: |
-#' | Sensitivity              | `sen`      | `0.00`     | `1.00`     |
-#' | Specificity               | `spe`      | `0.00`     | `1.00`     |
-#' | Matthews correlation     | `mcc`      | `0.00`     | `1.00`     |
-#' | Pearson correlation      | `rho`      | `0.00`     | `1.00`     |
+#' | **Performance Measure**  | **Symbol** | **Lower**   | **Upper**  |
+#' | :----------------------- | :--------: | ----------: | ---------: |
+#' | Sensitivity              | `sen`      | `0.00`      | `1.00`     |
+#' | Specificity               | `spe`      | `0.00`      | `1.00`     |
+#' | Matthews correlation     | `mcc`      | `-1.00`     | `1.00`     |
+#' | Pearson correlation      | `rho`      | `-1.00`     | `1.00`     |
 #'
 #' @section Statistics:
 #'
