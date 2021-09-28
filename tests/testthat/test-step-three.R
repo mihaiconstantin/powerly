@@ -67,7 +67,7 @@ test_that("'StepThree' performs a bootstrap run correctly", {
     step_3 <- StepThreeTester$new()
 
     # Get a seed value.
-    seed <- runif(1)
+    seed <- sample(1:1e5, 1)
 
     # Set seed.
     set.seed(seed)

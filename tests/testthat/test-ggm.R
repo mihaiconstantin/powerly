@@ -28,7 +28,7 @@ test_that("'GgmModel' generated data matches bootnet data", {
     true <- ggm$create(nodes = 10, density = .5)
 
     # Create seed for the comparison with bootnet.
-    seed <- runif(1)
+    seed <- sample(1:1e5, 1)
 
     # Generate data via 'GgmModel'.
     set.seed(seed)
