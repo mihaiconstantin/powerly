@@ -192,8 +192,9 @@
 #' }}
 #'
 #' @references
-#' Constantin et al. (2021). A General Monte Carlo Method for Sample Size
-#' Analysis in the Context of Network Models.
+#' Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
+#' Carlo Method for Sample Size Analysis in the Context of Network Models.
+#' PsyArXiv. [https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
 #'
 #' @examples
 #' \dontrun{
