@@ -1,4 +1,6 @@
-# `powerly` (development version)
+# `powerly` `1.5.0`
+
+## Features
 
 * Add preliminary `summary()` support for `Method` and `Validation` objects.
 
@@ -8,12 +10,19 @@
 * Add `ggplot` plots and saving support for `StepOne`, `StepTwo`, `StepThree`
   and `Validation` objects.
 
+## Improvements
+
 * Migrate from `R` base plots to `ggplot2` and `patchwork`.
 
 * Add more detailed `Description` in `DESCRIPTION` file as per comment by CRAN
   member Julia Haider.
 
+## Bug fixes
+
 * Fix seed in `StepOne` unit test.
+
+* Fix superfluous test fail for `GGM` model estimation. Restricted the unit test
+  to compare the estimated edge weights up to 7 digits precision.
 
 # `powerly` `1.4.0`
 
@@ -175,3 +184,7 @@
 - The percentile plot in `StepThree` results in misalignment between the dashed
   lines intersection point and the percentile function when the number of Monte
   Carlo replications is very large.
+
+
+
+The reason for donot test is becaseu I already provided unit tests and mine take more thant 5 secs
