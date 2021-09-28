@@ -1,5 +1,8 @@
 # `powerly` (development version)
 
+* Update citation and references to the preprint available at
+  [psyarxiv.com/j5v7u](https://psyarxiv.com/j5v7u).
+
 * Add `ggplot` plots and saving support for `StepOne`, `StepTwo`, `StepThree`
   and `Validation` objects.
 
