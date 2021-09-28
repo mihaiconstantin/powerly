@@ -155,10 +155,10 @@
 #' @section Requests:
 #' - If you would like to support a new model, performance measure, or
 #'   statistic, please open a pull request on GitHub at
-#'   [https://github.com/mihaiconstantin/powerly/pulls](https://github.com/mihaiconstantin/powerly/pulls).
+#'   [github.com/mihaiconstantin/powerly/pulls](https://github.com/mihaiconstantin/powerly/pulls).
 #' - To request a new model, performance measure, or statistic, please submit
 #'   your request at
-#'   [https://github.com/mihaiconstantin/powerly/issues](https://github.com/mihaiconstantin/powerly/issues).
+#'   [github.com/mihaiconstantin/powerly/issues](https://github.com/mihaiconstantin/powerly/issues).
 #'   If possible, please also include references discussing the topics you are
 #'   requesting.
 #' - Alternatively, you can get in touch at `mihai at mihaiconstantin dot com`.
