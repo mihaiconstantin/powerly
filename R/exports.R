@@ -155,10 +155,10 @@
 #' @section Requests:
 #' - If you would like to support a new model, performance measure, or
 #'   statistic, please open a pull request on GitHub at
-#'   [https://github.com/mihaiconstantin/powerly/pulls](https://github.com/mihaiconstantin/powerly/pulls).
+#'   [github.com/mihaiconstantin/powerly/pulls](https://github.com/mihaiconstantin/powerly/pulls).
 #' - To request a new model, performance measure, or statistic, please submit
 #'   your request at
-#'   [https://github.com/mihaiconstantin/powerly/issues](https://github.com/mihaiconstantin/powerly/issues).
+#'   [github.com/mihaiconstantin/powerly/issues](https://github.com/mihaiconstantin/powerly/issues).
 #'   If possible, please also include references discussing the topics you are
 #'   requesting.
 #' - Alternatively, you can get in touch at `mihai at mihaiconstantin dot com`.
@@ -192,11 +192,12 @@
 #' }}
 #'
 #' @references
-#' Constantin et al. (2021). A General Monte Carlo Method for Sample Size
-#' Analysis in the Context of Network Models.
+#' Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
+#' Carlo Method for Sample Size Analysis in the Context of Network Models.
+#' PsyArXiv. [https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' # Suppose we want to find the sample size for observing a sensitivity of `0.6`
 #' # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
@@ -409,7 +410,7 @@ powerly <- function(
 #' }
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
 #' # Perform a sample size analysis.
 #' results <- powerly(

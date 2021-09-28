@@ -15,17 +15,17 @@
 
 ## Description
 
-`powerly` is an `R` package that implements the method by [Constantin,
-Schuurman, & Vermunt (2021)](https://arxiv.org) for conducting sample size
-analysis for cross-sectional network models. The method implemented is
-implemented in the main function `powerly()`. The implementation takes the form
-of a three-step recursive algorithm designed to find an optimal sample size
-value given a model specification and an outcome measure of interest. It starts
-with a Monte Carlo simulation step for computing the outcome at various sample
-sizes. It continues with a monotone curve-fitting step for interpolating the
-outcome. The final step employs stratified bootstrapping to quantify the
-uncertainty around the fitted curve. For more details on how the method works,
-check the manuscript linked above. Moreover, consult the [method
+`powerly` is an `R` package that implements the method by [Constantin et al.
+(2021)](https://psyarxiv.com/j5v7u) for conducting sample size analysis for
+cross-sectional network models. The method implemented is implemented in the
+main function `powerly()`. The implementation takes the form of a three-step
+recursive algorithm designed to find an optimal sample size value given a model
+specification and an outcome measure of interest. It starts with a Monte Carlo
+simulation step for computing the outcome at various sample sizes. It continues
+with a monotone curve-fitting step for interpolating the outcome. The final step
+employs stratified bootstrapping to quantify the uncertainty around the fitted
+curve. For more details on how the method works, check the manuscript linked
+above. Moreover, consult the [method
 poster](https://github.com/mihaiconstantin/powerly#poster).
 
 ---
@@ -34,6 +34,9 @@ poster](https://github.com/mihaiconstantin/powerly#poster).
 
 - to install from CRAN run `install.packages("powerly")`
 - to install the latest version from GitHub run `devtools::install_github("mihaiconstantin/powerly")`
+
+Note. *The package is currently pending approval on CRAN. This note will be
+removed once the package is accepted.*
 
 ---
 
@@ -102,7 +105,7 @@ step that should be plotted.
 plot(results, step = 1)
 ```
 <p align="center">
-    <img width = "50%" src="./man/figures/example-step-1.svg" alt="Example Step 1"/>
+    <img width = "60%" src="./man/figures/example-step-1.png" alt="Example Step 1"/>
 </p>
 
 ```r
@@ -110,7 +113,7 @@ plot(results, step = 1)
 plot(results, step = 2)
 ```
 <p align="center">
-    <img width="50%" src="./man/figures/example-step-2.svg" alt="Example Step 2"/>
+    <img width="60%" src="./man/figures/example-step-2.png" alt="Example Step 2"/>
 </p>
 
 ```r
@@ -119,7 +122,7 @@ plot(results, step = 3)
 ```
 
 <p align="center">
-    <img width = "50%" src="./man/figures/example-step-3.svg" alt="Example Step 3"/>
+    <img width = "60%" src="./man/figures/example-step-3.png" alt="Example Step 3"/>
 </p>
 
 ```r
@@ -128,7 +131,7 @@ plot(validation)
 ```
 
 <p align="center">
-    <img width = "50%" src="./man/figures/example-validation.svg" alt="Example Validation"/>
+    <img width = "60%" src="./man/figures/example-validation.png" alt="Example Validation"/>
 </p>
 
 ---
@@ -155,5 +158,5 @@ plot(validation)
 
 The code in this repository is licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-To cite `powerly` please use:
-- Constantin, M. A., Schuurman, N. K., & Vermunt, K. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models.
+To use `powerly` please cite:
+- Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models. PsyArXiv. [https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)

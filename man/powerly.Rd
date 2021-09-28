@@ -227,10 +227,10 @@ shrinks below a specified value.
 \itemize{
 \item If you would like to support a new model, performance measure, or
 statistic, please open a pull request on GitHub at
-\url{https://github.com/mihaiconstantin/powerly/pulls}.
+\href{https://github.com/mihaiconstantin/powerly/pulls}{github.com/mihaiconstantin/powerly/pulls}.
 \item To request a new model, performance measure, or statistic, please submit
 your request at
-\url{https://github.com/mihaiconstantin/powerly/issues}.
+\href{https://github.com/mihaiconstantin/powerly/issues}{github.com/mihaiconstantin/powerly/issues}.
 If possible, please also include references discussing the topics you are
 requesting.
 \item Alternatively, you can get in touch at \verb{mihai at mihaiconstantin dot com}.
@@ -238,7 +238,7 @@ requesting.
 }
 
 \examples{
-\dontrun{
+\donttest{
 
 # Suppose we want to find the sample size for observing a sensitivity of `0.6`
 # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
@@ -294,8 +294,9 @@ plot(results, step = 3, last = TRUE)
 
 }
 \references{
-Constantin et al. (2021). A General Monte Carlo Method for Sample Size
-Analysis in the Context of Network Models.
+Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
+Carlo Method for Sample Size Analysis in the Context of Network Models.
+PsyArXiv. \url{https://doi.org/10.31234/osf.io/j5v7u}
 }
 \seealso{
 \code{\link[=validate]{validate()}}, \code{\link[=generate_model]{generate_model()}}
