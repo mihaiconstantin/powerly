@@ -398,7 +398,7 @@ StepThree <- R6::R6Class("StepThree",
                 }
 
                 # Save the plot.
-                ggsave(path, plot = plot_step_3, width = width, height = height, ...)
+                ggplot2::ggsave(path, plot = plot_step_3, width = width, height = height, ...)
             } else {
                 # Show the plot.
                 plot(plot_step_3)

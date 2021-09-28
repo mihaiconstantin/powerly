@@ -401,7 +401,7 @@ StepTwo <- R6::R6Class("StepTwo",
                 }
 
                 # Save the plot.
-                ggsave(path, plot = plot_step_2, width = width, height = height, ...)
+                ggplot2::ggsave(path, plot = plot_step_2, width = width, height = height, ...)
             } else {
                 # Show the plot.
                 plot(plot_step_2)

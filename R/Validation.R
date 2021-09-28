@@ -112,7 +112,7 @@ Validation <- R6::R6Class("Validation",
                     }
 
                     # Save the plot.
-                    ggsave(path, plot = plot_validation, width = width, height = height, ...)
+                    ggplot2::ggsave(path, plot = plot_validation, width = width, height = height, ...)
                 } else {
                     # Show the plot.
                     plot(plot_validation)
