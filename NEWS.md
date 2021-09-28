@@ -1,3 +1,15 @@
+# `powerly` (development version)
+
+* Add `ggplot` plots and saving support for `StepOne`, `StepTwo`, `StepThree`
+  and `Validation` objects.
+
+* Migrate from `R` base plots to `ggplot2` and `patchwork`.
+
+* Add more detailed `Description` in `DESCRIPTION` file as per comment by CRAN
+  member Julia Haider.
+
+* Fix seed in `StepOne` unit test.
+
 # `powerly` `1.4.0`
 
 ## Features
