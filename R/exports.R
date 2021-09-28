@@ -217,6 +217,7 @@
 #'     model = "ggm",
 #'     nodes = 10,
 #'     density = .4,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
@@ -238,6 +239,7 @@
 #'     statistic_value = .8,
 #'     model = "ggm",
 #'     model_matrix = true_model,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
@@ -425,11 +427,12 @@ powerly <- function(
 #'     model = "ggm",
 #'     nodes = 10,
 #'     density = .4,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
 #' # Validate the recommendation obtained during the analysis.
-#' validation <- validate(results)
+#' validation <- validate(results, cores = 2)
 #'
 #' # Plot the validation results.
 #' plot(validation)
