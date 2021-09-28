@@ -7,7 +7,15 @@ Authors@R:
            role = c("aut", "cre"),
            email = "mihai@mihaiconstantin.com",
            comment = c(ORCID = "0000-0002-6460-0107"))
-Description: Sample size analysis for psychological network models and more models to come.
+Description: A general method for conducting sample size analysis for network
+    models. The implementation takes the form of a three-step recursive
+    algorithm designed to find an optimal sample size given a model
+    specification and a performance measure of interest. It starts with a Monte
+    Carlo simulation step for computing the performance measure and a statistic
+    at various sample sizes selected from an initial sample size range. It
+    continues with a monotone curve-fitting step for interpolating the statistic
+    across the entire sample size range. The final step employs stratified
+    bootstrapping to quantify the uncertainty around the fitted curve.
 License: MIT + file LICENSE
 URL: https://github.com/mihaiconstantin/powerly
 BugReports: https://github.com/mihaiconstantin/powerly/issues
@@ -19,7 +27,9 @@ Imports:
     quadprog,
     osqp,
     bootnet,
-    qgraph
+    qgraph,
+    ggplot2,
+    patchwork
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
@@ -47,6 +57,7 @@ Collate:
     'Validation.R'
     'constants.R'
     'exports.R'
+    'helpers.R'
     'logo.R'
     'powerly-package.R'
 Suggests:

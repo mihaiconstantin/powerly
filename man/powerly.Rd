@@ -166,9 +166,9 @@ The \code{plot} method can be called on the return value to visualize the result
 \if{html}{
 Example of a plots:
 \itemize{
-\item Step 1 \itemize{\item \figure{example-step-1.svg}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
-\item Step 2 \itemize{\item \figure{example-step-2.svg}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
-\item Step 3 \itemize{\item \figure{example-step-3.svg}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
+\item Step 1 \itemize{\item \figure{example-step-1.png}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
+\item Step 2 \itemize{\item \figure{example-step-2.png}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
+\item Step 3 \itemize{\item \figure{example-step-3.png}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
 }}
 }
 \description{
@@ -210,8 +210,8 @@ shrinks below a specified value.
    \strong{Performance Measure} \tab \strong{Symbol} \tab \strong{Lower} \tab \strong{Upper} \cr
    Sensitivity \tab \code{sen} \tab \code{0.00} \tab \code{1.00} \cr
    Specificity \tab \code{spe} \tab \code{0.00} \tab \code{1.00} \cr
-   Matthews correlation \tab \code{mcc} \tab \code{0.00} \tab \code{1.00} \cr
-   Pearson correlation \tab \code{rho} \tab \code{0.00} \tab \code{1.00} \cr
+   Matthews correlation \tab \code{mcc} \tab \code{-1.00} \tab \code{1.00} \cr
+   Pearson correlation \tab \code{rho} \tab \code{-1.00} \tab \code{1.00} \cr
 }
 }
 

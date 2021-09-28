@@ -22,7 +22,7 @@ test_that("'StepOne' Monte Carlo simulation runs correctly", {
     step_1$set_statistic("power", .8)
 
     # Determine seed.
-    seed <- runif(1)
+    seed <- sample(1:1e5, 1)
 
     # Set seed.
     set.seed(seed)

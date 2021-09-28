@@ -187,116 +187,91 @@ StepOne <- R6::R6Class("StepOne",
         },
 
         # Plot the results of current class instance.
-        plot = function() {
-            # Revert changes on exit.
-            on.exit({
-                # Reset layout.
-                layout(1:1)
+        plot = function(save = FALSE, path = NULL, width = 14, height = 10, ...) {
+            # Fetch plot settings.
+            .__PLOT_SETTINGS__  <- plot_settings()
 
-                # Reset margins.
-                par(mar = c(5.1, 4.1, 4.1, 2.1))
-            })
-
-            # Set layout.
-            layout(matrix(c(1, 2, 3, 3), 2, 2, byrow = TRUE))
-
-            # Adjust margins for layout.
-            par(mar = c(5.1, 4.1, 4.1, 2.1) + 1)
-
-            # True model.
-            qgraph::qgraph(
-                input = private$.true_model_parameters,
-                layout = "spring",
-                color = .__GRAPHICS__$node.color,
-                posCol = .__GRAPHICS__$positive.edge.color,
-                negCol = .__GRAPHICS__$negative.edge.color,
-                edge.labels = TRUE,
-                edge.label.cex = .9,
-                edge.label.bg = TRUE,
-                edge.label.color = "black"
-            )
-            title(
-                main = paste("True Model"),
-                cex.main = 1,
-                cex.lab = 1,
-                adj = 0
-            )
-            title(
-                xlab = ifelse(
-                    !is.null(private$.true_model_options),
-                    paste("Generated from", paste0("(", names(private$.true_model_options), " = ", private$.true_model_options, ")", collapse = " & ")),
-                    "Specified"
-                ),
-                cex.lab = 1,
-                line = 4
+            # Create data frame for the boxplot.
+            data_measures <- data.frame(
+                measure = as.numeric(private$.measures),
+                sample = as.factor(sort(rep(private$.range$partition, private$.replications)))
             )
 
-            # Measures.
-            boxplot(
-                private$.measures,
-                names = private$.range$partition,
-                xlab = "",
-                ylab = "",
-                las = 2,
-                cex.axis = .9
-            )
-            title(
-                main = "Monte Carlo Replicated Measures",
-                ylab = paste0("Values for measure '", toupper(private$.measure_type), "'"),
-                cex.main = 1,
-                cex.lab = 1
-            )
-            title(
-                xlab = "Replicated sample sizes",
-                cex.lab = 1,
-                line = 4
-            )
-            abline(
-                h = private$.measure_value,
-                col = "#2c2c2c",
-                lty = 2
+            # Create data frame for the computed statistics.
+            data_statistics <- data.frame(
+                sample = as.factor(private$.range$partition),
+                statistic = private$.statistics
             )
 
-            # Statistics.
-            plot(
-                self$range$partition,
-                self$statistics,
-                col = "royalblue",
-                pch = 19,
-                xlab = "",
-                ylab = "",
-                xaxt = "n",
-                yaxt = "n",
-                cex = 1
-            )
-            title(
-                main = "Computed Statistics",
-                ylab = paste0("Values for statistic '", toupper(sub("Statistic", "", class(private$.statistic)[1])), "'"),
-                cex.main = 1,
-                cex.lab = 1
-            )
-            title(
-                xlab = "Sample sizes",
-                cex.lab = 1,
-                line = 4
-            )
-            axis(
-                side = 1,
-                at = private$.range$partition,
-                tck = -0.01,
-                las = 2,
-                cex.axis = .9
-            )
-            axis(
-                side = 2,
-                cex.axis = .9,
-                las = 1
-            )
-            abline(
-                h = private$.statistic_value,
-                col = "#2c2c2c",
-                lty = 2
-            )
+            # Common theme settings for both plots.
+            .__PLOT_SETTINGS__ <- c(.__PLOT_SETTINGS__, list(
+                ggplot2::scale_y_continuous(breaks = seq(0, 1, .1))
+            ))
+
+            # Create the measures plot.
+            plot_measures <- ggplot2::ggplot(data_measures, ggplot2::aes(x = sample, y = measure)) +
+                ggplot2::geom_boxplot(
+                    fill = "#e6e6e6",
+                    width = .6,
+                    outlier.colour = "#bebebe"
+                ) +
+                ggplot2::geom_hline(
+                    yintercept = private$.measure_value,
+                    color = "#8b0000",
+                    linetype = "dotted",
+                    size = .65
+                ) +
+                ggplot2::labs(
+                    title = "Monte Carlo Replications",
+                    x = "Selected Sample Size",
+                    y = "Performance Measure Value"
+                ) +
+                .__PLOT_SETTINGS__
+
+            plot_statistics <- ggplot2::ggplot(data_statistics, ggplot2::aes(x = sample, y = statistic)) +
+                ggplot2::geom_point(
+                    fill = "#3f51b5",
+                    color = "#3f51b5",
+                    size = 1.5,
+                    shape = 23
+                ) +
+                ggplot2::geom_hline(
+                    yintercept = private$.statistic_value,
+                    color = "#8b0000",
+                    linetype = "dotted",
+                    size = .65
+                ) +
+                ggplot2::labs(
+                    title = "Computed Statistics",
+                    x = "Candidate Sample Size Range",
+                    y = "Statistic Value"
+                ) +
+                .__PLOT_SETTINGS__
+
+            # Prepare plot spacing.
+            plot_measures <- plot_measures & ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
+            plot_statistics <- plot_statistics & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 0))
+
+            # Arrange the plots together.
+            plot_step_1 <- plot_measures /
+                plot_statistics
+
+            # Save the plot.
+            if (save) {
+                if (is.null(path)) {
+                    # If no path is provided, create one.
+                    path <- paste0(getwd(), "/", "step-1", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
+                }
+
+                # Save the plot.
+                ggplot2::ggsave(path, plot = plot_step_1, width = width, height = height, ...)
+            } else {
+                # Show the plot.
+                plot(plot_step_1)
+            }
+
+            # Return the plot object silently.
+            invisible(plot_step_1)
         }
     ),
 

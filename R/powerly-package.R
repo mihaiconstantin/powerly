@@ -13,6 +13,9 @@
 # Contact: mihai@mihaiconstantin.com                      #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+# Imports.
+#'@importFrom patchwork plot_layout
+
 #' @include logo.R
 
 #' @title
