@@ -105,7 +105,7 @@ step that should be plotted.
 plot(results, step = 1)
 ```
 <p align="center">
-    <img width = "50%" src="./man/figures/example-step-1.svg" alt="Example Step 1"/>
+    <img width = "60%" src="./man/figures/example-step-1.png" alt="Example Step 1"/>
 </p>
 
 ```r
@@ -113,7 +113,7 @@ plot(results, step = 1)
 plot(results, step = 2)
 ```
 <p align="center">
-    <img width="50%" src="./man/figures/example-step-2.svg" alt="Example Step 2"/>
+    <img width="60%" src="./man/figures/example-step-2.png" alt="Example Step 2"/>
 </p>
 
 ```r
@@ -122,7 +122,7 @@ plot(results, step = 3)
 ```
 
 <p align="center">
-    <img width = "50%" src="./man/figures/example-step-3.svg" alt="Example Step 3"/>
+    <img width = "60%" src="./man/figures/example-step-3.png" alt="Example Step 3"/>
 </p>
 
 ```r
@@ -131,7 +131,7 @@ plot(validation)
 ```
 
 <p align="center">
-    <img width = "50%" src="./man/figures/example-validation.svg" alt="Example Validation"/>
+    <img width = "60%" src="./man/figures/example-validation.png" alt="Example Validation"/>
 </p>
 
 ---
