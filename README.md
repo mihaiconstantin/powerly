@@ -35,6 +35,9 @@ poster](https://github.com/mihaiconstantin/powerly#poster).
 - to install from CRAN run `install.packages("powerly")`
 - to install the latest version from GitHub run `devtools::install_github("mihaiconstantin/powerly")`
 
+Note. *The package is currently pending approval on CRAN. This note will be
+removed once the package is accepted.*
+
 ---
 
 ## Example
