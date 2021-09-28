@@ -186,9 +186,9 @@
 #' \if{html}{
 #' Example of a plots:
 #' \itemize{
-#' \item Step 1 \itemize{\item \figure{example-step-1.svg}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
-#' \item Step 2 \itemize{\item \figure{example-step-2.svg}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
-#' \item Step 3 \itemize{\item \figure{example-step-3.svg}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
+#' \item Step 1 \itemize{\item \figure{example-step-1.png}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
+#' \item Step 2 \itemize{\item \figure{example-step-2.png}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
+#' \item Step 3 \itemize{\item \figure{example-step-3.png}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
 #' }}
 #'
 #' @references
@@ -405,7 +405,7 @@ powerly <- function(
 #'
 #' \if{html}{
 #' Example of a plot:
-#' \itemize{\item \figure{example-validation.svg}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
+#' \itemize{\item \figure{example-validation.png}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
 #' }
 #'
 #' @examples

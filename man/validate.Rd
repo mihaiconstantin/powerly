@@ -55,7 +55,7 @@ The \code{plot} method can be called on the return value to visualize the result
 
 \if{html}{
 Example of a plot:
-\itemize{\item \figure{example-validation.svg}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
+\itemize{\item \figure{example-validation.png}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
 }
 }
 \description{
