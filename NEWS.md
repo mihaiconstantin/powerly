@@ -1,5 +1,7 @@
 # `powerly` (development version)
 
+* Add preliminary `summary()` support for `Method` and `Validation` objects.
+
 * Update citation and references to the preprint available at
   [psyarxiv.com/j5v7u](https://psyarxiv.com/j5v7u).
 
