@@ -67,7 +67,7 @@ The sample sizes used during the validation procedure is automatically extracted
 from the \code{method} argument.
 }
 \examples{
-\dontrun{
+\donttest{
 
 # Perform a sample size analysis.
 results <- powerly(
