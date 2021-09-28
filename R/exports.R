@@ -251,6 +251,9 @@
 #'
 #' # The argument `last = TRUE` indicates that the plot should be constructed for
 #' # the last iteration of the algorithm.
+#'
+#' # To see a summary of the results, we can use the `summary` S3 method.
+#' summary(results)
 #' }
 #'
 #' @seealso [powerly::validate()], [powerly::generate_model()]
@@ -436,6 +439,9 @@ powerly <- function(
 #'
 #' # Plot the validation results.
 #' plot(validation)
+#'
+#' # To see a summary of the validation procedure, we can use the `summary` S3 method.
+#' summary(validation)
 #' }
 #'
 #' @seealso [powerly::powerly()], [powerly::generate_model()]
