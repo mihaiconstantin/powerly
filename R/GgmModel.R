@@ -23,8 +23,9 @@ GgmModel <- R6::R6Class("GgmModel",
             return(data)
         },
 
+        # Todo: replace with `bootnet` estimators, also for the data generation.
         estimate = function(data, n_lambda = 100, lambda_min_ratio = .01, gamma = 0.5) {
-            # Compute correlation matrix (i.e., that's what 'qgraph' uses).
+            # Compute correlation matrix (i.e., inline with 'qgraph').
             S <- cor(data)
 
             # Compute the number of respondents.

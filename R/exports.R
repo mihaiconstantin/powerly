@@ -217,6 +217,7 @@
 #'     model = "ggm",
 #'     nodes = 10,
 #'     density = .4,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
@@ -238,6 +239,7 @@
 #'     statistic_value = .8,
 #'     model = "ggm",
 #'     model_matrix = true_model,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
@@ -249,6 +251,9 @@
 #'
 #' # The argument `last = TRUE` indicates that the plot should be constructed for
 #' # the last iteration of the algorithm.
+#'
+#' # To see a summary of the results, we can use the `summary` S3 method.
+#' summary(results)
 #' }
 #'
 #' @seealso [powerly::validate()], [powerly::generate_model()]
@@ -425,14 +430,18 @@ powerly <- function(
 #'     model = "ggm",
 #'     nodes = 10,
 #'     density = .4,
+#'     cores = 2,
 #'     verbose = TRUE
 #' )
 #'
 #' # Validate the recommendation obtained during the analysis.
-#' validation <- validate(results)
+#' validation <- validate(results, cores = 2)
 #'
 #' # Plot the validation results.
 #' plot(validation)
+#'
+#' # To see a summary of the validation procedure, we can use the `summary` S3 method.
+#' summary(validation)
 #' }
 #'
 #' @seealso [powerly::powerly()], [powerly::generate_model()]
