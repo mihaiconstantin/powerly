@@ -217,6 +217,43 @@ StepThree <- R6::R6Class("StepThree",
             return(private$.boot_statistics[, which(private$.step_2$interpolation$x == sample)])
         },
 
+        # Make density plot given a sample size in the range.
+        density_plot = function(sample) {
+            # Extract the data.
+            data <- self$get_statistics(sample)
+
+            # Fetch common plot settings.
+            .__PLOT_SETTINGS__ <- plot_settings()
+
+            # Make the density plot
+            plot_density <- ggplot2::ggplot(mapping = ggplot2::aes(data)) +
+                ggplot2::geom_density(
+                    fill = "#4d4d4d",
+                    color = "#4d4d4d",
+                    alpha = .15
+                ) +
+                ggplot2::geom_vline(
+                    xintercept = mean(data),
+                    color = "#8b0000",
+                    linetype = "dotted",
+                    size = .65
+                ) +
+                ggplot2::labs(
+                    title = paste0("Sample: ", sample, " | ", "M = ", round(mean(data), 2), " | ", "SD = ", round(sd(data), 2)),
+                    y = "Density",
+                    x = "Statistic Value"
+                ) +
+                .__PLOT_SETTINGS__ +
+                ggplot2::theme(
+                    axis.text.x = ggplot2::element_text(
+                        angle = 0,
+                        hjust = 0.5
+                    )
+                )
+
+            return(plot_density)
+        },
+
         # Plot.
         plot = function() {
             # Revert the changes on exit.
