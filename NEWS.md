@@ -1,3 +1,15 @@
+# `powerly` `1.5.1`
+
+## Bug fixes
+
+* Updated preprint link in `powerly()` documentation to use the `\doi{}` syntax
+  as indicated by CRAN member Uwe Ligges.
+
+* Updated `DESCRIPTION` to start with capital letter as indicated by CRAN member
+  Uwe Ligges.
+
+* Fix typo in `DESCRIPTION`.
+
 # `powerly` `1.5.0`
 
 ## Features
@@ -184,7 +196,3 @@
 - The percentile plot in `StepThree` results in misalignment between the dashed
   lines intersection point and the percentile function when the number of Monte
   Carlo replications is very large.
-
-
-
-The reason for donot test is becaseu I already provided unit tests and mine take more thant 5 secs
