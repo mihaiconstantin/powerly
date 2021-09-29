@@ -7,8 +7,8 @@ Authors@R:
            role = c("aut", "cre"),
            email = "mihai@mihaiconstantin.com",
            comment = c(ORCID = "0000-0002-6460-0107"))
-Description: This package provides an implementation of the sample size computation
-    method for network models proposed by Constantin et al. (2021) <doi:10.31234/osf.io/j5v7u>
+Description: An implementation of the sample size computation method for network
+    models proposed by Constantin et al. (2021) <doi:10.31234/osf.io/j5v7u>
     The implementation takes the form of a three-step recursive algorithm
     designed to find an optimal sample size given a model specification and a
     performance measure of interest. It starts with a Monte Carlo simulation
