@@ -194,7 +194,7 @@
 #' @references
 #' Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
 #' Carlo Method for Sample Size Analysis in the Context of Network Models.
-#' PsyArXiv. [https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
+#' PsyArXiv. \doi{10.31234/osf.io/j5v7u}
 #'
 #' @examples
 #' \donttest{

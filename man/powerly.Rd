@@ -301,7 +301,7 @@ summary(results)
 \references{
 Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
 Carlo Method for Sample Size Analysis in the Context of Network Models.
-PsyArXiv. \url{https://doi.org/10.31234/osf.io/j5v7u}
+PsyArXiv. \doi{10.31234/osf.io/j5v7u}
 }
 \seealso{
 \code{\link[=validate]{validate()}}, \code{\link[=generate_model]{generate_model()}}
