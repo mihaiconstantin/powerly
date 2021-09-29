@@ -1,3 +1,9 @@
+# `powerly` `1.5.2`
+
+## Bug fixes
+
+* Updated `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
+
 # `powerly` `1.5.1`
 
 ## Bug fixes
