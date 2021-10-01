@@ -2,6 +2,8 @@
 
 ## Improvements
 
+* Import external functions to `NAMESPACE` via `Roxygen2`.
+
 * Add more cool badges to `README.md` (e.g., CRAN version and check status).
 
 * Fix missing missing period in package description in `DESCRIPTION` file.
