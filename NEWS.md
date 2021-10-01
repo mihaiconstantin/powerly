@@ -12,16 +12,16 @@
 
 ## Bug fixes
 
-* Updated `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
+* Update `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
 
 # `powerly` `1.5.1`
 
 ## Bug fixes
 
-* Updated preprint link in `powerly()` documentation to use the `\doi{}` syntax
+* Update preprint link in `powerly()` documentation to use the `\doi{}` syntax
   as indicated by CRAN member Uwe Ligges.
 
-* Updated `DESCRIPTION` to start with capital letter as indicated by CRAN member
+* Update `DESCRIPTION` to start with capital letter as indicated by CRAN member
   Uwe Ligges.
 
 * Fix typo in `DESCRIPTION`.
