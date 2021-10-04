@@ -200,17 +200,11 @@
 - Add *UML* class diagram to give an overview of the structure of the package.
 - Add package website using the `pkgdown` generator.
 - Switch to generating `README.md` file from `README.Rmd` via `knitr`.
-- Change to `ggplot2` plots.
 
 # Ideas to consider
-- Bisectional algorithm for choosing an optimal starting range (i.e., not to
-  wide, not to narrow)
+- Bisectional algorithm for choosing an optimal starting range (i.e., not too
+  wide, not too narrow).
 - Switch to accelerated bootstrap CI in `StepThree` for better precision.
 - Reuse Monte Carlo results from previous iterations if they fall within the
   updated range.
 - Shiny application for running the method.
-
-# Known bugs
-- The percentile plot in `StepThree` results in misalignment between the dashed
-  lines intersection point and the percentile function when the number of Monte
-  Carlo replications is very large.
