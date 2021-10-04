@@ -2,6 +2,8 @@
 
 ## Improvements
 
+* Add ECDF plot to `Validation` class.
+
 * Import external functions to `NAMESPACE` via `Roxygen2`.
 
 * Add more cool badges to `README.md` (e.g., CRAN version and check status).
