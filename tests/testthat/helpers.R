@@ -45,6 +45,26 @@ solve_osqp <- function(basis_matrix, y, lower, upper) {
     return(model$Solve()$x)
 }
 
+# Compute performance measures.
+compute_measure <- function(true_parameters, estimated_parameters, measure) {
+    # Extract the true and estimated parameters from the weights matrices.
+    true <- true_parameters[upper.tri(true_parameters)]
+    esti <- estimated_parameters[upper.tri(estimated_parameters)]
+
+    # Compute true/ false | positive/ negative rates.
+    tp <- sum(true != 0 & esti != 0)
+    fp <- sum(true == 0 & esti != 0)
+    tn <- sum(true == 0 & esti == 0)
+    fn <- sum(true != 0 & esti == 0)
+
+    # Compute and return measure.
+    if(measure == "sen") {
+        return(tp / (tp + fn))
+    } else {
+        return(tn / (tn + fp))
+    }
+}
+
 # Helper for testing private methods of `StepTwo` class.
 StepTwoTester <- R6::R6Class("StepTwoTester",
     inherit = StepTwo,

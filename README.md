@@ -10,7 +10,11 @@
 
 <p align="center">
     <a align="center" href="https://github.com/mihaiconstantin/powerly/actions"><img src="https://github.com/mihaiconstantin/powerly/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
-    <a href="https://codecov.io/gh/mihaiconstantin/powerly"><img src="https://codecov.io/gh/mihaiconstantin/powerly/branch/main/graph/badge.svg?token=YUCO8ULBCM"/></a>
+    <a href="https://www.r-pkg.org/pkg/powerly"><img src="https://www.r-pkg.org/badges/version/powerly" alt="CRAN version"/></a>
+    <a href="https://cranchecks.info/pkgs/powerly"><img src="https://cranchecks.info/badges/worst/powerly" alt="CRAN checks"/></a>
+    <a href="https://codecov.io/gh/mihaiconstantin/powerly"><img src="https://codecov.io/gh/mihaiconstantin/powerly/branch/main/graph/badge.svg?token=YUCO8ULBCM" alt="Code coverage"/></a>
+    <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Repository status"/></a>
+    <a href="https://www.r-pkg.org/pkg/powerly"><img src="https://cranlogs.r-pkg.org/badges/grand-total/powerly" alt="CRAN RStudio mirror downloads"/></a>
 </p>
 
 ## Description
@@ -33,10 +37,7 @@ poster](https://github.com/mihaiconstantin/powerly#poster).
 ## Installation
 
 - to install from CRAN run `install.packages("powerly")`
-- to install the latest version from GitHub run `devtools::install_github("mihaiconstantin/powerly")`
-
-Note. *The package is currently pending approval on CRAN. This note will be
-removed once the package is accepted.*
+- to install the latest version from GitHub run `remotes::install_github("mihaiconstantin/powerly")`
 
 ---
 

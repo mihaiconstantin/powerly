@@ -1,17 +1,44 @@
+# `powerly` `1.6.0`
+
+## Improvements
+
+* Add new `Validation` class plot to `README.md` file.
+
+* Update `GgmModel` tests to vary various model estimation and data generation
+  parameters.
+
+* Update `testthat::expect_equal` to test with a tolerance of `1e-6` for `Basis`
+  and `Solver`.
+
+* Replace own `GgmModel` estimation with `qgraph::EBICglasso()`.
+
+* Add ECDF plot to `Validation` class.
+
+* Import external functions to `NAMESPACE` via `Roxygen2`.
+
+* Add more cool badges to `README.md` (e.g., CRAN version and check status).
+
+* Fix missing missing period in package description in `DESCRIPTION` file.
+
+## Bug fixes
+
+* Fix issue where `GGM` estimation test would fail due to a precision level set
+  too high.
+
 # `powerly` `1.5.2`
 
 ## Bug fixes
 
-* Updated `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
+* Update `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
 
 # `powerly` `1.5.1`
 
 ## Bug fixes
 
-* Updated preprint link in `powerly()` documentation to use the `\doi{}` syntax
+* Update preprint link in `powerly()` documentation to use the `\doi{}` syntax
   as indicated by CRAN member Uwe Ligges.
 
-* Updated `DESCRIPTION` to start with capital letter as indicated by CRAN member
+* Update `DESCRIPTION` to start with capital letter as indicated by CRAN member
   Uwe Ligges.
 
 * Fix typo in `DESCRIPTION`.
@@ -188,17 +215,11 @@
 - Add *UML* class diagram to give an overview of the structure of the package.
 - Add package website using the `pkgdown` generator.
 - Switch to generating `README.md` file from `README.Rmd` via `knitr`.
-- Change to `ggplot2` plots.
 
 # Ideas to consider
-- Bisectional algorithm for choosing an optimal starting range (i.e., not to
-  wide, not to narrow)
+- Bisectional algorithm for choosing an optimal starting range (i.e., not too
+  wide, not too narrow).
 - Switch to accelerated bootstrap CI in `StepThree` for better precision.
 - Reuse Monte Carlo results from previous iterations if they fall within the
   updated range.
 - Shiny application for running the method.
-
-# Known bugs
-- The percentile plot in `StepThree` results in misalignment between the dashed
-  lines intersection point and the percentile function when the number of Monte
-  Carlo replications is very large.

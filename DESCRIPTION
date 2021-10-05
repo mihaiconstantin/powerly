@@ -1,6 +1,6 @@
 Package: powerly
 Title: Sample Size Analysis for Psychological Networks and More
-Version: 1.5.2
+Version: 1.6.0
 Authors@R:
     person(given = "Mihai",
            family = "Constantin",
@@ -8,7 +8,7 @@ Authors@R:
            email = "mihai@mihaiconstantin.com",
            comment = c(ORCID = "0000-0002-6460-0107"))
 Description: An implementation of the sample size computation method for network
-    models proposed by Constantin et al. (2021) <doi:10.31234/osf.io/j5v7u>
+    models proposed by Constantin et al. (2021) <doi:10.31234/osf.io/j5v7u>.
     The implementation takes the form of a three-step recursive algorithm
     designed to find an optimal sample size given a model specification and a
     performance measure of interest. It starts with a Monte Carlo simulation

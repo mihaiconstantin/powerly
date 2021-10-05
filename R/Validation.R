@@ -75,28 +75,25 @@ Validation <- R6::R6Class("Validation",
         # Plot the validation results.
         plot = function(save = FALSE, path = NULL, width = 14, height = 10, bins = 20, ...) {
             # Fetch plot settings.
-            .__PLOT_SETTINGS__ <- plot_settings()
-
-            # Make the histogram plot.
-            plot_validation <- ggplot2::ggplot(mapping = ggplot2::aes(x = self$measures)) +
-                ggplot2::geom_histogram(
-                    bins = bins,
-                    color = "#4d4d4d",
-                    fill = "#4d4d4d",
-                    alpha = 0.2
-                ) +
+            .__PLOT_SETTINGS__ <- c(
+                plot_settings(),
                 ggplot2::scale_x_continuous(
-                    breaks = round(seq(min(self$measures), max(self$measures), by = 0.05), 2)
-                ) +
-                ggplot2::geom_vline(
-                    xintercept = self$percentile_value,
-                    color = "#8b0000",
-                    size = .65
+                    breaks = round(seq(min(self$measures), max(self$measures), by = .05), 2)
+                )
+            )
+
+            # Make histogram plot.
+            plot_histogram <- ggplot2::ggplot(mapping = ggplot2::aes(x = self$measures)) +
+                ggplot2::geom_histogram(
+                    bins = 20,
+                    fill = "#4d4d4d",
+                    color = "#4d4d4d",
+                    alpha = .15
                 ) +
                 ggplot2::labs(
                     title = paste0(
+                        "Performance Measure Distribution", " | ",
                         "Sample: ", self$sample, " | ",
-                        "Measure at ", self$percentile, " percentile: ", format(round(self$percentile_value, 3), nsmall = 3), " | ",
                         "Statistic: ", format(round(self$statistic, 3), nsmall = 3)
                     ),
                     y = "Count",
@@ -104,22 +101,75 @@ Validation <- R6::R6Class("Validation",
                 ) +
                 .__PLOT_SETTINGS__
 
-                # Save the plot.
-                if (save) {
-                    if (is.null(path)) {
-                        # If no path is provided, create one.
-                        path <- paste0(getwd(), "/", "validation", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
-                    }
+            # Make ECDF plot.
+            plot_ecdf <- ggplot2::ggplot(mapping = ggplot2::aes(x = self$measures)) +
+                ggplot2::stat_ecdf(
+                    geom = "step",
+                    size = 1,
+                    linetype = "solid",
+                    pad = FALSE
+                ) +
+                ggplot2::geom_vline(
+                    xintercept = self$validator$measure_value,
+                    color = "#2c2c2c",
+                    linetype = "dotted",
+                    alpha = .7,
+                    size = .65
+                ) +
+                ggplot2::geom_hline(
+                    yintercept = 1 - self$validator$statistic_value,
+                    color = "#2c2c2c",
+                    linetype = "dotted",
+                    alpha = .7,
+                    size = .65
+                ) +
+                ggplot2::geom_point(
+                    mapping = ggplot2::aes(
+                        x = self$validator$measure_value,
+                        y = 1 - self$validator$statistic_value
+                    ),
+                    fill = "#7c2929",
+                    color = "#7c2929",
+                    size = 1.3,
+                    shape = 23
+                ) +
+                ggplot2::scale_y_continuous(
+                    breaks = seq(0, 1, .1)
+                ) +
+                ggplot2::labs(
+                    title = paste0(
+                        "ECDF", " | ",
+                        "Performance Measure Value at ", self$percentile, " Percentile: ", format(round(self$percentile_value, 3), nsmall = 3)
+                    ),
+                    y = "Probability",
+                    x = "Performance Measure Value"
+                ) +
+                .__PLOT_SETTINGS__
 
-                    # Save the plot.
-                    ggplot2::ggsave(path, plot = plot_validation, width = width, height = height, ...)
-                } else {
-                    # Show the plot.
-                    plot(plot_validation)
+            # Set plot spacing.
+            plot_histogram <- plot_histogram & ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
+            plot_ecdf <- plot_ecdf & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 0))
+
+            # Arrange the plots together.
+            plot_validation <- plot_histogram /
+                plot_ecdf
+
+            # Save the plot.
+            if (save) {
+                if (is.null(path)) {
+                    # If no path is provided, create one.
+                    path <- paste0(getwd(), "/", "validation", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
                 }
 
-                # Return the plot object silently.
-                invisible(plot_validation)
+                # Save the plot.
+                ggplot2::ggsave(path, plot = plot_validation, width = width, height = height, ...)
+            } else {
+                # Show the plot.
+                plot(plot_validation)
+            }
+
+            # Return the plot object silently.
+            invisible(plot_validation)
         }
     ),
 
