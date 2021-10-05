@@ -1,4 +1,4 @@
-# `powerly` (development version)
+# `powerly` `1.6.0`
 
 ## Improvements
 
