@@ -94,7 +94,7 @@ test_that("'Basis' creates I-Spline basis equivalent to De Leeuw (2017)", {
     # Create normalized B-Splines.
     bspline <- splines2::bSpline(x, df = 0, degree = 3, intercept = TRUE)
 
-    # Ceate I-Splines via De Leeuw's (2017, p. 17) approach with cumulative sums of normalized B-Splines.
+    # Create I-Splines via De Leeuw's (2017, p. 17) approach with cumulative sums of normalized B-Splines.
     bspline_cumsum <- 1 - t(apply(bspline, 1, cumsum))
     bspline_cumsum <- cbind(1, bspline_cumsum[, -ncol(bspline_cumsum)])
 
