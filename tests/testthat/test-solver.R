@@ -126,11 +126,11 @@ test_that("'Solver' implementations give correct solution for monotone non-decre
     osqp_alpha <- solve_osqp(ispline$matrix, y, c(-Inf, rep(0, n - 1)), rep(Inf, n))
 
     # Each implementation should be equal with its counterpart.
-    expect_equal(osqp_impl_alpha, osqp_alpha)
-    expect_equal(qp_impl_alpha, qp_alpha)
+    expect_equal(osqp_impl_alpha, osqp_alpha, tolerance = 1e-6)
+    expect_equal(qp_impl_alpha, qp_alpha, tolerance = 1e-6)
 
     # The implementations should also give the same solution.
-    expect_equal(osqp_impl_alpha, qp_impl_alpha)
+    expect_equal(osqp_impl_alpha, qp_impl_alpha, tolerance = 1e-6)
 })
 
 
@@ -165,11 +165,11 @@ test_that("'Solver' implementations give correct solution for monotone non-incre
     osqp_alpha <- solve_osqp(ispline$matrix, y, rep(-Inf, n), c(Inf, rep(0, n - 1)))
 
     # Each implementation should be equal with its counterpart.
-    expect_equal(osqp_impl_alpha, osqp_alpha)
-    expect_equal(qp_impl_alpha, qp_alpha)
+    expect_equal(osqp_impl_alpha, osqp_alpha, tolerance = 1e-6)
+    expect_equal(qp_impl_alpha, qp_alpha, tolerance = 1e-6)
 
     # The implementations should also give the same solution.
-    expect_equal(osqp_impl_alpha, qp_impl_alpha)
+    expect_equal(osqp_impl_alpha, qp_impl_alpha, tolerance = 1e-6)
 })
 
 
@@ -197,8 +197,8 @@ test_that("'Solver' implementations give correct solution for non-monotone splin
     lm_alpha <- as.numeric(lm.fit(bspline$matrix, y)$coefficients)
 
     # Test.
-    expect_equal(osqp_impl_alpha, lm_alpha)
-    expect_equal(qp_impl_alpha, lm_alpha)
+    expect_equal(osqp_impl_alpha, lm_alpha, tolerance = 1e-6)
+    expect_equal(qp_impl_alpha, lm_alpha, tolerance = 1e-6)
 })
 
 
@@ -237,11 +237,11 @@ test_that("'Solver' implementations gives correct solution for updated statistic
     qp_alpha <- solve_qp(ispline$matrix, y_new, qp$.__enclos_env__$private$.a_mat, qp$.__enclos_env__$private$.b_vec)
 
     # The solver implementations should agree with their counterpart helpers.
-    expect_equal(osqp_impl_alpha, osqp_alpha)
-    expect_equal(qp_impl_alpha, qp_alpha)
+    expect_equal(osqp_impl_alpha, osqp_alpha, tolerance = 1e-6)
+    expect_equal(qp_impl_alpha, qp_alpha, tolerance = 1e-6)
 
     # The solver implementations should give the same solution.
-    expect_equal(osqp_impl_alpha, qp_impl_alpha)
+    expect_equal(osqp_impl_alpha, qp_impl_alpha, tolerance = 1e-6)
 })
 
 

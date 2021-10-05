@@ -2,6 +2,12 @@
 
 ## Improvements
 
+* Update `GgmModel` tests to vary various model estimation and data generation
+  parameters.
+
+* Update `testthat::expect_equal` to test with a tolerance of `1e-6` for `Basis`
+  and `Solver`.
+
 * Replace own `GgmModel` estimation with `qgraph::EBICglasso()`.
 
 * Add ECDF plot to `Validation` class.
@@ -15,6 +21,9 @@
 # `powerly` `1.5.2`
 
 ## Bug fixes
+
+* Fix issue where `GGM` estimation test would fail due to a precision level set
+  too high.
 
 * Update `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
 
