@@ -78,8 +78,8 @@ test_that("'GgmModel' computes the correct measure", {
     estimated <- ggm$estimate(data)
 
     # The right measures are picked if 'sen' returns 0, and 'spe' returns 1.
-    expect_equal(ggm$evaluate(true, estimated, measure = "sen"), 0)
-    expect_equal(ggm$evaluate(true, estimated, measure = "spe"), 1)
+    expect_equal(ggm$evaluate(true, estimated, measure = "sen"), compute_measure(true, estimated, "sen"))
+    expect_equal(ggm$evaluate(true, estimated, measure = "spe"), compute_measure(true, estimated, "spe"))
 
     # For unknown measures and error should be thrown.
     expect_error(ggm$evaluate(true, estimated, measure = "unknown"), .__ERRORS__$not_developed)
