@@ -98,7 +98,8 @@ test_that("'Basis' creates I-Spline basis equivalent to De Leeuw (2017)", {
     bspline_cumsum <- 1 - t(apply(bspline, 1, cumsum))
     bspline_cumsum <- cbind(1, bspline_cumsum[, -ncol(bspline_cumsum)])
 
-    expect_equal(round(ispline_ramsay, 10), round(bspline_cumsum, 10))
+    # Test.
+    expect_equal(ispline_ramsay, bspline_cumsum, tolerance = 1e-10)
 })
 
 
