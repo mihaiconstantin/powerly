@@ -4,9 +4,13 @@ name: R-CMD-check
 # Run on pushes and pull requests to the `main` branch.
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - dev
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - dev
 
 # Jobs to run.
 jobs:
