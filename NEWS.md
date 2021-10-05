@@ -1,3 +1,9 @@
+# `powerly` `1.6.1`
+
+## Improvements
+
+* Update line exclusions for `covr::codecov()`.
+
 # `powerly` `1.6.0`
 
 ## Improvements
