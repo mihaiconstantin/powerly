@@ -111,14 +111,16 @@ Validation <- R6::R6Class("Validation",
                 ) +
                 ggplot2::geom_vline(
                     xintercept = self$validator$measure_value,
-                    color = "#8b0000",
+                    color = "#2c2c2c",
                     linetype = "dotted",
+                    alpha = .7,
                     size = .65
                 ) +
                 ggplot2::geom_hline(
                     yintercept = 1 - self$validator$statistic_value,
-                    color = "#8b0000",
+                    color = "#2c2c2c",
                     linetype = "dotted",
+                    alpha = .7,
                     size = .65
                 ) +
                 ggplot2::scale_y_continuous(
