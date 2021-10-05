@@ -18,12 +18,14 @@
 
 * Fix missing missing period in package description in `DESCRIPTION` file.
 
-# `powerly` `1.5.2`
-
 ## Bug fixes
 
 * Fix issue where `GGM` estimation test would fail due to a precision level set
   too high.
+
+# `powerly` `1.5.2`
+
+## Bug fixes
 
 * Update `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
 
