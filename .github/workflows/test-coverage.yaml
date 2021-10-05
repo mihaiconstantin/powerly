@@ -4,9 +4,13 @@ name: test-coverage
 # Events.
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - dev
   pull_request:
-    branches: [main]
+    branches:
+      - main
+      - dev
 
 # Jobs.
 jobs:
