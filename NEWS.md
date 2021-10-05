@@ -2,6 +2,8 @@
 
 ## Improvements
 
+* Add new `Validation` class plot to `README.md` file.
+
 * Update `GgmModel` tests to vary various model estimation and data generation
   parameters.
 
