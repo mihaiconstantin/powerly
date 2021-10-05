@@ -122,7 +122,7 @@
 
 * Restrict tests to using a maximum of two cores to respect CRAN restriction.
 
-# Improvements
+## Improvements
 
 * Hide package logo at startup if the `R` session is not interactive.
 
