@@ -2,6 +2,8 @@
 
 ## Improvements
 
+* Replace own `GgmModel` estimation with `qgraph::EBICglasso()`.
+
 * Add ECDF plot to `Validation` class.
 
 * Import external functions to `NAMESPACE` via `Roxygen2`.
