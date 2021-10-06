@@ -14,4 +14,8 @@
 . Contact: mihai@mihaiconstantin.com                      .
 . Source: github.com/mihaiconstantin/powerly              .
 .                            .                            .
+. We are keen on improving and expanding `powerly` to new .
+. models. We welcome all your ideas and suggestions at    .
+. github.com/mihaiconstantin/powerly/issues.              .
+.                            .                            .
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
