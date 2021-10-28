@@ -14,7 +14,16 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Imports.
-#' @import parallel
+#' @importFrom parallel detectCores makeCluster stopCluster clusterExport
+#' @importFrom parallel clusterEvalQ parSapply parApply clusterCall
+#' @importFrom parallel clusterEvalQ makePSOCKcluster stopCluster
+#' @importFrom ggplot2 theme_bw element_line geom_boxplot geom_density
+#' @importFrom ggplot2 element_text geom_ribbon scale_fill_manual
+#' @importFrom ggplot2 scale_alpha_manual element_rect geom_segment annotate
+#' @importFrom ggplot2 coord_cartesian geom_line geom_text ggsave
+#' @importFrom ggplot2 scale_x_continuous geom_histogram ggplot stat_ecdf
+#' @importFrom ggplot2 geom_vline geom_hline geom_point aes scale_y_continuous
+#' @importFrom ggplot2 labs theme margin
 #' @importFrom patchwork plot_layout
 #' @importFrom R6 R6Class
 #' @importFrom bootnet genGGM ggmGenerator
