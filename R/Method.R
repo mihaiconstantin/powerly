@@ -218,6 +218,9 @@ summary.Method <- function(object, ...) {
     ), collapse = " | "), "\n", sep = "")
 }
 
+
+#' @template plot-Method
+#' @export
 plot.Method <- function(object, step = 3, last = TRUE, save = FALSE, path = NULL, width = 14, height = 10, ...) {
     # Determine which iteration should be plotted.
     if (last) {
