@@ -222,9 +222,6 @@ StepThree <- R6::R6Class("StepThree",
             # Extract the data.
             data <- self$get_statistics(sample)
 
-            # Fetch common plot settings.
-            .__PLOT_SETTINGS__ <- plot_settings()
-
             # Make the density plot
             plot_density <- ggplot2::ggplot(mapping = ggplot2::aes(data)) +
                 ggplot2::geom_density(
@@ -243,7 +240,7 @@ StepThree <- R6::R6Class("StepThree",
                     y = "Density",
                     x = "Statistic Value"
                 ) +
-                .__PLOT_SETTINGS__ +
+                plot_settings() +
                 ggplot2::theme(
                     axis.text.x = ggplot2::element_text(
                         angle = 0,
