@@ -266,6 +266,12 @@ StepThree <- R6::R6Class("StepThree",
         duration = function() { return(private$.duration) }
     )
 )
+
+
+#' @template plot-Step
+#' @templateVar step_class StepThree
+#' @templateVar step_number 3
+#' @export
 plot.StepThree <- function(object, save = FALSE, path = NULL, width = 14, height = 10, ...) {
     # Data confidence bands.
     data_bands = data.frame(
