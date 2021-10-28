@@ -1,3 +1,26 @@
+# `powerly` (development version)
+
+## Features
+
+* Add `summary` S3 method support for `Validation` class objects.
+
+## Improvements
+
+* Improve documentation and positioning of figures in the help pages.
+
+* Create `roxygen2` templates for documenting the public API and S3 methods.
+
+* Extract `plot()` methods from `R6` classes into standalone S3 methods.
+
+* Update package start-up logo with message to welcome and encourage users to
+  submit ideas for improving the package.
+
+* Extend CI workflow to include branch `dev`.
+
+* Fix preprint URL in package documentation.
+
+* Fix heading typo in news file.
+
 # `powerly` `1.6.1`
 
 ## Improvements
@@ -212,9 +235,7 @@
 # Planned changes
 
 - Add tests for `Validation` class.
-- Add implementation for `summary` and `print` methods for the `Method` class.
 - Option to set seeds for the cluster via `parallel::setclusterSetRNGStream`
-- Document the `plot` method in `Method` class.
 - Mechanism for performing replicable simulations using the method.
 - Mechanism for extending the package with new models, measures and statistics.
 - Tutorial for methodologists on how to extend the package.
