@@ -161,6 +161,11 @@ StepTwo <- R6::R6Class("StepTwo",
     )
 )
 
+
+#' @template plot-Step
+#' @templateVar step_class StepTwo
+#' @templateVar step_number 2
+#' @export
 plot.StepTwo <- function(object, save = FALSE, path = NULL, width = 14, height = 10, ...) {
     # Data statistic.
     data_statistics <- data.frame(

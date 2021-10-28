@@ -6,3 +6,4 @@ inst/debug/
 inst/design/
 archive
 ^\.github$
+^man-roxygen$

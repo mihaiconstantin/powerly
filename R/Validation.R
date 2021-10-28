@@ -93,6 +93,8 @@ Validation <- R6::R6Class("Validation",
 )
 
 
+#' @template plot-Validation
+#' @export
 plot.Validation <- function(object, save = FALSE, path = NULL, width = 14, height = 10, bins = 20, ...) {
     # Fetch plot settings.
     .__PLOT_SETTINGS__ <- c(plot_settings(), list(
