@@ -93,6 +93,8 @@ Validation <- R6::R6Class("Validation",
 )
 
 
+#' @template summary-Validation
+#' @export
 summary.Validation <- function(object, ...) {
     cat("\n", "Validation completed (", as.numeric(round(object$validator$duration, 4)), " sec):", sep = "")
     cat("\n", " - sample: ", object$sample, sep = "")
