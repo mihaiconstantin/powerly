@@ -107,7 +107,13 @@ powerly <- function(
 
 #' @template validate
 #' @export
-validate <- function(method, replications = 3000, cores = NULL, backend_type = NULL, verbose = TRUE) {
+validate <- function(
+    method,
+    replications = 3000,
+    cores = NULL,
+    backend_type = NULL,
+    verbose = TRUE
+) {
     # Check if the method argument is of correct type.
     if (!"Method" %in% class(method)) stop(.__ERRORS__$incorrect_type)
 
@@ -159,7 +165,10 @@ validate <- function(method, replications = 3000, cores = NULL, backend_type = N
 
 #' @template generate_model
 #' @export
-generate_model <- function(type, ...) {
+generate_model <- function(
+    type,
+    ...
+) {
     # Create a model factory.
     factory <- ModelFactory$new()
 
