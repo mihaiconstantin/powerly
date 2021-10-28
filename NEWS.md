@@ -183,7 +183,7 @@
 
 * Remove text feedback from each method step function.
 
-# `powerly` `0.1.0`
+# `powerly` `0.1.1`
 
 * Fix bug cased by initial candidate sample size ranges being too narrow.
 
