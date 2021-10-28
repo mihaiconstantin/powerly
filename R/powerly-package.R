@@ -40,7 +40,7 @@
 #'
 #' @description
 #' `powerly` is a package that implements the method by [Constantin et al.
-#' (2021)](https://arxiv.org) for conducting sample size analysis for
+#' (2021)](https://psyarxiv.com/j5v7u) for conducting sample size analysis for
 #' network models.
 #'
 #' @details
