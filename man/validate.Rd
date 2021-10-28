@@ -41,21 +41,17 @@ of the validation.
 
 Main fields:
 \itemize{
-\item \verb{$sample}: The sample size used for the validation.
-\item \verb{$measures}: The performance measures observed during validation.
-\item \verb{$statistic}: The statistic computed on the performance measures.
-\item \verb{$percentile_value}: The performance measure value at the desired percentile.
-\item \verb{$validator}: An \code{\link[R6:R6Class]{R6::R6Class()}} instance of \code{StepOne} class.
+\item \strong{\verb{$sample}}: The sample size used for the validation.
+\item \strong{\verb{$measures}}: The performance measures observed during validation.
+\item \strong{\verb{$statistic}}: The statistic computed on the performance measures.
+\item \strong{\verb{$percentile_value}}: The performance measure value at the desired percentile.
+\item \strong{\verb{$validator}}: An \code{\link[R6:R6Class]{R6::R6Class()}} instance of \code{StepOne} class.
 }
 
-The \code{plot} method can be called on the return value to visualize the results.
+The \code{plot} S3 method can be called on the return value to visualize the
+validation results (i.e., see \code{\link[=plot.Validation]{plot.Validation()}}).
 \itemize{
 \item \code{plot(validation)}
-}
-
-\if{html}{
-Example of a plot:
-\itemize{\item \figure{example-validation.png}{options: width=500 alt="Example Validation" style="vertical-align:middle"}}
 }
 }
 \description{
@@ -67,14 +63,12 @@ The sample sizes used during the validation procedure is automatically extracted
 from the \code{method} argument.
 }
 \examples{
-\donttest{
-
-# Perform a sample size analysis.
+\donttest{# Perform a sample size analysis.
 results <- powerly(
     range_lower = 300,
     range_upper = 1000,
     samples = 30,
-    replications = 20,
+    replications = 30,
     measure = "sen",
     statistic = "power",
     measure_value = .6,
@@ -98,5 +92,5 @@ summary(validation)
 
 }
 \seealso{
-\code{\link[=powerly]{powerly()}}, \code{\link[=generate_model]{generate_model()}}
+\code{\link[=plot.Validation]{plot.Validation()}}, \code{\link[=summary.Validation]{summary.Validation()}}, \code{\link[=powerly]{powerly()}}, \code{\link[=generate_model]{generate_model()}}
 }

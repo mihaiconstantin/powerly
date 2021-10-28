@@ -2,7 +2,7 @@
 % Please edit documentation in R/Method.R
 \name{summary.Method}
 \alias{summary.Method}
-\title{Provide a summary of the results}
+\title{Provide a summary of the sample size analysis results}
 \usage{
 \method{summary}{Method}(object, ...)
 }
@@ -13,4 +13,6 @@
 This function summarizes the objects of class \code{Method} and provides
 information about the method run and the sample size recommendation.
 }
-\keyword{internal}
+\seealso{
+\code{\link[=plot.Method]{plot.Method()}}, \code{\link[=powerly]{powerly()}}
+}

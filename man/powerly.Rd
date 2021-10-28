@@ -145,50 +145,44 @@ each step of the method for the last and previous iterations.
 
 Main fields:
 \itemize{
-\item \verb{$duration}: The time elapsed during the method run.
-\item \verb{$iteration}: The number of iterations performed.
-\item \verb{$converged}: Whether the method converged.
-\item \verb{$previous}: The results during the previous iteration.
-\item \verb{$range}: The candidate sample size range.
-\item \verb{$step_1}: The results for Step 1.
-\item \verb{$step_2}: The results for Step 2.
-\item \verb{$step_3}: The results for Step 3.
-\item \verb{$recommendation}: The sample size recommendation(s).
+\item \strong{\verb{$duration}}: The time elapsed during the method run.
+\item \strong{\verb{$iteration}}: The number of iterations performed.
+\item \strong{\verb{$converged}}: Whether the method converged.
+\item \strong{\verb{$previous}}: The results during the previous iteration.
+\item \strong{\verb{$range}}: The candidate sample size range.
+\item \strong{\verb{$step_1}}: The results for Step 1.
+\item \strong{\verb{$step_2}}: The results for Step 2.
+\item \strong{\verb{$step_3}}: The results for Step 3.
+\item \strong{\verb{$recommendation}}: The sample size recommendation(s).
 }
 
 The \code{plot} method can be called on the return value to visualize the results.
+See \code{\link[=plot.Method]{plot.Method()}} for more information on how to plot the method
+results.
 \itemize{
-\item for Step 1: \code{plot(results, step = 1, last = TRUE)}
-\item for Step 2: \code{plot(results, step = 2, last = TRUE)}
-\item for Step 3: \code{plot(results, step = 3, last = TRUE)}
+\item for Step 1: \code{plot(results, step = 1)}
+\item for Step 2: \code{plot(results, step = 2)}
+\item for Step 3: \code{plot(results, step = 3)}
 }
-
-\if{html}{
-Example of a plots:
-\itemize{
-\item Step 1 \itemize{\item \figure{example-step-1.png}{options: width=500 alt="Example Step 1" style="vertical-align:middle"}}
-\item Step 2 \itemize{\item \figure{example-step-2.png}{options: width=500 alt="Example Step 2" style="vertical-align:middle"}}
-\item Step 3 \itemize{\item \figure{example-step-3.png}{options: width=500 alt="Example Step 3" style="vertical-align:middle"}}
-}}
 }
 \description{
-Run an iterative three-step Monte Carlo method and return the
-sample sizes required to obtain a certain value for a performance measure of
-interest (e.g., sensitivity) given a hypothesized network structure.
+Run an iterative three-step Monte Carlo method and return the sample sizes
+required to obtain a certain value for a performance measure of interest
+(e.g., sensitivity) given a hypothesized network structure.
 }
 \details{
 This function represents the implementation of the method introduced by
-\href{https://arxiv.org}{Constantin et al. (2021)} for performing a priori
-sample size analysis in the context of network models. The method takes the
-form of a three-step recursive algorithm designed to find an optimal sample
-size value given a model specification and an outcome measure of interest
-(e.g., sensitivity). It starts with a Monte Carlo simulation step for
-computing the outcome of interest at various sample sizes. It continues with
-a monotone non-decreasing curve-fitting step for interpolating the outcome.
-The final step employs a stratified bootstrapping scheme to account for the
-uncertainty around the recommendation provided. The method runs the three
-steps recursively until the candidate sample size range used for the search
-shrinks below a specified value.
+Constantin et al. (2021; see \doi{10.31234/osf.io/j5v7u}) for performing a
+priori sample size analysis in the context of network models. The method
+takes the form of a three-step recursive algorithm designed to find an
+optimal sample size value given a model specification and an outcome measure
+of interest (e.g., sensitivity). It starts with a Monte Carlo simulation step
+for computing the outcome of interest at various sample sizes. It continues
+with a monotone non-decreasing curve-fitting step for interpolating the
+outcome. The final step employs a stratified bootstrapping scheme to account
+for the uncertainty around the recommendation provided. The method runs the
+three steps recursively until the candidate sample size range used for the
+search shrinks below a specified value.
 }
 \section{True Models}{
 
@@ -196,7 +190,7 @@ shrinks below a specified value.
 \itemize{
 \item type: cross-sectional
 \item symbol: \code{ggm}
-\item \code{...} arguments:
+\item \code{...} arguments for generating true models:
 \itemize{
 \item \code{nodes}: A single positive integer representing the number of nodes in the network (e.g., \code{10}).
 \item \code{density}: A single numerical value indicating the density of the network (e.g., \code{0.4}).
@@ -238,9 +232,7 @@ requesting.
 }
 
 \examples{
-\donttest{
-
-# Suppose we want to find the sample size for observing a sensitivity of `0.6`
+\donttest{# Suppose we want to find the sample size for observing a sensitivity of `0.6`
 # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
 # with a density of `0.4`.
 
@@ -250,7 +242,7 @@ results <- powerly(
     range_lower = 300,
     range_upper = 1000,
     samples = 30,
-    replications = 20,
+    replications = 30,
     measure = "sen",
     statistic = "power",
     measure_value = .6,
@@ -273,7 +265,7 @@ results <- powerly(
     range_lower = 300,
     range_upper = 1000,
     samples = 30,
-    replications = 20,
+    replications = 30,
     measure = "sen",
     statistic = "power",
     measure_value = .6,
@@ -284,18 +276,14 @@ results <- powerly(
     verbose = TRUE
 )
 
-# To visualize the results, we can use the `plot` function and indicating the
+# To visualize the results, we can use the `plot` S3 method and indicating the
 # step that should be plotted.
-plot(results, step = 1, last = TRUE)
-plot(results, step = 2, last = TRUE)
-plot(results, step = 3, last = TRUE)
-
-# The argument `last = TRUE` indicates that the plot should be constructed for
-# the last iteration of the algorithm.
+plot(results, step = 1)
+plot(results, step = 2)
+plot(results, step = 3)
 
 # To see a summary of the results, we can use the `summary` S3 method.
-summary(results)
-}
+summary(results)}
 
 }
 \references{
@@ -304,5 +292,5 @@ Carlo Method for Sample Size Analysis in the Context of Network Models.
 PsyArXiv. \doi{10.31234/osf.io/j5v7u}
 }
 \seealso{
-\code{\link[=validate]{validate()}}, \code{\link[=generate_model]{generate_model()}}
+\code{\link[=plot.Method]{plot.Method()}}, \code{\link[=summary.Method]{summary.Method()}}, \code{\link[=validate]{validate()}}, \code{\link[=generate_model]{generate_model()}}
 }
