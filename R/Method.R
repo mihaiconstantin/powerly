@@ -205,17 +205,7 @@ Method <- R6::R6Class("Method",
 )
 
 
-#' @title
-#' Provide a summary of the results
-#'
-#' @description
-#' This function summarizes the objects of class `Method` and provides
-#' information about the method run and the sample size recommendation.
-#'
-#' @param object An object instance of class `Method`.
-#'
-#' @keywords internal
-#'
+#' @template summary-Method
 #' @export
 summary.Method <- function(object, ...) {
     cat("\n", "Method run completed (", as.numeric(round(object$duration, 4)), " sec):", sep = "")
