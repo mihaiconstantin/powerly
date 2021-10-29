@@ -24,6 +24,7 @@
 #' @importFrom ggplot2 scale_x_continuous geom_histogram ggplot stat_ecdf
 #' @importFrom ggplot2 geom_vline geom_hline geom_point aes scale_y_continuous
 #' @importFrom ggplot2 labs theme margin
+#' @importFrom rlang .data .env
 #' @importFrom patchwork plot_layout
 #' @importFrom R6 R6Class
 #' @importFrom bootnet genGGM ggmGenerator

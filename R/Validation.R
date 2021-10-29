@@ -117,7 +117,7 @@ plot.Validation <- function(x, save = FALSE, path = NULL, width = 14, height = 1
     ))
 
     # Make histogram plot.
-    plot_histogram <- ggplot2::ggplot(mapping = ggplot2::aes(x = object$measures)) +
+    plot_histogram <- ggplot2::ggplot(mapping = ggplot2::aes(x = .env$object$measures)) +
         ggplot2::geom_histogram(
             bins = 20,
             fill = "#4d4d4d",
@@ -136,7 +136,7 @@ plot.Validation <- function(x, save = FALSE, path = NULL, width = 14, height = 1
         .__PLOT_SETTINGS__
 
     # Make ECDF plot.
-    plot_ecdf <- ggplot2::ggplot(mapping = ggplot2::aes(x = object$measures)) +
+    plot_ecdf <- ggplot2::ggplot(mapping = ggplot2::aes(x = .env$object$measures)) +
         ggplot2::stat_ecdf(
             geom = "step",
             size = 1,
@@ -159,8 +159,8 @@ plot.Validation <- function(x, save = FALSE, path = NULL, width = 14, height = 1
         ) +
         ggplot2::geom_point(
             mapping = ggplot2::aes(
-                x = object$validator$measure_value,
-                y = 1 - object$validator$statistic_value
+                x = .env$object$validator$measure_value,
+                y = 1 - .env$object$validator$statistic_value
             ),
             fill = "#7c2929",
             color = "#7c2929",

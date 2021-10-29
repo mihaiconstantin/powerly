@@ -215,14 +215,14 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
     ))
 
     # Spline plot.
-    plot_spline <- ggplot2::ggplot(data_spline_values, ggplot2::aes(x = x, y = y)) +
+    plot_spline <- ggplot2::ggplot(data_spline_values, ggplot2::aes(x = .data$x, y = .data$y)) +
         ggplot2::geom_line(
             size = 1,
             color = "rosybrown"
         ) +
         ggplot2::geom_point(
             data = data_statistics,
-            mapping = ggplot2::aes(x = x, y = observed),
+            mapping = ggplot2::aes(x = .data$x, y = .data$observed),
             fill = "#3f51b5",
             color = "#3f51b5",
             size = 1.5,
@@ -230,7 +230,7 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         ggplot2::geom_point(
             data = data_statistics,
-            mapping = ggplot2::aes(x = x, y = predicted),
+            mapping = ggplot2::aes(x = .data$x, y = .data$predicted),
             fill = "#7c2929",
             color = "#7c2929",
             size = 1.5,
@@ -255,7 +255,7 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         .__PLOT_SETTINGS__
 
-    plot_coefficients <- ggplot2::ggplot(data_spline_alpha, ggplot2::aes(x = x, y = y)) +
+    plot_coefficients <- ggplot2::ggplot(data_spline_alpha, ggplot2::aes(x = .data$x, y = .data$y)) +
         ggplot2::geom_point(
             shape = 17,
             size = 1.5,
@@ -263,7 +263,7 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
             fill = "darkred"
         ) +
         ggplot2::geom_text(
-            mapping = ggplot2::aes(y = y - .04),
+            mapping = ggplot2::aes(y = .data$y - .04),
             label = round(data_spline_alpha$y, 2),
             fontface = "bold",
             size = 2.8
@@ -288,9 +288,9 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         .__PLOT_SETTINGS__
 
-    plot_basis <- ggplot2::ggplot(data_spline_basis, ggplot2::aes(x = x, y = y, color = basis, group = basis)) +
+    plot_basis <- ggplot2::ggplot(data_spline_basis, ggplot2::aes(x = .data$x, y = .data$y, color = .data$basis, group = .data$basis)) +
         ggplot2::geom_line(
-            mapping = ggplot2::aes(lty = basis),
+            mapping = ggplot2::aes(lty = .data$basis),
             size = .7
         ) +
         ggplot2::labs(
@@ -300,7 +300,7 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         .__PLOT_SETTINGS__
 
-    plot_cv <- ggplot2::ggplot(data_cv, ggplot2::aes(x = df, y = se, color = as.factor(sample))) +
+    plot_cv <- ggplot2::ggplot(data_cv, ggplot2::aes(x = .data$df, y = .data$se, color = as.factor(.data$sample))) +
         ggplot2::geom_line(
             size = .75,
             alpha = .15
@@ -312,14 +312,14 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         ggplot2::geom_line(
             mapping = ggplot2::aes(
-                y = mse_df
+                y = .data$mse_df
             ),
             size = 1,
             color = "#000000"
         ) +
         ggplot2::geom_point(
             mapping = ggplot2::aes(
-                y = mse_df
+                y = .data$mse_df
             ),
             size = 1.5,
             shape = 19,
@@ -327,9 +327,9 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         ggplot2::geom_text(
             mapping = ggplot2::aes(
-                x = min(df) - .75,
-                y = first_se_sample,
-                label = sample
+                x = min(.data$df) - .75,
+                y = .data$first_se_sample,
+                label = .data$sample
             ),
             size = 2.8,
             alpha = .05
@@ -351,7 +351,7 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         .__PLOT_SETTINGS__
 
-    plot_cv_error <- ggplot2::ggplot(data_cv, ggplot2::aes(x = sample, y = se, color = as.factor(df))) +
+    plot_cv_error <- ggplot2::ggplot(data_cv, ggplot2::aes(x = .data$sample, y = .data$se, color = as.factor(.data$df))) +
         ggplot2::geom_line(
             size = .75,
             alpha = .15
@@ -363,14 +363,14 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         ggplot2::geom_line(
             mapping = ggplot2::aes(
-                y = mse_sample
+                y = .data$mse_sample
             ),
             size = 1,
             color = "#000000"
         ) +
         ggplot2::geom_point(
             mapping = ggplot2::aes(
-                y = mse_sample
+                y = .data$mse_sample
             ),
             size = 1.5,
             shape = 19,
@@ -378,9 +378,9 @@ plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         ggplot2::geom_text(
             mapping = ggplot2::aes(
-                x = min(sample) - (sample[2] - sample[1]) * .6,
-                y = first_se_df,
-                label = df
+                x = min(.data$sample) - (.data$sample[2] - .data$sample[1]) * .6,
+                y = .data$first_se_df,
+                label = .data$df
             ),
             size = 2.8,
             alpha = .05

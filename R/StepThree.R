@@ -303,17 +303,17 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
     .__PLOT_SETTINGS__ <- plot_settings()
 
     # Plot for the confidence bands.
-    plot_bands <- ggplot2::ggplot(data_bands, ggplot2::aes(x = x, y = y)) +
+    plot_bands <- ggplot2::ggplot(data_bands, ggplot2::aes(x = .data$x, y = .data$y)) +
         ggplot2::geom_ribbon(
             mapping = ggplot2::aes(
-                ymin = lower,
-                ymax = upper,
-                fill = ci,
-                alpha = ci
+                ymin = .data$lower,
+                ymax = .data$upper,
+                fill = .data$ci,
+                alpha = .data$ci
             )
         ) +
         ggplot2::geom_line(
-            mapping = ggplot2::aes(x = x, y = y),
+            mapping = ggplot2::aes(x = .data$x, y = .data$y),
             size = 1,
             color = "#000000",
             linetype = "solid"
@@ -355,10 +355,10 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
         ggplot2::geom_segment(
             data = data_segments,
             ggplot2::aes(
-                x = x_start,
-                xend = x_end,
-                y = y_start,
-                yend = y_end
+                x = .data$x_start,
+                xend = .data$x_end,
+                y = .data$y_start,
+                yend = .data$y_end
             ),
             linetype = "dashed",
             color = "#265881",
@@ -366,10 +366,10 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
         ) +
         ggplot2::geom_segment(
             ggplot2::aes(
-                x = object$samples["50%"],
-                xend = object$samples["50%"],
-                y = min(data_statistics_recommendation),
-                yend = max(data_statistics_recommendation)
+                x = .env$object$samples["50%"],
+                xend = .env$object$samples["50%"],
+                y = min(.env$data_statistics_recommendation),
+                yend = max(.env$data_statistics_recommendation)
             ),
             linetype = "dashed",
             color = "#4d4d4d",
