@@ -244,7 +244,7 @@ plot.Method <- function(x, step = 3, last = TRUE, save = FALSE, path = NULL, wid
             if (step == 1) {
                 plot.StepOne(object$previous$step_2$step_1, save = save, path = path, width = width, height = height, ...)
             } else if (step == 2) {
-                plot.stepTwo(object$previous$step_2, save = save, path = path, width = width, height = height, ...)
+                plot.StepTwo(object$previous$step_2, save = save, path = path, width = width, height = height, ...)
             } else if (step == 3) {
                 plot.StepThree(object$previous, save = save, path = path, width = width, height = height, ...)
             } else {
