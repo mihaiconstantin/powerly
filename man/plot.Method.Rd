@@ -5,7 +5,7 @@
 \title{Plot the results of a sample size analysis}
 \usage{
 \method{plot}{Method}(
-  object,
+  x,
   step = 3,
   last = TRUE,
   save = FALSE,
@@ -16,7 +16,7 @@
 )
 }
 \arguments{
-\item{object}{An object instance of class \code{Method}.}
+\item{x}{An object instance of class \code{Method}.}
 
 \item{step}{A single positive integer representing the method step that
 should be plotted. Possibles values are \code{1} for the first step, \code{2} for the

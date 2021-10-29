@@ -4,10 +4,10 @@
 \alias{plot.StepOne}
 \title{Plot \code{StepOne} objects}
 \usage{
-\method{plot}{StepOne}(object, save = FALSE, path = NULL, width = 14, height = 10, ...)
+\method{plot}{StepOne}(x, save = FALSE, path = NULL, width = 14, height = 10, ...)
 }
 \arguments{
-\item{object}{An object instance of class \code{StepOne}.}
+\item{x}{An object instance of class \code{StepOne}.}
 
 \item{save}{A logical value indicating whether the plot should be saved to a
 file on disk.}

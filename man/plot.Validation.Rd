@@ -4,18 +4,10 @@
 \alias{plot.Validation}
 \title{Plot the results of a sample size analysis validation}
 \usage{
-\method{plot}{Validation}(
-  object,
-  save = FALSE,
-  path = NULL,
-  width = 14,
-  height = 10,
-  bins = 20,
-  ...
-)
+\method{plot}{Validation}(x, save = FALSE, path = NULL, width = 14, height = 10, bins = 20, ...)
 }
 \arguments{
-\item{object}{An object instance of class \code{Validation}.}
+\item{x}{An object instance of class \code{Validation}.}
 
 \item{save}{A logical value indicating whether the plot should be saved to a
 file on disk.}
