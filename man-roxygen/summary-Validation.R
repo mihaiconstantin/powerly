@@ -7,4 +7,6 @@
 #'
 #' @param object An object instance of class `Validation`.
 #'
+#' @param ... Other optional arguments currently not in use.
+#'
 #' @seealso [powerly::plot.Validation()], [powerly::validate()]
