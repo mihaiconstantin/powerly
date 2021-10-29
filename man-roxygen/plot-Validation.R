@@ -4,7 +4,7 @@
 #' @description
 #' This function plots the results for of a sample size analysis validation.
 #'
-#' @param object An object instance of class `Validation`.
+#' @param x An object instance of class `Validation`.
 #'
 #' @param save A logical value indicating whether the plot should be saved to a
 #' file on disk.

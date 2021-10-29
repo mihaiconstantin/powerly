@@ -4,7 +4,7 @@
 #' @description
 #' This function plots the results for each step of the method.
 #'
-#' @param object An object instance of class `Method`.
+#' @param x An object instance of class `Method`.
 #'
 #' @param step A single positive integer representing the method step that
 #' should be plotted. Possibles values are `1` for the first step, `2` for the
