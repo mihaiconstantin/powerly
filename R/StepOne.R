@@ -234,7 +234,7 @@ plot.StepOne <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
     ))
 
     # Create the measures plot.
-    plot_measures <- ggplot2::ggplot(data_measures, ggplot2::aes(x = sample, y = measure)) +
+    plot_measures <- ggplot2::ggplot(data_measures, ggplot2::aes(x = .data$sample, y = .data$measure)) +
         ggplot2::geom_boxplot(
             fill = "#e6e6e6",
             width = .6,
@@ -253,7 +253,7 @@ plot.StepOne <- function(x, save = FALSE, path = NULL, width = 14, height = 10, 
         ) +
         .__PLOT_SETTINGS__
 
-    plot_statistics <- ggplot2::ggplot(data_statistics, ggplot2::aes(x = sample, y = statistic)) +
+    plot_statistics <- ggplot2::ggplot(data_statistics, ggplot2::aes(x = .data$sample, y = .data$statistic)) +
         ggplot2::geom_point(
             fill = "#3f51b5",
             color = "#3f51b5",
