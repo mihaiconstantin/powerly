@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{object}{An object instance of class \code{Method}.}
+
+\item{...}{Other optional arguments currently not in use.}
 }
 \description{
 This function summarizes the objects of class \code{Method} and provides

@@ -8,6 +8,8 @@
 }
 \arguments{
 \item{object}{An object instance of class \code{Validation}.}
+
+\item{...}{Other optional arguments currently not in use.}
 }
 \description{
 This function summarizes the objects of class \code{Validation} providing
