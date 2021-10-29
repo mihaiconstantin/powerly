@@ -6,6 +6,13 @@
 
 ## Improvements
 
+* Add explicit `.data` and `.env` pronoun calls (i.e., from the `rlang` package)
+  to variables used inside data-masking function (e.g., `ggplot2::aes()`) to
+  avoid `CRAN` notes regarding missing bindings for global variables. See this
+  question for more information: https://stackoverflow.com/q/9439256/5252007.
+
+* Update plot functions to respect the signature of the S3 plot generic.
+
 * Improve documentation and positioning of figures in the help pages.
 
 * Create `roxygen2` templates for documenting the public API and S3 methods.
