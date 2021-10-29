@@ -299,9 +299,6 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
     # Data statistics values for recommended sample.
     data_statistics_recommendation <- object$get_statistics(object$samples["50%"])
 
-    # Fetch common plot settings.
-    .__PLOT_SETTINGS__ <- plot_settings()
-
     # Plot for the confidence bands.
     plot_bands <- ggplot2::ggplot(data_bands, ggplot2::aes(x = .data$x, y = .data$y)) +
         ggplot2::geom_ribbon(
@@ -343,7 +340,7 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
             x = "Sample Size Range",
             y = "Statistic Value"
         ) +
-        .__PLOT_SETTINGS__ +
+        plot_settings() +
         ggplot2::theme(
             legend.position = c(0.01, 0.99),
             legend.justification = c(0, 1),
