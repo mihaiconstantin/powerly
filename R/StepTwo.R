@@ -166,7 +166,10 @@ StepTwo <- R6::R6Class("StepTwo",
 #' @templateVar step_class StepTwo
 #' @templateVar step_number 2
 #' @export
-plot.StepTwo <- function(object, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
     # Data statistic.
     data_statistics <- data.frame(
         x = object$step_1$range$partition,

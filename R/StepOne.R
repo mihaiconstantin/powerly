@@ -209,7 +209,10 @@ StepOne <- R6::R6Class("StepOne",
 #' @templateVar step_class StepOne
 #' @templateVar step_number 1
 #' @export
-plot.StepOne <- function(object, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+plot.StepOne <- function(x, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
     # Fetch plot settings.
     .__PLOT_SETTINGS__  <- plot_settings()
 
