@@ -1,6 +1,6 @@
 Package: powerly
 Title: Sample Size Analysis for Psychological Networks and More
-Version: 1.6.1
+Version: 1.7.0
 Authors@R:
     person(given = "Mihai",
            family = "Constantin",
@@ -30,6 +30,7 @@ Imports:
     bootnet,
     qgraph,
     ggplot2,
+    rlang,
     patchwork
 Encoding: UTF-8
 LazyData: true
