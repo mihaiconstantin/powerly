@@ -4,7 +4,7 @@
 #' @description
 #' This function plots the results for Step <%= step_number %> of the method.
 #'
-#' @param object An object instance of class `<%= step_class %>`.
+#' @param x An object instance of class `<%= step_class %>`.
 #'
 #' @param save A logical value indicating whether the plot should be saved to a
 #' file on disk.

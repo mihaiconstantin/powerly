@@ -221,7 +221,10 @@ summary.Method <- function(object, ...) {
 
 #' @template plot-Method
 #' @export
-plot.Method <- function(object, step = 3, last = TRUE, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+plot.Method <- function(x, step = 3, last = TRUE, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
     # Determine which iteration should be plotted.
     if (last) {
         # Plot the right step from the last iteration.

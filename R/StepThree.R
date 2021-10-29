@@ -272,7 +272,10 @@ StepThree <- R6::R6Class("StepThree",
 #' @templateVar step_class StepThree
 #' @templateVar step_number 3
 #' @export
-plot.StepThree <- function(object, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
     # Data confidence bands.
     data_bands = data.frame(
         x = rep(object$step_2$interpolation$x, 2),

@@ -105,7 +105,10 @@ summary.Validation <- function(object, ...) {
 
 #' @template plot-Validation
 #' @export
-plot.Validation <- function(object, save = FALSE, path = NULL, width = 14, height = 10, bins = 20, ...) {
+plot.Validation <- function(x, save = FALSE, path = NULL, width = 14, height = 10, bins = 20, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
     # Fetch plot settings.
     .__PLOT_SETTINGS__ <- c(plot_settings(), list(
         ggplot2::scale_x_continuous(
