@@ -97,7 +97,12 @@ test_that("'Backend' performs operations on the cluster correctly", {
     expect_equal(backend$apply(data, 1, test_function, add = 10), apply(data, 1, test_function, add = 10))
 
     # Expect that the cluster is empty after performing operations on it.
-     expect_true(all(sapply(backend$inspect(), length) == 0))
+    # Note, it will contain a `.Random.seed` placed there by `snow` which is loaded via bootnet.
+    # To check that that is indeed the case, remove `bootnet` imports from `NAMESPACE`.
+    # Also see:
+    #   - https://stackoverflow.com/q/69866215/5252007
+    #   - https://github.com/SachaEpskamp/bootnet/issues/82
+    expect_equal(sum(sapply(backend$inspect(), function(x) { length(x[!x %in% ".Random.seed"]) })), 0)
 
     # Stop the cluster.
     backend$stop()

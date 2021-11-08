@@ -222,9 +222,6 @@ StepThree <- R6::R6Class("StepThree",
             # Extract the data.
             data <- self$get_statistics(sample)
 
-            # Fetch common plot settings.
-            .__PLOT_SETTINGS__ <- plot_settings()
-
             # Make the density plot
             plot_density <- ggplot2::ggplot(mapping = ggplot2::aes(data)) +
                 ggplot2::geom_density(
@@ -243,7 +240,7 @@ StepThree <- R6::R6Class("StepThree",
                     y = "Density",
                     x = "Statistic Value"
                 ) +
-                .__PLOT_SETTINGS__ +
+                plot_settings() +
                 ggplot2::theme(
                     axis.text.x = ggplot2::element_text(
                         angle = 0,
@@ -252,160 +249,6 @@ StepThree <- R6::R6Class("StepThree",
                 )
 
             return(plot_density)
-        },
-
-        # Plot.
-        plot = function(save = FALSE, path = NULL, width = 14, height = 10, ...) {
-            # Data confidence bands.
-            data_bands = data.frame(
-                x = rep(private$.step_2$interpolation$x, 2),
-                y = rep(private$.step_2$interpolation$fitted, 2),
-                lower = as.numeric(private$.ci[, c("0%", "2.5%")]),
-                upper = as.numeric(private$.ci[, c("100%", "97.5%")]),
-                ci = as.factor(sort(rep(c(
-                    paste0("0% - 100%", " (", private$.samples["100%"] - private$.samples["0%"], " sample sizes)"),
-                    paste0("2.5% - 97.5%", " (", private$.samples["97.5%"] - private$.samples["2.5%"], " sample sizes)")
-                ), nrow(private$.ci))))
-            )
-
-            # Data segments for bands annotation.
-            data_segments <- data.frame(
-                x_start = c(private$.samples[c(2, 4)], private$.samples[2]),
-                x_end = c(private$.samples[c(2, 4)], private$.samples[4]),
-                y_start = c(rep(min(private$.ci), 2), private$.step_2$step_1$statistic_value),
-                y_end = rep(private$.step_2$step_1$statistic_value, 3)
-            )
-
-            # Data statistics values for recommended sample.
-            data_statistics_recommendation <- self$get_statistics(private$.samples["50%"])
-
-            # Fetch common plot settings.
-            .__PLOT_SETTINGS__ <- plot_settings()
-
-            # Plot for the confidence bands.
-            plot_bands <- ggplot2::ggplot(data_bands, ggplot2::aes(x = x, y = y)) +
-                ggplot2::geom_ribbon(
-                    mapping = ggplot2::aes(
-                        ymin = lower,
-                        ymax = upper,
-                        fill = ci,
-                        alpha = ci
-                    )
-                ) +
-                ggplot2::geom_line(
-                    mapping = ggplot2::aes(x = x, y = y),
-                    size = 1,
-                    color = "#000000",
-                    linetype = "solid"
-                ) +
-                ggplot2::geom_hline(
-                    yintercept = private$.step_2$step_1$statistic_value,
-                    color = "#8b0000",
-                    linetype = "dotted",
-                    size = .65
-                ) +
-                ggplot2::scale_y_continuous(
-                    breaks = seq(0, 1, .1)
-                ) +
-                ggplot2::scale_x_continuous(
-                    breaks = private$.step_2$step_1$range$partition
-                ) +
-                ggplot2::scale_fill_manual(
-                    name = "Confidence Bands",
-                    values = c("#4d4d4d", "#3e78a7")
-                ) +
-                ggplot2::scale_alpha_manual(
-                    name = "Confidence Bands",
-                    values = c(0.2, 0.5)
-                ) +
-                ggplot2::labs(
-                    title = paste0("Bootstrapped Splines", " (", private$.boots, " runs)"),
-                    x = "Sample Size Range",
-                    y = "Statistic Value"
-                ) +
-                .__PLOT_SETTINGS__ +
-                ggplot2::theme(
-                    legend.position = c(0.01, 0.99),
-                    legend.justification = c(0, 1),
-                    legend.background = ggplot2::element_rect(fill = NA)
-                )
-
-            # Add annotations to the bands plot.
-            plot_bands <- plot_bands +
-                ggplot2::geom_segment(
-                    data = data_segments,
-                    ggplot2::aes(
-                        x = x_start,
-                        xend = x_end,
-                        y = y_start,
-                        yend = y_end
-                    ),
-                    linetype = "dashed",
-                    color = "#265881",
-                    size = .5
-                ) +
-                ggplot2::geom_segment(
-                    ggplot2::aes(
-                        x = private$.samples["50%"],
-                        xend = private$.samples["50%"],
-                        y = min(data_statistics_recommendation),
-                        yend = max(data_statistics_recommendation)
-                    ),
-                    linetype = "dashed",
-                    color = "#4d4d4d",
-                    size = .5
-                ) +
-                ggplot2::annotate(
-                    "label",
-                    x = data_segments[1, 1],
-                    y = min(private$.ci),
-                    label = data_segments[1, 1],
-                    color = "#265881"
-                ) +
-                ggplot2::annotate(
-                    "label",
-                    x = data_segments[2, 1],
-                    y = min(private$.ci),
-                    label = data_segments[2, 1],
-                    color = "#265881"
-                ) +
-                ggplot2::annotate(
-                    "label",
-                    x = private$.samples["50%"],
-                    y = min(data_statistics_recommendation),
-                    label = private$.samples["50%"],
-                    color = "#757575"
-                )
-
-            # Make and adjust density plots margins.
-            plot_density_lower <- self$density_plot(private$.samples["2.5%"]) & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 7.5, b = 0, l = 0))
-            plot_density_median <- self$density_plot(private$.samples["50%"]) & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 7.5, b = 0, l = 7.5))
-            plot_density_upper <- self$density_plot(private$.samples["97.5%"]) & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 7.5))
-
-            # Adjust margins for top plot.
-            plot_bands <- plot_bands & ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
-
-            # Prepare the main plot.
-            plot_step_3 <- plot_bands /
-                (plot_density_lower | plot_density_median | plot_density_upper) +
-                plot_layout(heights = c(1.5, 1))
-
-            # Save the plot.
-            if (save) {
-                if (is.null(path)) {
-                    # If no path is provided, create one.
-                    path <- paste0(getwd(), "/", "step-3", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
-                }
-
-                # Save the plot.
-                ggplot2::ggsave(path, plot = plot_step_3, width = width, height = height, ...)
-            } else {
-                # Show the plot.
-                plot(plot_step_3)
-            }
-
-            # Return the plot object silently.
-            invisible(plot_step_3)
         }
     ),
 
@@ -423,3 +266,161 @@ StepThree <- R6::R6Class("StepThree",
         duration = function() { return(private$.duration) }
     )
 )
+
+
+#' @template plot-Step
+#' @templateVar step_class StepThree
+#' @templateVar step_number 3
+#' @export
+plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
+    # Data confidence bands.
+    data_bands = data.frame(
+        x = rep(object$step_2$interpolation$x, 2),
+        y = rep(object$step_2$interpolation$fitted, 2),
+        lower = as.numeric(object$ci[, c("0%", object$lower_ci_string)]),
+        upper = as.numeric(object$ci[, c("100%", object$upper_ci_string)]),
+        ci = as.factor(sort(rep(c(
+            paste0("0% - 100%", " (", object$samples["100%"] - object$samples["0%"], " sample sizes)"),
+            paste0(object$lower_ci_string, " - ", object$upper_ci_string, " (", object$samples[object$upper_ci_string] - object$samples[object$lower_ci_string], " sample sizes)")
+        ), nrow(object$ci))))
+    )
+
+    # Data segments for bands annotation.
+    data_segments <- data.frame(
+        x_start = c(object$samples[c(object$lower_ci_string, object$upper_ci_string)], object$samples[object$lower_ci_string]),
+        x_end = c(object$samples[c(object$lower_ci_string, object$upper_ci_string)], object$samples[object$upper_ci_string]),
+        y_start = c(rep(min(object$ci), 2), object$step_1$statistic_value),
+        y_end = rep(object$step_1$statistic_value, 3)
+    )
+
+    # Data statistics values for recommended sample.
+    data_statistics_recommendation <- object$get_statistics(object$samples["50%"])
+
+    # Plot for the confidence bands.
+    plot_bands <- ggplot2::ggplot(data_bands, ggplot2::aes(x = .data$x, y = .data$y)) +
+        ggplot2::geom_ribbon(
+            mapping = ggplot2::aes(
+                ymin = .data$lower,
+                ymax = .data$upper,
+                fill = .data$ci,
+                alpha = .data$ci
+            )
+        ) +
+        ggplot2::geom_line(
+            mapping = ggplot2::aes(x = .data$x, y = .data$y),
+            size = 1,
+            color = "#000000",
+            linetype = "solid"
+        ) +
+        ggplot2::geom_hline(
+            yintercept = object$step_1$statistic_value,
+            color = "#8b0000",
+            linetype = "dotted",
+            size = .65
+        ) +
+        ggplot2::scale_y_continuous(
+            breaks = seq(0, 1, .1)
+        ) +
+        ggplot2::scale_x_continuous(
+            breaks = object$step_1$range$partition
+        ) +
+        ggplot2::scale_fill_manual(
+            name = "Confidence Bands",
+            values = c("#4d4d4d", "#3e78a7")
+        ) +
+        ggplot2::scale_alpha_manual(
+            name = "Confidence Bands",
+            values = c(0.2, 0.5)
+        ) +
+        ggplot2::labs(
+            title = paste0("Bootstrapped Splines", " (", object$boots, " runs)"),
+            x = "Sample Size Range",
+            y = "Statistic Value"
+        ) +
+        plot_settings() +
+        ggplot2::theme(
+            legend.position = c(0.01, 0.99),
+            legend.justification = c(0, 1),
+            legend.background = ggplot2::element_rect(fill = NA)
+        )
+
+    # Add annotations to the bands plot.
+    plot_bands <- plot_bands +
+        ggplot2::geom_segment(
+            data = data_segments,
+            ggplot2::aes(
+                x = .data$x_start,
+                xend = .data$x_end,
+                y = .data$y_start,
+                yend = .data$y_end
+            ),
+            linetype = "dashed",
+            color = "#265881",
+            size = .5
+        ) +
+        ggplot2::geom_segment(
+            ggplot2::aes(
+                x = .env$object$samples["50%"],
+                xend = .env$object$samples["50%"],
+                y = min(.env$data_statistics_recommendation),
+                yend = max(.env$data_statistics_recommendation)
+            ),
+            linetype = "dashed",
+            color = "#4d4d4d",
+            size = .5
+        ) +
+        ggplot2::annotate(
+            "label",
+            x = data_segments[1, 1],
+            y = min(object$ci),
+            label = data_segments[1, 1],
+            color = "#265881"
+        ) +
+        ggplot2::annotate(
+            "label",
+            x = data_segments[2, 1],
+            y = min(object$ci),
+            label = data_segments[2, 1],
+            color = "#265881"
+        ) +
+        ggplot2::annotate(
+            "label",
+            x = object$samples["50%"],
+            y = min(data_statistics_recommendation),
+            label = object$samples["50%"],
+            color = "#757575"
+        )
+
+    # Make and adjust density plots margins.
+    plot_density_lower <- object$density_plot(object$samples[object$lower_ci_string]) & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 7.5, b = 0, l = 0))
+    plot_density_median <- object$density_plot(object$samples["50%"]) & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 7.5, b = 0, l = 7.5))
+    plot_density_upper <- object$density_plot(object$samples[object$upper_ci_string]) & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 7.5))
+
+    # Adjust margins for top plot.
+    plot_bands <- plot_bands & ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
+
+    # Prepare the main plot.
+    plot_step_3 <- plot_bands /
+        (plot_density_lower | plot_density_median | plot_density_upper) +
+        plot_layout(heights = c(1.5, 1))
+
+    # Save the plot.
+    if (save) {
+        if (is.null(path)) {
+            # If no path is provided, create one.
+            path <- paste0(getwd(), "/", "step-3", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
+        }
+
+        # Save the plot.
+        ggplot2::ggsave(path, plot = plot_step_3, width = width, height = height, ...)
+    } else {
+        # Show the plot.
+        plot(plot_step_3)
+    }
+
+    # Return the plot object silently.
+    invisible(plot_step_3)
+}

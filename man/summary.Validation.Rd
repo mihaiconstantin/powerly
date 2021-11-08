@@ -2,15 +2,19 @@
 % Please edit documentation in R/Validation.R
 \name{summary.Validation}
 \alias{summary.Validation}
-\title{Provide a summary of the validation results}
+\title{Provide a summary of the sample size analysis validation results}
 \usage{
 \method{summary}{Validation}(object, ...)
 }
 \arguments{
 \item{object}{An object instance of class \code{Validation}.}
+
+\item{...}{Other optional arguments currently not in use.}
 }
 \description{
-This function summarizes the objects of class \code{Validation} and provides
-information.
+This function summarizes the objects of class \code{Validation} providing
+information about the validation procedure and results.
 }
-\keyword{internal}
+\seealso{
+\code{\link[=plot.Validation]{plot.Validation()}}, \code{\link[=validate]{validate()}}
+}

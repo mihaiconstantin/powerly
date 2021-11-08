@@ -177,39 +177,6 @@ Method <- R6::R6Class("Method",
 
             # Stop the clock.
             private$.end_time <- Sys.time()
-        },
-
-        # Plotting.
-        plot = function(step = 3, last = TRUE, save = FALSE, path = NULL, width = 14, height = 10, ...) {
-            # Determine which iteration should be plotted.
-            if (last) {
-                # Plot the right step from the last iteration.
-                if (step == 1) {
-                   plot(private$.step_1, save = save, path = path, width = width, height = height, ...)
-                } else if (step == 2) {
-                   plot(private$.step_2, save = save, path = path, width = width, height = height, ...)
-                } else if (step == 3) {
-                   plot(private$.step_3, save = save, path = path, width = width, height = height, ...)
-                } else {
-                    stop("Incorrect step specification.")
-                }
-            } else {
-                # Prevent plotting of previous results if it converged on first iteration.
-                if (private$.iteration > 1) {
-                    # Plot the right step from the previous iteration.
-                    if (step == 1) {
-                        plot(private$.previous$step_2$step_1, save = save, path = path, width = width, height = height, ...)
-                    } else if (step == 2) {
-                        plot(private$.previous$step_2, save = save, path = path, width = width, height = height, ...)
-                    } else if (step == 3) {
-                        plot(private$.previous, save = save, path = path, width = width, height = height, ...)
-                    } else {
-                        stop("Incorrect step specification.")
-                    }
-                } else {
-                    warning("No previous results. Method converged on first iteration.")
-                }
-            }
         }
     ),
 
@@ -238,17 +205,7 @@ Method <- R6::R6Class("Method",
 )
 
 
-#' @title
-#' Provide a summary of the results
-#'
-#' @description
-#' This function summarizes the objects of class `Method` and provides
-#' information about the method run and the sample size recommendation.
-#'
-#' @param object An object instance of class `Method`.
-#'
-#' @keywords internal
-#'
+#' @template summary-Method
 #' @export
 summary.Method <- function(object, ...) {
     cat("\n", "Method run completed (", as.numeric(round(object$duration, 4)), " sec):", sep = "")
@@ -259,4 +216,42 @@ summary.Method <- function(object, ...) {
         "=", object$step_3$samples[c("2.5%", "50%", "97.5%")],
         sep = " "
     ), collapse = " | "), "\n", sep = "")
+}
+
+
+#' @template plot-Method
+#' @export
+plot.Method <- function(x, step = 3, last = TRUE, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
+    # Determine which iteration should be plotted.
+    if (last) {
+        # Plot the right step from the last iteration.
+        if (step == 1) {
+            plot.StepOne(object$step_1, save = save, path = path, width = width, height = height, ...)
+        } else if (step == 2) {
+            plot.StepTwo(object$step_2, save = save, path = path, width = width, height = height, ...)
+        } else if (step == 3) {
+            plot.StepThree(object$step_3, save = save, path = path, width = width, height = height, ...)
+        } else {
+            stop("Incorrect step specification.")
+        }
+    } else {
+        # Prevent plotting of previous results if it converged on first iteration.
+        if (object$iteration > 1) {
+            # Plot the right step from the previous iteration.
+            if (step == 1) {
+                plot.StepOne(object$previous$step_2$step_1, save = save, path = path, width = width, height = height, ...)
+            } else if (step == 2) {
+                plot.StepTwo(object$previous$step_2, save = save, path = path, width = width, height = height, ...)
+            } else if (step == 3) {
+                plot.StepThree(object$previous, save = save, path = path, width = width, height = height, ...)
+            } else {
+                stop("Incorrect step specification.")
+            }
+        } else {
+            warning("No previous results. Method converged on first iteration.")
+        }
+    }
 }

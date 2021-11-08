@@ -3,3 +3,5 @@
 .DS_Store
 .vscode/
 archive
+powerly.Rcheck/
+*.tar.gz

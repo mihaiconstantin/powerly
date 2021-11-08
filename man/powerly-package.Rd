@@ -6,7 +6,7 @@
 \alias{_PACKAGE}
 \title{Sample Size Analysis for Psychological Networks and More}
 \description{
-\code{powerly} is a package that implements the method by \href{https://arxiv.org}{Constantin et al. (2021)} for conducting sample size analysis for
+\code{powerly} is a package that implements the method by \href{https://psyarxiv.com/j5v7u}{Constantin et al. (2021)} for conducting sample size analysis for
 network models.
 }
 \details{

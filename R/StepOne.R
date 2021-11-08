@@ -184,94 +184,6 @@ StepOne <- R6::R6Class("StepOne",
         # Compute the statistics for the Monte Carlo simulations.
         compute = function() {
             private$.statistics <- private$.statistic$apply(private$.measures, private$.measure_value)
-        },
-
-        # Plot the results of current class instance.
-        plot = function(save = FALSE, path = NULL, width = 14, height = 10, ...) {
-            # Fetch plot settings.
-            .__PLOT_SETTINGS__  <- plot_settings()
-
-            # Create data frame for the boxplot.
-            data_measures <- data.frame(
-                measure = as.numeric(private$.measures),
-                sample = as.factor(sort(rep(private$.range$partition, private$.replications)))
-            )
-
-            # Create data frame for the computed statistics.
-            data_statistics <- data.frame(
-                sample = as.factor(private$.range$partition),
-                statistic = private$.statistics
-            )
-
-            # Common theme settings for both plots.
-            .__PLOT_SETTINGS__ <- c(.__PLOT_SETTINGS__, list(
-                ggplot2::scale_y_continuous(breaks = seq(0, 1, .1))
-            ))
-
-            # Create the measures plot.
-            plot_measures <- ggplot2::ggplot(data_measures, ggplot2::aes(x = sample, y = measure)) +
-                ggplot2::geom_boxplot(
-                    fill = "#e6e6e6",
-                    width = .6,
-                    outlier.colour = "#bebebe"
-                ) +
-                ggplot2::geom_hline(
-                    yintercept = private$.measure_value,
-                    color = "#8b0000",
-                    linetype = "dotted",
-                    size = .65
-                ) +
-                ggplot2::labs(
-                    title = "Monte Carlo Replications",
-                    x = "Selected Sample Size",
-                    y = "Performance Measure Value"
-                ) +
-                .__PLOT_SETTINGS__
-
-            plot_statistics <- ggplot2::ggplot(data_statistics, ggplot2::aes(x = sample, y = statistic)) +
-                ggplot2::geom_point(
-                    fill = "#3f51b5",
-                    color = "#3f51b5",
-                    size = 1.5,
-                    shape = 23
-                ) +
-                ggplot2::geom_hline(
-                    yintercept = private$.statistic_value,
-                    color = "#8b0000",
-                    linetype = "dotted",
-                    size = .65
-                ) +
-                ggplot2::labs(
-                    title = "Computed Statistics",
-                    x = "Candidate Sample Size Range",
-                    y = "Statistic Value"
-                ) +
-                .__PLOT_SETTINGS__
-
-            # Prepare plot spacing.
-            plot_measures <- plot_measures & ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
-            plot_statistics <- plot_statistics & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 0))
-
-            # Arrange the plots together.
-            plot_step_1 <- plot_measures /
-                plot_statistics
-
-            # Save the plot.
-            if (save) {
-                if (is.null(path)) {
-                    # If no path is provided, create one.
-                    path <- paste0(getwd(), "/", "step-1", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
-                }
-
-                # Save the plot.
-                ggplot2::ggsave(path, plot = plot_step_1, width = width, height = height, ...)
-            } else {
-                # Show the plot.
-                plot(plot_step_1)
-            }
-
-            # Return the plot object silently.
-            invisible(plot_step_1)
         }
     ),
 
@@ -291,3 +203,98 @@ StepOne <- R6::R6Class("StepOne",
         duration = function() { return(private$.duration) }
     )
 )
+
+
+#' @template plot-Step
+#' @templateVar step_class StepOne
+#' @templateVar step_number 1
+#' @export
+plot.StepOne <- function(x, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
+    # Fetch plot settings.
+    .__PLOT_SETTINGS__  <- plot_settings()
+
+    # Create data frame for the boxplot.
+    data_measures <- data.frame(
+        measure = as.numeric(object$measures),
+        sample = as.factor(sort(rep(object$range$partition, object$replications)))
+    )
+
+    # Create data frame for the computed statistics.
+    data_statistics <- data.frame(
+        sample = as.factor(object$range$partition),
+        statistic = object$statistics
+    )
+
+    # Common theme settings for both plots.
+    .__PLOT_SETTINGS__ <- c(.__PLOT_SETTINGS__, list(
+        ggplot2::scale_y_continuous(breaks = seq(0, 1, .1))
+    ))
+
+    # Create the measures plot.
+    plot_measures <- ggplot2::ggplot(data_measures, ggplot2::aes(x = .data$sample, y = .data$measure)) +
+        ggplot2::geom_boxplot(
+            fill = "#e6e6e6",
+            width = .6,
+            outlier.colour = "#bebebe"
+        ) +
+        ggplot2::geom_hline(
+            yintercept = object$measure_value,
+            color = "#8b0000",
+            linetype = "dotted",
+            size = .65
+        ) +
+        ggplot2::labs(
+            title = paste0("Monte Carlo Replications ", "(", object$replications, ")"),
+            x = "Selected Sample Size",
+            y = "Performance Measure Value"
+        ) +
+        .__PLOT_SETTINGS__
+
+    plot_statistics <- ggplot2::ggplot(data_statistics, ggplot2::aes(x = .data$sample, y = .data$statistic)) +
+        ggplot2::geom_point(
+            fill = "#3f51b5",
+            color = "#3f51b5",
+            size = 1.5,
+            shape = 23
+        ) +
+        ggplot2::geom_hline(
+            yintercept = object$statistic_value,
+            color = "#8b0000",
+            linetype = "dotted",
+            size = .65
+        ) +
+        ggplot2::labs(
+            title = "Computed Statistics",
+            x = "Candidate Sample Size Range",
+            y = "Statistic Value"
+        ) +
+        .__PLOT_SETTINGS__
+
+    # Prepare plot spacing.
+    plot_measures <- plot_measures & ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
+    plot_statistics <- plot_statistics & ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 0))
+
+    # Arrange the plots together.
+    plot_step_1 <- plot_measures /
+        plot_statistics
+
+    # Save the plot.
+    if (save) {
+        if (is.null(path)) {
+            # If no path is provided, create one.
+            path <- paste0(getwd(), "/", "step-1", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
+        }
+
+        # Save the plot.
+        ggplot2::ggsave(path, plot = plot_step_1, width = width, height = height, ...)
+    } else {
+        # Show the plot.
+        plot(plot_step_1)
+    }
+
+    # Return the plot object silently.
+    invisible(plot_step_1)
+}

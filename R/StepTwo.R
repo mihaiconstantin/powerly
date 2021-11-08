@@ -147,268 +147,6 @@ StepTwo <- R6::R6Class("StepTwo",
 
             # Interpolate the entire range used during Step 1.
             private$.interpolate(...)
-        },
-
-        plot = function(save = FALSE, path = NULL, width = 14, height = 10, ...) {
-            # Data statistic.
-            data_statistics <- data.frame(
-                x = private$.step_1$range$partition,
-                observed = private$.step_1$statistics,
-                predicted = private$.spline$fitted
-            )
-
-            # Data spline values.
-            data_spline_values <- data.frame(
-                x = private$.interpolation$x,
-                y = private$.interpolation$fitted
-            )
-
-            # Data spline coefficients.
-            data_spline_alpha <- data.frame(
-                x = as.factor(1:ncol(private$.spline$basis$matrix)),
-                y = private$.spline$alpha
-            )
-
-            # Data basis matrix.
-            data_spline_basis <- data.frame(
-                x = as.factor(rep(private$.spline$basis$x, ncol(private$.spline$basis$matrix))),
-                y = as.numeric(private$.spline$basis$matrix),
-                basis = as.factor(sort(rep(1:ncol(private$.spline$basis$matrix), nrow(private$.spline$basis$matrix))))
-            )
-
-            # Data cross-validation.
-            data_cv <- data.frame(
-                df = sort(rep(private$.cv$df, nrow(private$.cv$se))),
-                se = as.numeric(private$.cv$se),
-                sample = rep(private$.spline$basis$x, ncol(private$.cv$se)),
-                mse_df = rep(private$.cv$mse, each = nrow(private$.cv$se)),
-                mse_sample = rep(apply(private$.cv$se, 1, mean), ncol(private$.cv$se)),
-                first_se_sample = rep(private$.cv$se[, 1], ncol(private$.cv$se)),
-                first_se_df = rep(private$.cv$se[1, ], each = nrow(private$.cv$se))
-            )
-
-            # Common plot theme settings.
-            .__PLOT_SETTINGS__ <- c(plot_settings(), list(
-                ggplot2::theme(
-                    legend.position = "none"
-                )
-            ))
-
-            # Spline plot.
-            plot_spline <- ggplot2::ggplot(data_spline_values, ggplot2::aes(x = x, y = y)) +
-                ggplot2::geom_line(
-                    size = 1,
-                    color = "rosybrown"
-                ) +
-                ggplot2::geom_point(
-                    data = data_statistics,
-                    mapping = ggplot2::aes(x = x, y = observed),
-                    fill = "#3f51b5",
-                    color = "#3f51b5",
-                    size = 1.5,
-                    shape = 23
-                ) +
-                ggplot2::geom_point(
-                    data = data_statistics,
-                    mapping = ggplot2::aes(x = x, y = predicted),
-                    fill = "#7c2929",
-                    color = "#7c2929",
-                    size = 1.5,
-                    shape = 19
-                ) +
-                ggplot2::geom_hline(
-                    yintercept = private$.step_1$statistic_value,
-                    color = "#8b0000",
-                    linetype = "dotted",
-                    size = .65
-                ) +
-                ggplot2::labs(
-                    title = paste0("Fitted spline | DF = ",  private$.spline$basis$df, " | SSQ = ", round(self$ssq, 4)),
-                    x = "Candidate Sample Size Range",
-                    y = "Statistic Value"
-                ) +
-                ggplot2::scale_y_continuous(
-                    breaks = seq(0, 1, .1)
-                ) +
-                ggplot2::scale_x_continuous(
-                    breaks = private$.step_1$range$partition
-                ) +
-                .__PLOT_SETTINGS__
-
-            plot_coefficients <- ggplot2::ggplot(data_spline_alpha, ggplot2::aes(x = x, y = y)) +
-                ggplot2::geom_point(
-                    shape = 17,
-                    size = 1.5,
-                    color = "darkred",
-                    fill = "darkred"
-                ) +
-                ggplot2::geom_text(
-                    mapping = ggplot2::aes(y = y - 0.04),
-                    label = round(data_spline_alpha$y, 2),
-                    fontface = "bold",
-                    size = 2.8
-                ) +
-                ggplot2::geom_hline(
-                    yintercept = 0,
-                    color = "#2c2c2c",
-                    linetype = "dotted",
-                    size = .65,
-                    alpha = .7
-                ) +
-                ggplot2::coord_cartesian(
-                    ylim = c(min(data_spline_alpha$y) - .2, max(data_spline_alpha$y) + .2)
-                ) +
-                ggplot2::scale_y_continuous(
-                    breaks = round(seq(min(data_spline_alpha$y) - .2, max(data_spline_alpha$y) + .2, .2), 2)
-                ) +
-                ggplot2::labs(
-                    title = "Spline coefficients",
-                    x = "Basis function",
-                    y = "Spline coefficient value"
-                ) +
-                .__PLOT_SETTINGS__
-
-            plot_basis <- ggplot2::ggplot(data_spline_basis, ggplot2::aes(x = x, y = y, color = basis, group = basis)) +
-                ggplot2::geom_line(
-                    mapping = ggplot2::aes(lty = basis),
-                    size = .7
-                ) +
-                ggplot2::labs(
-                    title = "Basis matrix",
-                    x = "Sample size",
-                    y = "Basis function value"
-                ) +
-                .__PLOT_SETTINGS__
-
-            plot_cv <- ggplot2::ggplot(data_cv, ggplot2::aes(x = df, y = se, color = as.factor(sample))) +
-                ggplot2::geom_line(
-                    size = .75,
-                    alpha = .15
-                ) +
-                ggplot2::geom_point(
-                    size = 1,
-                    shape = 19,
-                    alpha = .15,
-                ) +
-                ggplot2::geom_line(
-                    mapping = ggplot2::aes(
-                        y = mse_df
-                    ),
-                    size = 1,
-                    color = "#000000"
-                ) +
-                ggplot2::geom_point(
-                    mapping = ggplot2::aes(
-                        y = mse_df
-                    ),
-                    size = 1.5,
-                    shape = 19,
-                    color = "#000000"
-                ) +
-                ggplot2::geom_text(
-                    mapping = ggplot2::aes(
-                        x = min(df) - .75,
-                        y = first_se_sample,
-                        label = sample
-                    ),
-                    size = 2.8,
-                    alpha = .05
-                ) +
-                ggplot2::geom_vline(
-                    xintercept = data_cv$df[which.min(data_cv$mse_df)],
-                    color = "#2c2c2c",
-                    linetype = "dotted",
-                    size = .65,
-                    alpha = .7
-                ) +
-                ggplot2::scale_x_continuous(
-                    breaks = unique(data_cv$df)
-                ) +
-                ggplot2::labs(
-                    title = "LOOCV | SE (color) | MSE (dark)",
-                    x = "Spline degrees of freedom",
-                    y = "Squared error"
-                ) +
-                .__PLOT_SETTINGS__
-
-            plot_cv_error <- ggplot2::ggplot(data_cv, ggplot2::aes(x = sample, y = se, color = as.factor(df))) +
-                ggplot2::geom_line(
-                    size = .75,
-                    alpha = .15
-                ) +
-                ggplot2::geom_point(
-                    size = 1,
-                    shape = 19,
-                    alpha = .15,
-                ) +
-                ggplot2::geom_line(
-                    mapping = ggplot2::aes(
-                        y = mse_sample
-                    ),
-                    size = 1,
-                    color = "#000000"
-                ) +
-                ggplot2::geom_point(
-                    mapping = ggplot2::aes(
-                        y = mse_sample
-                    ),
-                    size = 1.5,
-                    shape = 19,
-                    color = "#000000"
-                ) +
-                ggplot2::geom_text(
-                    mapping = ggplot2::aes(
-                        x = min(sample) - (sample[2] - sample[1]) * .6,
-                        y = first_se_df,
-                        label = df
-                    ),
-                    size = 2.8,
-                    alpha = .05
-                ) +
-                ggplot2::scale_x_continuous(
-                    breaks = private$.step_1$range$partition
-                ) +
-                ggplot2::labs(
-                    title = "Training prediction | SE (color) | MSE (dark)",
-                    y = "Squared error",
-                    x = "Sample size"
-                ) +
-                .__PLOT_SETTINGS__
-
-            # Define the margins.
-            margin_plot_top <- ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
-            margin_plot_left <- ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 7.5, b = 0, l = 0))
-            margin_plot_right <- ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 7.5))
-
-            # Adjust plot margins.
-            plot_spline <- plot_spline & margin_plot_top
-            plot_coefficients <- plot_coefficients & margin_plot_left
-            plot_basis <- plot_basis & margin_plot_right
-            plot_cv <- plot_cv & margin_plot_left
-            plot_cv_error <- plot_cv_error & margin_plot_right
-
-            # Prepare plot layout.
-            plot_step_2 <- plot_spline /
-                (plot_coefficients | plot_basis) /
-                (plot_cv | plot_cv_error) +
-                plot_layout(heights = c(1.5, 1, 1))
-
-            # Save the plot.
-            if (save) {
-                if (is.null(path)) {
-                    # If no path is provided, create one.
-                    path <- paste0(getwd(), "/", "step-2", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
-                }
-
-                # Save the plot.
-                ggplot2::ggsave(path, plot = plot_step_2, width = width, height = height, ...)
-            } else {
-                # Show the plot.
-                plot(plot_step_2)
-            }
-
-            # Return the plot object silently.
-            invisible(plot_step_2)
         }
     ),
 
@@ -422,3 +160,273 @@ StepTwo <- R6::R6Class("StepTwo",
         }
     )
 )
+
+
+#' @template plot-Step
+#' @templateVar step_class StepTwo
+#' @templateVar step_number 2
+#' @export
+plot.StepTwo <- function(x, save = FALSE, path = NULL, width = 14, height = 10, ...) {
+    # Store a reference to `x` with a more informative name.
+    object <- x
+
+    # Data statistic.
+    data_statistics <- data.frame(
+        x = object$step_1$range$partition,
+        observed = object$step_1$statistics,
+        predicted = object$spline$fitted
+    )
+
+    # Data spline values.
+    data_spline_values <- data.frame(
+        x = object$interpolation$x,
+        y = object$interpolation$fitted
+    )
+
+    # Data spline coefficients.
+    data_spline_alpha <- data.frame(
+        x = as.factor(1:ncol(object$spline$basis$matrix)),
+        y = object$spline$alpha
+    )
+
+    # Data basis matrix.
+    data_spline_basis <- data.frame(
+        x = as.factor(rep(object$spline$basis$x, ncol(object$spline$basis$matrix))),
+        y = as.numeric(object$spline$basis$matrix),
+        basis = as.factor(sort(rep(1:ncol(object$spline$basis$matrix), nrow(object$spline$basis$matrix))))
+    )
+
+    # Data cross-validation.
+    data_cv <- data.frame(
+        df = sort(rep(object$cv$df, nrow(object$cv$se))),
+        se = as.numeric(object$cv$se),
+        sample = rep(object$spline$basis$x, ncol(object$cv$se)),
+        mse_df = rep(object$cv$mse, each = nrow(object$cv$se)),
+        mse_sample = rep(apply(object$cv$se, 1, mean), ncol(object$cv$se)),
+        first_se_sample = rep(object$cv$se[, 1], ncol(object$cv$se)),
+        first_se_df = rep(object$cv$se[1, ], each = nrow(object$cv$se))
+    )
+
+    # Common plot theme settings.
+    .__PLOT_SETTINGS__ <- c(plot_settings(), list(
+        ggplot2::theme(
+            legend.position = "none"
+        )
+    ))
+
+    # Spline plot.
+    plot_spline <- ggplot2::ggplot(data_spline_values, ggplot2::aes(x = .data$x, y = .data$y)) +
+        ggplot2::geom_line(
+            size = 1,
+            color = "rosybrown"
+        ) +
+        ggplot2::geom_point(
+            data = data_statistics,
+            mapping = ggplot2::aes(x = .data$x, y = .data$observed),
+            fill = "#3f51b5",
+            color = "#3f51b5",
+            size = 1.5,
+            shape = 23
+        ) +
+        ggplot2::geom_point(
+            data = data_statistics,
+            mapping = ggplot2::aes(x = .data$x, y = .data$predicted),
+            fill = "#7c2929",
+            color = "#7c2929",
+            size = 1.5,
+            shape = 19
+        ) +
+        ggplot2::geom_hline(
+            yintercept = object$step_1$statistic_value,
+            color = "#8b0000",
+            linetype = "dotted",
+            size = .65
+        ) +
+        ggplot2::labs(
+            title = paste0("Fitted spline | DF = ",  object$spline$basis$df, " | SSQ = ", round(object$ssq, 4)),
+            x = "Candidate Sample Size Range",
+            y = "Statistic Value"
+        ) +
+        ggplot2::scale_y_continuous(
+            breaks = seq(0, 1, .1)
+        ) +
+        ggplot2::scale_x_continuous(
+            breaks = object$step_1$range$partition
+        ) +
+        .__PLOT_SETTINGS__
+
+    plot_coefficients <- ggplot2::ggplot(data_spline_alpha, ggplot2::aes(x = .data$x, y = .data$y)) +
+        ggplot2::geom_point(
+            shape = 17,
+            size = 1.5,
+            color = "darkred",
+            fill = "darkred"
+        ) +
+        ggplot2::geom_text(
+            mapping = ggplot2::aes(y = .data$y - .04),
+            label = round(data_spline_alpha$y, 2),
+            fontface = "bold",
+            size = 2.8
+        ) +
+        ggplot2::geom_hline(
+            yintercept = 0,
+            color = "#2c2c2c",
+            linetype = "dotted",
+            size = .65,
+            alpha = .7
+        ) +
+        ggplot2::coord_cartesian(
+            ylim = c(min(data_spline_alpha$y) - .2, max(data_spline_alpha$y) + .2)
+        ) +
+        ggplot2::scale_y_continuous(
+            breaks = round(seq(min(data_spline_alpha$y) - .2, max(data_spline_alpha$y) + .2, .2), 2)
+        ) +
+        ggplot2::labs(
+            title = "Spline coefficients",
+            x = "Basis function",
+            y = "Spline coefficient value"
+        ) +
+        .__PLOT_SETTINGS__
+
+    plot_basis <- ggplot2::ggplot(data_spline_basis, ggplot2::aes(x = .data$x, y = .data$y, color = .data$basis, group = .data$basis)) +
+        ggplot2::geom_line(
+            mapping = ggplot2::aes(lty = .data$basis),
+            size = .7
+        ) +
+        ggplot2::labs(
+            title = "Basis matrix",
+            x = "Sample size",
+            y = "Basis function value"
+        ) +
+        .__PLOT_SETTINGS__
+
+    plot_cv <- ggplot2::ggplot(data_cv, ggplot2::aes(x = .data$df, y = .data$se, color = as.factor(.data$sample))) +
+        ggplot2::geom_line(
+            size = .75,
+            alpha = .15
+        ) +
+        ggplot2::geom_point(
+            size = 1,
+            shape = 19,
+            alpha = .15,
+        ) +
+        ggplot2::geom_line(
+            mapping = ggplot2::aes(
+                y = .data$mse_df
+            ),
+            size = 1,
+            color = "#000000"
+        ) +
+        ggplot2::geom_point(
+            mapping = ggplot2::aes(
+                y = .data$mse_df
+            ),
+            size = 1.5,
+            shape = 19,
+            color = "#000000"
+        ) +
+        ggplot2::geom_text(
+            mapping = ggplot2::aes(
+                x = min(.data$df) - .75,
+                y = .data$first_se_sample,
+                label = .data$sample
+            ),
+            size = 2.8,
+            alpha = .05
+        ) +
+        ggplot2::geom_vline(
+            xintercept = data_cv$df[which.min(data_cv$mse_df)],
+            color = "#2c2c2c",
+            linetype = "dotted",
+            size = .65,
+            alpha = .7
+        ) +
+        ggplot2::scale_x_continuous(
+            breaks = unique(data_cv$df)
+        ) +
+        ggplot2::labs(
+            title = "LOOCV | SE (color) | MSE (dark)",
+            x = "Spline degrees of freedom",
+            y = "Squared error"
+        ) +
+        .__PLOT_SETTINGS__
+
+    plot_cv_error <- ggplot2::ggplot(data_cv, ggplot2::aes(x = .data$sample, y = .data$se, color = as.factor(.data$df))) +
+        ggplot2::geom_line(
+            size = .75,
+            alpha = .15
+        ) +
+        ggplot2::geom_point(
+            size = 1,
+            shape = 19,
+            alpha = .15,
+        ) +
+        ggplot2::geom_line(
+            mapping = ggplot2::aes(
+                y = .data$mse_sample
+            ),
+            size = 1,
+            color = "#000000"
+        ) +
+        ggplot2::geom_point(
+            mapping = ggplot2::aes(
+                y = .data$mse_sample
+            ),
+            size = 1.5,
+            shape = 19,
+            color = "#000000"
+        ) +
+        ggplot2::geom_text(
+            mapping = ggplot2::aes(
+                x = min(.data$sample) - (.data$sample[2] - .data$sample[1]) * .6,
+                y = .data$first_se_df,
+                label = .data$df
+            ),
+            size = 2.8,
+            alpha = .05
+        ) +
+        ggplot2::scale_x_continuous(
+            breaks = object$step_1$range$partition
+        ) +
+        ggplot2::labs(
+            title = "Training prediction | SE (color) | MSE (dark)",
+            y = "Squared error",
+            x = "Sample size"
+        ) +
+        .__PLOT_SETTINGS__
+
+    # Define the margins.
+    margin_plot_top <- ggplot2::theme(plot.margin = ggplot2::margin(t = 0, r = 0, b = 0, l = 0))
+    margin_plot_left <- ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 7.5, b = 0, l = 0))
+    margin_plot_right <- ggplot2::theme(plot.margin = ggplot2::margin(t = 15, r = 0, b = 0, l = 7.5))
+
+    # Adjust plot margins.
+    plot_spline <- plot_spline & margin_plot_top
+    plot_coefficients <- plot_coefficients & margin_plot_left
+    plot_basis <- plot_basis & margin_plot_right
+    plot_cv <- plot_cv & margin_plot_left
+    plot_cv_error <- plot_cv_error & margin_plot_right
+
+    # Prepare plot layout.
+    plot_step_2 <- plot_spline /
+        (plot_coefficients | plot_basis) /
+        (plot_cv | plot_cv_error) +
+        plot_layout(heights = c(1.5, 1, 1))
+
+    # Save the plot.
+    if (save) {
+        if (is.null(path)) {
+            # If no path is provided, create one.
+            path <- paste0(getwd(), "/", "step-2", "_", gsub(":|\\s", "-", as.character(Sys.time()), perl = TRUE), ".pdf")
+        }
+
+        # Save the plot.
+        ggplot2::ggsave(path, plot = plot_step_2, width = width, height = height, ...)
+    } else {
+        # Show the plot.
+        plot(plot_step_2)
+    }
+
+    # Return the plot object silently.
+    invisible(plot_step_2)
+}
