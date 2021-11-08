@@ -6,6 +6,10 @@
 
 ## Improvements
 
+* Add new `R` version to the CI pipeline for the `R CMD check` job.
+
+* Update `R CMD check` workflow to use `check` action from `r-lib/actions`.
+
 * Add explicit `.data` and `.env` pronoun calls (i.e., from the `rlang` package)
   to variables used inside data-masking function (e.g., `ggplot2::aes()`) to
   avoid `CRAN` notes regarding missing bindings for global variables. See this
@@ -27,6 +31,16 @@
 * Fix preprint URL in package documentation.
 
 * Fix heading typo in news file.
+
+## Bug fixes
+
+* Fix backend test where the cluster would contain an unexpected `.Random.seed`.
+  The `.Random.seed` is caused by loading the `bootnet` package which in turn
+  loads the `snow` package. The `snow` package uses the `RNG` within the
+  `.onLoad()` function to draw from the uniform distribution and set a port
+  number. The result of this operation is a `.Random.seed` in the `.GlobalEnv`.
+  For more information see: https://stackoverflow.com/q/69866215/5252007 and
+  https://github.com/SachaEpskamp/bootnet/issues/82.
 
 # `powerly` `1.6.1`
 
@@ -259,4 +273,3 @@
 - Allow rerunning the validation procedure with a custom sample size.
     - If multiple custom sample sizes are used during the validation, then
       switch from the histogram to a violin plot.
-
