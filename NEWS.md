@@ -1,3 +1,11 @@
+# `powerly` `1.7.1`
+
+## Improvements
+
+* Update moved URL https://codecov.io/gh/mihaiconstantin/powerly to
+  https://app.codecov.io/gh/mihaiconstantin/powerly based on comments of CRAN
+  maintainer Uwe Ligges.
+
 # `powerly` `1.7.0`
 
 ## Features
