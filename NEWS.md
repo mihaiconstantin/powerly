@@ -1,3 +1,27 @@
+# `powerly` `1.7.2`
+
+## Improvements
+
+* Update GGM estimation test to check if the estimation fails when variables
+  with zero standard deviation are present in the generated data.
+
+* Update GGM estimation to fail when the generated data contains at least one
+  variable that has a standard deviation equal to zero (i.e., as a result of
+  generating data with a sample size value that is too low).
+
+* Add GitHub badges with latest release version and number of open issues.
+
+## Bug fixes
+
+* Add tolerance (i.e., `0.0000001` for test checking whether the spline
+  coefficients are estimated correctly).
+
+* Fix test for the updating of the bounds of a `Range` instance to run only when
+  the the 2.5th and 97.5th selected sample sizes are different quantities.
+
+* Fix bug in GGM data generating test where the number of nodes to generate data
+  for were incorrectly sampled.
+
 # `powerly` `1.7.1`
 
 ## Improvements

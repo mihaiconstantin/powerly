@@ -72,11 +72,14 @@ test_that("'Range' updates bounds correctly based on 'StepThree' confidence inte
     expect_equal(min(range$partition), as.numeric(step_3$samples["2.5%"]))
     expect_equal(max(range$partition), as.numeric(step_3$samples["97.5%"]))
 
-    # Expect that the bounds are of increasing size.
-    expect_error(
-        range$update_bounds(step_3, lower_ci = 0.975, upper_ci = 0.025),
-        "The lower bound cannot be greater that the upper bound."
-    )
+    # If the selected samples are not a single quantity.
+    if(step_3$samples["2.5%"] < step_3$samples["97.5%"]) {
+        # Expect that the bounds are of increasing size.
+        expect_error(
+            range$update_bounds(step_3, lower_ci = 0.975, upper_ci = 0.025),
+            "The lower bound cannot be greater that the upper bound."
+        )
+    }
 })
 
 
