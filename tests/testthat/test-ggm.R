@@ -8,7 +8,7 @@ test_that("'GgmModel' generates data correctly", {
     max_level <- sample(3:5, 1)
 
     # Nodes.
-    nodes <- sample(10:20)
+    nodes <- sample(10:20, 1)
 
     # Density.
     density <- sample(seq(.2, .5, .1), 1)
@@ -40,7 +40,7 @@ test_that("'GgmModel' generated data matches bootnet data", {
     max_level <- sample(3:5, 1)
 
     # Nodes.
-    nodes <- sample(10:20)
+    nodes <- sample(10:20, 1)
 
     # Density.
     density <- sample(seq(.2, .5, .1), 1)
@@ -75,7 +75,7 @@ test_that("'GgmModel' estimates model parameters correctly", {
     max_level <- sample(3:5, 1)
 
     # Nodes.
-    nodes <- sample(10:20)
+    nodes <- sample(10:20, 1)
 
     # Density.
     density <- sample(seq(.2, .5, .1), 1)
@@ -108,7 +108,7 @@ test_that("'GgmModel' computes the correct measure", {
     max_level <- sample(3:5, 1)
 
     # Nodes.
-    nodes <- sample(10:20)
+    nodes <- sample(10:20, 1)
 
     # Density.
     density <- sample(seq(.2, .5, .1), 1)
