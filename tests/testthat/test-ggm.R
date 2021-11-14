@@ -97,6 +97,12 @@ test_that("'GgmModel' estimates model parameters correctly", {
 
     # The parameters should be identical across both methods.
     expect_equal(network_qgraph, network_ggm_model, ignore_attr = TRUE)
+
+    # Make one variable invariant.
+    data[, 1] <- data[1, 1]
+
+    # Expect the estimation to throw an error due to invariant variables.
+    expect_error(ggm$estimate(data), "Variable\\(s\\) with SD = 0 detected. Increase the sample size.")
 })
 
 
