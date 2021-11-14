@@ -1,4 +1,4 @@
-# `powerly` (development)
+# `powerly` `1.7.2`
 
 ## Improvements
 
