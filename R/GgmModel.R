@@ -24,6 +24,11 @@ GgmModel <- R6::R6Class("GgmModel",
         },
 
         estimate = function(data, gamma = 0.5) {
+            # Ensure all variables show variance.
+            if (sum(apply(data, 2, sd) == 0) > 0) {
+                stop("Variable(s) with SD = 0 detected. Increase the sample size.")
+            }
+
             # Estimate network using `qgraph`.
             network <- suppressMessages(suppressWarnings(
                 qgraph::EBICglasso(
