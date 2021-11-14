@@ -126,7 +126,7 @@ test_that("'StepTwo' fits and interpolates a spline correctly", {
     expect_equal(step_2$spline$basis$matrix, basis)
 
     # The estimated spline coefficients should be equal.
-    expect_equal(step_2$spline$alpha, alpha)
+    expect_equal(step_2$spline$alpha, alpha, tolerance = 0.0000001)
 
     # The fitted values should be equal.
     expect_equal(step_2$spline$fitted, fitted)

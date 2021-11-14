@@ -13,6 +13,9 @@
 
 ## Bug fixes
 
+* Add tolerance (i.e., `0.0000001` for test checking whether the spline
+  coefficients are estimated correctly).
+
 * Fix test for the updating of the bounds of a `Range` instance to run only when
   the the 2.5th and 97.5th selected sample sizes are different quantities.
 
