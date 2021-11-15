@@ -1,3 +1,11 @@
+# `powerly` `1.7.3`
+
+## Improvements
+
+* Update badges order in `README.md` and removed open issues badge.
+
+* Fix typos in `NEWS` file.
+
 # `powerly` `1.7.2`
 
 ## Improvements
