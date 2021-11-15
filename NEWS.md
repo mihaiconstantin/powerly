@@ -1,3 +1,11 @@
+# `powerly` `1.7.3`
+
+## Improvements
+
+* Update badges order in `README.md` and removed open issues badge.
+
+* Fix typos in `NEWS` file.
+
 # `powerly` `1.7.2`
 
 ## Improvements
@@ -13,8 +21,8 @@
 
 ## Bug fixes
 
-* Add tolerance (i.e., `0.0000001` for test checking whether the spline
-  coefficients are estimated correctly).
+* Add tolerance (i.e., `0.0000001`) for test checking whether the spline
+  coefficients are estimated correctly.
 
 * Fix test for the updating of the bounds of a `Range` instance to run only when
   the the 2.5th and 97.5th selected sample sizes are different quantities.
