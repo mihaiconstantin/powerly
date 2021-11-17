@@ -33,6 +33,7 @@
 #' @importFrom qgraph EBICglasso
 #' @importFrom quadprog solve.QP
 #' @importFrom splines2 iSpline bSpline
+#' @importFrom mvtnorm rmvnorm
 
 #' @include logo.R
 
