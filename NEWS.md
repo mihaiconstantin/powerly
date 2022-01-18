@@ -1,3 +1,9 @@
+# `powerly` (development)
+
+## Bug fixes
+
+* Add missing import for `mvnorm` package.
+
 # `powerly` `1.7.3`
 
 ## Improvements
