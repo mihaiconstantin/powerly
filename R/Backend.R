@@ -39,6 +39,9 @@ Backend <- R6::R6Class("Backend",
                 # Warn the user.
                 warning(paste0("Argument `cores` cannot be larger than ", private$.allowed_cores, ". Setting to ", private$.allowed_cores, "."))
 
+                # Set the cores.
+                private$.cores <- private$.allowed_cores
+
             # Honor the user request without any constraints.
             } else {
                 private$.cores <- cores
