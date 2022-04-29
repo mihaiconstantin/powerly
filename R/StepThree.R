@@ -283,8 +283,8 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
         lower = as.numeric(object$ci[, c("0%", object$lower_ci_string)]),
         upper = as.numeric(object$ci[, c("100%", object$upper_ci_string)]),
         ci = as.factor(sort(rep(c(
-            paste0("0% - 100%", " (", object$samples["100%"] - object$samples["0%"], " sample sizes)"),
-            paste0(object$lower_ci_string, " - ", object$upper_ci_string, " (", object$samples[object$upper_ci_string] - object$samples[object$lower_ci_string], " sample sizes)")
+            paste0("0% - 100%", " (", abs(object$samples["100%"] - object$samples["0%"]), " sample sizes)"),
+            paste0(object$lower_ci_string, " - ", object$upper_ci_string, " (", abs(object$samples[object$upper_ci_string] - object$samples[object$lower_ci_string]), " sample sizes)")
         ), nrow(object$ci))))
     )
 
@@ -298,6 +298,15 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
 
     # Data statistics values for recommended sample.
     data_statistics_recommendation <- object$get_statistics(object$samples["50%"])
+
+    # Legend position.
+    if (object$step_2$spline$solver$increasing) {
+        bands_legend_position <- c(0, 1)
+        bands_legend_justification <- c(0, 1)
+    } else {
+        bands_legend_position <- c(1, 1)
+        bands_legend_justification <- c(1, 1)
+    }
 
     # Plot for the confidence bands.
     plot_bands <- ggplot2::ggplot(data_bands, ggplot2::aes(x = .data$x, y = .data$y)) +
@@ -342,8 +351,8 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
         ) +
         plot_settings() +
         ggplot2::theme(
-            legend.position = c(0.01, 0.99),
-            legend.justification = c(0, 1),
+            legend.position = bands_legend_position,
+            legend.justification = bands_legend_justification,
             legend.background = ggplot2::element_rect(fill = NA)
         )
 
