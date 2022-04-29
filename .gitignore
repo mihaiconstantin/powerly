@@ -5,3 +5,4 @@
 archive
 powerly.Rcheck/
 *.tar.gz
+**/temp*
