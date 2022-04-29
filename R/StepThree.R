@@ -283,8 +283,8 @@ plot.StepThree <- function(x, save = FALSE, path = NULL, width = 14, height = 10
         lower = as.numeric(object$ci[, c("0%", object$lower_ci_string)]),
         upper = as.numeric(object$ci[, c("100%", object$upper_ci_string)]),
         ci = as.factor(sort(rep(c(
-            paste0("0% - 100%", " (", object$samples["100%"] - object$samples["0%"], " sample sizes)"),
-            paste0(object$lower_ci_string, " - ", object$upper_ci_string, " (", object$samples[object$upper_ci_string] - object$samples[object$lower_ci_string], " sample sizes)")
+            paste0("0% - 100%", " (", abs(object$samples["100%"] - object$samples["0%"]), " sample sizes)"),
+            paste0(object$lower_ci_string, " - ", object$upper_ci_string, " (", abs(object$samples[object$upper_ci_string] - object$samples[object$lower_ci_string]), " sample sizes)")
         ), nrow(object$ci))))
     )
 
