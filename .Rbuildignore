@@ -8,3 +8,4 @@ archive
 ^\.github$
 ^man-roxygen$
 CNAME
+temp.R
