@@ -182,7 +182,11 @@ Method <- R6::R6Class("Method",
 
     active = list(
         # Time elapsed until converged.
-        duration = function() { return(private$.end_time - private$.start_time) },
+        duration = function() {
+            return(
+                as.numeric(difftime(private$.end_time, private$.start_time, units = "secs"))
+            )
+        },
 
         # Number of iterations performed.
         iteration = function() { return(private$.iteration) },
