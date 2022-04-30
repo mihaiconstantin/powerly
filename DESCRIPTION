@@ -1,6 +1,6 @@
 Package: powerly
 Title: Sample Size Analysis for Psychological Networks and More
-Version: 1.7.3
+Version: 1.7.4
 Authors@R:
     person(given = "Mihai",
            family = "Constantin",
@@ -18,7 +18,7 @@ Description: An implementation of the sample size computation method for network
     sample size range. The final step employs stratified bootstrapping to quantify
     the uncertainty around the fitted curve.
 License: MIT + file LICENSE
-URL: https://github.com/mihaiconstantin/powerly
+URL: https://powerly.dev
 BugReports: https://github.com/mihaiconstantin/powerly/issues
 Imports:
     R6,

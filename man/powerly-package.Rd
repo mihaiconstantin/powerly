@@ -21,7 +21,7 @@ stratified bootstrapping to quantify the uncertainty around the fitted curve.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/mihaiconstantin/powerly}
+  \item \url{https://powerly.dev}
   \item Report bugs at \url{https://github.com/mihaiconstantin/powerly/issues}
 }
 
