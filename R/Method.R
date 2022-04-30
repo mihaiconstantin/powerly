@@ -212,7 +212,7 @@ Method <- R6::R6Class("Method",
 #' @template summary-Method
 #' @export
 summary.Method <- function(object, ...) {
-    cat("\n", "Method run completed (", as.numeric(round(object$duration, 4)), " sec):", sep = "")
+    cat("\n", "Method run completed (", round(object$duration, 4), " sec):", sep = "")
     cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), sep = "")
     cat("\n", " - iterations: ", object$iteration, sep = "")
     cat("\n", " - recommendation: ", paste(paste(
