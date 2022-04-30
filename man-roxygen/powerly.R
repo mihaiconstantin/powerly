@@ -167,7 +167,7 @@
 #' each step of the method for the last and previous iterations.
 #'
 #' Main fields:
-#' - **`$duration`**: The time elapsed during the method run.
+#' - **`$duration`**: The time in seconds elapsed during the method run.
 #' - **`$iteration`**: The number of iterations performed.
 #' - **`$converged`**: Whether the method converged.
 #' - **`$previous`**: The results during the previous iteration.

@@ -145,7 +145,7 @@ each step of the method for the last and previous iterations.
 
 Main fields:
 \itemize{
-\item \strong{\verb{$duration}}: The time elapsed during the method run.
+\item \strong{\verb{$duration}}: The time in seconds elapsed during the method run.
 \item \strong{\verb{$iteration}}: The number of iterations performed.
 \item \strong{\verb{$converged}}: Whether the method converged.
 \item \strong{\verb{$previous}}: The results during the previous iteration.
