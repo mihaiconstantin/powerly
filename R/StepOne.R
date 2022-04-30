@@ -178,7 +178,7 @@ StepOne <- R6::R6Class("StepOne",
             private$.remove_missing()
 
             # Compute how long the simulation took.
-            private$.duration <- Sys.time() - start_time
+            private$.duration <- as.numeric(difftime(Sys.time(), start_time, units = "secs"))
         },
 
         # Compute the statistics for the Monte Carlo simulations.

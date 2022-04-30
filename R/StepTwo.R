@@ -7,6 +7,8 @@ StepTwo <- R6::R6Class("StepTwo",
         .interpolation = NULL,
         .cv = NULL,
 
+        .duration = NULL,
+
         # Decide how many DF can be used during the LOOCV.
         .check_df = function(df, monotone) {
             # If we have an I-Spline then we can start 1 degree of freedom lower.
@@ -136,6 +138,9 @@ StepTwo <- R6::R6Class("StepTwo",
         },
 
         fit = function(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = "quadprog", ...) {
+            # Time when the fitting started.
+            start_time <- Sys.time()
+
             # Reset any previous spline before re-fitting.
             private$.clear_spline()
 
@@ -147,6 +152,9 @@ StepTwo <- R6::R6Class("StepTwo",
 
             # Interpolate the entire range used during Step 1.
             private$.interpolate(...)
+
+            # Compute how long the simulation took.
+            private$.duration <- as.numeric(difftime(Sys.time(), start_time, units = "secs"))
         }
     ),
 
@@ -157,7 +165,8 @@ StepTwo <- R6::R6Class("StepTwo",
         cv = function() { return(private$.cv) },
         ssq = function() {
             return(sum((private$.step_1$statistics - private$.spline$fitted) ^ 2))
-        }
+        },
+        duration = function() { return(private$.duration) }
     )
 )
 

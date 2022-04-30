@@ -182,7 +182,11 @@ Method <- R6::R6Class("Method",
 
     active = list(
         # Time elapsed until converged.
-        duration = function() { return(private$.end_time - private$.start_time) },
+        duration = function() {
+            return(
+                as.numeric(difftime(private$.end_time, private$.start_time, units = "secs"))
+            )
+        },
 
         # Number of iterations performed.
         iteration = function() { return(private$.iteration) },
@@ -208,7 +212,7 @@ Method <- R6::R6Class("Method",
 #' @template summary-Method
 #' @export
 summary.Method <- function(object, ...) {
-    cat("\n", "Method run completed (", as.numeric(round(object$duration, 4)), " sec):", sep = "")
+    cat("\n", "Method run completed (", round(object$duration, 4), " sec):", sep = "")
     cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), sep = "")
     cat("\n", " - iterations: ", object$iteration, sep = "")
     cat("\n", " - recommendation: ", paste(paste(

@@ -181,7 +181,7 @@ StepThree <- R6::R6Class("StepThree",
             }
 
             # Compute how long the bootstrap took.
-            private$.duration <- Sys.time() - start_time
+            private$.duration <- as.numeric(difftime(Sys.time(), start_time, units = "secs"))
         },
 
         # Compute confidence intervals.
@@ -206,7 +206,7 @@ StepThree <- R6::R6Class("StepThree",
             }
 
             # Compute how long the bootstrap took.
-            private$.duration <- Sys.time() - start_time
+            private$.duration <- private$.duration + as.numeric(difftime(Sys.time(), start_time, units = "secs"))
 
             # Extract the confidence intervals for the sufficient sample sizes.
             private$.extract_sufficient_samples(private$.step_2$step_1$statistic_value)
