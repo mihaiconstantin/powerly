@@ -3,11 +3,24 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Bug fixes
+## [1.7.4] - 2022-04-30
+### Added
+- Add `duration` field to `StepTwo` class to record the execution time for the
+  spline fitting procedure
+- Add `CNAME` for apex domain `https://powerly.dev` served via GitHub Pages.
 
-* Add missing import for `mvnorm` package.
+### Fixed
+- Fix missing import for `mvnorm` package (#11). Closes #5.
+- Fix missing number of `cores` in `Backend` when more cores than available were
+  requested (#12). Closes #2.
+- Fix legend overlapping spline confidence bands for `StepThree` plot (#13).
+  Closes #3.
+- Fix recording and reporting of `Method` and step classes execution time (#15).
+  The duration is now recorded in seconds. Closes #9.
 
-# `powerly` `1.7.3`
+### Removed
+- Remove `dev` branch from all `GitHub` workflows (#14). Switched to the
+  `GitHub` flow. Closes #4.
 
 ## [1.7.3]
 #### Changed
