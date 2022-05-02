@@ -4,8 +4,15 @@ GgmModel <- R6::R6Class("GgmModel",
     inherit = Model,
 
     public = list(
-        create = function(nodes, density) {
-            return(bootnet::genGGM(nodes, p = density, propPositive = .5, graph = "random"))
+        create = function(nodes, density, positive = .9, constant = 1.5, range = c(0.5, 1)) {
+            return(bootnet::genGGM(
+                Nvar = nodes,
+                p = density,
+                propPositive = positive,
+                constant = constant,
+                parRange = range,
+                graph = "random"
+            ))
         },
 
         generate = function(sample_size, true_parameters, levels = 5) {
