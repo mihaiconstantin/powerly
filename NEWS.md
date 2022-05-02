@@ -16,6 +16,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 - Update documentation to include the new arguments for generating a GGM.
+- Update GGM data generation and estimation tests.
 
 ### References
 - Yin, J., and Li, H. (2011). A sparse conditional gaussian graphical model for
