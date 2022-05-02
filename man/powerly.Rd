@@ -194,6 +194,14 @@ search shrinks below a specified value.
 \itemize{
 \item \code{nodes}: A single positive integer representing the number of nodes in the network (e.g., \code{10}).
 \item \code{density}: A single numerical value indicating the density of the network (e.g., \code{0.4}).
+\item \code{positive}: A single numerical value representing the proportion of positive edges in the network (e.g., \code{0.9} for 90\% positive edges).
+\item \code{range}: A length two numerical value indicating the uniform interval from where to sample values for the partial correlations coefficients (e.g., \code{c(0.5, 1)}).
+\item \code{constant}: A single numerical value representing the constant described by Yin and Li (2011).
+\item for more information on the arguments see:
+\itemize{
+\item the function \code{\link[bootnet:genGGM]{bootnet::genGGM()}}
+\item Yin, J., and Li, H. (2011). A sparse conditional gaussian graphical model for analysis of genetical genomics data. \emph{The annals of applied statistics}, 5(4), 2630.
+}
 }
 \item supported performance measures: \code{sen}, \code{spe}, \code{mcc}, \code{rho}
 }
