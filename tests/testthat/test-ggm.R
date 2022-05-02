@@ -108,7 +108,7 @@ test_that("'GgmModel' estimates model parameters correctly", {
     data[, 1] <- data[1, 1]
 
     # Expect the estimation to throw an error due to invariant variables.
-    expect_error(ggm$estimate(data), "Variable\\(s\\) with SD = 0 detected. Increase the sample size.")
+    expect_error(ggm$estimate(data))
 })
 
 
