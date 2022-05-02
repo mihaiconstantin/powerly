@@ -29,6 +29,12 @@ test_that("'GgmModel' generates data correctly", {
     # The range of the data should match the Likert scale levels.
     expect_equal(min(data), 1)
     expect_equal(max(data), max_level)
+
+    # Sample sizes smaller than 50 are not permitted.
+    expect_error(
+        ggm$generate(sample_size = 49, true_parameters = true, levels = max_level),
+        "Sample size must be greater than 50."
+    )
 })
 
 
