@@ -3,6 +3,25 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2022-05-02
+### Added
+- Add more arguments for generating partial correlation matrices (i.e., in line
+  with Yin and Li (2011; see reference below). The new arguments are `positive`
+  (i.e., for the proportion of positive edges), `range` (i.e., for the interval
+  from which to sample values for the partial correlations), and `constant`
+  (i.e., to vary the magnitude of the partial correlations). See Yin and Li
+  (2011) for a description of the generating algorithm.
+- Add functionality to resample `GgmModel` data when variables with `SD = 0` are
+  detected.
+
+### Changed
+- Update documentation to include the new arguments for generating a GGM.
+
+### References
+- Yin, J., and Li, H. (2011). A sparse conditional gaussian graphical model for
+  analysis of genetical genomics data. *The annals of applied statistics*, 5(4),
+  2630.
+
 ## [1.7.4] - 2022-04-30
 ### Added
 - Add `duration` field to `StepTwo` class to record the execution time for the
