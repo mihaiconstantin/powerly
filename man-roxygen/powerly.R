@@ -132,8 +132,14 @@
 #' - type: cross-sectional
 #' - symbol: `ggm`
 #' - `...` arguments for generating true models:
-#'     - `nodes`: A single positive integer representing the number of nodes in the network (e.g., `10`).
-#'     - `density`: A single numerical value indicating the density of the network (e.g., `0.4`).
+#'   - `nodes`: A single positive integer representing the number of nodes in the network (e.g., `10`).
+#'   - `density`: A single numerical value indicating the density of the network (e.g., `0.4`).
+#'   - `positive`: A single numerical value representing the proportion of positive edges in the network (e.g., `0.9` for 90% positive edges).
+#'   - `range`: A length two numerical value indicating the uniform interval from where to sample values for the partial correlations coefficients (e.g., `c(0.5, 1)`).
+#'   - `constant`: A single numerical value representing the constant described by Yin and Li (2011).
+#'   - for more information on the arguments see:
+#'     - the function [bootnet::genGGM()]
+#'     - Yin, J., and Li, H. (2011). A sparse conditional gaussian graphical model for analysis of genetical genomics data. *The annals of applied statistics*, 5(4), 2630.
 #' - supported performance measures: `sen`, `spe`, `mcc`, `rho`
 #'
 #' @section Performance Measures:
@@ -141,7 +147,7 @@
 #' | **Performance Measure**  | **Symbol** | **Lower**   | **Upper**  |
 #' | :----------------------- | :--------: | ----------: | ---------: |
 #' | Sensitivity              | `sen`      | `0.00`      | `1.00`     |
-#' | Specificity               | `spe`      | `0.00`      | `1.00`     |
+#' | Specificity              | `spe`      | `0.00`      | `1.00`     |
 #' | Matthews correlation     | `mcc`      | `-1.00`     | `1.00`     |
 #' | Pearson correlation      | `rho`      | `-1.00`     | `1.00`     |
 #'
