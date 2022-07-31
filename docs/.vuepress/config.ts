@@ -20,7 +20,7 @@ export default defineUserConfig({
         navbar: navbar,
         sidebar: sidebar,
         sidebarDepth: 2,
-        logo: "/images/logos/powerly-logo-gray.png",
+        logo: "/images/logos/powerly-logo.png",
         repo: "https://github.com/mihaiconstantin/powerly",
         editLinkText: "Edit this page on GitHub"
     })
