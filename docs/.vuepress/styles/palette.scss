@@ -10,3 +10,8 @@ html.dark {
     --c-brand: #5a90c0;
     --c-brand-light: #5a90c0d1;
 }
+
+// Code languages.
+$codeLang: 'c' 'cpp' 'cs' 'css' 'dart' 'docker' 'fs' 'go' 'html' 'java' 'js'
+  'json' 'kt' 'less' 'makefile' 'md' 'php' 'py' 'r' 'rb' 'rs' 'sass' 'scss' 'sh'
+  'styl' 'ts' 'toml' 'txt' 'vue' 'yml' !default;
