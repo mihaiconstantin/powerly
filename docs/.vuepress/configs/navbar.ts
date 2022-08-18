@@ -22,8 +22,8 @@ export const navbar: NavbarConfig = [
         link: "/developer/"
     },
     {
-        text: "Extensions",
-        link: "/extension/"
+        text: "News",
+        link: "https://github.com/mihaiconstantin/powerly/blob/main/NEWS.md"
     },
     {
         text: "CRAN",
