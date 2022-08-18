@@ -6,3 +6,7 @@ archive
 powerly.Rcheck/
 *.tar.gz
 **/temp*
+node_modules/
+.temp
+.cache
+dist
