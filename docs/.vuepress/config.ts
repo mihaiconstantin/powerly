@@ -18,7 +18,7 @@ export default defineUserConfig({
         docsBranch: "main",
         repoLabel: "GitHub",
         lastUpdated: true,
-        contributors: false,
+        contributors: true,
         navbar: navbar,
         sidebar: sidebar,
         sidebarDepth: 2,
