@@ -2,7 +2,10 @@
     "name": "powerly",
     "private": true,
     "devDependencies": {
-        "vuepress": "^2.0.0-beta.49"
+        "@renovamen/vuepress-plugin-katex": "^2.0.0-alpha.25",
+        "@vuepress/plugin-shiki": "^2.0.0-beta.49",
+        "vuepress": "^2.0.0-beta.49",
+        "vuepress-plugin-mathjax": "^1.2.8"
     },
     "scripts": {
         "docs:dev": "vuepress dev docs",
