@@ -1,5 +1,7 @@
 <p align="center">
-    <img width="250px" src="./docs/.vuepress/public/images/logos/powerly-logo.png" alt="Package logo"/>
+    <a href="https://powerly.dev">
+        <img width="250px" src="./docs/.vuepress/public/images/logos/powerly-logo.png" alt="Package logo"/>
+    </a>
 </p>
 
 <h1 align="center">
@@ -35,9 +37,9 @@ the fitted curve.
 
 <div align="center">
     Check out the documentation and tutorials at
-    <h2>
+    <h3>
         <a href="https://powerly.dev">powerly.dev</a>
-    </h1>
+    </h3>
 </div>
 
 ---
