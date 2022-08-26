@@ -1,12 +1,14 @@
+<p align="center">
+    <a href="https://powerly.dev">
+        <img width="250px" src="./docs/.vuepress/public/images/logos/powerly-logo.png" alt="Package logo"/>
+    </a>
+</p>
+
 <h1 align="center">
     Sample Size Analysis for Psychological Networks
     <br>
-    <sub> and more...</sub>
+    <sub>...and more</sub>
 </h1>
-
-<p align="center">
-    <img width="450px" src="./inst/assets/logo/logo.png" alt="Package logo"/>
-</p>
 
 <p align="center">
     <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Repository status"/></a>
@@ -23,15 +25,22 @@
 `powerly` is an `R` package that implements the method by [Constantin et al.
 (2021)](https://psyarxiv.com/j5v7u) for conducting sample size analysis for
 cross-sectional network models. The method implemented is implemented in the
-main function `powerly()`. The implementation takes the form of a three-step
+main function `powerly`()`. The implementation takes the form of a three-step
 recursive algorithm designed to find an optimal sample size value given a model
 specification and an outcome measure of interest. It starts with a Monte Carlo
-simulation step for computing the outcome at various sample sizes. It continues
-with a monotone curve-fitting step for interpolating the outcome. The final step
-employs stratified bootstrapping to quantify the uncertainty around the fitted
-curve. For more details on how the method works, check the manuscript linked
-above. Moreover, consult the [method
-poster](https://github.com/mihaiconstantin/powerly#poster).
+simulation step for computing the outcome at various sample sizes. Then, it
+continues with a monotone curve-fitting step for interpolating the outcome. The
+final step employs stratified bootstrapping to quantify the uncertainty around
+the fitted curve.
+
+---
+
+<div align="center">
+    Check out the documentation and tutorials at
+    <h3>
+        <a href="https://powerly.dev">powerly.dev</a>
+    </h3>
+</div>
 
 ---
 
@@ -45,7 +54,8 @@ poster](https://github.com/mihaiconstantin/powerly#poster).
 ## Example
 
 The code block below illustrates the main function in the package. For more
-information, see the documentation `?powerly`.
+information, see the documentation `?powerly`, or check out the tutorials at
+[powerly.dev](https://powerly.dev).
 
 ```r
 # Suppose we want to find the sample size for observing a sensitivity of `0.6`
@@ -66,6 +76,7 @@ results <- powerly(
     model = "ggm",
     nodes = 10,
     density = .4,
+    cores = 2,
     verbose = TRUE
 )
 
@@ -86,21 +97,22 @@ results <- powerly(
     measure_value = .6,
     statistic_value = .8,
     model = "ggm",
-    model_matrix = true_model,
+    model_matrix = true_model, # Note the change.
+    cores = 2,
     verbose = TRUE
 )
 ```
 
-To validate the results of the analysis, we can use the `validate()` method.
-For more information, see the documentation `?validate`.
+To validate the results of the analysis, we can use the `validate()` method. For
+more information, see the documentation `?validate`.
 
 ```r
 # Validate the recommendation obtained during the analysis.
 validation <- validate(results)
 ```
 
-To visualize the results, we can use the `plot` function and indicating the
-step that should be plotted.
+To visualize the results, we can use the `plot` function and indicate the step
+that should be plotted.
 
 ```r
 # Step 1.
@@ -151,7 +163,7 @@ plot(validation)
 ## Poster
 
 <p align="center">
-    <img width = "90%" src="./inst/assets/method/poster_IOPS_2021_Mihai_Constantin.png" alt="Package logo"/>
+    <img width = "90%" src="./docs/.vuepress/public/images/materials/powerly-poster-iops-2021-mihai-constantin.png" alt="Method poster IOPS 2021"/>
 </p>
 
 ---

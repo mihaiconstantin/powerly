@@ -3,10 +3,15 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## development
+## 1.8.3 - 2022-08-26
 ### Added
 - Add starter package documentation via `VuePress`. The deployed documentation
   files can be accessed at [powerly.dev](https://powerly.dev).
+### Changed
+- Add reference to online documentation in `README.md` file.
+- Moved image assets from `inst/` under `docs/`.
+- Simplify `ASCII` console logo to include domain name for the online
+  documentation.
 
 ## 1.8.2 - 2022-07-22
 ### Fixed
