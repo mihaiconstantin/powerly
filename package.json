@@ -1,4 +1,7 @@
 {
+    "name": "powerly",
+    "description": "Documentation for the R package 'powerly'.",
+    "private": true,
     "scripts": {
         "docs:dev": "vuepress dev docs",
         "docs:build": "vuepress build docs"
