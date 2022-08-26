@@ -10,6 +10,7 @@ archive
 CNAME
 temp.R
 docs/
-package-lock.json
 package.json
+package-lock.json
+yarn.lock
 node_modules/
