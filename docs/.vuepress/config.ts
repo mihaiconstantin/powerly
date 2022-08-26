@@ -1,8 +1,8 @@
-import { defineUserConfig } from "vuepress"
+import { defineUserConfig } from "vuepress";
 import { defaultTheme } from "vuepress";
 import { sidebar, navbar, head } from "./configs";
+import { shikiPlugin } from "@vuepress/plugin-shiki";
 import { katexPlugin } from "@renovamen/vuepress-plugin-katex";
-import { shikiPlugin } from '@vuepress/plugin-shiki';
 
 /**
  * VuePress config.
@@ -27,12 +27,12 @@ export default defineUserConfig({
         editLinkText: "Edit this page on GitHub"
     }),
     plugins: [
-        // LaTeX plugin.
-        katexPlugin(),
-
         // Syntax highlighting plugin.
         shikiPlugin({
             theme: "dark-plus"
-        })
+        }),
+
+        // LaTeX plugin.
+        katexPlugin()
     ]
 })
