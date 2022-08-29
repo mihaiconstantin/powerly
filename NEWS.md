@@ -5,8 +5,8 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## development
 ### Changed
-- Refactor styles and improved readability for narrow screens.
-- Replace feature image for *Step 1*.
+- Refactor styles and improve readability for narrow screens.
+- Replace incorrect feature image for *Step 1*.
 
 ## 1.8.3 - 2022-08-26
 ### Added
