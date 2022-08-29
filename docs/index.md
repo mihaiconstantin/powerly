@@ -51,7 +51,7 @@ the [manuscript](https://psyarxiv.com/j5v7u) or check out the
     <div class="feature">
         <h2>Step 1</h2>
         <p>
-            <img src="/images/content/powerly-feature-step-1.png" alt="powerly Step 1">
+            <img src="/images/content/powerly-tutorial-method-step-1-performance-measures.png" alt="powerly Step 1">
         </p>
     </div>
     <!-- Step 2. -->
