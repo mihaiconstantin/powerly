@@ -74,7 +74,7 @@ $f\left(\bm{\Theta},\widehat{\bm{\Theta}}\right)$ with its corresponding target
 value $\delta$, and the statistic $g(\bm{\xi})$ with its target value $\tau$
 allow one to formulate the following question:
 
-<div class="question">
+<div class="showcase-text">
 
 Given the hypothesized parameters in $\bm{\Theta}$, what sample size does one
 need to observe $f\left(\bm{\Theta},\widehat{\bm{\Theta}}\right)\geq\delta$ with
@@ -105,7 +105,7 @@ step_** to quantify the uncertainty around the fitted curve.
 
 ### Step 1
 
-<div class="question">
+<div class="showcase-text">
 
 The goal of the first step is to get a rough understanding of how the
 performance measure $f\left(\bm{\Theta},\widehat{\bm{\Theta}}\right)$ changes as
@@ -153,7 +153,7 @@ case, $\tau = 0.8$.
 
 ### Step 2
 
-<div class="question">
+<div class="showcase-text">
 
 The goal of the second step is to obtain a smooth power function and interpolate
 the statistic across all sample sizes in the candidate range $\mathbb{N}_{s}$.
@@ -187,7 +187,7 @@ output provided by the `powerly` function).
 
 ### Step 3
 
-<div class="question">
+<div class="showcase-text">
 
 The goal of the third step is to quantify the Monte Carlo error around the
 estimated spline.
@@ -366,7 +366,7 @@ sample size recommendation.
 
 ## References
 
-<div class="citation">
+<div class="references">
 
 Constantin, M., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models. <a target="_blank" href="https://doi.org/10.31234/osf.io/j5v7u">https://doi.org/10.31234/osf.io/j5v7u</a>
 

@@ -51,15 +51,13 @@ the [manuscript](https://psyarxiv.com/j5v7u) or check out the
     <div class="feature">
         <h2>Step 1</h2>
         <p>
-            <img src="/images/content/powerly-feature-step-1.png" alt="powerly Step 1">
-            <!-- <img src="/images/content/powerly-tutorial-method-step-1-performance-measures.png" alt="powerly Step 1"> -->
+            <img src="/images/content/powerly-tutorial-method-step-1-performance-measures.png" alt="powerly Step 1">
         </p>
     </div>
     <!-- Step 2. -->
     <div class="feature">
         <h2>Step 2</h2>
         <p>
-            <!-- <img src="/images/content/powerly-feature-step-2.png" alt="powerly Step 2"> -->
             <img src="/images/content/powerly-tutorial-method-step-2-spline.png" alt="powerly Step 2">
         </p>
     </div>
@@ -67,7 +65,6 @@ the [manuscript](https://psyarxiv.com/j5v7u) or check out the
     <div class="feature">
         <h2>Step 3</h2>
         <p>
-            <!-- <img src="/images/content/powerly-feature-step-3.png" alt="powerly Step 3"> -->
             <img src="/images/content/powerly-tutorial-method-step-3-confidence-intervals-histogram.png" alt="powerly Step 3">
         </p>
     </div>
