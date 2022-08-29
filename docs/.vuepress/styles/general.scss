@@ -1,0 +1,98 @@
+// Imports.
+@import "mixins";
+
+// Generally applicable styles and reusable classes.
+
+// Tables.
+table {
+    font-size: 0.875rem;
+}
+
+// Image zooming overrides.
+.medium-zoom-image, video {
+    border-radius: 0.5rem;
+}
+
+.medium-zoom-image--opened {
+    border-radius: 0.5rem;
+    @include material_shadow_md;
+}
+
+// Showcase images and videos.
+.showcase-image, .showcase-video {
+    text-align: center;
+
+    img, video {
+        width: 100%;
+        @include material_shadow_md;
+    }
+
+    video {
+        background-color: white;
+        padding-top: 0.75rem;
+    }
+
+    // Adjustments for screens larger than 959px.
+    @media only screen and (min-width: 959px) {
+        img, video {
+            width: 80%;
+        }
+    }
+}
+
+// Showcase text.
+.showcase-text {
+    margin-top: 1.5rem;
+    margin-bottom: 1.75rem;
+
+    p {
+        margin-top: 5rem;
+        width: 80%;
+        margin: 0 auto;
+        padding: 1.5rem 2rem;
+        font-size: 1.1rem;
+        text-align: center;
+        border-radius: 0.5rem;
+        @include material_shadow_lg;
+
+        .katex {
+            transition: all .5s;
+        }
+
+        &:hover {
+            .katex {
+                color: var(--c-text-accent);
+            }
+        }
+
+        // Adjustments for screens smaller than 719px.
+        @media only screen and (max-width: 719px) {
+            width: auto;
+        }
+
+        // Adjustments for screens smaller than 419px.
+        @media only screen and (max-width: 419px) {
+            font-size: 1rem;
+        }
+    }
+}
+
+// References formatting (APA style).
+.references {
+    padding-left: 25px;
+    text-indent: -25px;
+    font-size: 0.875rem;
+
+    p:first-of-type {
+        margin-bottom: 0.5rem;
+    }
+
+    p:not(:first-of-type){
+        margin-top: 0.5rem;
+        margin-bottom: 0rem;
+    }
+
+    p:last-of-type {
+        margin-bottom: 1rem;
+    }
+}

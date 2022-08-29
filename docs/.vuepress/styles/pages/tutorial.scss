@@ -1,0 +1,59 @@
+// Tutorial page styles.
+
+// Imports.
+@import "../mixins";
+
+// Tutorial page container.
+.theme-container.page-tutorial {
+    table {
+        td {
+            line-height: 1.7;
+
+            a > code {
+                color: var(--c-text-accent);
+                font-weight: 600;
+            }
+        }
+    }
+
+    ol {
+        li {
+            margin-left: 1rem;
+            padding-left: 0.5rem;
+        }
+    }
+
+    .step-3-intersection {
+        img {
+            width: 60%;
+            border: 0.5px solid #373737;
+        }
+
+        // Adjustments for screens smaller than 419px.
+        @media only screen and (max-width: 419px) {
+            img {
+                width: 80%;
+            }
+        }
+    }
+
+    .table-arguments {
+        table {
+            // Adjustments for screens smaller than 419px.
+            @media only screen and (max-width: 419px) {
+                font-size: 0.8rem;
+
+                td, th {
+                    &:nth-child(3) {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    // KaTeX adjustments.
+    p > .katex-display {
+        overflow-x: hidden;
+    }
+}
