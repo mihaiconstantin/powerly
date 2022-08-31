@@ -30,7 +30,8 @@
         }
 
         // Adjustments for screens smaller than 419px.
-        @media only screen and (max-width: 419px) {
+        // Additional break points are used based on the content.
+        @media only screen and (max-width: 419px), (max-width: 428px) {
             img {
                 width: 80%;
             }
@@ -40,7 +41,8 @@
     .table-arguments {
         table {
             // Adjustments for screens smaller than 419px.
-            @media only screen and (max-width: 419px) {
+            // Additional break points are used based on the content.
+            @media only screen and (max-width: 419px), (max-width: 428px), (max-width: 517px) {
                 font-size: 0.8rem;
 
                 td, th {
