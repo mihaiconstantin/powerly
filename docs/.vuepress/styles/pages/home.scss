@@ -42,10 +42,10 @@
 
     .heart {
         display: inline-block;
+        position: relative;
         color: rgb(196, 27, 27);
         font-size: 1.3rem;
         cursor: default;
-        filter: grayscale(20%);
         transition: all .5s;
 
         &:before {
@@ -56,7 +56,7 @@
             position: absolute;
             left: 0;
             right: 0;
-            bottom: 31%;
+            bottom: 32%;
             text-align: center;
             transition: all .5s;
         }
