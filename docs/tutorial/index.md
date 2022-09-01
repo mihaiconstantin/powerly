@@ -43,7 +43,9 @@ official `R` package repository) running the following command:
 install.packages("powerly")
 ```
 
-Alternatively, you can install the latest development version from `GitHub` via:
+Alternatively, you can install the [latest development
+version](https://github.com/mihaiconstantin/powerly/releases/latest)  from
+`GitHub` via:
 
 ::: details Click to expand optional step.
 ```r
@@ -68,16 +70,15 @@ overview of the latest changes in the development version.
 `powerly` exports three functions available to researchers for conducting sample
 size analysis.
 
-| Function Name                                 | Description                                                                                                                           |
-| :-------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| [`generate_model`](/reference/generate-model) | Used for generating true models parameters when manually specifying them is non-trivial.                                              |
-| [`powerly`](/reference/powerly)               | The *main* function of the package implementing the sample size calculation method described above.                                   |
-| [`validate`](/reference/validate)             | Used for assessing the quality of the sample size recommendation obtained after running the [`powerly`](/reference/powerly) function. |
+| Function Name                                          | Description                                                                                                                                    |
+| :----------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`generate_model`](/reference/function/generate-model) | Used for generating true models parameters when manually specifying them is non-trivial.                                                       |
+| [`powerly`](/reference/function/powerly)               | The *main* function of the package implementing the sample size calculation method described above.                                            |
+| [`validate`](/reference/function/validate)             | Used for assessing the quality of the sample size recommendation obtained after running the [`powerly`](/reference/function/powerly) function. |
 
 ::: tip
-Check out the [Reference Section](/reference/functions/) corresponding to each
-function for detailed information about the available arguments and the output
-provided.
+Check out the [Reference Section](/reference/) corresponding to each function
+for detailed information about the available arguments and the output provided.
 :::
 
 ## Usage
@@ -95,7 +96,8 @@ $0.6$ with a probability of $0.8$ for an arbitrary Gaussian Graphical Model
 
 We start by specifying the true model (i.e., in this case an edge weights matrix
 encoding of partial correlation coefficients), or we can generate one using the
-`generate_model` function. For example, this can be achieved by running:
+[`generate_model`](/reference/function/generate-model) function. For example,
+this can be achieved by running:
 
 ::: details Click to see the seed used for reproducibility.
 We may set a seed to ensure that we generate the same true model. While this
@@ -119,13 +121,15 @@ true_model <- generate_model(
 )
 ```
 
-Then, we can supply the `true_model` object to the `powerly` function to start
-the search for the sample size. Alongside the `true_model` we may also specify a
-number of other arguments that constitute the method parameters.
+Then, we can supply the `true_model` object to the
+[`powerly`](/reference/function/powerly) function to start the search for the
+sample size. Alongside the `true_model` we may also specify a number of other
+arguments that constitute the method parameters.
 
 ::: tip
 You may also run `?powerly` in `R` to bring up the documentation and learn more
-about the role of each argument in the `powerly` function.
+about the role of each argument in the [`powerly`](/reference/function/powerly)
+function.
 :::
 
 ```r{12}
@@ -169,8 +173,9 @@ Which will produce a plot similar to the one below.
 </div>
 
 Optionally, we may also validate the sample size recommendation using the
-`validate` function by passing in the output obtained from the `powerly`
-function, followed by plotting the validation results.
+[`validate`](/reference/function/validate) function by passing in the output
+obtained from the [`powerly`](/reference/function/powerly) function, followed by
+plotting the validation results.
 
 ```r{3}
 # Run validation.
@@ -197,7 +202,7 @@ get started with `powerly`. If you want to learn more about where the numbers
 come from, I encourage you to check out the
 [manuscript](https://psyarxiv.com/j5v7u), or read the [next
 post](/tutorial/method) where I succinctly describe the terminology and the
-steps of the method. From there, you may continue with applications of the
+steps of the method. From there, you may continue with *applications* of the
 methods to different models (e.g., psychological networks, structural equation
-models etc.), or by checking out the posts under the FAQ, where I discuss tips
+models etc.), or by checking out the posts under the *FAQ*, where I discuss tips
 and tricks for how to efficiently use `powerly`.

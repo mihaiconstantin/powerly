@@ -9,8 +9,8 @@ header-includes:
 The goal of this post is to succinctly explain the main concepts used in the
 sample size computation method that `powerly` is based on. In doing so, I aim to
 help get you acquainted with terminology used throughout the rest of the posts
-in the tutorial section. You may regard this post as a summary of the key
-things discussed in [Constantin et al. (2021)](https://psyarxiv.com/j5v7u).
+in the tutorial section. You may regard this post as a summary of the key things
+discussed in [Constantin et al. (2021)](https://psyarxiv.com/j5v7u).
 
 ## Input
 To start the search for the optimal sample size, `powerly` requires three
@@ -22,12 +22,12 @@ the effect size) used to generate data during the first step of the method.
 These true parameter values are collected in a model matrix denoted
 $\bm{\Theta}$. One may either manually specify $\bm{\Theta}$ or generate it
 according to some hyperparameters via the
-[`generate_model`](/reference/generate-model) function. The meaning and function
-of $\bm{\Theta}$ changes depending on context in which it is used. For example,
-in the context of psychological networks, $\bm{\Theta}$ encodes the edge weights
-matrix, where the $\theta_{ij}$ entries may represent partial correlation
-coefficients. However, in the Structural Equation Modeling (SEM), for example,
-$\bm{\Theta}$ may encode the model implied covariance matrix.
+[`generate_model`](/reference/function/generate-model) function. The meaning and
+function of $\bm{\Theta}$ changes depending on context in which it is used. For
+example, in the context of psychological networks, $\bm{\Theta}$ encodes the
+edge weights matrix, where the $\theta_{ij}$ entries may represent partial
+correlation coefficients. However, in the Structural Equation Modeling (SEM),
+for example, $\bm{\Theta}$ may encode the model implied covariance matrix.
 
 ### Performance Measure
 The **_performance measure_** can be regraded as a quality of the estimation
@@ -86,7 +86,7 @@ probability $\tau$ as defined by $g(\bm{\xi})$?
 implementations for performance measures and statistics that best suit their
 study goals. However, it also provides out of the box support for several models
 and common related performance measures. Check out the [Reference
-Section](/reference/powerly) for the [`powerly`](/reference/powerly) function
+Section](/reference/) for the [`powerly`](/reference/function/powerly) function
 for an overview of the currently supported models and performance measures.
 
 ::: tip
@@ -182,7 +182,7 @@ depicted in the plot below.
 More information about the second step (i.e., basis functions, spline
 coefficients, and information about the cross-validation) can be obtained by
 running `plot(results, step = 2)`, where the `results` object represents the
-output provided by the `powerly` function).
+output provided by the [`powerly`](/reference/function/powerly) function).
 :::
 
 ### Step 3
@@ -258,11 +258,11 @@ certain number of iterations has been elapsed.
 ## Implementation
 
 As discussed in the introduction of the [Tutorial Section](/developer/), the
-main function [`powerly`](/reference/powerly) implements the sample size
-calculation method described above. When using the
-[`powerly`](/reference/powerly) function to run a sample size analysis, several
-arguments can be provided as input. For example, the function signature for
-consists of the following arguments:
+main function [`powerly`](/reference/function/powerly) implements the sample
+size calculation method described above. When using the
+[`powerly`](/reference/function/powerly) function to run a sample size analysis,
+several arguments can be provided as input. For example, the function signature
+for consists of the following arguments:
 
 ```r
 # Arguments supported by `powerly`.
@@ -295,7 +295,7 @@ powerly(
 ```
 
 ::: warning
-Please note that the function signature of [`powerly`](/reference/powerly)  will
+Please note that the function signature of [`powerly`](/reference/function/powerly)  will
 change (i.e., be simplified) with the release of the version `2.0.0`.
 :::
 
@@ -341,7 +341,7 @@ method steps.
 ::: tip
 For more information about the data types and default values for the arguments
 listed above, consult the [Reference Section](/reference/) for the
-[`powerly`](/reference/powerly) function, or the documentation in `R` by via
+[`powerly`](/reference/function/powerly) function, or the documentation in `R` by via
 `?powerly`.
 :::
 
@@ -360,8 +360,8 @@ researcher.
 
 ::: tip
 Check out the [Reference Section](/reference/) for the
-[`validate`](/reference/validate) function for more details on how validate a
-sample size recommendation.
+[`validate`](/reference/function/validate) function for more details on how
+validate a sample size recommendation.
 :::
 
 ## References
