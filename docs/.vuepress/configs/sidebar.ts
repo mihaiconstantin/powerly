@@ -29,6 +29,15 @@ export const sidebar: SidebarConfig = {
     ],
     "/reference/": [
         "/reference/index.md",
+        {
+            text: 'Functions',
+            collapsible: false,
+            children: [
+                "/reference/function/generate-model.md",
+                "/reference/function/powerly.md",
+                "/reference/function/validate.md"
+            ]
+        }
     ],
     "/publication/": [
         "/publication/index.md",
