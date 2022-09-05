@@ -368,14 +368,23 @@ validate a sample size recommendation.
 
 <div class="references">
 
-Constantin, M., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models. <a target="_blank" href="https://doi.org/10.31234/osf.io/j5v7u">https://doi.org/10.31234/osf.io/j5v7u</a>
+Constantin, M., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo
+Method for Sample Size Analysis in the Context of Network Models.
+[https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
 
-de Leeuw, J. (2017). Computing and Fitting Monotone Splines. <a target="_blank" href="http://dx.doi.org/10.13140/RG.2.2.36758.96327">http://dx.doi.org/10.13140/RG.2.2.36758.96327</a>
+de Leeuw, J. (2017). Computing and Fitting Monotone Splines.
+[http://dx.doi.org/10.13140/RG.2.2.36758.96327](http://dx.doi.org/10.13140/RG.2.2.36758.96327)
 
-Knuth, D. E. (1992). Two Notes on Notation. <i>The American Mathematical Monthly</i>, 99(5), 403–422. <a target="_blank" href="https://doi.org/10.1080/00029890.1992.11995869">https://doi.org/10.1080/00029890.1992.11995869</a>
+Knuth, D. E. (1992). Two Notes on Notation. *The American Mathematical Monthly*,
+99(5), 403–422.
+[https://doi.org/10.1080/00029890.1992.11995869](https://doi.org/10.1080/00029890.1992.11995869)
 
-Ramsay, J. O. (1988). Monotone Regression Splines in Action. Statistical Science, 3(4), 425–441. <a target="_blank" href="https://doi.org/10.1214/ss/1177012761">https://doi.org/10.1214/ss/1177012761</a>
+Ramsay, J. O. (1988). Monotone Regression Splines in Action. *Statistical
+Science*, 3(4), 425–441.
+[https://doi.org/10.1214/ss/1177012761](https://doi.org/10.1214/ss/1177012761)
 
-Wang, W., & Yan, J. (2021). Shape-restricted regression splines with R package splines2. *Journal of Data Science*, 19(3), 498–517. <a target="_blank" href="https://doi.org/10.6339/21-JDS1020">https://doi.org/10.6339/21-JDS1020</a>
+Wang, W., & Yan, J. (2021). Shape-restricted regression splines with R package
+splines2. *Journal of Data Science*, 19(3), 498–517.
+[https://doi.org/10.6339/21-JDS1020](https://doi.org/10.6339/21-JDS1020)
 
 </div>
