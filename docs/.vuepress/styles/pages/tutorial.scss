@@ -5,16 +5,7 @@
 
 // Tutorial page container.
 .theme-container.page-tutorial {
-    table {
-        td {
-            line-height: 1.7;
-
-            a > code {
-                color: var(--c-text-accent);
-                font-weight: 600;
-            }
-        }
-    }
+    @include table_sm;
 
     ol {
         li {

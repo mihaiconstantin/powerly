@@ -10,3 +10,20 @@
 @mixin material_shadow_lg {
 	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
+
+@mixin table_sm {
+    table {
+        td {
+            line-height: 1.7;
+
+            a > code {
+                color: var(--c-text-accent);
+                font-weight: 600;
+            }
+        }
+
+        @media only screen and (max-width: 419px), (max-width: 428px), (max-width: 517px) {
+            font-size: 0.8rem;
+        }
+    }
+}
