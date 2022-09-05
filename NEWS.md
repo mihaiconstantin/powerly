@@ -4,9 +4,19 @@ is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## development
+### Added
+- Add navigation bar and sidebar links under *Reference* for exported package
+  functions and `S3` methods.
+- Enable automatic registration for `.vue` components in
+  `/docs/.vuepress/components/`.
+- Add component `Markdown.vue` for rendering reusable markdown.
+- Add content for functions `powerly`, `validate`, and `generate_model`.
+- Add content for `S3` methods `plot.Method`, `plot.Validation`, and `summary`.
+
 ### Changed
 - Refactor styles and improve readability for narrow screens.
 - Replace incorrect feature image for *Step 1*.
+- Update `CSS` breakpoints for mobile views.
 
 ## 1.8.3 - 2022-08-26
 ### Added
