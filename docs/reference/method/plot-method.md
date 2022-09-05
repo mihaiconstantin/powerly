@@ -68,5 +68,5 @@ plots for each step of the method are shown below.
 
 ## See Also
 
-`S3` method [`summary.Method`](/reference/method/summary-method) and function
+`S3` method [`summary`](/reference/method/summary) and function
 [`powerly`](/reference/function/powerly).

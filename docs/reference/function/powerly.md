@@ -204,7 +204,7 @@ Functions [`generate_model`](/reference/function/generate-model) and
 [`validate`](/reference/function/validate).
 
 `S3` methods [`plot.Method`](/reference/method/plot-method) and
-[`summary.Method`](/reference/method/summary-method).
+[`summary`](/reference/method/summary).
 
 ## Requests
 

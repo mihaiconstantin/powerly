@@ -52,5 +52,5 @@ of a validation plot is shown below.
 
 ## See Also
 
-`S3` method [`summary.Validation`](/reference/method/summary-validation) and
-function [`validate`](/reference/function/validate).
+`S3` method [`summary`](/reference/method/summary) and function
+[`validate`](/reference/function/validate).

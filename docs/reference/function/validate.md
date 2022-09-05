@@ -97,4 +97,4 @@ Functions [`generate_model`](/reference/function/generate-model) and
 [`powerly`](/reference/function/powerly).
 
 `S3` methods [`plot.Validation`](/reference/method/plot-validation) and
-[`summary.Validation`](/reference/method/summary-validation).
+[`summary`](/reference/method/summary).
