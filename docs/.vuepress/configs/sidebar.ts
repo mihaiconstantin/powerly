@@ -28,7 +28,46 @@ export const sidebar: SidebarConfig = {
         },
     ],
     "/reference/": [
-        "/reference/index.md",
+        {
+            text: "Reference",
+            link: "/reference/index.md"
+        },
+        {
+            text: 'Functions',
+            collapsible: false,
+            children: [
+                {
+                    text: "generate_model",
+                    link: "/reference/function/generate-model.md"
+                },
+                {
+                    text: "powerly",
+                    link: "/reference/function/powerly.md"
+                },
+                {
+                    text: "validate",
+                    link: "/reference/function/validate.md"
+                }
+            ]
+        },
+        {
+            text: 'Methods',
+            collapsible: true,
+            children: [
+                {
+                    text: "plot.Method",
+                    link: "/reference/method/plot-method.md"
+                },
+                {
+                    text: "plot.Validation",
+                    link: "/reference/method/plot-validation.md"
+                },
+                {
+                    text: "summary",
+                    link: "/reference/method/summary.md"
+                }
+            ]
+        }
     ],
     "/publication/": [
         "/publication/index.md",

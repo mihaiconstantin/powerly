@@ -5,16 +5,7 @@
 
 // Tutorial page container.
 .theme-container.page-tutorial {
-    table {
-        td {
-            line-height: 1.7;
-
-            a > code {
-                color: var(--c-text-accent);
-                font-weight: 600;
-            }
-        }
-    }
+    @include table_sm;
 
     ol {
         li {
@@ -43,8 +34,6 @@
             // Adjustments for screens smaller than 419px.
             // Additional break points are used based on the content.
             @media only screen and (max-width: 419px), (max-width: 428px), (max-width: 517px) {
-                font-size: 0.8rem;
-
                 td, th {
                     &:nth-child(3) {
                         display: none;

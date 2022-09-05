@@ -1,0 +1,23 @@
+// Tutorial page styles.
+
+// Imports.
+@import "../mixins";
+
+// Tutorial page container.
+.theme-container.page-reference {
+    @include table_sm;
+
+
+    .showcase-image {
+        p {
+            font-weight: bold;
+        }
+
+        // Adjustments for screens larger than 959px.
+        @media only screen and (min-width: 959px) {
+            img {
+                width: 90%;
+            }
+        }
+    }
+}

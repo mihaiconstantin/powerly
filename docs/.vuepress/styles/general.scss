@@ -8,6 +8,14 @@ table {
     font-size: 0.875rem;
 }
 
+// Code highlighting in lists.
+li {
+    a > code {
+        color: var(--c-text-accent);
+        font-weight: 600;
+    }
+}
+
 // Image zooming overrides.
 .medium-zoom-image, video {
     border-radius: 0.5rem;
