@@ -28,7 +28,10 @@ export const sidebar: SidebarConfig = {
         },
     ],
     "/reference/": [
-        "/reference/index.md",
+        {
+            text: "Reference",
+            link: "/reference/index.md"
+        },
         {
             text: 'Functions',
             collapsible: false,
