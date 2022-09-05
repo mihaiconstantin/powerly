@@ -3,6 +3,11 @@ import { defaultTheme } from "vuepress";
 import { sidebar, navbar, head } from "./configs";
 import { shikiPlugin } from "@vuepress/plugin-shiki";
 import { katexPlugin } from "@renovamen/vuepress-plugin-katex";
+import { getDirname, path } from "@vuepress/utils";
+import { registerComponentsPlugin } from "@vuepress/plugin-register-components";
+
+// Get directory name.
+const __dirname = getDirname(import.meta.url);
 
 /**
  * VuePress config.
@@ -33,6 +38,11 @@ export default defineUserConfig({
         }),
 
         // LaTeX plugin.
-        katexPlugin()
+        katexPlugin(),
+
+        // Register components automatically.
+        registerComponentsPlugin({
+            componentsDir: path.resolve(__dirname, './components')
+        })
     ]
 })
