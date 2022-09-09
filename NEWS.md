@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.8.6
+### Fixed
+- Remove invalid `HTML` syntax from documented functions (i.e., `div` elements
+  nested inside `p` elements). See
+  [#30](https://github.com/mihaiconstantin/powerly/issues/30) (i.e., the reply
+  by @mihaiconstantin) for more details.
+
 ## 1.8.5
 ### Fixed
 - Fix `HTML` validation problems during the `CRAN` checks. Closes
