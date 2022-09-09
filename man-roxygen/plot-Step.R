@@ -32,7 +32,6 @@
 #'
 #' \if{html}{
 #' Example of a plot:
-#'
 #' \out{<div style="text-align: center">}
 #' \figure{example-step-<%= step_number %>.png}{options: style="width: 640px; max-width: 90\%;" alt="Example Step <%= step_number %>"}
 #' \out{</div>}

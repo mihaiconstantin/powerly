@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.8.5
+### Fixed
+- Fix `HTML` validation problems during the `CRAN` checks. Closes
+  [#30](https://github.com/mihaiconstantin/powerly/issues/30).
+
 ## 1.8.4
 ### Added
 - Add navigation bar and sidebar links under *Reference* for exported package

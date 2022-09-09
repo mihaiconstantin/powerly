@@ -39,7 +39,6 @@ The plot object returned can be further modified and also contains the
 
 \if{html}{
 Example of a validation plot:
-
 \out{<div style="text-align: center">}
 \figure{example-validation.png}{options: style="width: 640px; max-width: 90\%;" alt="Example Validation"}
 \out{</div>}
