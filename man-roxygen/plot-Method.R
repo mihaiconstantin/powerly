@@ -40,18 +40,18 @@
 #'
 #' \if{html}{
 #' Example of a plot for each step of the method:
-#' \out{<div style="text-align: center">}
+#' \out{<span style="display: block; text-align: center;">}
 #' \out{<span style="display: block; margin-top: 1rem; margin-bottom: 0.5rem">}\strong{Step 1: Monte Carlo Replications}\out{</span>}
 #' \figure{example-step-1.png}{options: style="width: 640px; max-width: 90\%;" alt="Example Step 1"}
-#' \out{</div>}
-#' \out{<div style="text-align: center">}
+#' \out{</span>}
+#' \out{<span style="display: block; text-align: center;">}
 #' \out{<span style="display: block; margin-top: 1rem; margin-bottom: 0.5rem">}\strong{Step 2: Curve Fitting}\out{</span>}
 #' \figure{example-step-2.png}{options: style="width: 640px; max-width: 90\%;" alt="Example Step 2"}
-#' \out{</div>}
-#' \out{<div style="text-align: center">}
+#' \out{</span>}
+#' \out{<span style="display: block; text-align: center;">}
 #' \out{<span style="display: block; margin-top: 1rem; margin-bottom: 0.5rem">}\strong{Step 3: Bootstrapping}\out{</span>}
 #' \figure{example-step-3.png}{options: style="width: 640px; max-width: 90\%;" alt="Example Step 3"}
-#' \out{</div>}
+#' \out{</span>}
 #' }
 #'
 #' @seealso [powerly::summary.Method()], [powerly::powerly()]
