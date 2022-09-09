@@ -35,9 +35,9 @@ that can be further modified. The object returned also contains the
 
 \if{html}{
 Example of a plot:
-\out{<div style="text-align: center">}
+\out{<span style="display: block; text-align: center; margin-top: 1rem;">}
 \figure{example-step-3.png}{options: style="width: 640px; max-width: 90\%;" alt="Example Step 3"}
-\out{</div>}
+\out{</span>}
 }
 }
 \description{
