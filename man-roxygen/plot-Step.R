@@ -32,9 +32,9 @@
 #'
 #' \if{html}{
 #' Example of a plot:
-#' \out{<div style="text-align: center">}
+#' \out{<span style="display: block; text-align: center; margin-top: 1rem;">}
 #' \figure{example-step-<%= step_number %>.png}{options: style="width: 640px; max-width: 90\%;" alt="Example Step <%= step_number %>"}
-#' \out{</div>}
+#' \out{</span>}
 #' }
 #'
 #' @seealso [powerly::plot.Method()], [powerly::summary.Method()]
