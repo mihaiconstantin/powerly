@@ -73,7 +73,7 @@ IsingModel <- R6::R6Class("IsingModel",
         },
 
         # Adapted from: https://github.com/cvborkulo/IsingFit.
-        estimate = function(data, and = TRUE, gamma = 0.25, lower_bound_lambda = NA, ...) {
+        estimate = function(data, and = TRUE, gamma = 0.25) {
             # Number of variables and observations.
             n_var <- ncol(data)
             n_obs <- nrow(data)
@@ -92,7 +92,7 @@ IsingModel <- R6::R6Class("IsingModel",
             # Fit for each variable in turn.
             for (i in 1:n_var) {
                 # Fit regularized logistic regression.
-                fit <- glmnet::glmnet(data[, -i], data[, i], family = "binomial", ...)
+                fit <- glmnet::glmnet(data[, -i], data[, i], family = "binomial")
 
                 # Extract and store results.
                 intercepts[[i]] <- fit$a0
@@ -169,11 +169,6 @@ IsingModel <- R6::R6Class("IsingModel",
 
             # Compute the EBIC.
             ebic <- -2 * sum_log_likelihood + penalty
-
-            # Apply lower bound lambda if necessary.
-            if (!is.na(lower_bound_lambda)) {
-                ebic <- ebic / (lambda_mat >= lower_bound_lambda) * 1
-            }
 
             # Get indices for optimal lambdas based on minimizing the EBIC.
             lambda_optimal_indices <- apply(ebic, 2, which.min)
