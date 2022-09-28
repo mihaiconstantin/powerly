@@ -4,7 +4,7 @@ IsingModel <- R6::R6Class("IsingModel",
     inherit = Model,
 
     private = list(
-        .minimum_sample_size = 50,
+        .minimum_sample_size = 100,
 
         .has_zero_variance = function(data) {
             return(any(apply(data, 2, sd) == 0))
