@@ -45,6 +45,7 @@ Collate:
     'Model.R'
     'GgmModel.R'
     'Interpolation.R'
+    'IsingModel.R'
     'Spline.R'
     'StepThree.R'
     'StepTwo.R'
