@@ -203,8 +203,8 @@ IsingModel <- R6::R6Class("IsingModel",
 
         evaluate = function(true_parameters, estimated_parameters, measure, ...) {
             # Extract the true and estimated parameters from the weights matrices.
-            true <- true_parameters$network[upper.tri(true_parameters$network)]
-            esti <- estimated_parameters$network[upper.tri(estimated_parameters$network)]
+            true <- true_parameters[upper.tri(true_parameters)]
+            esti <- estimated_parameters[upper.tri(estimated_parameters)]
 
             # Check if model dimensions do not match.
             if(length(true) != length(esti)) return(NA)
