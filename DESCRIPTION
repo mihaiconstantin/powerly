@@ -30,7 +30,12 @@ Imports:
     ggplot2,
     rlang,
     mvtnorm,
-    patchwork
+    patchwork,
+    utils,
+    IsingSampler,
+    IsingFit,
+    igraph,
+    glmnet
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
