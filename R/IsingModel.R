@@ -38,16 +38,9 @@ IsingModel <- R6::R6Class("IsingModel",
             network[lower.tri(network)] <- t(network)[lower.tri(network)]
 
             # Sample thresholds based on network structure.
-            thresholds <- -abs(rnorm(nodes, colSums(network) / 2, abs(colSums(network) / 6)))
+            diag(network) <- -abs(rnorm(nodes, colSums(network) / 2, abs(colSums(network) / 6)))
 
-            # Create output storage.
-            output <- new.env()
-
-            # Store parameters.
-            output$network <- network
-            output$thresholds <- thresholds
-
-            return(output)
+            return(network)
         },
 
         generate = function(sample_size, true_model, ...) {
