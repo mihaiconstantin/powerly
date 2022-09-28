@@ -170,9 +170,6 @@ IsingModel <- R6::R6Class("IsingModel",
             # Get indices for optimal lambdas based on minimizing the EBIC.
             lambda_optimal_indices <- apply(ebic, 2, which.min)
 
-            # Optimal lambdas.
-            lambda_optimal <- rep(NA, n_var)
-
             # Optimal thresholds (i.e., intercepts, or tau values).
             thresholds_optimal <- vector(mode = "numeric", length = n_var)
 
@@ -181,18 +178,12 @@ IsingModel <- R6::R6Class("IsingModel",
 
             # Store optimal values for each variable.
             for (i in 1:n_var) {
-                # Lambda values.
-                lambda_optimal[i] <- lambda_mat[lambda_optimal_indices[i], i]
-
                 # Thresholds.
                 thresholds_optimal[i] <- intercepts[[i]][lambda_optimal_indices[i]]
 
                 # Weights.
                 asymmetric_weights_optimal[i, -i] <- betas[[i]][, lambda_optimal_indices[i]]
             }
-
-            # Set thresholds on the diagonal.
-            diag(asymmetric_weights_optimal) <- 0
 
             # Apply rule to create symmetrical weights matrix for the undirected graph.
             if (and) {
@@ -207,15 +198,10 @@ IsingModel <- R6::R6Class("IsingModel",
                 weights_optimal <- (asymmetric_weights_optimal + t(asymmetric_weights_optimal)) / 2
             }
 
-            # Create storage.
-            output <- new.env()
+            # Set the thresholds on the diagonal.
+            diag(weights_optimal) <- thresholds_optimal
 
-            # Add elements to the environment.
-            output$network <- weights_optimal
-            output$thresholds <- thresholds_optimal
-            output$lambdas <- lambda_optimal
-
-            return(output)
+            return(weights_optimal)
         },
 
         evaluate = function(true_parameters, estimated_parameters, measure, ...) {
