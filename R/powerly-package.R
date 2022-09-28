@@ -34,6 +34,12 @@
 #' @importFrom quadprog solve.QP
 #' @importFrom splines2 iSpline bSpline
 #' @importFrom mvtnorm rmvnorm
+#' @importFrom glmnet glmnet
+#' @importFrom igraph get.adjacency
+#' @importFrom igraph erdos.renyi.game
+#' @importFrom IsingSampler IsingSampler
+#' @importFrom IsingFit IsingFit
+#' @importFrom utils getFromNamespace
 
 #' @include logo.R
 
