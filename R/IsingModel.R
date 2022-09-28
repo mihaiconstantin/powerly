@@ -46,7 +46,7 @@ IsingModel <- R6::R6Class("IsingModel",
             return(network)
         },
 
-        generate = function(sample_size, true_model) {
+        generate = function(sample_size, true_parameters) {
             # Prevent using a sample size smaller than 50.
             if (sample_size < private$.minimum_sample_size) {
                 stop(paste0("Sample size must be greater than ", private$.minimum_sample_size, "."))
@@ -55,13 +55,13 @@ IsingModel <- R6::R6Class("IsingModel",
             # Sample binary data.
             data <- IsingSamplerCpp(
                 n = sample_size,
-                graph = true_model,
-                thresholds = diag(true_model),
+                graph = true_parameters,
+                thresholds = diag(true_parameters),
                 beta = 1,
                 nIter = 100,
                 responses = c(0, 1),
                 exact = FALSE,
-                constrain = matrix(NA, sample_size, ncol(true_model))
+                constrain = matrix(NA, sample_size, ncol(true_parameters))
             )
 
             # Inform user about the status of the data.
