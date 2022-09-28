@@ -7,7 +7,7 @@
 #' [powerly::powerly()].
 #'
 #' @param type Character string representing the type of true model. Possible
-#' values are `"ggm"` (the default).
+#' values are `"ggm"` (the default) or `"ising"`.
 #'
 #' @param ... Required arguments used for the generation of the true model. See
 #' the **True Models** section of [powerly::powerly()] for the arguments
