@@ -1,5 +1,8 @@
 #' @include Model.R
 
+# Extract the un-exported `C++` sampler from the `IsingSampler` namespace.
+IsingSamplerCpp <- utils::getFromNamespace("IsingSamplerCpp", "IsingSampler")
+
 IsingModel <- R6::R6Class("IsingModel",
     inherit = Model,
 
@@ -50,7 +53,7 @@ IsingModel <- R6::R6Class("IsingModel",
             }
 
             # Sample binary data.
-            data <- IsingSampler:::IsingSamplerCpp(
+            data <- IsingSamplerCpp(
                 n = sample_size,
                 graph = true_model,
                 thresholds = diag(true_model),
