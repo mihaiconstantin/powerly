@@ -174,7 +174,7 @@ IsingModel <- R6::R6Class("IsingModel",
             lambda_optimal <- rep(NA, n_var)
 
             # Optimal thresholds (i.e., intercepts, or tau values).
-            thresholds_optimal <- 0
+            thresholds_optimal <- vector(mode = "numeric", length = n_var)
 
             # Optimal weights (i.e., slopes, or beta values).
             asymmetric_weights_optimal <- matrix(NA, n_var, n_var)
