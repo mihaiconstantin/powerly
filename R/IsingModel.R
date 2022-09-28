@@ -109,8 +109,8 @@ IsingModel <- R6::R6Class("IsingModel",
             # The number of neighbors.
             n_neighbors <- matrix(0, max_n_lambdas, n_var)
 
-            # Likelihood storage for each variable and penalty parameter.
-            likelihood <- array(0, dim = c(n_obs, max_n_lambdas, n_var))
+            # Log-likelihood storage for each variable and penalty parameter.
+            log_likelihood <- array(0, dim = c(n_obs, max_n_lambdas, n_var))
 
             # Lambda matrix.
             lambda_mat <- matrix(NA, max_n_lambdas, n_var)
@@ -148,15 +148,12 @@ IsingModel <- R6::R6Class("IsingModel",
                     y <- cbind(y, matrix(NA, n_obs, n_missing_lambdas))
                 }
 
-                # Calculate likelihood.
-                likelihood[, , i] <- exp(y * data[, i]) / (1 + exp(y))
+                # Calculate log-likelihood.
+                log_likelihood[, , i] <- log(exp(y * data[, i]) / (1 + exp(y)))
 
                 # Fill lambda matrix.
                 lambda_mat[, i] <- c(lambdas[[i]], rep(NA, max_n_lambdas - n_lambdas[i]))
             }
-
-            # Log-likelihood.
-            log_likelihood <- log(likelihood)
 
             # Sum log-likelihood (i.e., lambdas by variables).
             sum_log_likelihood <- colSums(log_likelihood, 1, na.rm = FALSE)
