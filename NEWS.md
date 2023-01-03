@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Changed
+- Update `GitHub` action versions for all workflow files. Closes
+  [#37](https://github.com/mihaiconstantin/powerly/issues/37).
+
+### Fixed
+- Replace URLs for CRAN checks badges. Closes
+  [#35](https://github.com/mihaiconstantin/powerly/issues/35).
+
 ## 1.8.6
 ### Fixed
 - Remove invalid `HTML` syntax from documented functions (i.e., `div` elements
