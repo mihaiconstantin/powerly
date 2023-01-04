@@ -38,9 +38,11 @@ export default defineUserConfig({
         }),
 
         // LaTeX plugin.
+        // @ts-ignore
         katexPlugin(),
 
         // Register components automatically.
+        // @ts-ignore
         registerComponentsPlugin({
             componentsDir: path.resolve(__dirname, './components')
         })
