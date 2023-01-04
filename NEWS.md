@@ -7,10 +7,14 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Changed
 - Update `GitHub` action versions for all workflow files. Closes
   [#37](https://github.com/mihaiconstantin/powerly/issues/37).
+- Add missing link to paper reference in documentation.
 
 ### Fixed
 - Replace URLs for CRAN checks badges. Closes
   [#35](https://github.com/mihaiconstantin/powerly/issues/35).
+- Fix `docs` workflow error after changing from `yarn` to `pnpm`. For the time
+  being, migrated back to `yarn`. Closes
+  [#39](https://github.com/mihaiconstantin/powerly/issues/39).
 
 ## 1.8.6
 ### Fixed
