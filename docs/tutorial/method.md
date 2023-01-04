@@ -295,8 +295,9 @@ powerly(
 ```
 
 ::: warning
-Please note that the function signature of [`powerly`](/reference/function/powerly)  will
-change (i.e., be simplified) with the release of the version `2.0.0`.
+Please note that the function signature of
+[`powerly`](/reference/function/powerly) will change (i.e., be simplified) with
+the release of the version `2.0.0`.
 :::
 
 These arguments can be grouped in three categories:
@@ -306,9 +307,9 @@ These arguments can be grouped in three categories:
 3. **_Miscellaneous_**.
 
 The table below provides an overview of the mapping between the notation used in
-Constantin et al. (2021) and the `R` function arguments. The order of the rows
-in the table is indicative of the order in which the arguments appear in the
-method steps.
+[Constantin et al. (2021)](https://psyarxiv.com/j5v7u) and the `R` function
+arguments. The order of the rows in the table is indicative of the order in
+which the arguments appear in the method steps.
 
 <div class="table-arguments">
 
