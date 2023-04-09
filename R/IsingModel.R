@@ -3,6 +3,7 @@
 # Extract the un-exported `C++` sampler from the `IsingSampler` namespace.
 IsingSamplerCpp <- utils::getFromNamespace("IsingSamplerCpp", "IsingSampler")
 
+# Ising model implementation.
 IsingModel <- R6::R6Class("IsingModel",
     inherit = Model,
 
