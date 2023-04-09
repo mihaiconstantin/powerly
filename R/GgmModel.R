@@ -1,5 +1,6 @@
 #' @include Model.R
 
+# Implementation for GGM with LASSO regularization and EBIC model selection.
 GgmModel <- R6::R6Class("GgmModel",
     inherit = Model,
 
