@@ -186,7 +186,7 @@ search shrinks below a specified value.
 }
 \section{True Models}{
 
-\strong{Gaussian Graphical Model (GGM)}
+\strong{Gaussian Graphical Model}
 \itemize{
 \item type: cross-sectional
 \item symbol: \code{ggm}

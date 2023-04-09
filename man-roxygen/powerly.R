@@ -128,7 +128,7 @@
 #' search shrinks below a specified value.
 #'
 #' @section True Models:
-#' **Gaussian Graphical Model (GGM)**
+#' **Gaussian Graphical Model**
 #' - type: cross-sectional
 #' - symbol: `ggm`
 #' - `...` arguments for generating true models:
