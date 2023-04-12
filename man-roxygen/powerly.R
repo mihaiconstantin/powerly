@@ -69,10 +69,8 @@
 #' automatically created with all integers between `3` and `20`.
 #'
 #' @param solver_type A character string representing the type of the quadratic
-#' solver used for estimating the spline coefficients. Possible values are
-#' `"quadprog"` (the default) and `"osqp"`. Currently, the "`osqp`" solver does
-#' not play nicely with `R`'s [`parallel::parallel`] package and cannot be used
-#' when powerly is ran in parallel.
+#' solver used for estimating the spline coefficients. Currently only
+#' `"quadprog"` (the default) is supported.
 #'
 #' @param boots A positive integer representing the number of bootstrap runs to
 #' perform on the matrix of performance measures in order to obtained

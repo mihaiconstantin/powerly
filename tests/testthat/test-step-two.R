@@ -53,11 +53,8 @@ test_that("'StepTwo' correctly performs the LOOCV procedure", {
     # Create 'StepTwo' mock instance.
     step_2 <- StepTwoTester$new(step_1)
 
-    # Flip a coin to decide which solver to use.
-    solver_type <- ifelse(rbinom(1, 1, .5), "quadprog", "osqp")
-
     # Perform LOOCV via the mock instance.
-    step_2$run_cv(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = solver_type)
+    step_2$run_cv(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = "quadprog")
 
     # The dimensions if the LOOCV result should match the number of sample sizes and DF tested.
     expect_equal(nrow(step_2$cv$se), range$available_samples)
@@ -91,11 +88,8 @@ test_that("'StepTwo' fits and interpolates a spline correctly", {
     # Fit a spline via step two.
     step_2 <- StepTwo$new(step_1)
 
-    # Flip a coin to decide which solver to use.
-    solver_type <- ifelse(rbinom(1, 1, .5), "quadprog", "osqp")
-
     # Fit the spline.
-    step_2$fit(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = solver_type)
+    step_2$fit(monotone = TRUE, increasing = TRUE, df = NULL, solver_type = "quadprog")
 
     # Extract the DF selected.
     df <- step_2$cv$df[which.min(step_2$cv$mse)]
@@ -105,12 +99,16 @@ test_that("'StepTwo' fits and interpolates a spline correctly", {
     knots <- attributes(basis)$knots
     basis <- cbind(1, basis)
 
-    # Create box constraints for 'osqp'.
-    lower <- c(-Inf, rep(0, ncol(basis) - 1))
-    upper <- rep(Inf, ncol(basis))
+    # Number of basis functions.
+    n <- ncol(basis)
+
+    # Create box constraints.
+    a_mat <- diag(1, n)
+    a_mat[1, 1] <- 0
+    b_vec <- rep(0, n)
 
     # Estimate alpha.
-    alpha <- solve_osqp(basis, step_1$statistics, lower, upper)
+    alpha <- solve_qp(basis, step_1$statistics, a_mat, b_vec)
 
     # Predict.
     fitted <- basis %*% alpha

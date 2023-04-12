@@ -28,7 +28,6 @@
 #' @importFrom patchwork plot_layout
 #' @importFrom R6 R6Class
 #' @importFrom bootnet genGGM ggmGenerator
-#' @importFrom osqp osqpSettings osqp
 #' @importFrom progress progress_bar
 #' @importFrom qgraph EBICglasso
 #' @importFrom quadprog solve.QP

@@ -26,7 +26,6 @@ Imports:
     parallel,
     splines2,
     quadprog,
-    osqp,
     bootnet,
     qgraph,
     ggplot2,
@@ -53,7 +52,6 @@ Collate:
     'StepOne.R'
     'Range.R'
     'Method.R'
-    'OsqpSolver.R'
     'QuadprogSolver.R'
     'Solver.R'
     'SolverFactory.R'

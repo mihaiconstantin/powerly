@@ -95,10 +95,8 @@ degree of freedom is selected based on Leave One Out Cross-Validation. If
 automatically created with all integers between \code{3} and \code{20}.}
 
 \item{solver_type}{A character string representing the type of the quadratic
-solver used for estimating the spline coefficients. Possible values are
-\code{"quadprog"} (the default) and \code{"osqp"}. Currently, the "\code{osqp}" solver does
-not play nicely with \code{R}'s \code{\link[parallel:parallel-package]{parallel::parallel}} package and cannot be used
-when powerly is ran in parallel.}
+solver used for estimating the spline coefficients. Currently only
+\code{"quadprog"} (the default) is supported.}
 
 \item{boots}{A positive integer representing the number of bootstrap runs to
 perform on the matrix of performance measures in order to obtained
