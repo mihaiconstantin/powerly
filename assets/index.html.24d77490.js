@@ -1,0 +1,1 @@
+const i=JSON.parse('{"key":"v-5b79e8fc","path":"/publication/","title":"Publication","lang":"en-US","frontmatter":{"pageClass":"page-publication"},"excerpt":"","headers":[],"git":{"updatedTime":1660815606000,"contributors":[{"name":"mihaiconstantin","email":"mihai@mihaiconstantin.com","commits":1}]},"filePathRelative":"publication/index.md"}');export{i as data};
