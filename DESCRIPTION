@@ -26,6 +26,7 @@ Imports:
     quadprog,
     bootnet,
     qgraph,
+    parabar,
     ggplot2,
     rlang,
     mvtnorm,
