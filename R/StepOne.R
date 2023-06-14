@@ -93,10 +93,21 @@ StepOne <- R6::R6Class("StepOne",
             samples <- sort(rep(partition, replications))
 
             # Run simulation.
+            backend$sapply(
+                x = samples,
+                fun = monte_carlo,
+                generate,
+                estimate,
+                evaluate,
+                true_model_parameters,
+                measure
+            )
+
+            # Then wait for the results.
             private$.measures <- matrix(
-                backend$sapply(samples, monte_carlo, generate, estimate, evaluate, true_model_parameters, measure),
-                replications,
-                available_samples
+                data = backend$get_output(wait = TRUE),
+                nrow = replications,
+                ncol = available_samples
             )
         },
 
