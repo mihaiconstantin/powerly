@@ -79,8 +79,21 @@ StepThree <- R6::R6Class("StepThree",
             private$.expose_data(environment())
 
             # Run bootstrap.
+            backend$sapply(
+                x = seq_len(boots),
+                fun = boot,
+                available_samples,
+                measures,
+                measure_value,
+                replications,
+                extended_basis,
+                statistic,
+                solver
+            )
+
+            # Then wait for the results.
             private$.boot_statistics <- t(
-                backend$sapply(seq_len(boots), boot, available_samples, measures, measure_value, replications, extended_basis, statistic, solver)
+                backend$get_output(wait = TRUE)
             )
         },
 
@@ -130,8 +143,17 @@ StepThree <- R6::R6Class("StepThree",
         # Compute confidence intervals.
         .compute_ci_parallel = function(lower_ci, upper_ci, backend) {
             # Compute the confidence intervals via the percentile method.
+            backend$apply(
+                x = private$.boot_statistics,
+                margin = 2,
+                fun = quantile,
+                probs = c(0, lower_ci, .5, upper_ci, 1),
+                na.rm = TRUE
+            )
+
+            # Then wait for the results.
             private$.ci <- t(
-                backend$apply(private$.boot_statistics, 2, quantile, probs = c(0, lower_ci, .5, upper_ci, 1), na.rm = TRUE)
+                backend$get_output(wait = TRUE)
             )
 
             # Add row names for clarity.
