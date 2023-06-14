@@ -43,9 +43,9 @@ Validation <- R6::R6Class("Validation",
         # Register backend.
         register_backend = function(backend) {
             # Make sure we are provided an active backend.
-            if (!is.null(backend) && !backend$active) {
+            if (!is.null(backend) && !backend$backend$active) {
                 # Warn the users.
-                warning("Please provide an active backend. Will not use this one.")
+                warning("Backend not active. Validating sequentially.")
             } else {
                 # Register the backend.
                 private$.backend <- backend
