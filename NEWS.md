@@ -4,6 +4,15 @@ is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+## Added
+- Add *temporary* support for the Ising model using the approach described by
+  [van Borkulo et al. (2014)](https://www.nature.com/articles/srep05918). The
+  support is temporary in the sense that starting with `powerly` `v2.0.0`, an
+  API is introduced that developers can consume to hook into `powerly` for
+  conducting sample size computations for arbitrary models and performance
+  measures. Related to
+  [#10](https://github.com/mihaiconstantin/powerly/issues/10).
+
 ### Changed
 - Update `GitHub` action versions for all workflow files. Closes
   [#37](https://github.com/mihaiconstantin/powerly/issues/37).
