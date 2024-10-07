@@ -1,5 +1,15 @@
 # Development
 
+## Added
+- Add mechanism to manage package options via `Options` `R6` class.
+- Add exported functions `set_default_options` `get_option`, and `set_option` to
+  interact with the package options.
+- Add `Helper` `R6` class for generic package helper methods.
+- Add `Exception` and `Warning` `R6` classes for standard error and warning
+  messages.
+- Add functionality to set default package options `.onLoad` and remove the
+  options `.onUnload`.
+
 ## Changed
 - Update `GitHub` action versions for all workflow files. Closes
   [#37](https://github.com/mihaiconstantin/powerly/issues/37).
