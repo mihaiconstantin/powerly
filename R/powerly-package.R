@@ -15,7 +15,7 @@
 
 # Imports.
 
-#' @include logo.R
+#' @include powerly-logo.R
 
 #' @title
 #' Sample Size Analysis Framework
