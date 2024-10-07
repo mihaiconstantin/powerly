@@ -14,6 +14,9 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Imports.
+#' @importFrom parabar BackendFactory ContextFactory BarFactory Specification
+#' @importFrom R6 R6Class
+
 
 #' @include powerly-logo.R
 
