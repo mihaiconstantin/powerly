@@ -52,6 +52,8 @@ library(powerly)
 
 ## Usage
 
+*To be added.*
+
 ## Contributing
 
 - Any contributions are welcome and greatly appreciated. Please open a [pull
