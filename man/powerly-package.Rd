@@ -2,8 +2,8 @@
 % Please edit documentation in R/powerly-package.R
 \docType{package}
 \name{powerly-package}
+\alias{powerly}
 \alias{powerly-package}
-\alias{_PACKAGE}
 \title{Sample Size Analysis Framework}
 \description{
 ...
