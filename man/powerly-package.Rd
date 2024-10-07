@@ -2,21 +2,14 @@
 % Please edit documentation in R/powerly-package.R
 \docType{package}
 \name{powerly-package}
+\alias{powerly}
 \alias{powerly-package}
-\alias{_PACKAGE}
-\title{Sample Size Analysis for Psychological Networks and More}
+\title{Sample Size Analysis Framework}
 \description{
-\code{powerly} is a package that implements the method by \href{https://psyarxiv.com/j5v7u}{Constantin et al. (2021)} for conducting sample size analysis for
-network models.
+...
 }
 \details{
-The method implemented is implemented in the main function \code{\link[=powerly]{powerly()}}. The
-implementation takes the form of a three-step recursive algorithm designed to
-find an optimal sample size value given a model specification and an outcome
-measure of interest. It starts with a Monte Carlo simulation step for
-computing the outcome at various sample sizes. It continues with a monotone
-curve-fitting step for interpolating the outcome. The final step employs
-stratified bootstrapping to quantify the uncertainty around the fitted curve.
+...
 }
 \seealso{
 Useful links:

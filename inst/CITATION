@@ -3,9 +3,19 @@ citHeader("To cite powerly in publications please use:")
 citEntry(
   entry    = "Article",
   title    = "A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models",
+  author   = personList(as.person("Mihai A. Constantin"), as.person("Noémi K. Schuurman"), as.person("Jeroen K. Vermunt")),
+  journal  = "Psychological Methods",
+  year     = "2023",
+  url      = "https://doi.apa.org/doi/10.1037/met0000555",
+  textVersion = "Constantin, M. A., Schuurman, N. K., & Vermunt, J. K. (2023). A general Monte Carlo method for sample size analysis in the context of network models. Psychological Methods. https://doi.org/10.1037/met0000555"
+)
+
+citEntry(
+  entry    = "Article",
+  title    = "A General Framework for Sample Size Analysis and a Tutorial Using Structural Equation Modeling",
   author   = personList(as.person("Mihai A. Constantin"), as.person("Noemi K. Schuurman"), as.person("Jeroen K. Vermunt")),
   journal  = "Journal",
-  year     = "2021",
-  url      = "https://doi.org/10.31234/osf.io/j5v7u",
-  textVersion = "Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models. PsyArXiv. https://doi.org/10.31234/osf.io/j5v7u"
+  year     = "2024",
+  url      = "https://doi.org",
+  textVersion = "Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2024). A General Framework for Sample Size Analysis and a Tutorial Using Structural Equation Modeling. PsyArXiv. https://doi.org"
 )

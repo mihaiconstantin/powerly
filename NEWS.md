@@ -1,35 +1,42 @@
-# Changelog
-All notable changes to this project will be documented in this file. The format
-is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
-project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+# Development
 
-## Unreleased
-### Changed
+## Changed
 - Update `GitHub` action versions for all workflow files. Closes
   [#37](https://github.com/mihaiconstantin/powerly/issues/37).
 - Add missing link to paper reference in documentation.
+- Update `make_logo` function to include the package name in the logo.
 
-### Fixed
+## Removed
+- Remove `VuePress` documentation files. From `v2.2.0` the documentation will be
+  in a standalone repository.
+- Remove implementation of three-step method by Constantin et al. (2024) from
+  the package. The method will be available as a separate that will work in
+  conjunction with the `powerly` package.
+
+## Fixed
 - Replace URLs for CRAN checks badges. Closes
   [#35](https://github.com/mihaiconstantin/powerly/issues/35).
 - Fix `docs` workflow error after changing from `yarn` to `pnpm`. For the time
   being, migrated back to `yarn`. Closes
   [#39](https://github.com/mihaiconstantin/powerly/issues/39).
 
-## 1.8.6
-### Fixed
+# powerly 1.8.6
+
+## Fixed
 - Remove invalid `HTML` syntax from documented functions (i.e., `div` elements
   nested inside `p` elements). See
   [#30](https://github.com/mihaiconstantin/powerly/issues/30) (i.e., the reply
   by @mihaiconstantin) for more details.
 
-## 1.8.5
-### Fixed
+# powerly 1.8.5
+
+## Fixed
 - Fix `HTML` validation problems during the `CRAN` checks. Closes
   [#30](https://github.com/mihaiconstantin/powerly/issues/30).
 
-## 1.8.4
-### Added
+# powerly 1.8.4
+
+## Added
 - Add navigation bar and sidebar links under *Reference* for exported package
   functions and `S3` methods.
 - Enable automatic registration for `.vue` components in
@@ -38,32 +45,37 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Add content for functions `powerly`, `validate`, and `generate_model`.
 - Add content for `S3` methods `plot.Method`, `plot.Validation`, and `summary`.
 
-### Changed
+## Changed
 - Refactor styles and improve readability for narrow screens.
 - Replace incorrect feature image for *Step 1*.
 - Update `CSS` breakpoints for mobile views.
 
-## 1.8.3 - 2022-08-26
-### Added
+# powerly 1.8.3
+
+## Added
 - Add starter package documentation via `VuePress`. The deployed documentation
   files can be accessed at [powerly.dev](https://powerly.dev).
-### Changed
+
+## Changed
 - Add reference to online documentation in `README.md` file.
 - Moved image assets from `inst/` under `docs/`.
 - Simplify `ASCII` console logo to include domain name for the online
   documentation.
 
-## 1.8.2 - 2022-07-22
-### Fixed
+# powerly 1.8.2
+
+## Fixed
 - Remove square brackets from version numbers in `NEWS.md` to allow CRAN to
   parse the version information.
 
-## 1.8.1 - 2022-07-14
-### Changed
+# powerly 1.8.1
+
+## Changed
 - Add option to run GitHub workflow manually.
 
-## 1.8.0 - 2022-05-02
-### Added
+# powerly 1.8.0
+
+## Added
 - Add more arguments for generating partial correlation matrices (i.e., in line
   with Yin and Li (2011; see reference below). The new arguments are `positive`
   (i.e., for the proportion of positive edges), `range` (i.e., for the interval
@@ -73,22 +85,23 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Add functionality to resample `GgmModel` data when variables with `SD = 0` are
   detected.
 
-### Changed
+## Changed
 - Update documentation to include the new arguments for generating a GGM.
 - Update GGM data generation and estimation tests.
 
-### References
+## References
 - Yin, J., and Li, H. (2011). A sparse conditional gaussian graphical model for
   analysis of genetical genomics data. *The annals of applied statistics*, 5(4),
   2630.
 
-## 1.7.4 - 2022-04-30
-### Added
+# powerly 1.7.4
+
+## Added
 - Add `duration` field to `StepTwo` class to record the execution time for the
   spline fitting procedure
 - Add `CNAME` for apex domain `https://powerly.dev` served via GitHub Pages.
 
-### Fixed
+## Fixed
 - Fix missing import for `mvnorm` package (#11). Closes #5.
 - Fix missing number of `cores` in `Backend` when more cores than available were
   requested (#12). Closes #2.
@@ -97,29 +110,31 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix recording and reporting of `Method` and step classes execution time (#15).
   The duration is now recorded in seconds. Closes #9.
 
-### Removed
+## Removed
 - Remove `dev` branch from all `GitHub` workflows (#14). Switched to the
   `GitHub` flow. Closes #4.
 
-## 1.7.3
-#### Changed
+# powerly 1.7.3
+
+## Changed
 - Update badges order in `README.md` and removed open issues badge.
 
-#### Fixed
+## Fixed
 - Fix typos in `NEWS` file.
 
-## 1.7.2
-### Added
+# powerly 1.7.2
+
+## Added
 - Add GitHub badges with latest release version and number of open issues.
 
-### Changed
+## Changed
 - Update GGM estimation test to check if the estimation fails when variables
   with zero standard deviation are present in the generated data.
 - Update GGM estimation to fail when the generated data contains at least one
   variable that has a standard deviation equal to zero (i.e., as a result of
   generating data with a sample size value that is too low).
 
-### Fixed
+## Fixed
 - Add tolerance (i.e., `0.0000001`) for test checking whether the spline
   coefficients are estimated correctly.
 - Fix test for the updating of the bounds of a `Range` instance to run only when
@@ -127,17 +142,19 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix bug in GGM data generating test where the number of nodes to generate data
   for were incorrectly sampled.
 
-## 1.7.1
-### Changed
+# powerly 1.7.1
+
+## Changed
 - Update moved URL https://codecov.io/gh/mihaiconstantin/powerly to
   https://app.codecov.io/gh/mihaiconstantin/powerly based on comments of CRAN
   maintainer Uwe Ligges.
 
-## 1.7.0
-### Added
+# powerly 1.7.0
+
+## Added
 - Add `summary` S3 method support for `Validation` class objects.
 
-### Changed
+## Changed
 - Add new `R` version to the CI pipeline for the `R CMD check` job.
 - Update `R CMD check` workflow to use `check` action from `r-lib/actions`.
 - Add explicit `.data` and `.env` pronoun calls (i.e., from the `rlang` package)
@@ -152,7 +169,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   submit ideas for improving the package.
 - Extend CI workflow to include branch `dev`.
 
-### Fixed
+## Fixed
 - Fix backend test where the cluster would contain an unexpected `.Random.seed`.
   The `.Random.seed` is caused by loading the `bootnet` package which in turn
   loads the `snow` package. The `snow` package uses the `RNG` within the
@@ -163,12 +180,14 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix preprint URL in package documentation.
 - Fix heading typo in news file.
 
-## 1.6.1
-### Changed
+# powerly 1.6.1
+
+## Changed
 - Update line exclusions for `covr::codecov()`.
 
-## 1.6.0
-### Changed
+# powerly 1.6.0
+
+## Changed
 - Add new `Validation` class plot to `README.md` file.
 - Update `GgmModel` tests to vary various model estimation and data generation
   parameters.
@@ -180,47 +199,52 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Add more cool badges to `README.md` (e.g., CRAN version and check status).
 - Fix missing missing period in package description in `DESCRIPTION` file.
 
-### Fixed
+## Fixed
 - Fix issue where `GGM` estimation test would fail due to a precision level set
   too high.
 
-## 1.5.2
-### Fixed
+# powerly 1.5.2
+
+## Fixed
 - Update `Description` field in `DESCRIPTION` file to follow CRAN guidelines.
 
-## 1.5.1
-### Fixed
+# powerly 1.5.1
+
+## Fixed
 - Update preprint link in `powerly()` documentation to use the `\doi{}` syntax
   as indicated by CRAN member Uwe Ligges.
 - Update `DESCRIPTION` to start with capital letter as indicated by CRAN member
   Uwe Ligges.
 - Fix typo in `DESCRIPTION`.
 
-## 1.5.0
-### Added
+# powerly 1.5.0
+
+## Added
 - Add preliminary `summary()` support for `Method` and `Validation` objects.
 - Update citation and references to the preprint available at
   [psyarxiv.com/j5v7u](https://psyarxiv.com/j5v7u).
 - Add `ggplot` plots and saving support for `StepOne`, `StepTwo`, `StepThree`
   and `Validation` objects.
 
-### Changed
+## Changed
 - Migrate from `R` base plots to `ggplot2` and `patchwork`.
 - Add more detailed `Description` in `DESCRIPTION` file as per comment by CRAN
   member Julia Haider.
 
-### Fixed
+## Fixed
 - Fix seed in `StepOne` unit test.
 - Fix superfluous test fail for `GGM` model estimation. Restricted the unit test
   to compare the estimated edge weights up to 7 digits precision.
 
-## 1.4.0
-### Added
+# powerly 1.4.0
+
+## Added
 - Add code coverage workflow based on action provided by
   `usethis::use_github_action("test-coverage")` and badge to `README.md`.
 
-## 1.3.0
-### Fixed
+# powerly 1.3.0
+
+## Fixed
 - Fix cluster creation bug in `Backend` when the machine had only 1 or 2 cores.
   The previous version would result in an error when the machine contained only
   1 or 2 cores. Now, when the machine has only 1 core, the cluster creation will
@@ -228,7 +252,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   2 cores, all 2 cores are used. In all other cases, the number of cores used is
   given by the number of cores on the machine minus one.
 
-### Changed
+## Changed
 - Add names and comments to workflow file `R-CMD-check.yaml`.
 - Update `README.md` and package startup logo to only show major version.
 - Update existing tests and added new ones.
@@ -240,38 +264,43 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   cluster is created and stopped (i.e., also for adopted clusters).
 - Correct version number and add changes in `NEWS.md` for `1.2.0`.
 
-## 1.2.0
-### Added
+# powerly 1.2.0
+
+## Added
 - Add *CI* workflow via `usethis::use_github_action_check_standard()`.
 
-### Fixed
+## Fixed
 - Restrict tests to using a maximum of two cores to respect CRAN restriction.
 
-### Changed
+## Changed
 - Hide package logo at startup if the `R` session is not interactive.
 - Add more informative changelogs to `NEWS.md` for previous releases.
 
-## 1.1.1
-### Fixed
+# powerly 1.1.1
+
+## Fixed
 - Add `.remove_missing()` to clear any `NA` values that may be present in
   `.measures` in `StepOne` class after the *Monte Carlo* procedure.
 
-## 1.1.1
-### Fixed
+# powerly 1.1.1
+
+## Fixed
 - Fix broken URLs in documentation causing build warnings.
 
-## 1.1.0
-### Added
+# powerly 1.1.0
+
+## Added
 - Add `validate()` public *API* to validate method results.
 - Add `Validation` class to perform validation on a `Method` object.
 
-### Changed
+## Changed
 - Add example in `README.md` for `validation()` and fixed images.
 - Decrease legend font size in `StepThree` class.
 - Rename from quantile to percentile in `StepThree` class plots.
 
-## 1.0.0
-### Added
+# powerly 1.0.0
+
+## Added
 - Add `powerly()` public *API* to run the method.
 - Add `generate_model()` public *API* to generate true models.
 - Add package documentation for public *API*.
@@ -283,16 +312,19 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Add support for multiple solvers for estimating spline coefficients.
 - Rewrite prototype using `R6` *OOP* style into first stable release.
 
-## 0.2.0
-### Removed
+# powerly 0.2.0
+
+## Removed
 - Remove text feedback from each method step function.
 
-## 0.1.1
-### Fixed
+# powerly 0.1.1
+
+## Fixed
 - Fix bug cased by initial candidate sample size ranges being too narrow.
 
-## 0.1.0
-### Added
+# powerly 0.1.0
+
+## Added
 - Add preliminary support for the *Gaussian Graphical Model* via `ggm` object.
 - Add preliminary support for two statistics via `statistic.power()` and
   `statistic.mean()`.

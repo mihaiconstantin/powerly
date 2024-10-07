@@ -1,5 +1,5 @@
 Package: powerly
-Title: Sample Size Analysis for Psychological Networks and More
+Title: Sample Size Analysis Framework
 Version: 1.8.6
 Authors@R:
     person(given = "Mihai",
@@ -7,59 +7,19 @@ Authors@R:
            role = c("aut", "cre"),
            email = "mihai@mihaiconstantin.com",
            comment = c(ORCID = "0000-0002-6460-0107"))
-Description: An implementation of the sample size computation method for network
-    models proposed by Constantin et al. (2021) <doi:10.31234/osf.io/j5v7u>.
-    The implementation takes the form of a three-step recursive algorithm
-    designed to find an optimal sample size given a model specification and a
-    performance measure of interest. It starts with a Monte Carlo simulation
-    step for computing the performance measure and a statistic at various sample
-    sizes selected from an initial sample size range. It continues with a
-    monotone curve-fitting step for interpolating the statistic across the entire
-    sample size range. The final step employs stratified bootstrapping to quantify
-    the uncertainty around the fitted curve.
+Description: A general framework for sample size analysis.
 License: MIT + file LICENSE
 URL: https://powerly.dev
 BugReports: https://github.com/mihaiconstantin/powerly/issues
 Imports:
     R6,
-    progress,
-    parallel,
-    splines2,
-    quadprog,
-    bootnet,
-    qgraph,
-    ggplot2,
-    rlang,
-    mvtnorm,
-    patchwork
+    parabar
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.1
 Collate:
-    'Backend.R'
-    'Basis.R'
-    'Model.R'
-    'GgmModel.R'
-    'Interpolation.R'
-    'Spline.R'
-    'StepThree.R'
-    'StepTwo.R'
-    'Statistic.R'
-    'PowerStatistic.R'
-    'StatisticFactory.R'
-    'ModelFactory.R'
-    'StepOne.R'
-    'Range.R'
-    'Method.R'
-    'QuadprogSolver.R'
-    'Solver.R'
-    'SolverFactory.R'
-    'Validation.R'
-    'constants.R'
-    'exports.R'
-    'helpers.R'
-    'logo.R'
+    'powerly-logo.R'
     'powerly-package.R'
 Suggests:
     testthat (>= 3.0.0)
