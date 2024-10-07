@@ -10,14 +10,17 @@
 #                                                         #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Author: Mihai A. Constantin                             #
+# Documentation: https://powerly.dev                      #
 # Contact: mihai@mihaiconstantin.com                      #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 
 # Imports.
 #' @importFrom parabar BackendFactory ContextFactory BarFactory Specification
 #' @importFrom R6 R6Class
 
 
+# Includes.
 #' @include powerly-logo.R
 
 #' @title
