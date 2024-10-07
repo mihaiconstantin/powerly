@@ -14,6 +14,9 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Imports.
+#' @importFrom parabar BackendFactory ContextFactory BarFactory Specification
+#' @importFrom R6 R6Class
+
 
 #' @include powerly-logo.R
 
@@ -32,6 +35,13 @@
 "_PACKAGE"
 
 
+# On package load.
+.onLoad <- function(libname, pkgname) {
+    # Set package options.
+    set_default_options()
+}
+
+
 # On package attach or load.
 .onAttach <- function(libname, pkgname) {
     # Only show the logo if this is a human-handled session.
@@ -39,4 +49,11 @@
         # Print the logo.
         packageStartupMessage(LOGO)
     }
+}
+
+
+# On package unload.
+.onUnload <- function(libpath) {
+    # Remove package options.
+    options(powerly = NULL)
 }
