@@ -6,5 +6,6 @@
 **/*.tar.gz
 .vscode
 *.Rcheck
+**/archive
 **/notes
 **/temp-.*$
