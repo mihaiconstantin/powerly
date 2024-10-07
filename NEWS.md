@@ -1,9 +1,10 @@
-# powerly 2.0.0
+# Development
 
 ## Changed
 - Update `GitHub` action versions for all workflow files. Closes
   [#37](https://github.com/mihaiconstantin/powerly/issues/37).
 - Add missing link to paper reference in documentation.
+- Update `make_logo` function to include the package name in the logo.
 
 ## Removed
 - Remove `VuePress` documentation files. From `v2.2.0` the documentation will be
