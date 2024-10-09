@@ -1,6 +1,6 @@
 Package: powerly
 Title: Sample Size Analysis Framework
-Version: 1.8.6
+Version: 2.0.0-alpha
 Authors@R:
     person(given = "Mihai",
            family = "Constantin",
