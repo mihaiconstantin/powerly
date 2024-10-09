@@ -32,7 +32,7 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #'
         #' @param specify A function that specifies the true model parameters.
         #' The function must match the signature and return type of the
-        #' `specify` method in the `[powerly::ModelService]` class.
+        #' `specify` method in the [`powerly::ModelService`] class.
         #'
         #' @return
         #' This method returns void.
@@ -45,7 +45,7 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #'
         #' @param generate A function that generates a sample from the true
         #' model. The function must match the signature and return type of the
-        #' `generate` method in the `[powerly::ModelService]` class.
+        #' `generate` method in the [`powerly::ModelService`] class.
         #'
         #' @return
         #' This method returns void.
@@ -58,7 +58,7 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #'
         #' @param estimate A function that estimates the model parameters. The
         #' function must match the signature and return type of the `estimate`
-        #' method in the `[powerly::ModelService]` class.
+        #' method in the [`powerly::ModelService`] class.
         #'
         #' @return
         #' This method returns void.
@@ -72,7 +72,7 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #'
         #' @param evaluate A function that evaluates the estimation performance.
         #' The function must match the signature and return type of the
-        #' `evaluate` method in the `[powerly::ModelService]` class.
+        #' `evaluate` method in the [`powerly::ModelService`] class.
         #'
         #' @return
         #' This method returns void.

@@ -53,7 +53,7 @@ Set the function for specifying the true model parameters.
 \describe{
 \item{\code{specify}}{A function that specifies the true model parameters.
 The function must match the signature and return type of the
-\code{specify} method in the \verb{[powerly::ModelService]} class.}
+\code{specify} method in the \code{\link{ModelService}} class.}
 }
 \if{html}{\out{</div>}}
 }
@@ -75,7 +75,7 @@ Set the function for generating a sample from the true model.
 \describe{
 \item{\code{generate}}{A function that generates a sample from the true
 model. The function must match the signature and return type of the
-\code{generate} method in the \verb{[powerly::ModelService]} class.}
+\code{generate} method in the \code{\link{ModelService}} class.}
 }
 \if{html}{\out{</div>}}
 }
@@ -97,7 +97,7 @@ Set the function for estimating the model parameters.
 \describe{
 \item{\code{estimate}}{A function that estimates the model parameters. The
 function must match the signature and return type of the \code{estimate}
-method in the \verb{[powerly::ModelService]} class.}
+method in the \code{\link{ModelService}} class.}
 }
 \if{html}{\out{</div>}}
 }
@@ -120,7 +120,7 @@ performance measure of interest.
 \describe{
 \item{\code{evaluate}}{A function that evaluates the estimation performance.
 The function must match the signature and return type of the
-\code{evaluate} method in the \verb{[powerly::ModelService]} class.}
+\code{evaluate} method in the \code{\link{ModelService}} class.}
 }
 \if{html}{\out{</div>}}
 }
