@@ -16,13 +16,17 @@ Imports:
     parabar
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
+Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.1
 Collate:
     'Options.R'
     'Helper.R'
     'Exception.R'
+    'ModelImplementation.R'
     'ModelService.R'
+    'RuntimeModel.R'
+    'ModelCreator.R'
+    'FunctionModelCreator.R'
     'Warning.R'
     'exports.r'
     'powerly-logo.R'
