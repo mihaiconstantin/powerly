@@ -6,13 +6,14 @@
 #' @description
 #' This is an interface that defines the operations a statistical model must
 #' implement in order to be receive sample size analysis support. Models are
-#' created and handled internally by the framework. For registering a new
-#' model with the framework, please use the public `API`
-#' [`powerly::register_model`] and [`powerly::validate_model`].
+#' created and handled internally by the framework. For registering a new model
+#' with the framework, please use the public `API` [`powerly::register_model`]
+#' and [`powerly::validate_model`].
 #'
 #' @seealso
-#' [`powerly::RuntimeModel`], [`powerly::validate_model`], and
-#' [`powerly::register_model`].
+#' [`powerly::RuntimeModel`], [`powerly::ModelImplementation`],
+#' [`powerly::ModelCreator`], [`powerly::FunctionModelCreator`],
+#' [`powerly::register_model`], and [`powerly::validate_model`].
 #'
 #' @export
 ModelService <- R6::R6Class("ModelService",
@@ -31,9 +32,9 @@ ModelService <- R6::R6Class("ModelService",
         #' this method is used as input for the `generate` and `evaluate`
         #' methods.
         #'
-        #' @param ... Optional arguments passed from the global environment
-        #' required for creating a true model specification (i.e., the true
-        #' model parameters).
+        #' @param ... Optional arguments passed from the global environment for
+        #' creating a true model specification (i.e., the true model
+        #' parameters).
         #'
         #' @return
         #' A list of variable length, containing the results of the model
@@ -48,9 +49,8 @@ ModelService <- R6::R6Class("ModelService",
         #' @param specification A list of variable length, representing the
         #' output of the `specify` method.
         #'
-        #' @param ... Optional arguments passed from the global environment
-        #' required for generating a sample based on the true model
-        #' specification.
+        #' @param ... Optional arguments passed from the global environment for
+        #' generating a sample based on the true model specification.
         #'
         #' @return
         #' A list of variable length, containing the generated sample.
