@@ -13,6 +13,7 @@
 #'   \item{\code{Helper$get_option(option)}}{Get package option, or corresponding default value.}
 #'   \item{\code{Helper$set_option(option, value)}}{Set package option.}
 #'   \item{\code{Helper$check_object_type(object, expected_type)}}{Check the type of a given object.}
+#'   \item{\code{Helper$update_list(x, ...)}}{Append new arguments to a list or overwrite existing ones.}
 #' }
 #'
 #' @export
@@ -73,4 +74,49 @@ Helper$check_object_type <- function(object, expected_type) {
         # Throw incorrect type error.
         Exception$type_not_assignable(type, expected_type)
     }
+}
+
+# Append new arguments to a list or overwrite existing ones.
+Helper$update_list <- function(x, ...) {
+    # Capture the new arguments as a list.
+    new <- list(...)
+
+    # If there are no new arguments.
+    if (length(new) == 0) {
+        # Return the original list.
+        return(x)
+    }
+
+    # Extract the names of the new arguments.
+    names_new <- names(new)
+
+    # Check if any of the new argument names are empty.
+    if (any(names_new == "")) {
+        # Throw an error.
+        Exception$unnamed_argument_not_allowed()
+    }
+
+    # Find the duplicate arguments.
+    duplicates <- duplicated(names_new, fromLast = TRUE)
+
+    # Check for duplicate argument names in the new arguments.
+    if (any(duplicates)) {
+        # Find the duplicate argument names.
+        duplicate_names <- unique(names_new[duplicates])
+
+        # Warn the user.
+        Warning$duplicate_arguments(duplicate_names)
+
+        # Keep only the last occurrence of each duplicate.
+        new <- new[!duplicates]
+
+        # Update the names of the new arguments.
+        names_new <- names(new)
+    }
+
+    # Update existing arguments and add new ones.
+    x[names_new] <- new
+
+    # Return updated list.
+    return(x)
 }

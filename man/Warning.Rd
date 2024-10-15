@@ -5,6 +5,7 @@
 \title{Package Warnings}
 \format{
 \describe{
+\item{\code{Warning$duplicate_arguments(names)}}{Warning for providing duplicate arguments in the \code{...} construct.}
 }
 }
 \description{

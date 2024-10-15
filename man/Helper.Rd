@@ -10,6 +10,7 @@
 \item{\code{Helper$get_option(option)}}{Get package option, or corresponding default value.}
 \item{\code{Helper$set_option(option, value)}}{Set package option.}
 \item{\code{Helper$check_object_type(object, expected_type)}}{Check the type of a given object.}
+\item{\code{Helper$update_list(x, ...)}}{Append new arguments to a list or overwrite existing ones.}
 }
 }
 \description{
