@@ -29,7 +29,7 @@ Exception$abstract_class_not_instantiable <- function(object) {
         # Throw the error.
         stop("Abstract class cannot to be instantiated.", call. = FALSE)
     } else {
-        # Construct exception message.
+        # Construct the exception message.
         message <- paste0("Abstract class '", Helper$get_class_name(object), "' cannot to be instantiated.")
 
         # Throw the error.
@@ -51,7 +51,7 @@ Exception$feature_not_developed <- function() {
 
 # Exception for when providing incorrect object types.
 Exception$type_not_assignable <- function(actual, expected) {
-    # Construct exception message.
+    # Construct the exception message.
     message = paste0("Argument of type '", actual, "' is not assignable to parameter of type '", expected, "'.")
 
     # Throw the error.
@@ -60,7 +60,7 @@ Exception$type_not_assignable <- function(actual, expected) {
 
 # Exception for when requesting unknown package options.
 Exception$unknown_package_option <- function(option) {
-    # Construct exception message.
+    # Construct the exception message.
     message = paste0("Unknown package option '", option, "'.")
 
     # Throw the error.
