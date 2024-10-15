@@ -10,6 +10,8 @@
 \item{\code{Exception$feature_not_developed()}}{Exception for running into things not yet developed.}
 \item{\code{Exception$type_not_assignable(actual, expected)}}{Exception for when providing incorrect object types.}
 \item{\code{Exception$unknown_package_option(option)}}{Exception for when requesting unknown package options.}
+\item{\code{Exception$unnamed_argument_not_allowed()}}{Exception for providing unnamed arguments in the \code{...} construct.}
+\item{\code{Exception$unknown_model_operation(operation)}}{Exception for calling an unknown model operation.}
 }
 }
 \description{
