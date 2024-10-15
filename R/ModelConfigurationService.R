@@ -4,9 +4,9 @@
 #' ModelConfigurationService
 #'
 #' @description
-#' This is an interface that defines methods for configuring the arguments
-#' passed to operations of a statistical model (i.e., public methods defined by
-#' the [`powerly::ModelService`] interface).
+#' This is an interface that defines the methods required for configuring
+#' arguments passed to concrete model implementations of the
+#' [`powerly::ModelService`] interface.
 #'
 #' @seealso
 #' [`powerly::ModelConfiguration`] and [`powerly::ModelService`].
