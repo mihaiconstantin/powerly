@@ -14,19 +14,21 @@
 ModelConfiguration <- R6::R6Class("ModelConfiguration",
     inherit = ModelConfigurationService,
 
+    private = list(
+        # Arguments for `specify`.
+        .specify = list(),
+
+        # Arguments for `generate`.
+        .generate = list(),
+
+        # Arguments for `estimate`.
+        .estimate = list(),
+
+        # Arguments for `evaluate`.
+        .evaluate = list()
+    ),
+
     public = list(
-        #' @field specify A list of arguments for the `specify` operation.
-        specify = list(),
-
-        #' @field generate A list of arguments for the `generate` operation.
-        generate = list(),
-
-        #' @field estimate A list of arguments for the `estimate` operation.
-        estimate = list(),
-
-        #' @field evaluate A list of arguments for the `evaluate` operation.
-        evaluate = list(),
-
         #' @description
         #' Create a new [`powerly::ModelConfiguration`] object.
         #'
@@ -44,7 +46,7 @@ ModelConfiguration <- R6::R6Class("ModelConfiguration",
         #' accessed via the `specify` field.
         configure_specify = function(...) {
             # Update the `specify` arguments.
-            self$specify <- Helper$update_list(self$specify, ...)
+            private$.specify <- Helper$update_list(private$.specify, ...)
         },
 
         #' @description
@@ -57,7 +59,7 @@ ModelConfiguration <- R6::R6Class("ModelConfiguration",
         #' accessed via the `generate` field.
         configure_generate = function(...) {
             # Update the `generate` arguments.
-            self$generate <- Helper$update_list(self$generate, ...)
+            private$.generate <- Helper$update_list(private$.generate, ...)
         },
 
         #' @description
@@ -70,7 +72,7 @@ ModelConfiguration <- R6::R6Class("ModelConfiguration",
         #' accessed via the `estimate` field.
         configure_estimate = function(...) {
             # Update the `estimate` arguments.
-            self$estimate <- Helper$update_list(self$estimate, ...)
+            private$.estimate <- Helper$update_list(private$.estimate, ...)
         },
 
         #' @description
@@ -83,7 +85,21 @@ ModelConfiguration <- R6::R6Class("ModelConfiguration",
         #' accessed via the `evaluate` field.
         configure_evaluate = function(...) {
             # Update the `evaluate` arguments.
-            self$evaluate <- Helper$update_list(self$evaluate, ...)
+            private$.evaluate <- Helper$update_list(private$.evaluate, ...)
         }
+    ),
+
+    active = list(
+        #' @field specify A list of arguments for the `specify` operation.
+        specify = function() { return(private$.specify) },
+
+        #' @field generate A list of arguments for the `generate` operation.
+        generate = function() { return(private$.generate) },
+
+        #' @field estimate A list of arguments for the `estimate` operation.
+        estimate = function() { return(private$.estimate) },
+
+        #' @field evaluate A list of arguments for the `evaluate` operation.
+        evaluate = function() { return(private$.evaluate) }
     )
 )
