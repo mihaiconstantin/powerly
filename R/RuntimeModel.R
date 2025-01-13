@@ -42,6 +42,10 @@ RuntimeModel <- R6::R6Class("RuntimeModel",
         #' @return
         #' This method returns void.
         set_implementation = function(implementation) {
+            # Check type.
+            Helper$check_object_type(implementation, "ModelImplementation")
+
+            # Set the implementation instance.
             private$.implementation <- implementation
         },
 
