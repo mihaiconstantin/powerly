@@ -37,6 +37,10 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #' @return
         #' This method returns void.
         set_specify = function(specify) {
+            # Check type.
+            Helper$check_object_type(specify, "function")
+
+            # Set the `specify` function.
             private$.specify <- specify
         },
 
@@ -50,6 +54,10 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #' @return
         #' This method returns void.
         set_generate = function(generate) {
+            # Check type.
+            Helper$check_object_type(generate, "function")
+
+            # Set the `generate` function.
             private$.generate <- generate
         },
 
@@ -63,6 +71,10 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #' @return
         #' This method returns void.
         set_estimate = function(estimate) {
+            # Check type.
+            Helper$check_object_type(estimate, "function")
+
+            # Set the `estimate` function.
             private$.estimate <- estimate
         },
 
@@ -77,6 +89,10 @@ ModelImplementation <- R6::R6Class("ModelImplementation",
         #' @return
         #' This method returns void.
         set_evaluate = function(evaluate) {
+            # Check type.
+            Helper$check_object_type(evaluate, "function")
+
+            # Set the `evaluate` function.
             private$.evaluate <- evaluate
         }
     ),
