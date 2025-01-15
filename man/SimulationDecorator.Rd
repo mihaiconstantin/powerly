@@ -20,26 +20,19 @@ methods of interest defined in the \code{\link{SimulationService}} interface.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-SimulationDecorator-new}{\code{SimulationDecorator$new()}}
 \item \href{#method-SimulationDecorator-set_simulation}{\code{SimulationDecorator$set_simulation()}}
 \item \href{#method-SimulationDecorator-configure}{\code{SimulationDecorator$configure()}}
 \item \href{#method-SimulationDecorator-run}{\code{SimulationDecorator$run()}}
 \item \href{#method-SimulationDecorator-clone}{\code{SimulationDecorator$clone()}}
 }
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-SimulationDecorator-new"></a>}}
-\if{latex}{\out{\hypertarget{method-SimulationDecorator-new}{}}}
-\subsection{Method \code{new()}}{
-Create a new \code{\link{SimulationDecorator}} object.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SimulationDecorator$new()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-An object of class \code{\link{SimulationDecorator}}.
-}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="powerly" data-topic="SimulationService" data-id="initialize"><a href='../../powerly/html/SimulationService.html#method-SimulationService-initialize'><code>powerly::SimulationService$initialize()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-SimulationDecorator-set_simulation"></a>}}
 \if{latex}{\out{\hypertarget{method-SimulationDecorator-set_simulation}{}}}

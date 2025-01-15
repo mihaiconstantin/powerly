@@ -15,8 +15,8 @@ interface that provides a way to configure the arguments for the \code{specify},
 \section{Super class}{
 \code{\link[powerly:ModelConfigurationService]{powerly::ModelConfigurationService}} -> \code{ModelConfiguration}
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
 \item{\code{specify}}{A list of arguments for the \code{specify} operation.}
 
