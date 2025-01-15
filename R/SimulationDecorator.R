@@ -71,5 +71,12 @@ SimulationDecorator <- R6::R6Class("SimulationDecorator",
             # Forward the execution to the simulation instance.
             private$.simulation$run(...)
         }
+    ),
+
+    active = list(
+        simulation = function() {
+            # Get the simulation instance.
+            return(private$.simulation)
+        }
     )
 )
