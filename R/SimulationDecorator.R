@@ -24,13 +24,6 @@ SimulationDecorator <- R6::R6Class("SimulationDecorator",
 
     public = list(
         #' @description
-        #' Create a new [`powerly::SimulationDecorator`] object.
-        #'
-        #' @return
-        #' An object of class [`powerly::SimulationDecorator`].
-        initialize = function() { invisible() },
-
-        #' @description
         #' Set the simulation instance.
         #'
         #' @param simulation An object of class [`powerly::SimulationService`].
@@ -38,6 +31,9 @@ SimulationDecorator <- R6::R6Class("SimulationDecorator",
         #' @return
         #' This method returns void.
         set_simulation = function(simulation) {
+            # Check the type.
+            Helper$check_object_type(simulation, "SimulationService")
+
             # Set the simulation instance.
             private$.simulation <- simulation
         },
@@ -67,6 +63,13 @@ SimulationDecorator <- R6::R6Class("SimulationDecorator",
         run = function(...) {
             # Forward the execution to the simulation instance.
             private$.simulation$run(...)
+        }
+    ),
+
+    active = list(
+        simulation = function() {
+            # Get the simulation instance.
+            return(private$.simulation)
         }
     )
 )

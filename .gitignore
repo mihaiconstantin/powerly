@@ -1,11 +1,18 @@
-.Rhistory
-*.Rproj.user
-**/*.DS_Store
-**/*.temp
-**/*.cache
-**/*.tar.gz
-.vscode
-*.Rcheck
+# Folders.
+**/.vscode
+**/*.Rcheck
 **/archive
 **/notes
-**/temp-.*$
+**/docs
+**/doc
+**/inst/doc
+**/Meta
+
+# Files.
+*.Rproj.user
+.Rhistory
+**/*.DS_Store
+**/*.cache
+**/*.temp
+**/*.tar.gz
+**/temp*\.*
