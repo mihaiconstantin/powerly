@@ -18,7 +18,16 @@ ModelSimulation <- R6::R6Class("ModelSimulation",
 
     private = list(
         # The model specification (i.e., true model parameters).
-        .specification = list()
+        .specification = list(),
+
+        # Check object types.
+        .check_types = function(model, configuration) {
+            # Check `model` type.
+            Helper$check_object_type(model, "ModelService")
+
+            # Check `configuration` type.
+            Helper$check_object_type(configuration, "ModelConfigurationService")
+        }
     ),
 
     public = list(
@@ -42,6 +51,9 @@ ModelSimulation <- R6::R6Class("ModelSimulation",
         #' @return
         #' An object of class [`powerly::ModelSimulation`].
         initialize = function(model, configuration) {
+            # Check types.
+            private$.check_types(model, configuration)
+
             # Set the model.
             self$model <- model
 
