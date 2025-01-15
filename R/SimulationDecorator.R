@@ -38,6 +38,9 @@ SimulationDecorator <- R6::R6Class("SimulationDecorator",
         #' @return
         #' This method returns void.
         set_simulation = function(simulation) {
+            # Check the type.
+            Helper$check_object_type(simulation, "SimulationService")
+
             # Set the simulation instance.
             private$.simulation <- simulation
         },
