@@ -24,13 +24,6 @@ SimulationDecorator <- R6::R6Class("SimulationDecorator",
 
     public = list(
         #' @description
-        #' Create a new [`powerly::SimulationDecorator`] object.
-        #'
-        #' @return
-        #' An object of class [`powerly::SimulationDecorator`].
-        initialize = function() { invisible() },
-
-        #' @description
         #' Set the simulation instance.
         #'
         #' @param simulation An object of class [`powerly::SimulationService`].
