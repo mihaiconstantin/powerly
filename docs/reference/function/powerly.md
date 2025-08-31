@@ -74,13 +74,13 @@ powerly(
 ## Details
 
 This function represents the implementation of the method introduced by
-[Constantin et al. (2021)](https://psyarxiv.com/j5v7u) for performing a priori
-sample size analysis (i.e., currently in the context of network models). The
-method takes the form of a three-step recursive algorithm designed to find an
-optimal sample size value given a model specification and an outcome measure of
-interest (e.g., sensitivity). It starts with a Monte Carlo simulation step for
-computing the outcome of interest at various sample sizes. It continues with a
-monotone non-decreasing curve-fitting step for interpolating the outcome. The
+[Constantin et al. (2023)](https://doi.org/10.1037/met0000555) for performing a
+priori sample size analysis (i.e., currently in the context of network models).
+The method takes the form of a three-step recursive algorithm designed to find
+an optimal sample size value given a model specification and an outcome measure
+of interest (e.g., sensitivity). It starts with a Monte Carlo simulation step
+for computing the outcome of interest at various sample sizes. It continues with
+a monotone non-decreasing curve-fitting step for interpolating the outcome. The
 final step employs a stratified bootstrapping scheme to account for the
 uncertainty around the recommendation provided. The method runs the three steps
 iteratively until the candidate sample size range used for the search shrinks
@@ -223,8 +223,9 @@ com`.
 
 <div class="references">
 
-Constantin, M., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo
-Method for Sample Size Analysis in the Context of Network Models.
-[https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
+Constantin, M. A., Schuurman, N. K., & Vermunt, J. K. (2023). A General Monte
+Carlo Method for Sample Size Analysis in the Context of Network Models.
+_Psychological Methods_.
+[https://doi.org/10.1037/met0000555](https://doi.org/10.1037/met0000555)
 
 </div>

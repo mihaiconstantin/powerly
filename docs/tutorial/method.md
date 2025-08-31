@@ -10,7 +10,7 @@ The goal of this post is to succinctly explain the main concepts used in the
 sample size computation method that `powerly` is based on. In doing so, I aim to
 help get you acquainted with terminology used throughout the rest of the posts
 in the tutorial section. You may regard this post as a summary of the key things
-discussed in [Constantin et al. (2021)](https://psyarxiv.com/j5v7u).
+discussed in [Constantin et al. (2023)](https://doi.org/10.1037/met0000555).
 
 ## Input
 To start the search for the optimal sample size, `powerly` requires three
@@ -307,9 +307,9 @@ These arguments can be grouped in three categories:
 3. **_Miscellaneous_**.
 
 The table below provides an overview of the mapping between the notation used in
-[Constantin et al. (2021)](https://psyarxiv.com/j5v7u) and the `R` function
-arguments. The order of the rows in the table is indicative of the order in
-which the arguments appear in the method steps.
+[Constantin et al. (2023)](https://doi.org/10.1037/met0000555) and the `R`
+function arguments. The order of the rows in the table is indicative of the
+order in which the arguments appear in the method steps.
 
 <div class="table-arguments">
 
@@ -369,23 +369,24 @@ validate a sample size recommendation.
 
 <div class="references">
 
-Constantin, M., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo
-Method for Sample Size Analysis in the Context of Network Models.
-[https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
+Constantin, M. A., Schuurman, N. K., & Vermunt, J. K. (2023). A General Monte
+Carlo Method for Sample Size Analysis in the Context of Network Models.
+_Psychological Methods_.
+[https://doi.org/10.1037/met0000555](https://doi.org/10.1037/met0000555)
 
 de Leeuw, J. (2017). Computing and Fitting Monotone Splines.
 [http://dx.doi.org/10.13140/RG.2.2.36758.96327](http://dx.doi.org/10.13140/RG.2.2.36758.96327)
 
-Knuth, D. E. (1992). Two Notes on Notation. *The American Mathematical Monthly*,
+Knuth, D. E. (1992). Two Notes on Notation. _The American Mathematical Monthly_,
 99(5), 403–422.
 [https://doi.org/10.1080/00029890.1992.11995869](https://doi.org/10.1080/00029890.1992.11995869)
 
-Ramsay, J. O. (1988). Monotone Regression Splines in Action. *Statistical
-Science*, 3(4), 425–441.
+Ramsay, J. O. (1988). Monotone Regression Splines in Action. _Statistical
+Science_, 3(4), 425–441.
 [https://doi.org/10.1214/ss/1177012761](https://doi.org/10.1214/ss/1177012761)
 
 Wang, W., & Yan, J. (2021). Shape-restricted regression splines with R package
-splines2. *Journal of Data Science*, 19(3), 498–517.
+splines2. _Journal of Data Science_, 19(3), 498–517.
 [https://doi.org/10.6339/21-JDS1020](https://doi.org/10.6339/21-JDS1020)
 
 </div>

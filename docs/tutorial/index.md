@@ -8,20 +8,22 @@ header-includes:
 
 `powerly` is an `R` package developed to provide support for researchers who
 *wish* to perform power analysis. At its core, `powerly` is based on the method
-proposed by [Constantin et al. (2021)](https://psyarxiv.com/j5v7u), which takes
-the form of a three-step algorithm designed to iteratively search for an optimal
-sample size, given some user input. It takes as input a set of hypothesized true
-model parameters (i.e., an effect size), a performance measure of interest and
-its corresponding target value (e.g., a sensitivity of $0.6$), and a statistic
-that describes *how* the performance measure value should be reached (e.g.,
-reaching a sensitivity of $0.6$ with a probability of $0.8$). The search for the
-optimal sample size is conducted in three steps, starting with a Monte Carlo
-simulation step for computing the performance measure and statistic at various
-sample sizes within a candidate sample size range. It continues with a monotone
-curve-fitting step for interpolating the statistic. The final step employs
-stratified bootstrapping to quantify the uncertainty around the fitted curve.
-For more details, consult the [manuscript](https://psyarxiv.com/j5v7u) or check
-out the remainder of the [Tutorial Section](/tutorial/).
+proposed by [Constantin et al. (2023)](https://doi.org/10.1037/met0000555),
+which takes the form of a three-step algorithm designed to iteratively search
+for an optimal sample size, given some user input. It takes as input a set of
+hypothesized true model parameters (i.e., an effect size), a performance measure
+of interest and its corresponding target value (e.g., a sensitivity of $0.6$),
+and a statistic that describes *how* the performance measure value should be
+reached (e.g., reaching a sensitivity of $0.6$ with a probability of $0.8$). The
+search for the optimal sample size is conducted in three steps, starting with a
+Monte Carlo simulation step for computing the performance measure and statistic
+at various sample sizes within a candidate sample size range. It continues with
+a monotone curve-fitting step for interpolating the statistic. The final step
+employs stratified bootstrapping to quantify the uncertainty around the fitted
+curve. For more details, consult the
+[manuscript](https://doi.org/10.1037/met0000555) (i.e., or the
+[preprint](https://psyarxiv.com/j5v7u) for better formatting) or check out the
+[tutorial](/tutorial/) section.
 
 Next, I will provide a quick overview on how to get started with `powerly`, list
 the main functions available in the package, and highlight the main steps

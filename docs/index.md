@@ -32,15 +32,16 @@ pageClass: page-home
 <div class="main-text-content">
 
 `powerly` is an `R` package for conducting sample size analysis that implements
-the method by [Constantin et al. (2021)](https://psyarxiv.com/j5v7u). The
-implementation takes the form of a three-step recursive algorithm designed to
-find an optimal sample size given a model specification and an outcome measure
-of interest. It starts with a Monte Carlo simulation step for computing the
-outcome at various sample sizes. It continues with a monotone curve-fitting step
-for interpolating the outcome. The final step employs stratified bootstrapping
-to quantify the uncertainty around the fitted curve. For more details, consult
-the [manuscript](https://psyarxiv.com/j5v7u) or check out the
-[tutorial](/tutorial/) section.
+the method by [Constantin et al. (2023)](https://doi.org/10.1037/met0000555).
+The implementation takes the form of a three-step recursive algorithm designed
+to find an optimal sample size given a model specification and an outcome
+measure of interest. It starts with a Monte Carlo simulation step for computing
+the outcome at various sample sizes. It continues with a monotone curve-fitting
+step for interpolating the outcome. The final step employs stratified
+bootstrapping to quantify the uncertainty around the fitted curve. For more
+details, consult the [manuscript](https://doi.org/10.1037/met0000555) (i.e., or
+the [preprint](https://psyarxiv.com/j5v7u) for better formatting) or check out
+the [tutorial](/tutorial/) section.
 
 </div>
 </div>
