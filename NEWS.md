@@ -3,13 +3,28 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 1.9.0
+### Added
+- Add content for website [publications
+  page](https://powerly.dev/publications/).
+
 ### Changed
+- Update copyright information in license files.
+- Add published manuscript `DOI` to the package logo.
+- Update citation, references, and documentation mentions to the published
+  manuscript available at
+  [10.1037/met0000555](https://doi.org/10.1037/met0000555).
 - Update `GitHub` action versions for all workflow files. Closes
   [#37](https://github.com/mihaiconstantin/powerly/issues/37).
 - Add missing link to paper reference in documentation.
 
 ### Fixed
+- Update `CITATION` file to use `bibentry`.
+- Purged the evil from the website footer. Long overdue.
+- Fix resulting empty `\link{}` in `.Rd` files.
+- Disable cloning for `BackendTester` class.
+- Make destructor for `Backend` class private in line with `R6` package
+  recommendations (i.e., see `R6` `v2.6.0` changes).
 - Replace URLs for CRAN checks badges. Closes
   [#35](https://github.com/mihaiconstantin/powerly/issues/35).
 - Fix `docs` workflow error after changing from `yarn` to `pnpm`. For the time
@@ -65,7 +80,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## 1.8.0 - 2022-05-02
 ### Added
 - Add more arguments for generating partial correlation matrices (i.e., in line
-  with Yin and Li (2011; see reference below). The new arguments are `positive`
+  with Yin and Li, 2011; see reference below). The new arguments are `positive`
   (i.e., for the proportion of positive edges), `range` (i.e., for the interval
   from which to sample values for the partial correlations), and `constant`
   (i.e., to vary the magnitude of the partial correlations). See Yin and Li
@@ -200,7 +215,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Add preliminary `summary()` support for `Method` and `Validation` objects.
 - Update citation and references to the preprint available at
-  [psyarxiv.com/j5v7u](https://psyarxiv.com/j5v7u).
+  [psyarxiv.com/j5v7u](https://osf.io/preprints/psyarxiv/j5v7u).
 - Add `ggplot` plots and saving support for `StepOne`, `StepTwo`, `StepThree`
   and `Validation` objects.
 
