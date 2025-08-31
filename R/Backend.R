@@ -10,6 +10,15 @@ Backend <- R6::R6Class("Backend",
         .type = NULL,
         .allowed_types = c(unix = "fork", windows = "psock"),
 
+        # Destructor.
+        finalize = function() {
+            # If a cluster is active, stop before deleting the instance.
+            if (private$.active) {
+                # Stop the cluster.
+                private$.stop()
+            }
+        },
+
         # Set the cores (i.e., the number of clusters to create).
         .set_cores = function(cores) {
             # Abort if less than two cores are available.
@@ -177,15 +186,6 @@ Backend <- R6::R6Class("Backend",
     ),
 
     public = list(
-        # Destructor.
-        finalize = function() {
-            # If a cluster is active, stop before deleting the instance.
-            if (private$.active) {
-                # Stop the cluster.
-                private$.stop()
-            }
-        },
-
         # Start the cluster.
         start = function(cores, type = NULL) {
             private$.start(cores, type)
