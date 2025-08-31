@@ -78,6 +78,7 @@ StepThreeTester <- R6::R6Class("StepThreeTester",
 
 # Helper for testing private methods of `Backend` class.
 BackendTester <- R6::R6Class("BackendTester",
+    cloneable = FALSE,
     inherit = Backend,
 
     public = list(
