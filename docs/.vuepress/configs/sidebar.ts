@@ -69,8 +69,8 @@ export const sidebar: SidebarConfig = {
             ]
         }
     ],
-    "/publication/": [
-        "/publication/index.md",
+    "/publications/": [
+        "/publications/index.md",
     ],
     "/developer/": [
         "/developer/index.md",

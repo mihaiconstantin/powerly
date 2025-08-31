@@ -56,7 +56,7 @@ export const navbar: NavbarConfig = [
     },
     {
         text: "Publications",
-        link: "/publication/"
+        link: "/publications/"
     },
     {
         text: "Developer",
