@@ -40,9 +40,9 @@
 #' Sample Size Analysis for Psychological Networks and More
 #'
 #' @description
-#' `powerly` is a package that implements the method by [Constantin et al.
-#' (2023)](https://doi.org/10.1037/met0000555) for conducting sample size
-#' analysis for network models.
+#' `powerly` is a package that implements the method by Constantin et al. (2023;
+#' see \doi{10.1037/met0000555}) for conducting sample size analysis for network
+#' models.
 #'
 #' @details
 #' The method implemented is implemented in the main function [powerly()]. The
