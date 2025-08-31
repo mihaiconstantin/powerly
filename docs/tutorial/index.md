@@ -202,7 +202,7 @@ Which will result in the following:
 This introduction is intended to provide the bare minimum information needed to
 get started with `powerly`. If you want to learn more about where the numbers
 come from, I encourage you to check out the
-[manuscript](https://psyarxiv.com/j5v7u), or read the [next
+[manuscript](https://doi.org/10.1037/met0000555), or read the [next
 post](/tutorial/method) where I succinctly describe the terminology and the
 steps of the method. From there, you may continue with *applications* of the
 methods to different models (e.g., psychological networks, structural equation
