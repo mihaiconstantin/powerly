@@ -3,13 +3,27 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 1.9.0
+### Added
+- Add content for website [publications
+  page](https://powerly.dev/publications/).
+
 ### Changed
+- Update copyright information in license files.
+- Add published manuscript `DOI` to the package logo.
+- Update citation, references, and documentation mentions to the published
+  manuscript available at
+  [10.1037/met0000555](https://doi.org/10.1037/met0000555).
 - Update `GitHub` action versions for all workflow files. Closes
   [#37](https://github.com/mihaiconstantin/powerly/issues/37).
 - Add missing link to paper reference in documentation.
 
 ### Fixed
+- Purged the evil from the website footer. Long overdue.
+- Fix resulting empty `\link{}` in `.Rd` files.
+- Disable cloning for `BackendTester` class.
+- Make destructor for `Backend` class private in line with `R6` package
+  recommendations (i.e., see `R6` `v2.6.0` changes).
 - Replace URLs for CRAN checks badges. Closes
   [#35](https://github.com/mihaiconstantin/powerly/issues/35).
 - Fix `docs` workflow error after changing from `yarn` to `pnpm`. For the time
