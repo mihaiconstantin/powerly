@@ -19,6 +19,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Add missing link to paper reference in documentation.
 
 ### Fixed
+- Update `CITATION` file to use `bibentry`.
 - Purged the evil from the website footer. Long overdue.
 - Fix resulting empty `\link{}` in `.Rd` files.
 - Disable cloning for `BackendTester` class.
@@ -79,7 +80,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## 1.8.0 - 2022-05-02
 ### Added
 - Add more arguments for generating partial correlation matrices (i.e., in line
-  with Yin and Li (2011; see reference below). The new arguments are `positive`
+  with Yin and Li, 2011; see reference below). The new arguments are `positive`
   (i.e., for the proportion of positive edges), `range` (i.e., for the interval
   from which to sample values for the partial correlations), and `constant`
   (i.e., to vary the magnitude of the partial correlations). See Yin and Li
@@ -214,7 +215,7 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 - Add preliminary `summary()` support for `Method` and `Validation` objects.
 - Update citation and references to the preprint available at
-  [psyarxiv.com/j5v7u](https://psyarxiv.com/j5v7u).
+  [psyarxiv.com/j5v7u](https://osf.io/preprints/psyarxiv/j5v7u).
 - Add `ggplot` plots and saving support for `StepOne`, `StepTwo`, `StepThree`
   and `Validation` objects.
 
