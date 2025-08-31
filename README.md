@@ -25,7 +25,7 @@
 `powerly` is an `R` package that implements the method by [Constantin et al.
 (2023)](https://doi.org/10.1037/met0000555) for conducting sample size analysis
 for cross-sectional network models. The method implemented is implemented in the
-main function `powerly`()`. The implementation takes the form of a three-step
+main function `powerly()`. The implementation takes the form of a three-step
 recursive algorithm designed to find an optimal sample size value given a model
 specification and an outcome measure of interest. It starts with a Monte Carlo
 simulation step for computing the outcome at various sample sizes. Then, it
