@@ -23,8 +23,8 @@
 ## Description
 
 `powerly` is an `R` package that implements the method by [Constantin et al.
-(2021)](https://psyarxiv.com/j5v7u) for conducting sample size analysis for
-cross-sectional network models. The method implemented is implemented in the
+(2023)](https://doi.org/10.1037/met0000555) for conducting sample size analysis
+for cross-sectional network models. The method implemented is implemented in the
 main function `powerly`()`. The implementation takes the form of a three-step
 recursive algorithm designed to find an optimal sample size value given a model
 specification and an outcome measure of interest. It starts with a Monte Carlo
@@ -173,4 +173,5 @@ plot(validation)
 The code in this repository is licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 To use `powerly` please cite:
-- Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models. PsyArXiv. [https://doi.org/10.31234/osf.io/j5v7u](https://doi.org/10.31234/osf.io/j5v7u)
+
+- Constantin, M. A., Schuurman, N. K., & Vermunt, J. K. (2023). A General Monte Carlo Method for Sample Size Analysis in the Context of Network Models. _Psychological Methods_. [https://doi.org/10.1037/met0000555](https://doi.org/10.1037/met0000555)

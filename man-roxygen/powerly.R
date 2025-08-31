@@ -113,7 +113,7 @@
 #'
 #' @details
 #' This function represents the implementation of the method introduced by
-#' Constantin et al. (2021; see \doi{10.31234/osf.io/j5v7u}) for performing a
+#' Constantin et al. (2023; see \doi{10.1037/met0000555}) for performing a
 #' priori sample size analysis in the context of network models. The method
 #' takes the form of a three-step recursive algorithm designed to find an
 #' optimal sample size value given a model specification and an outcome measure
@@ -189,10 +189,10 @@
 #' - for Step 3: `plot(results, step = 3)`
 #'
 #' @references
-#' Constantin, M. A., Schuurman, N. K., & Vermunt, J. (2021). A General Monte
-#' Carlo Method for Sample Size Analysis in the Context of Network Models.
-#' PsyArXiv. \doi{10.31234/osf.io/j5v7u}
-#'
+#'  Constantin, M. A., Schuurman, N. K., & Vermunt, J. K. (2023). A General
+#'  Monte Carlo Method for Sample Size Analysis in the Context of Network
+#'  Models. _Psychological Methods_. \doi{10.1037/met0000555}
+#' 
 #' @examples
 #' \donttest{# Suppose we want to find the sample size for observing a sensitivity of `0.6`
 #' # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
