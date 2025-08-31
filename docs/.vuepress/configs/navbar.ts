@@ -58,10 +58,10 @@ export const navbar: NavbarConfig = [
         text: "Publications",
         link: "/publications/"
     },
-    {
-        text: "Developer",
-        link: "/developer/"
-    },
+    // {
+    //     text: "Developer",
+    //     link: "/developer/"
+    // },
     {
         text: "News",
         link: "https://github.com/mihaiconstantin/powerly/blob/main/NEWS.md"
