@@ -35,7 +35,7 @@ value is \code{20}.}
 \value{
 An \link[ggplot2:ggplot]{ggplot2::ggplot} object containing the plot for the validation procedure.
 The plot object returned can be further modified and also contains the
-\link{patchwork} class applied.
+\link[patchwork:patchwork-package]{patchwork::patchwork} class applied.
 
 \if{html}{
 Example of a validation plot:

@@ -48,7 +48,7 @@ overridden by providing the \code{units} argument via \code{...}.}
 \value{
 An \link[ggplot2:ggplot]{ggplot2::ggplot} object containing the plot for the requested step of the
 method. The plot object returned can be further modified and also contains
-the \link{patchwork} class applied.
+the \link[patchwork:patchwork-package]{patchwork::patchwork} class applied.
 
 \if{html}{
 Example of a plot for each step of the method:
