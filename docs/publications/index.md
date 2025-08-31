@@ -8,7 +8,8 @@ Below you can find the main publications pertaining to `powerly`:
 
 - Constantin, M. A., Schuurman, N. K., & Vermunt, J. K. (2023). A General Monte
 Carlo Method for Sample Size Analysis in the Context of Network Models.
-Psychological Methods. [https://doi.org/10.1037/met0000555](https://doi.org/10.1037/met0000555)
+_Psychological Methods_.
+[https://doi.org/10.1037/met0000555](https://doi.org/10.1037/met0000555)
 
     > _The network approach to psychology is an increasingly popular framework
     > for studying interactions among variables. As the field matures and
