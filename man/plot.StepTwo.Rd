@@ -29,9 +29,9 @@ overridden by providing the \code{units} argument via \code{...}.}
 \item{...}{Optional arguments to be passed to \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}.}
 }
 \value{
-An \link[ggplot2:ggplot]{ggplot2::ggplot} object containing the plot for a \code{StepTwo} object
-that can be further modified. The object returned also contains the
-\link{patchwork} class applied.
+An \link[ggplot2:ggplot]{ggplot2::ggplot} object containing the plot for a \code{StepTwo}
+object that can be further modified. The object returned also contains the
+\link[patchwork:patchwork-package]{patchwork::patchwork} class applied.
 
 \if{html}{
 Example of a plot:

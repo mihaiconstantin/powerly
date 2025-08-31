@@ -32,7 +32,7 @@
 #' @return
 #' An [ggplot2::ggplot] object containing the plot for the validation procedure.
 #' The plot object returned can be further modified and also contains the
-#' [patchwork] class applied.
+#' [patchwork::patchwork] class applied.
 #'
 #' \if{html}{
 #' Example of a validation plot:

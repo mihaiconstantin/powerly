@@ -3,11 +3,10 @@
 \docType{package}
 \name{powerly-package}
 \alias{powerly-package}
-\alias{_PACKAGE}
 \title{Sample Size Analysis for Psychological Networks and More}
 \description{
-\code{powerly} is a package that implements the method by \href{https://psyarxiv.com/j5v7u}{Constantin et al. (2021)} for conducting sample size analysis for
-network models.
+\code{powerly} is a package that implements the method by \href{\doi{doi.org/10.1037/met0000555}}{Constantin et al. (2023)} for conducting sample size analysis
+for network models.
 }
 \details{
 The method implemented is implemented in the main function \code{\link[=powerly]{powerly()}}. The

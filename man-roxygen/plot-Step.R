@@ -26,9 +26,9 @@
 #' @param ... Optional arguments to be passed to [ggplot2::ggsave()].
 #'
 #' @return
-#' An [ggplot2::ggplot] object containing the plot for a `<%= step_class %>` object
-#' that can be further modified. The object returned also contains the
-#' [patchwork] class applied.
+#' An [ggplot2::ggplot] object containing the plot for a `<%= step_class %>`
+#' object that can be further modified. The object returned also contains the
+#' [patchwork::patchwork] class applied.
 #'
 #' \if{html}{
 #' Example of a plot:

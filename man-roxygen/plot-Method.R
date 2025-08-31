@@ -36,7 +36,7 @@
 #' @return
 #' An [ggplot2::ggplot] object containing the plot for the requested step of the
 #' method. The plot object returned can be further modified and also contains
-#' the [patchwork] class applied.
+#' the [patchwork::patchwork] class applied.
 #'
 #' \if{html}{
 #' Example of a plot for each step of the method:
