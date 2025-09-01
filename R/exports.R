@@ -205,10 +205,8 @@ validate <- function(
 
     # Information regarding the results of the validation.
     if (verbose) {
-        cat("\n", "Validation completed (", round(validation$validator$duration, 4), " sec):", sep = "")
-        cat("\n", " - sample: ", validation$sample, sep = "")
-        cat("\n", " - statistic: ", validation$statistic, sep = "")
-        cat("\n", " - measure at ", validation$percentile, " pert.: ", round(validation$percentile_value, 3), sep = "")
+        # Summarize the results.
+        summary(validation)
     }
 
     return(validation)
