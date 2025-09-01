@@ -115,3 +115,49 @@ test_that("Method prints a message when the selected target values are arguably 
     # Expect the message also when summarizing.
     expect_message(capture.output(summary(results)), message)
 })
+
+
+test_that("Validation prints a message when the targets are not reached", {
+    # Run the method with really low targets.
+    results <- powerly(
+        range_lower = 100,
+        range_upper = 500,
+        samples = 5,
+        replications = 1,
+        measure = "sen",
+        statistic = "power",
+        measure_value = .1,
+        statistic_value = .1,
+        model = "ggm",
+        nodes = 5,
+        density = .4,
+        iterations = 1,
+        cores = NULL,
+        verbose = FALSE
+    )
+
+    # Set impossible measure target for the validation.
+    results$step_1$set_measure("sen", 2)
+
+    # Extract the lower end of the recommendation.
+    sample <- results$recommendation["0%"]
+
+    # Store the results.
+    validation_results <- NULL
+
+    # Perform the validation and expect a message.
+    expect_message(
+        capture.output(
+            validation_results <- validate(
+                method = results,
+                sample = sample,
+                replications = 1,
+                cores = NULL,
+                verbose = TRUE
+            )
+        )
+    )
+
+    # Expect the message also when summarizing.
+    expect_message(capture.output(summary(validation_results)))
+})
