@@ -38,7 +38,7 @@ Method <- R6::R6Class("Method",
         .iterate = function(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci) {
             # Construct the method iteration progress bar message.
             run_message <- paste0(
-                "Run: ", private$.iteration, "/ ", private$.max_iterations
+                "Run: ", private$.iteration + 1, "/ ", private$.max_iterations
             )
 
             # Progress bar for Step 1.

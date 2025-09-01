@@ -108,7 +108,7 @@ more information, see the documentation `?validate`.
 
 ```r
 # Validate the recommendation obtained during the analysis.
-validation <- validate(results)
+validation <- validate(results, cores = 2)
 ```
 
 To visualize the results, we can use the `plot` function and indicate the step

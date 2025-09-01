@@ -122,10 +122,8 @@ powerly <- function(
 
     # Inform the user about the method status.
     if (verbose) {
-        cat("\n", "Method run completed (", round(method$duration, 4), " sec):", sep = "")
-        cat("\n", " - converged: ", ifelse(method$converged, "yes", "no"), sep = "")
-        cat("\n", " - iterations: ", method$iteration, sep = "")
-        cat("\n", " - recommendation: ", method$step_3$samples["50%"], "\n", sep = "")
+        # Summarize the results.
+        summary(method)
     }
 
     return(method)
@@ -200,17 +198,15 @@ validate <- function(
     }
 
     # Configure the validator.
-    validation$configure_validator(method$step_3)
+    validation$configure_validator(method)
 
     # Run the validation.
     validation$run(sample = sample, replications = replications)
 
     # Information regarding the results of the validation.
     if (verbose) {
-        cat("\n", "Validation completed (", round(validation$validator$duration, 4), " sec):", sep = "")
-        cat("\n", " - sample: ", validation$sample, sep = "")
-        cat("\n", " - statistic: ", validation$statistic, sep = "")
-        cat("\n", " - measure at ", validation$percentile, " pert.: ", round(validation$percentile_value, 3), sep = "")
+        # Summarize the results.
+        summary(validation)
     }
 
     return(validation)

@@ -152,13 +152,20 @@ results <- powerly(
 )
 ```
 
-At this point we can print the results.
+At this point we can summarize the results.
+
+```r
+# Summarize the method run.
+summary(results)
+```
 
 ```txt:no-line-numbers
-Method run completed (2.943 sec):
- - converged: yes
- - iterations: 1
- - recommendation: 531
+ Method completed:
+ - duration: 2.94 seconds
+ - converged: yes (1 iterations)
+ - performance measure: `sen` (target: 0.6)
+ - statistic: `power` (target: 0.8)
+ - sample size recommendation: 531
 ```
 
 Or better visualize them.

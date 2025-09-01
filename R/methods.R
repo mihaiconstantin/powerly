@@ -639,10 +639,40 @@ plot.Validation <- function(x, save = FALSE, path = NULL, width = 14, height = 1
 #' @template summary-Validation
 #' @export
 summary.Validation <- function(object, ...) {
-    cat("\n", "Validation completed (", round(object$validator$duration, 4), " sec):", sep = "")
+    # Extract the measure type.
+    measure <- object$method$step_1$measure_type
+
+    # Extract the statistic type.
+    statistic <- object$method$step_1$statistic_type
+
+    # Extract the measure target.
+    measure_target <- object$method$step_1$measure_value
+
+    # Extract the statistic target.
+    statistic_target <- object$method$step_1$statistic_value
+
+    # Print the results.
+    cat("\n", "Validation completed:", sep = "")
+    cat("\n", " - duration: ", round(object$validator$duration, 2), " seconds", sep = "")
     cat("\n", " - sample: ", object$sample, sep = "")
-    cat("\n", " - statistic: ", object$statistic, sep = "")
-    cat("\n", " - measure at ", object$percentile, " pert.: ", round(object$percentile_value, 3), sep = "")
+    cat("\n", " - statistic: ", round(object$statistic, 3), " (target: ", statistic_target, ")", sep = "")
+    cat("\n", " - measure at ", object$percentile, " percentile: ", round(object$percentile_value, 3), " (target: ", measure_target, ")", "\n", sep = "")
+
+    # If the validation results are not satisfactory, inform the user.
+    if (object$statistic < statistic_target || object$percentile_value < measure_target) {
+        # Extract a larger recommended sample size.
+        larger_sample <- object$method$recommendation["97.5%"]
+
+        # Construct the feedback message.
+        feedback <- paste0(
+            "The validation results are below the target values.", "\n",
+            "Consider running the validation with a larger sample size ",
+            "(e.g., `sample = ", larger_sample, "`)."
+        )
+
+        # Print the message.
+        message("\n", feedback, sep = "")
+    }
 }
 
 
@@ -687,12 +717,60 @@ plot.Method <- function(x, step = 3, last = TRUE, save = FALSE, path = NULL, wid
 #' @template summary-Method
 #' @export
 summary.Method <- function(object, ...) {
-    cat("\n", "Method run completed (", round(object$duration, 4), " sec):", sep = "")
-    cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), sep = "")
-    cat("\n", " - iterations: ", object$iteration, sep = "")
-    cat("\n", " - recommendation: ", paste(paste(
-        names(object$step_3$samples[c("2.5%", "50%", "97.5%")]),
-        "=", object$step_3$samples[c("2.5%", "50%", "97.5%")],
-        sep = " "
-    ), collapse = " | "), "\n", sep = "")
+    # Extract the measure type.
+    measure <- object$step_1$measure_type
+
+    # Extract the statistic type.
+    statistic <- object$step_1$statistic_type
+
+    # Extract the measure value.
+    measure_value <- object$step_1$measure_value
+
+    # Extract the statistic value.
+    statistic_value <- object$step_1$statistic_value
+
+    # Print the results.
+    cat("\n", "Method completed:", sep = "")
+    cat("\n", " - duration: ", round(object$duration, 2), " seconds", sep = "")
+    cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), " (", object$iteration, " iterations)", sep = "")
+    cat("\n", " - performance measure: `", measure, "` (target: ", measure_value, ")", sep = "")
+    cat("\n", " - statistic: `", statistic, "` (target: ", statistic_value, ")", sep = "")
+    cat("\n", " - sample size recommendation: ",
+        paste(paste(
+            names(object$step_3$samples[c("2.5%", "50%", "97.5%")]),
+            "=", object$step_3$samples[c("2.5%", "50%", "97.5%")],
+            sep = " "
+        ), collapse = " | "),
+        "\n",
+        sep = ""
+    )
+
+    # Prepare user feedback messages.
+    feedback <- character()
+
+    # Warn the user about choosing a low performance measure target.
+    if (measure_value < 0.8) {
+        # Store the feedback.
+        feedback <- c(feedback,
+            paste0(
+                "The performance measure target `measure_value = ", measure_value, "` may be too low for meaningful results."
+            )
+        )
+    }
+
+    # Warn the user about choosing a low statistic target.
+    if (statistic_value < 0.8) {
+        # Store the feedback.
+        feedback <- c(feedback,
+            paste0(
+                "The statistic target `statistic_value = ", statistic_value, "` may be too low for reliable results."
+            )
+        )
+    }
+
+    # If warning feedback need to be printed.
+    if (length(feedback) > 0) {
+        # Print them.
+        message("\n", paste(feedback, collapse = "\n"), sep = "")
+    }
 }
