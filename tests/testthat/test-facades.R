@@ -1,5 +1,49 @@
 # Test exported facades.
 
+test_that("facades run without errors when a backend is requested", {
+    # Get the number of cores.
+    cores <- get_number_cores()
+
+    # Run the method.
+    results <- powerly(
+        range_lower = 100,
+        range_upper = 500,
+        samples = 5,
+        replications = 10,
+        measure = "sen",
+        statistic = "power",
+        measure_value = .6,
+        statistic_value = .8,
+        model = "ggm",
+        nodes = 5,
+        density = .4,
+        iterations = 1,
+        cores = cores,
+        verbose = FALSE
+    )
+
+    # Expect the results to not be empty.
+    expect_true(length(results$recommendation) > 0)
+
+    # Expect the backend to not be active.
+    expect_false(results$.__enclos_env__$private$.backend$active)
+
+    # Perform the validation.
+    validation_results <- validate(
+        method = results,
+        replications = 100,
+        cores = cores,
+        verbose = FALSE
+    )
+
+    # Expect the validation results to not be empty.
+    expect_true(length(validation_results$percentile_value) > 0)
+
+    # Expect the backend to not be active.
+    expect_false(validation_results$.__enclos_env__$private$.backend$active)
+})
+
+
 test_that("'Validation' uses the correct sample", {
     # Run the method.
     results <- powerly(
