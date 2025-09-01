@@ -76,26 +76,6 @@ StepThreeTester <- R6::R6Class("StepThreeTester",
     )
 )
 
-# Helper for testing private methods of `Backend` class.
-BackendTester <- R6::R6Class("BackendTester",
-    cloneable = FALSE,
-    inherit = Backend,
-
-    public = list(
-        # Mock the number of cores detected during instantiation.
-        mock_machine_available_cores = function(cores) {
-            # Predetermine the number of cores on the machine.
-            private$.available_cores <- cores
-        },
-
-        # Expose the private method for testing.
-        set_cores = function(cores) {
-            # Set the cores.
-            private$.set_cores(cores)
-        }
-    )
-)
-
 # Helper for testing private methods of `Range` class.
 RangeTester <- R6::R6Class("RangeTester",
     inherit = Range,

@@ -135,17 +135,32 @@ test_that("'StepThree' performs the bootstrap procedure correctly", {
     # Check the dimensions of the bootstrapped splines.
     expect_equal(dim(step_3$boot_statistics), c(1000, range$sequence_length))
 
-    # Create backend for running the bootstrap in parallel.
-    backend <- Backend$new()
+    # Get current progress tracking preference.
+    progress_track <- parabar::get_option("progress_track")
 
-    # Start the backend.
-    backend$start(get_number_cores())
+    # Disable progress tracking for testing.
+    parabar::set_option("progress_track", FALSE)
+
+    # Restore previous progress tracking preference.
+    on.exit({
+        # Restore progress tracking.
+        parabar::set_option("progress_track", progress_track)
+    })
+
+    # Create backend for running the bootstrap in parallel.
+    backend <- parabar::start_backend(
+        cores = get_number_cores(),
+        backend_type = sample(x = c("sync", "async"), size = 1)
+    )
+
+    # On function stop the backend.
+    on.exit({
+        # Stop the backend.
+        parabar::stop_backend(backend)
+    }, add = TRUE)
 
     # Run the bootstrap in parallel.
     step_3$bootstrap(1000, backend = backend)
-
-    # Stop the backend.
-    backend$stop()
 
     # Check the dimensions of the bootstrapped splines.
     expect_equal(dim(step_3$boot_statistics), c(1000, range$sequence_length))
@@ -235,18 +250,33 @@ test_that("'StepThree' computes the confidence intervals correctly", {
     step_3$compute()
     spline_ci_sequential <- step_3$ci
 
-    # Create backend for running the bootstrap in parallel.
-    backend <- Backend$new()
+    # Get current progress tracking preference.
+    progress_track <- parabar::get_option("progress_track")
 
-    # Start the backend.
-    backend$start(get_number_cores())
+    # Disable progress tracking for testing.
+    parabar::set_option("progress_track", FALSE)
+
+    # Restore previous progress tracking preference.
+    on.exit({
+        # Restore progress tracking.
+        parabar::set_option("progress_track", progress_track)
+    })
+
+    # Create backend for running the bootstrap in parallel.
+    backend <- parabar::start_backend(
+        cores = get_number_cores(),
+        backend_type = sample(x = c("sync", "async"), size = 1)
+    )
+
+    # On function stop the backend.
+    on.exit({
+        # Stop the backend.
+        parabar::stop_backend(backend)
+    }, add = TRUE)
 
     # Compute confidence intervals in parallel.
     step_3$compute(backend = backend)
     spline_ci_parallel <- step_3$ci
-
-    # Stop the backend.
-    backend$stop()
 
     # The confidence intervals should match.
     expect_equal(spline_ci_sequential, spline_ci_parallel)

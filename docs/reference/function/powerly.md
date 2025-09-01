@@ -36,7 +36,7 @@ powerly(
     tolerance = 50,
     iterations = 10,
     cores = NULL,
-    backend_type = NULL,
+    cluster_type = NULL,
     save_memory = FALSE,
     verbose = TRUE
 )
@@ -67,7 +67,7 @@ powerly(
 |    `tolerance`    | A single positive integer representing the width at the candidate sample size range at which the algorithm is considered to have converge. The default is `50`, meaning that the algorithm will stop running when the difference between the upper and the lower bound of the candidate range shrinks to $50$ sample sizes.                                                                                                |
 |   `iterations`    | A single positive integer representing the number of iterations the algorithm is allowed to run. The default is `10`.                                                                                                                                                                                                                                                                                                      |
 |      `cores`      | A single positive positive integer representing the number of cores to use for running the algorithm in parallel, or `NULL`. If `NULL` (the default) the algorithm will run sequentially.                                                                                                                                                                                                                                  |
-|  `backend_type`   | A character string indicating the type of cluster to create for running the algorithm in parallel, or `NULL`. Possible values are `"psock"` and `"fork"`. If `NULL` the backend is determined based on the computer architecture (i.e., `fork` for Unix and MacOS and `psock` for Windows).                                                                                                                                |
+|  `cluster_type`   | A character string indicating the type of cluster to create for running the algorithm in parallel, or `NULL`. Possible values are `"psock"` and `"fork"`. If `NULL` the backend is determined based on the computer architecture (i.e., `fork` for Unix and MacOS and `psock` for Windows).                                                                                                                                |
 |   `save_memory`   | A logical value indicating whether to save memory by only storing the results for the last iteration of the method. The default `TRUE` indicates that only the last iteration should be saved.                                                                                                                                                                                                                             |
 |     `verbose`     | A logical value indicating whether information about the status of the algorithm should be printed while running. The default is `TRUE`.                                                                                                                                                                                                                                                                                   |
 

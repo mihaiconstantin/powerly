@@ -92,11 +92,26 @@ StepOne <- R6::R6Class("StepOne",
             # Replicated sample sizes.
             samples <- sort(rep(partition, replications))
 
-            # Run simulation.
+            # Execute the task in parallel.
+            results <- parabar::par_sapply(
+                # That parallel backend injected.
+                backend = backend,
+
+                # The sequence of replicated sample sizes.
+                x = samples,
+
+                # The task function.
+                fun = monte_carlo,
+
+                # Additional arguments for the task function.
+                generate, estimate, evaluate, true_model_parameters, measure
+            )
+
+            # Create the matrix of results.
             private$.measures <- matrix(
-                backend$sapply(samples, monte_carlo, generate, estimate, evaluate, true_model_parameters, measure),
-                replications,
-                available_samples
+                data = results,
+                nrow = replications,
+                ncol = available_samples
             )
         },
 

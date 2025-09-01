@@ -14,9 +14,16 @@
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Imports.
-#' @importFrom parallel detectCores makeCluster stopCluster clusterExport
-#' @importFrom parallel clusterEvalQ parSapply parApply clusterCall
-#' @importFrom parallel clusterEvalQ makePSOCKcluster stopCluster
+#' @importFrom R6 R6Class
+#' @importFrom bootnet genGGM ggmGenerator
+#' @importFrom qgraph EBICglasso
+#' @importFrom quadprog solve.QP
+#' @importFrom splines2 iSpline bSpline
+#' @importFrom mvtnorm rmvnorm
+#' @importFrom parabar get_option set_option configure_bar
+#' @importFrom parabar start_backend stop_backend par_sapply par_apply
+
+# Imports for plotting.
 #' @importFrom ggplot2 theme_bw element_line geom_boxplot geom_density
 #' @importFrom ggplot2 element_text geom_ribbon scale_fill_manual
 #' @importFrom ggplot2 scale_alpha_manual element_rect geom_segment annotate
@@ -26,13 +33,6 @@
 #' @importFrom ggplot2 labs theme margin
 #' @importFrom rlang .data .env
 #' @importFrom patchwork plot_layout
-#' @importFrom R6 R6Class
-#' @importFrom bootnet genGGM ggmGenerator
-#' @importFrom progress progress_bar
-#' @importFrom qgraph EBICglasso
-#' @importFrom quadprog solve.QP
-#' @importFrom splines2 iSpline bSpline
-#' @importFrom mvtnorm rmvnorm
 
 #' @include logo.R
 

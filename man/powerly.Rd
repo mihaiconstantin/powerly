@@ -26,7 +26,7 @@ powerly(
   tolerance = 50,
   iterations = 10,
   cores = NULL,
-  backend_type = NULL,
+  cluster_type = "psock",
   save_memory = FALSE,
   verbose = TRUE
 )
@@ -121,21 +121,20 @@ iterations the algorithm is allowed to run. The default is \code{10}.}
 
 \item{cores}{A single positive positive integer representing the number of
 cores to use for running the algorithm in parallel, or \code{NULL}. If \code{NULL} (the
-default) the algorithm will run sequentially.}
+default) or \code{1} the algorithm will run sequentially.}
 
-\item{backend_type}{A character string indicating the type of cluster to
-create for running the algorithm in parallel, or \code{NULL}. Possible values are
-\code{"psock"} and \code{"fork"}. If \code{NULL} the backend is determined based on the
-computer architecture (i.e., \code{fork} for Unix and MacOS and \code{psock} for
-Windows).}
+\item{cluster_type}{A character string indicating the type of cluster to
+create for running the algorithm in parallel. Possible values are \code{"psock"}
+and \code{"fork"}. Note that the \code{"fork"} option is only available on Unix-like
+systems. The default value is \code{"psock"}.}
 
 \item{save_memory}{A logical value indicating whether to save memory by only
 storing the results for the last iteration of the method. The default \code{TRUE}
 indicates that only the last iteration should be saved.}
 
 \item{verbose}{A logical value indicating whether information about the
-status of the algorithm should be printed while running. The default is
-\code{TRUE}.}
+status of the algorithm should be printed while running (e.g., a progress
+bar). The default is \code{TRUE}.}
 }
 \value{
 An \code{\link[R6:R6Class]{R6::R6Class()}} instance of \code{Method} class that contains the results for

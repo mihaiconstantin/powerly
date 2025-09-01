@@ -9,7 +9,7 @@ validate(
   replications = 3000,
   sample = NULL,
   cores = NULL,
-  backend_type = NULL,
+  cluster_type = "psock",
   verbose = TRUE
 )
 }
@@ -28,14 +28,13 @@ run for the sample size recommendation contained in the \code{method} argument
 (i.e., the output of the \code{\link[=powerly]{powerly()}} function). Defaults to \code{NULL}.}
 
 \item{cores}{A single positive positive integer representing the number of
-cores to use for running the validation in parallel, or \code{NULL}. If \code{NULL}
-(the default) the validation will run sequentially.}
+cores to use for running the algorithm in parallel, or \code{NULL}. If \code{NULL} (the
+default) or \code{1} the algorithm will run sequentially.}
 
-\item{backend_type}{A character string indicating the type of cluster to
-create for running the validation in parallel, or \code{NULL}. Possible values are
-\code{"psock"} and \code{"fork"}. If \code{NULL} the backend is determined based on the
-computer architecture (i.e., \code{fork} for Unix and MacOS and \code{psock} for
-Windows).}
+\item{cluster_type}{A character string indicating the type of cluster to
+create for running the algorithm in parallel. Possible values are \code{"psock"}
+and \code{"fork"}. Note that the \code{"fork"} option is only available on Unix-like
+systems. The default value is \code{"psock"}.}
 
 \item{verbose}{A logical value indicating whether information about the
 status of the validation should be printed while running. The default is

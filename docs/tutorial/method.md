@@ -288,7 +288,7 @@ powerly(
   tolerance = 50,
   iterations = 10,
   cores = NULL,
-  backend_type = NULL,
+  cluster_type = NULL,
   save_memory = FALSE,
   verbose = TRUE
 )
@@ -333,7 +333,7 @@ order in which the arguments appear in the method steps.
 |                   $\varepsilon$                   |           `tolerance`           |  param   | The tolerance for the uncertainty around the recommended sample size.                            |
 |                         -                         |          `iterations`           |  param   | The number of method iterations allowed.                                                         |
 |                         -                         |             `cores`             |   misc   | The number of cores to use for running the algorithm in parallel.                                |
-|                         -                         |         `backend_type`          |   misc   | The type of cluster to create for running the algorithm in parallel.                             |
+|                         -                         |         `cluster_type`          |   misc   | The type of cluster to create for running the algorithm in parallel.                             |
 |                         -                         |          `save_memory`          |   misc   | Whether to save memory by limiting the amount results stored.                                    |
 |                         -                         |            `verbose`            |   misc   | Whether information should be printed while the method is running.                               |
 

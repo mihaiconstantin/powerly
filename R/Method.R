@@ -17,17 +17,11 @@ Method <- R6::R6Class("Method",
 
         .verbose = NULL,
         .save_memory = NULL,
-        .progress = NULL,
 
         # Set the verbosity level.
         .set_verbosity = function(verbose) {
             # Set verbosity.
             private$.verbose <- verbose
-
-            # Create the progress bar.
-            if (private$.verbose) {
-               private$.progress <- progress::progress_bar$new(total = private$.max_iterations, show_after = 0)
-            }
         },
 
         # Commit the current state at this point in time.
@@ -42,6 +36,16 @@ Method <- R6::R6Class("Method",
 
         # Run an iteration.
         .iterate = function(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci) {
+            # Construct the method iteration progress bar message.
+            run_message <- paste0(
+                "Run: ", private$.iteration, "/ ", private$.max_iterations
+            )
+
+            # Progress bar for Step 1.
+            parabar::configure_bar(
+                format = paste0(run_message, " | ", "Step 1: [:bar] [:percent] [:elapsed]")
+            )
+
             # Perform Monte Carlo simulation.
             private$.step_1$simulate(replications, private$.backend)
 
@@ -51,8 +55,18 @@ Method <- R6::R6Class("Method",
             # Fit a spline to the statistics.upper_ci
             private$.step_2$fit(monotone, increasing, df, solver_type)
 
+            # Progress bar for Step 3 (bootstrapping).
+            parabar::configure_bar(
+                format = paste0(run_message, " | ", "Step 3 (bootstraps): [:bar] [:percent] [:elapsed]")
+            )
+
             # Bootstrap the spline.
             private$.step_3$bootstrap(boots, private$.backend)
+
+            # Progress bar for Step 3 (CIs).
+            parabar::configure_bar(
+                format = paste0(run_message, " | ", "Step 3 (CIs): [:bar] [:percent] [:elapsed]")
+            )
 
             # Compute the confidence intervals.
             private$.step_3$compute(lower_ci, upper_ci, private$.backend)
@@ -60,9 +74,6 @@ Method <- R6::R6Class("Method",
 
         # Run the method.
         .run = function(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci) {
-            # Tick the progress bar.
-            if (private$.verbose) private$.progress$tick()
-
             # Iterate.
             private$.iterate(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci)
 
@@ -73,9 +84,6 @@ Method <- R6::R6Class("Method",
             private$.update_counter()
 
             while((private$.iteration < private$.max_iterations) && !private$.range$converged) {
-                # Tick the progress bar.
-                if (private$.verbose) private$.progress$tick()
-
                 # Store previous results if desired.
                 if (!private$.save_memory) private$.previous <- private$.commit()
 
@@ -90,14 +98,6 @@ Method <- R6::R6Class("Method",
 
                 # Increase the counter.
                 private$.update_counter()
-            }
-
-            # Handle the progress bar.
-            if (private$.verbose) {
-                # Terminate and clear the progress bar if the method converged.
-                if (!private$.progress$finished) {
-                    private$.progress$terminate()
-                }
             }
         }
     ),
@@ -122,7 +122,7 @@ Method <- R6::R6Class("Method",
             # Make sure we are provided an active backend.
             if (!is.null(backend) && !backend$active) {
                 # Warn the users.
-                warning("Please provide an active backend. Will not use this one.")
+                warning("Parallelization backend not active. The method will run sequentially.")
             } else {
                 # Register the backend.
                 private$.backend <- backend

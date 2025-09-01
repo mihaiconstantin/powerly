@@ -22,12 +22,11 @@ URL: https://powerly.dev
 BugReports: https://github.com/mihaiconstantin/powerly/issues
 Imports:
     R6,
-    progress,
-    parallel,
     splines2,
     quadprog,
     bootnet,
     qgraph,
+    parabar,
     ggplot2,
     rlang,
     mvtnorm,
@@ -37,7 +36,6 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Collate:
-    'Backend.R'
     'Basis.R'
     'Model.R'
     'GgmModel.R'
