@@ -3,6 +3,23 @@ All notable changes to this project will be documented in this file. The format
 is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 1.10.0
+### Added
+- Add cautionary messages for `powerly` and `validate` to draw attention to
+  picking sensible argument values for the method. Also, notifying the user if
+  the validation procedure did not meet the set targets.
+- Add support for [`parabar`](https://parabar.mihaiconstantin.com) backends with
+  informative progress tracking. Closes
+  [#8](https://github.com/mihaiconstantin/powerly/issues/8).
+- Add `sample` argument to `validate` facade to allow users to perform
+  validation for specific sample sizes if needed.
+
+### Changed
+- Move `S3` methods to separate file for clarity.
+
+### Fixed
+- Update URLs to canonical `CRAN` format.
+
 ## 1.9.3
 ### Fixed
 - Add `\doi{}` call to `powerly-package.R` documentation. I know what you're
