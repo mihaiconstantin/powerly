@@ -108,8 +108,8 @@
 #' indicates that only the last iteration should be saved.
 #'
 #' @param verbose A logical value indicating whether information about the
-#' status of the algorithm should be printed while running. The default is
-#' `TRUE`.
+#' status of the algorithm should be printed while running (e.g., a progress
+#' bar). The default is `TRUE`.
 #'
 #' @details
 #' This function represents the implementation of the method introduced by
