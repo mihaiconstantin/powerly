@@ -24,7 +24,7 @@ powerly <- function(
     tolerance = 50,
     iterations = 10,
     cores = NULL,
-    backend_type = NULL,
+    cluster_type = "psock",
     save_memory = FALSE,
     verbose = TRUE
 ) {
@@ -67,7 +67,7 @@ powerly <- function(
             cores = cores,
 
             # The cluster type.
-            cluster_type = "psock",
+            cluster_type = cluster_type,
 
             # The backend type.
             backend_type = backend_type
