@@ -17,17 +17,11 @@ Method <- R6::R6Class("Method",
 
         .verbose = NULL,
         .save_memory = NULL,
-        .progress = NULL,
 
         # Set the verbosity level.
         .set_verbosity = function(verbose) {
             # Set verbosity.
             private$.verbose <- verbose
-
-            # Create the progress bar.
-            if (private$.verbose) {
-               private$.progress <- progress::progress_bar$new(total = private$.max_iterations, show_after = 0)
-            }
         },
 
         # Commit the current state at this point in time.
@@ -60,9 +54,6 @@ Method <- R6::R6Class("Method",
 
         # Run the method.
         .run = function(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci) {
-            # Tick the progress bar.
-            if (private$.verbose) private$.progress$tick()
-
             # Iterate.
             private$.iterate(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci)
 
@@ -73,9 +64,6 @@ Method <- R6::R6Class("Method",
             private$.update_counter()
 
             while((private$.iteration < private$.max_iterations) && !private$.range$converged) {
-                # Tick the progress bar.
-                if (private$.verbose) private$.progress$tick()
-
                 # Store previous results if desired.
                 if (!private$.save_memory) private$.previous <- private$.commit()
 
@@ -90,14 +78,6 @@ Method <- R6::R6Class("Method",
 
                 # Increase the counter.
                 private$.update_counter()
-            }
-
-            # Handle the progress bar.
-            if (private$.verbose) {
-                # Terminate and clear the progress bar if the method converged.
-                if (!private$.progress$finished) {
-                    private$.progress$terminate()
-                }
             }
         }
     ),
