@@ -122,10 +122,8 @@ powerly <- function(
 
     # Inform the user about the method status.
     if (verbose) {
-        cat("\n", "Method run completed (", round(method$duration, 4), " sec):", sep = "")
-        cat("\n", " - converged: ", ifelse(method$converged, "yes", "no"), sep = "")
-        cat("\n", " - iterations: ", method$iteration, sep = "")
-        cat("\n", " - recommendation: ", method$step_3$samples["50%"], "\n", sep = "")
+        # Summarize the results.
+        summary(method)
     }
 
     return(method)
