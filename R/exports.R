@@ -198,7 +198,7 @@ validate <- function(
     }
 
     # Configure the validator.
-    validation$configure_validator(method$step_3)
+    validation$configure_validator(method)
 
     # Run the validation.
     validation$run(sample = sample, replications = replications)
