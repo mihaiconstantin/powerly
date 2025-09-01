@@ -13,6 +13,11 @@
 #' default is `1000`. Whenever possible, a value of `10000` should be preferred
 #' for a higher accuracy of the validation results.
 #'
+#' @param sample A single positive integer representing the sample size to
+#' perform the validation for. If `NULL` (the default) the validation will be
+#' run for the sample size recommendation contained in the `method` argument
+#' (i.e., the output of the [powerly::powerly()] function). Defaults to `NULL`.
+#'
 #' @param cores A single positive positive integer representing the number of
 #' cores to use for running the validation in parallel, or `NULL`. If `NULL`
 #' (the default) the validation will run sequentially.
@@ -28,8 +33,12 @@
 #' `TRUE`.
 #'
 #' @details
-#' The sample sizes used during the validation procedure is automatically extracted
-#' from the `method` argument.
+#' The sample sizes used during the validation procedure is automatically
+#' extracted from the `method` argument. User may also choose to provide a
+#' specific sample size for the validation via the `sample` argument. In this
+#' case, the validation will be run for the provided sample size instead.
+#' Providing a specific `sample` value is akin to manually searching for an
+#' optimal value.
 #'
 #' @return
 #' An [R6::R6Class()] instance of `Validation` class that contains the results

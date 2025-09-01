@@ -197,6 +197,11 @@ Which will result in the following:
     <img src="/images/content/powerly-tutorial-introduction-example-validation.png" alt="Example of validation output for powerly package">
 </div>
 
+We may also choose to provide a specific sample size for the validation via
+the `sample` argument. In this case, the validation will be run for the provided
+sample size instead. Providing a specific `sample` value is akin to manually
+searching for an optimal value.
+
 ## Next Steps
 
 This introduction is intended to provide the bare minimum information needed to
