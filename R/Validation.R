@@ -62,9 +62,9 @@ Validation <- R6::R6Class("Validation",
         },
 
         # Perform the validation.
-        run = function(sample, replications = 3000) {
+        run = function(sample = NULL, replications = 3000) {
             # If no sample is provided, then use the recommendation.
-            if(missing(sample)) {
+            if(is.null(sample)) {
                 sample <- private$.recommendation
             }
 
