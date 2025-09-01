@@ -191,7 +191,7 @@
 #'  Constantin, M. A., Schuurman, N. K., & Vermunt, J. K. (2023). A General
 #'  Monte Carlo Method for Sample Size Analysis in the Context of Network
 #'  Models. _Psychological Methods_. \doi{10.1037/met0000555}
-#' 
+#'
 #' @examples
 #' \donttest{# Suppose we want to find the sample size for observing a sensitivity of `0.6`
 #' # with a probability of `0.8`, for a GGM true model consisting of `10` nodes
