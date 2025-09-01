@@ -20,7 +20,8 @@
 #' @importFrom quadprog solve.QP
 #' @importFrom splines2 iSpline bSpline
 #' @importFrom mvtnorm rmvnorm
-#' @importFrom parabar Specification BackendFactory ContextFactory
+#' @importFrom parabar get_option set_option configure_bar
+#' @importFrom parabar start_backend stop_backend par_sapply par_apply
 
 # Imports for plotting.
 #' @importFrom ggplot2 theme_bw element_line geom_boxplot geom_density
