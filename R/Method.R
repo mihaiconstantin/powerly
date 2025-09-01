@@ -36,6 +36,16 @@ Method <- R6::R6Class("Method",
 
         # Run an iteration.
         .iterate = function(replications, monotone, increasing, df, solver_type, boots, lower_ci, upper_ci) {
+            # Construct the method iteration progress bar message.
+            run_message <- paste0(
+                "Run: ", private$.iteration, "/ ", private$.max_iterations
+            )
+
+            # Progress bar for Step 1.
+            parabar::configure_bar(
+                format = paste0(run_message, " | ", "Step 1: [:bar] [:percent] [:elapsed]")
+            )
+
             # Perform Monte Carlo simulation.
             private$.step_1$simulate(replications, private$.backend)
 
@@ -45,8 +55,18 @@ Method <- R6::R6Class("Method",
             # Fit a spline to the statistics.upper_ci
             private$.step_2$fit(monotone, increasing, df, solver_type)
 
+            # Progress bar for Step 3 (bootstrapping).
+            parabar::configure_bar(
+                format = paste0(run_message, " | ", "Step 3 (bootstraps): [:bar] [:percent] [:elapsed]")
+            )
+
             # Bootstrap the spline.
             private$.step_3$bootstrap(boots, private$.backend)
+
+            # Progress bar for Step 3 (CIs).
+            parabar::configure_bar(
+                format = paste0(run_message, " | ", "Step 3 (CIs): [:bar] [:percent] [:elapsed]")
+            )
 
             # Compute the confidence intervals.
             private$.step_3$compute(lower_ci, upper_ci, private$.backend)
