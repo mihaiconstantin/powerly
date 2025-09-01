@@ -58,6 +58,7 @@ Collate:
     'exports.R'
     'helpers.R'
     'logo.R'
+    'methods.R'
     'powerly-package.R'
 Suggests:
     testthat (>= 3.0.0)
