@@ -1,4 +1,4 @@
-#' @include Backend.R Method.R
+#' @include Method.R
 
 #' @template powerly
 #' @export
