@@ -110,6 +110,7 @@ powerly <- function(
 validate <- function(
     method,
     replications = 3000,
+    sample = NULL,
     cores = NULL,
     backend_type = NULL,
     verbose = TRUE
@@ -144,7 +145,7 @@ validate <- function(
     validation$configure_validator(method$step_3)
 
     # Run the validation.
-    validation$run(replications = replications)
+    validation$run(sample = sample, replications = replications)
 
     # Close the backend.
     if (use_backend) {

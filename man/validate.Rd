@@ -7,6 +7,7 @@
 validate(
   method,
   replications = 3000,
+  sample = NULL,
   cores = NULL,
   backend_type = NULL,
   verbose = TRUE
@@ -20,6 +21,11 @@ validate(
 Monte Carlo simulations to perform for the recommended sample size. The
 default is \code{1000}. Whenever possible, a value of \code{10000} should be preferred
 for a higher accuracy of the validation results.}
+
+\item{sample}{A single positive integer representing the sample size to
+perform the validation for. If \code{NULL} (the default) the validation will be
+run for the sample size recommendation contained in the \code{method} argument
+(i.e., the output of the \code{\link[=powerly]{powerly()}} function). Defaults to \code{NULL}.}
 
 \item{cores}{A single positive positive integer representing the number of
 cores to use for running the validation in parallel, or \code{NULL}. If \code{NULL}
@@ -59,8 +65,12 @@ This function can be used to validate the recommendation obtained from a
 sample size analysis.
 }
 \details{
-The sample sizes used during the validation procedure is automatically extracted
-from the \code{method} argument.
+The sample sizes used during the validation procedure is automatically
+extracted from the \code{method} argument. User may also choose to provide a
+specific sample size for the validation via the \code{sample} argument. In this
+case, the validation will be run for the provided sample size instead.
+Providing a specific \code{sample} value is akin to manually searching for an
+optimal value.
 }
 \examples{
 \donttest{# Perform a sample size analysis.
