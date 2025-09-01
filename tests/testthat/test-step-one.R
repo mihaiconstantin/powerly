@@ -59,6 +59,42 @@ test_that("'StepOne' Monte Carlo simulation runs correctly", {
 
     # Statistics computed via both methods should be equal.
     expect_equal(step_1$statistics, statistics)
+
+    # Get current progress tracking preference.
+    progress_track <- parabar::get_option("progress_track")
+
+    # Disable progress tracking for testing.
+    parabar::set_option("progress_track", FALSE)
+
+    # Restore previous progress tracking preference.
+    on.exit({
+        # Restore progress tracking.
+        parabar::set_option("progress_track", progress_track)
+    })
+
+    # Create backend for running the bootstrap in parallel.
+    backend <- parabar::start_backend(
+        cores = get_number_cores(),
+        backend_type = sample(x = c("sync", "async"), size = 1)
+    )
+
+    # On function stop the backend.
+    on.exit({
+        # Stop the backend.
+        parabar::stop_backend(backend)
+    }, add = TRUE)
+
+    # Perform Monte Carlo via `StepOne`` class instance, in parallel.
+    step_1$simulate(10, backend = backend)
+
+   # Compute statistic via `StepOne` class instance.
+    step_1$compute()
+
+    # Expect the matrix of performance measures to have the correct dimensions
+    expect_equal(dim(step_1$measures), dim(measures))
+
+    # Expect the statistics vector to have the correct dimensions.
+    expect_equal(length(step_1$statistics), length(statistics))
 })
 
 
