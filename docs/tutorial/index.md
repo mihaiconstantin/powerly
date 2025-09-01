@@ -147,7 +147,7 @@ results <- powerly(
     statistic_value = .8,
     model = "ggm",
     model_matrix = true_model,
-    cores = 7
+    cores = 7,
     verbose = TRUE
 )
 ```
