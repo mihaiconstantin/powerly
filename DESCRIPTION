@@ -1,6 +1,6 @@
 Package: powerly
 Title: Sample Size Analysis for Psychological Networks and More
-Version: 1.9.3
+Version: 1.10.0
 Authors@R:
     person(given = "Mihai",
            family = "Constantin",
