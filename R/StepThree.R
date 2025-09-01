@@ -78,23 +78,23 @@ StepThree <- R6::R6Class("StepThree",
             # Expose data for fast access.
             private$.expose_data(environment())
 
-            # Run bootstrap.
-            backend$sapply(
+            # Execute the task in parallel.
+            results <- parabar::par_sapply(
+                # That parallel backend injected.
+                backend = backend,
+
+                # The sequence of bootstraps.
                 x = seq_len(boots),
+
+                # The task function.
                 fun = boot,
-                available_samples,
-                measures,
-                measure_value,
-                replications,
-                extended_basis,
-                statistic,
-                solver
+
+                # Additional arguments for the task function.
+                available_samples, measures, measure_value, replications, extended_basis, statistic, solver
             )
 
-            # Then wait for the results.
-            private$.boot_statistics <- t(
-                backend$get_output(wait = TRUE)
-            )
+            # Store the transposed results
+            private$.boot_statistics <- t(results)
         },
 
         # Rule for selecting sufficient sample sizes based on the shape of the spline.
@@ -142,19 +142,29 @@ StepThree <- R6::R6Class("StepThree",
 
         # Compute confidence intervals.
         .compute_ci_parallel = function(lower_ci, upper_ci, backend) {
-            # Compute the confidence intervals via the percentile method.
-            backend$apply(
+            # Execute the task in parallel.
+            results <- parabar::par_apply(
+                # That parallel backend injected.
+                backend = backend,
+
+                # The matrix of statistics.
                 x = private$.boot_statistics,
+
+                # The dimension to execute over.
                 margin = 2,
+
+                # The task function.
                 fun = quantile,
+
+                # The probabilities for the `quantile` task.
                 probs = c(0, lower_ci, .5, upper_ci, 1),
+
+                # Remove missing values.
                 na.rm = TRUE
             )
 
-            # Then wait for the results.
-            private$.ci <- t(
-                backend$get_output(wait = TRUE)
-            )
+            # Store the transposed results.
+            private$.ci <- t(results)
 
             # Add row names for clarity.
             rownames(private$.ci) <- private$.step_2$interpolation$x
