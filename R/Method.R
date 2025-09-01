@@ -122,7 +122,7 @@ Method <- R6::R6Class("Method",
             # Make sure we are provided an active backend.
             if (!is.null(backend) && !backend$active) {
                 # Warn the users.
-                warning("Please provide an active backend. Will not use this one.")
+                warning("Parallelization backend not active. The method will run sequentially.")
             } else {
                 # Register the backend.
                 private$.backend <- backend
