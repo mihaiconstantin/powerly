@@ -31,6 +31,16 @@ Validation <- R6::R6Class("Validation",
             # Feed the range to the validator.
             private$.validator$set_range(range)
 
+            # Construct the method iteration progress bar message.
+            run_message <- paste0(
+                "Validating for sample `", sample, "`"
+            )
+
+            # Progress bar for Step 1.
+            parabar::configure_bar(
+                format = paste0(run_message, " | ", "[:bar] [:percent] [:elapsed]")
+            )
+
             # Run the validation.
             private$.validator$simulate(replications, private$.backend)
 
@@ -43,9 +53,9 @@ Validation <- R6::R6Class("Validation",
         # Register backend.
         register_backend = function(backend) {
             # Make sure we are provided an active backend.
-            if (!is.null(backend) && !backend$backend$active) {
+            if (!is.null(backend) && !backend$active) {
                 # Warn the users.
-                warning("Backend not active. Validating sequentially.")
+                warning("Parallelization backend not active. The validation will run sequentially.")
             } else {
                 # Register the backend.
                 private$.backend <- backend
