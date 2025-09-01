@@ -17,7 +17,7 @@
     <a href="https://www.r-pkg.org/pkg/powerly"><img src="https://cranlogs.r-pkg.org/badges/grand-total/powerly" alt="CRAN RStudio mirror downloads"/></a>
     <a href="https://app.codecov.io/gh/mihaiconstantin/powerly"><img src="https://codecov.io/gh/mihaiconstantin/powerly/branch/main/graph/badge.svg?token=YUCO8ULBCM" alt="Code coverage"/></a>
     <a href="https://github.com/mihaiconstantin/powerly/actions"><img src="https://github.com/mihaiconstantin/powerly/workflows/R-CMD-check/badge.svg" alt="R-CMD-check" /></a>
-    <a href="https://cran.rstudio.com/web/checks/check_results_powerly.html"><img src="https://badges.cranchecks.info/worst/powerly.svg" alt="CRAN checks"/></a>
+    <a href="https://CRAN.R-project.org/web/checks/check_results_powerly.html"><img src="https://badges.cranchecks.info/worst/powerly.svg" alt="CRAN checks"/></a>
 </p>
 
 ## Description
