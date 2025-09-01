@@ -19,14 +19,13 @@
 #' (i.e., the output of the [powerly::powerly()] function). Defaults to `NULL`.
 #'
 #' @param cores A single positive positive integer representing the number of
-#' cores to use for running the validation in parallel, or `NULL`. If `NULL`
-#' (the default) the validation will run sequentially.
+#' cores to use for running the algorithm in parallel, or `NULL`. If `NULL` (the
+#' default) or `1` the algorithm will run sequentially.
 #'
-#' @param backend_type A character string indicating the type of cluster to
-#' create for running the validation in parallel, or `NULL`. Possible values are
-#' `"psock"` and `"fork"`. If `NULL` the backend is determined based on the
-#' computer architecture (i.e., `fork` for Unix and MacOS and `psock` for
-#' Windows).
+#' @param cluster_type A character string indicating the type of cluster to
+#' create for running the algorithm in parallel. Possible values are `"psock"`
+#' and `"fork"`. Note that the `"fork"` option is only available on Unix-like
+#' systems. The default value is `"psock"`.
 #'
 #' @param verbose A logical value indicating whether information about the
 #' status of the validation should be printed while running. The default is
