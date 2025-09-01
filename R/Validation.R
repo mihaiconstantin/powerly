@@ -4,6 +4,7 @@ Validation <- R6::R6Class("Validation",
     private = list(
         .backend = NULL,
         .recommendation = NULL,
+        .method = NULL,
         .validator = NULL,
 
         # Extract the recommendation for `StepThree` samples.
@@ -63,12 +64,15 @@ Validation <- R6::R6Class("Validation",
         },
 
         # Prepare for validation.
-        configure_validator = function(step_3, ci = 0.5) {
+        configure_validator = function(method, ci = 0.5) {
+            # Store the method for convenience.
+            private$.method <- method
+
             # Extract and store the recommended sample size.
-            private$.set_recommendation(step_3, ci)
+            private$.set_recommendation(method$step_3, ci)
 
             # Configure the `validator` instance.
-            private$.configure_validator(step_3)
+            private$.configure_validator(method$step_3)
         },
 
         # Perform the validation.
@@ -85,6 +89,7 @@ Validation <- R6::R6Class("Validation",
 
     active = list(
         recommendation = function() { return(private$.recommendation) },
+        method = function() { return(private$.method) },
         validator = function() { return(private$.validator) },
         measures = function() { return(private$.validator$measures) },
         statistic = function() { return(private$.validator$statistics) },
