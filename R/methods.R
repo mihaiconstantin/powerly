@@ -639,10 +639,40 @@ plot.Validation <- function(x, save = FALSE, path = NULL, width = 14, height = 1
 #' @template summary-Validation
 #' @export
 summary.Validation <- function(object, ...) {
-    cat("\n", "Validation completed (", round(object$validator$duration, 4), " sec):", sep = "")
+    # Extract the measure type.
+    measure <- object$method$step_1$measure_type
+
+    # Extract the statistic type.
+    statistic <- object$method$step_1$statistic_type
+
+    # Extract the measure target.
+    measure_target <- object$method$step_1$measure_value
+
+    # Extract the statistic target.
+    statistic_target <- object$method$step_1$statistic_value
+
+    # Print the results.
+    cat("\n", "Validation completed:", sep = "")
+    cat("\n", " - duration: ", round(object$validator$duration, 2), " seconds", sep = "")
     cat("\n", " - sample: ", object$sample, sep = "")
-    cat("\n", " - statistic: ", object$statistic, sep = "")
-    cat("\n", " - measure at ", object$percentile, " pert.: ", round(object$percentile_value, 3), sep = "")
+    cat("\n", " - statistic: ", round(object$statistic, 3), " (target: ", statistic_target, ")", sep = "")
+    cat("\n", " - measure at ", object$percentile, " percentile: ", round(object$percentile_value, 3), " (target: ", measure_target, ")", "\n", sep = "")
+
+    # If the validation results are not satisfactory, inform the user.
+    if (object$statistic < statistic_target || object$percentile_value < measure_target) {
+        # Extract a larger recommended sample size.
+        larger_sample <- object$method$recommendation["97.5%"]
+
+        # Construct the feedback message.
+        feedback <- paste0(
+            "The validation results are below the target values.", "\n",
+            "Consider running the validation with a larger sample size ",
+            "(e.g., `sample = ", larger_sample, "`)."
+        )
+
+        # Print the message.
+        message("\n", feedback, sep = "")
+    }
 }
 
 
