@@ -687,12 +687,60 @@ plot.Method <- function(x, step = 3, last = TRUE, save = FALSE, path = NULL, wid
 #' @template summary-Method
 #' @export
 summary.Method <- function(object, ...) {
-    cat("\n", "Method run completed (", round(object$duration, 4), " sec):", sep = "")
-    cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), sep = "")
-    cat("\n", " - iterations: ", object$iteration, sep = "")
-    cat("\n", " - recommendation: ", paste(paste(
-        names(object$step_3$samples[c("2.5%", "50%", "97.5%")]),
-        "=", object$step_3$samples[c("2.5%", "50%", "97.5%")],
-        sep = " "
-    ), collapse = " | "), "\n", sep = "")
+    # Extract the measure type.
+    measure <- object$step_1$measure_type
+
+    # Extract the statistic type.
+    statistic <- object$step_1$statistic_type
+
+    # Extract the measure value.
+    measure_value <- object$step_1$measure_value
+
+    # Extract the statistic value.
+    statistic_value <- object$step_1$statistic_value
+
+    # Print the results.
+    cat("\n", "Method completed:", sep = "")
+    cat("\n", " - duration: ", round(object$duration, 2), " seconds", sep = "")
+    cat("\n", " - converged: ", ifelse(object$converged, "yes", "no"), " (", object$iteration, " iterations)", sep = "")
+    cat("\n", " - performance measure: `", measure, "` (target: ", measure_value, ")", sep = "")
+    cat("\n", " - statistic: `", statistic, "` (target: ", statistic_value, ")", sep = "")
+    cat("\n", " - sample size recommendation: ",
+        paste(paste(
+            names(object$step_3$samples[c("2.5%", "50%", "97.5%")]),
+            "=", object$step_3$samples[c("2.5%", "50%", "97.5%")],
+            sep = " "
+        ), collapse = " | "),
+        "\n",
+        sep = ""
+    )
+
+    # Prepare user feedback messages.
+    feedback <- character()
+
+    # Warn the user about choosing a low performance measure target.
+    if (measure_value < 0.8) {
+        # Store the feedback.
+        feedback <- c(feedback,
+            paste0(
+                "The performance measure target `measure_value = ", measure_value, "` may be too low for meaningful results."
+            )
+        )
+    }
+
+    # Warn the user about choosing a low statistic target.
+    if (statistic_value < 0.8) {
+        # Store the feedback.
+        feedback <- c(feedback,
+            paste0(
+                "The statistic target `statistic_value = ", statistic_value, "` may be too low for reliable results."
+            )
+        )
+    }
+
+    # If warning feedback need to be printed.
+    if (length(feedback) > 0) {
+        # Print them.
+        message("\n", paste(feedback, collapse = "\n"), sep = "")
+    }
 }
