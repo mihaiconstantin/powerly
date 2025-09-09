@@ -8,7 +8,7 @@ generate_model(type, ...)
 }
 \arguments{
 \item{type}{Character string representing the type of true model. Possible
-values are \code{"ggm"} (the default).}
+values are \code{"ggm"} (the default) or \code{"ising"}.}
 
 \item{...}{Required arguments used for the generation of the true model. See
 the \strong{True Models} section of \code{\link[=powerly]{powerly()}} for the arguments

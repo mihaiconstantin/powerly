@@ -20,7 +20,7 @@
 #' candidate range.
 #'
 #' @param model A character string representing the type of true model to find a
-#' sample size for. Possible values are `"ggm"` (the default).
+#' sample size for. Possible values are `"ggm"` (the default) or `"ising"`.
 #'
 #' @param ... Required arguments used for the generation of the true model. See
 #' the **True Models** section for the arguments required for each true model.
@@ -137,6 +137,15 @@
 #'   - for more information on the arguments see:
 #'     - the function [bootnet::genGGM()]
 #'     - Yin, J., and Li, H. (2011). A sparse conditional gaussian graphical model for analysis of genetical genomics data. *The annals of applied statistics*, 5(4), 2630.
+#' - supported performance measures: `sen`, `spe`, `mcc`, `rho`
+#'
+#' **Ising Model**
+#' - type: cross-sectional
+#' - symbol: `ising`
+#' - `...` arguments for generating true models:
+#'   - `nodes`: A single positive integer representing the number of nodes in the network (e.g., `10`).
+#'   - `density`: A single numerical value indicating the density of the network (e.g., `0.4`).
+#'   - `positive`: A single numerical value representing the proportion of positive edges in the network (e.g., `0.9` for 90% positive edges).
 #' - supported performance measures: `sen`, `spe`, `mcc`, `rho`
 #'
 #' @section Performance Measures:

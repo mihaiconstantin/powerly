@@ -6,6 +6,7 @@ ModelFactory <- R6::R6Class("ModelFactory",
             return(
                 switch(type,
                     ggm = GgmModel$new(),
+                    ising = IsingModel$new(),
                     stop(.__ERRORS__$not_developed)
                 )
             )

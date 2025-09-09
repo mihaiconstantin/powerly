@@ -46,7 +46,7 @@ Monte Carlo replications to perform for each sample size selected from the
 candidate range.}
 
 \item{model}{A character string representing the type of true model to find a
-sample size for. Possible values are \code{"ggm"} (the default).}
+sample size for. Possible values are \code{"ggm"} (the default) or \code{"ising"}.}
 
 \item{...}{Required arguments used for the generation of the true model. See
 the \strong{True Models} section for the arguments required for each true model.}
@@ -199,6 +199,19 @@ search shrinks below a specified value.
 \item the function \code{\link[bootnet:genGGM]{bootnet::genGGM()}}
 \item Yin, J., and Li, H. (2011). A sparse conditional gaussian graphical model for analysis of genetical genomics data. \emph{The annals of applied statistics}, 5(4), 2630.
 }
+}
+\item supported performance measures: \code{sen}, \code{spe}, \code{mcc}, \code{rho}
+}
+
+\strong{Ising Model}
+\itemize{
+\item type: cross-sectional
+\item symbol: \code{ising}
+\item \code{...} arguments for generating true models:
+\itemize{
+\item \code{nodes}: A single positive integer representing the number of nodes in the network (e.g., \code{10}).
+\item \code{density}: A single numerical value indicating the density of the network (e.g., \code{0.4}).
+\item \code{positive}: A single numerical value representing the proportion of positive edges in the network (e.g., \code{0.9} for 90\% positive edges).
 }
 \item supported performance measures: \code{sen}, \code{spe}, \code{mcc}, \code{rho}
 }

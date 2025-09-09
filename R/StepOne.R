@@ -86,6 +86,13 @@ StepOne <- R6::R6Class("StepOne",
 
         # Replicate the MC simulations in parallel.
         .simulate_parallel = function(backend) {
+            # If this is an `Ising` model.
+            if ("IsingModel" %in% class(private$.model)) {
+                # Make the sampling method available on the workers.
+                parabar::evaluate(backend, {
+                    IsingSamplerCpp <<- utils::getFromNamespace("IsingSamplerCpp", "IsingSampler")
+                })
+            }
             # Expose data for fast access.
             private$.expose_data(environment())
 
