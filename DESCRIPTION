@@ -51,6 +51,7 @@ Collate:
     'Range.R'
     'Method.R'
     'QuadprogSolver.R'
+    'SemOmega.R'
     'Solver.R'
     'SolverFactory.R'
     'Validation.R'
