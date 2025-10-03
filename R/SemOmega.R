@@ -1,6 +1,6 @@
 #' @include Model.R
 
-# Implementation example for the McDonald's ω coefficient in SEM.
+# Implementation example for the McDonald's coefficient in SEM.
 SemOmega <- R6::R6Class("SemOmega",
     inherit = Model,
 
@@ -70,26 +70,26 @@ SemOmega <- R6::R6Class("SemOmega",
 
         # Evaluate performance measure.
         evaluate = function(specification, estimation, measure = "omega") {
-            # Implement the research question via the estimand functional ψ.
-            ψ <- function(true_model_object) {
-                # Extract relevant model matrices Λ, Ψ, and Θ from the true model object.
-                Λ <- lavaan::lavInspect(true_model_object, "est")$lambda
-                Ψ <- lavaan::lavInspect(true_model_object, "est")$psi
-                Θ <- lavaan::lavInspect(true_model_object, "est")$theta
+            # Implement the research question via the estimand functional.
+            estimand <- function(true_model_object) {
+                # Extract relevant model matrices from the true model object.
+                lambda <- lavaan::lavInspect(true_model_object, "est")$lambda
+                psi <- lavaan::lavInspect(true_model_object, "est")$psi
+                theta <- lavaan::lavInspect(true_model_object, "est")$theta
 
                 # Choose an omega vector.
-                ω <- rep(1, nrow(Λ))
+                omega <- rep(1, nrow(lambda))
 
                 # Compute the coefficient.
-                coefficient <- (t(ω) %*% Λ %*% Ψ %*% t(Λ) %*% ω) /
-                    (t(ω) %*% (Λ %*% Ψ %*% t(Λ) + Θ) %*% ω)
+                coefficient <- (t(omega) %*% lambda %*% psi %*% t(lambda) %*% omega) /
+                    (t(omega) %*% (lambda %*% psi %*% t(lambda) + theta) %*% omega)
 
                 # Return the coefficient.
                 return(coefficient)
             }
 
-            # Calibrate the discrepancy metric δ to the research question.
-            δ <- function(psi_true, psi_estimate) {
+            # Calibrate the discrepancy metric delta to the research question.
+            delta <- function(psi_true, psi_estimate) {
                 # Calculate the discrepancy on the research question scale.
                 discrepancy <- abs(psi_true - psi_estimate)
 
@@ -99,7 +99,7 @@ SemOmega <- R6::R6Class("SemOmega",
 
             # Calculate the performance measure.
             # Note the inversion since the setup programmed is for higher is better.
-            performance_measure <- 1 - δ(ψ(specification), ψ(estimation))
+            performance_measure <- 1 - delta(estimand(specification), estimand(estimation))
 
             # Return the outcome.
             return(performance_measure)
