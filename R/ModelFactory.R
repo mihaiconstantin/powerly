@@ -6,6 +6,7 @@ ModelFactory <- R6::R6Class("ModelFactory",
             return(
                 switch(type,
                     ggm = GgmModel$new(),
+                    `sem-omega` = SemOmega$new(),
                     stop(.__ERRORS__$not_developed)
                 )
             )
